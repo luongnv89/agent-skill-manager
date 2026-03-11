@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-03-11
+
+### Added
+
+- Symlink-aware duplicate detection — skills that are symlinks pointing to the same real directory are no longer flagged as duplicates
+- `realPath` field on scanned skills via `fs.realpath()` for accurate identity resolution
+
+### Changed
+
+- Audit deduplicates by resolved real path before grouping, preferring the non-symlink (real directory) entry
+
 ## [1.2.0] - 2026-03-11
 
 ### Added
