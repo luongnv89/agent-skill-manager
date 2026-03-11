@@ -176,7 +176,7 @@ Additional tools can be added via the config file.
 ```
 agent-skill-manager/
 ├── bin/                    # CLI entry point
-│   └── skill-manager.ts
+│   └── agent-skill-manager.ts
 ├── src/
 │   ├── index.ts            # App bootstrap & keyboard handling
 │   ├── config.ts           # Config loading & saving

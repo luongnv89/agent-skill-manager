@@ -6,7 +6,7 @@ agent-skill-manager is a terminal UI application that scans, displays, and manag
 
 ## Components
 
-### CLI Entry (`bin/skill-manager.ts`)
+### CLI Entry (`bin/agent-skill-manager.ts`)
 
 Handles `--help` and `--version` flags, then delegates to the main app entry point.
 

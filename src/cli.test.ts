@@ -3,7 +3,7 @@ import { parseArgs, isCLIMode } from "./cli";
 import { join } from "path";
 
 // Helper: path to the CLI entry point
-const CLI_BIN = join(import.meta.dir, "..", "bin", "skill-manager.ts");
+const CLI_BIN = join(import.meta.dir, "..", "bin", "agent-skill-manager.ts");
 
 // Helper: run CLI as subprocess, returns { stdout, stderr, exitCode }
 async function runCLI(

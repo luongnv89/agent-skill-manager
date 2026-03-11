@@ -9,7 +9,7 @@ agent-skill-manager is distributed as a global CLI package.
 Update the version in both files:
 
 - `package.json` → `"version"`
-- `bin/skill-manager.ts` → `VERSION` constant
+- `bin/agent-skill-manager.ts` → `VERSION` constant
 
 ### 2. Build and publish
 
