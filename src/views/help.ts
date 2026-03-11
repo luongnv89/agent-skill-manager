@@ -6,14 +6,16 @@ import type { RenderContext } from "@opentui/core";
 import { theme } from "../utils/colors";
 
 const KEYBINDINGS = [
-  ["↑ / k", "Move up"],
-  ["↓ / j", "Move down"],
+  ["\u2191 / k", "Move up"],
+  ["\u2193 / j", "Move down"],
   ["Enter", "View skill details"],
   ["d", "Uninstall skill"],
   ["/", "Search / filter"],
   ["Esc", "Back / clear filter"],
   ["Tab", "Cycle scope"],
   ["s", "Cycle sort order"],
+  ["r", "Refresh / rescan skills"],
+  ["c", "Open configuration"],
   ["?", "Toggle this help"],
   ["q", "Quit"],
 ];

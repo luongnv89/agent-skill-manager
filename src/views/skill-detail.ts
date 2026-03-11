@@ -41,7 +41,7 @@ export function createDetailView(
   skill: SkillInfo,
 ): BoxRenderable {
   const boxWidth = 64;
-  const boxHeight = 18;
+  const boxHeight = 20;
   const top = Math.max(0, Math.floor((ctx.height - boxHeight) / 2));
   const left = Math.max(0, Math.floor((ctx.width - boxWidth) / 2));
 
@@ -66,6 +66,7 @@ export function createDetailView(
 
   container.add(detailRow(ctx, "name", "Name", skill.name, theme.accent));
   container.add(detailRow(ctx, "version", "Version", skill.version, theme.green));
+  container.add(detailRow(ctx, "provider", "Provider", skill.providerLabel, theme.accentAlt));
   container.add(detailRow(ctx, "location", "Location", skill.location, theme.cyan));
   container.add(detailRow(ctx, "path", "Path", skill.path));
   container.add(
@@ -73,7 +74,7 @@ export function createDetailView(
       ctx,
       "symlink",
       "Symlink",
-      skill.isSymlink ? `yes → ${skill.symlinkTarget}` : "no",
+      skill.isSymlink ? `yes \u2192 ${skill.symlinkTarget}` : "no",
       skill.isSymlink ? theme.yellow : theme.fgDim,
     ),
   );

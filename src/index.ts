@@ -1,14 +1,17 @@
 import { createCliRenderer } from "@opentui/core";
-import type { SkillInfo, Scope, SortBy, ViewState } from "./utils/types";
+import type { SkillInfo, Scope, SortBy, ViewState, AppConfig } from "./utils/types";
+import { loadConfig, saveConfig, getConfigPath } from "./config";
 import { scanAllSkills, searchSkills, sortSkills } from "./scanner";
-import { buildRemovalPlan, buildFullRemovalPlan, executeRemoval, getExistingTargets } from "./uninstaller";
+import { buildFullRemovalPlan, executeRemoval, getExistingTargets } from "./uninstaller";
 import { createDashboard } from "./views/dashboard";
 import { createSkillList } from "./views/skill-list";
 import { createDetailView } from "./views/skill-detail";
 import { createConfirmView } from "./views/confirm";
 import { createHelpView } from "./views/help";
+import { createConfigView } from "./views/config";
 
 // ─── State ──────────────────────────────────────────────────────────────────
+let currentConfig: AppConfig;
 let allSkills: SkillInfo[] = [];
 let filteredSkills: SkillInfo[] = [];
 let currentScope: Scope = "both";
@@ -20,13 +23,18 @@ let searchMode = false;
 
 // ─── Main ───────────────────────────────────────────────────────────────────
 async function main() {
+  // Load config before anything else
+  currentConfig = await loadConfig();
+  currentScope = currentConfig.preferences.defaultScope;
+  currentSort = currentConfig.preferences.defaultSort;
+
   const renderer = await createCliRenderer({
     exitOnCtrlC: true,
     useAlternateScreen: true,
   });
 
   // ── Build Dashboard ─────────────────────────────────────────────────────
-  const dashboard = createDashboard(renderer, async (scope: Scope) => {
+  const dashboard = createDashboard(renderer, currentConfig, async (scope: Scope) => {
     currentScope = scope;
     await refreshSkills();
   });
@@ -37,12 +45,12 @@ async function main() {
   }, renderer.width);
   dashboard.contentArea.add(skillList.container);
 
-  // ── Overlay containers ──────────────────────────────────────────────────
+  // ── Overlay containers ────────────────────────────────────────────────
   let overlayContainer: any = null;
 
-  // ── Helpers ─────────────────────────────────────────────────────────────
+  // ── Helpers ───────────────────────────────────────────────────────────
   async function refreshSkills() {
-    allSkills = await scanAllSkills(currentScope);
+    allSkills = await scanAllSkills(currentConfig, currentScope);
     applyFilters();
   }
 
@@ -77,7 +85,7 @@ async function main() {
     selectedSkill = skill;
     viewState = "confirm";
 
-    const plan = buildFullRemovalPlan(skill.dirName, allSkills);
+    const plan = buildFullRemovalPlan(skill.dirName, allSkills, currentConfig);
     const targets = await getExistingTargets(plan);
 
     overlayContainer = createConfirmView(renderer, skill, targets, async (result) => {
@@ -96,6 +104,19 @@ async function main() {
     removeOverlay();
     viewState = "help";
     overlayContainer = createHelpView(renderer);
+    renderer.root.add(overlayContainer);
+  }
+
+  async function showConfig() {
+    removeOverlay();
+    viewState = "config";
+    overlayContainer = createConfigView(renderer, currentConfig, async (updatedConfig) => {
+      currentConfig = updatedConfig;
+      await saveConfig(updatedConfig);
+      dashboard.updateProviderInfo(updatedConfig);
+      removeOverlay();
+      await refreshSkills();
+    });
     renderer.root.add(overlayContainer);
   }
 
@@ -120,7 +141,7 @@ async function main() {
   }
 
   // ── Keyboard Handling ───────────────────────────────────────────────────
-  (renderer.keyInput as any).on("keypress", (key: any) => {
+  (renderer.keyInput as any).on("keypress", async (key: any) => {
     // In search mode, handle Esc to exit and Enter to confirm
     if (searchMode) {
       if (key.name === "escape") {
@@ -149,6 +170,17 @@ async function main() {
     }
 
     if (key.name === "escape") {
+      if (viewState === "config" && overlayContainer) {
+        // Save config and close
+        const editConfig = (overlayContainer as any).__editConfig;
+        const onClose = (overlayContainer as any).__onClose;
+        if (onClose && editConfig) {
+          onClose(editConfig);
+        } else {
+          removeOverlay();
+        }
+        return;
+      }
       if (viewState !== "dashboard") {
         removeOverlay();
       }
@@ -165,6 +197,27 @@ async function main() {
       return;
     }
 
+    // Config view keys
+    if (viewState === "config") {
+      if (key.name === "e") {
+        // Open config in $EDITOR
+        const editorCmd = process.env.EDITOR || process.env.VISUAL || "vi";
+        const parts = editorCmd.split(/\s+/);
+        const configPath = getConfigPath();
+        renderer.destroy();
+        const proc = Bun.spawn([...parts, configPath], {
+          stdin: "inherit",
+          stdout: "inherit",
+          stderr: "inherit",
+        });
+        await proc.exited;
+        // Reload config and restart
+        currentConfig = await loadConfig();
+        process.exit(0); // User needs to restart after external edit
+      }
+      return;
+    }
+
     // Dashboard-specific keys
     if (viewState === "dashboard") {
       if (key.name === "/" || key.sequence === "/") {
@@ -174,6 +227,16 @@ async function main() {
 
       if (key.name === "s" && !key.ctrl) {
         cycleSortOrder();
+        return;
+      }
+
+      if (key.name === "r" && !key.ctrl) {
+        await refreshSkills();
+        return;
+      }
+
+      if (key.name === "c" && !key.ctrl) {
+        await showConfig();
         return;
       }
 
@@ -215,7 +278,7 @@ async function main() {
     return null;
   }
 
-  // ── Mount & Start ───────────────────────────────────────────────────────
+  // ── Mount & Start ─────────────────────────────────────────────────────
   renderer.root.add(dashboard.root);
 
   // Initial load

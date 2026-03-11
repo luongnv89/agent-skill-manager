@@ -8,34 +8,36 @@ import type { RenderContext } from "@opentui/core";
 import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
 
-function formatSkillRow(skill: SkillInfo, descWidth: number): string {
+function formatSkillRow(index: number, skill: SkillInfo, descWidth: number): string {
+  const idx = String(index).padStart(3);
   const prefix = skill.isSymlink ? "~ " : "  ";
-  const nameMax = 26 - prefix.length;
+  const nameMax = 24 - prefix.length;
   const rawName = skill.name.length > nameMax ? skill.name.slice(0, nameMax - 3) + "..." : skill.name;
   const name = prefix + rawName;
   const ver = skill.version.length > 7 ? skill.version.slice(0, 7) : skill.version;
-  const loc = skill.location;
+  const prov = skill.providerLabel.length > 11 ? skill.providerLabel.slice(0, 11) : skill.providerLabel;
+  const scope = skill.scope;
   const type = skill.isSymlink ? "\u2192link" : " dir ";
   const desc = descWidth > 0
     ? " " + (skill.description || "").slice(0, descWidth)
     : "";
-  return `${name.padEnd(28)} ${ver.padEnd(8)} ${loc.padEnd(16)} ${type.padEnd(6)}${desc}`;
+  return `${idx} ${name.padEnd(24)} ${ver.padEnd(8)} ${prov.padEnd(12)} ${scope.padEnd(8)} ${type.padEnd(6)}${desc}`;
 }
 
 function buildOptions(skills: SkillInfo[], descWidth: number) {
   if (skills.length === 0) {
-    return [{ name: "  (no skills found)", description: "", value: "__none__" }];
+    return [{ name: "     (no skills found)", description: "", value: "__none__" }];
   }
-  return skills.map((s) => ({
-    name: formatSkillRow(s, descWidth),
+  return skills.map((s, i) => ({
+    name: formatSkillRow(i + 1, s, descWidth),
     description: "",
     value: s.dirName,
   }));
 }
 
 function calcDescWidth(termWidth: number): number {
-  // 2(border) + 2(padding) + 28(name) + 8(ver) + 16(loc) + 6(type) + 4(spaces) = 66
-  const fixed = 66;
+  // 2(border) + 2(padding) + 4(#) + 24(name) + 8(ver) + 12(provider) + 8(scope) + 6(type) + 6(spaces) = 72
+  const fixed = 72;
   return Math.max(0, termWidth - fixed);
 }
 
@@ -64,7 +66,7 @@ export function createSkillList(
   const descHeader = descWidth > 0 ? " Description" : "";
   const headerRow = new TextRenderable(ctx, {
     id: "skill-list-header",
-    content: `  ${"Name".padEnd(28)} ${"Ver".padEnd(8)} ${"Location".padEnd(16)} ${"Type".padEnd(6)}${descHeader}`,
+    content: `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Provider".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`,
     fg: theme.fgDim,
     height: 1,
   });

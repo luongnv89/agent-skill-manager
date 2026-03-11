@@ -1,32 +1,54 @@
 import { readdir, stat, lstat, readlink, readFile } from "fs/promises";
 import { join, resolve } from "path";
-import { homedir } from "os";
 import { parseFrontmatter } from "./utils/frontmatter";
-import type { SkillInfo, Scope, SortBy } from "./utils/types";
-
-const HOME = homedir();
+import { resolveProviderPath } from "./config";
+import type { SkillInfo, Scope, SortBy, AppConfig } from "./utils/types";
 
 interface ScanLocation {
   dir: string;
-  location: SkillInfo["location"];
-  scope: SkillInfo["scope"];
+  location: string;
+  scope: "global" | "project";
+  providerName: string;
+  providerLabel: string;
 }
 
-function getScanLocations(scope: Scope): ScanLocation[] {
+function buildScanLocations(config: AppConfig, scope: Scope): ScanLocation[] {
   const locations: ScanLocation[] = [];
 
-  if (scope === "global" || scope === "both") {
-    locations.push(
-      { dir: join(HOME, ".claude", "skills"), location: "global-claude", scope: "global" },
-      { dir: join(HOME, ".agents", "skills"), location: "global-agents", scope: "global" },
-    );
+  for (const provider of config.providers) {
+    if (!provider.enabled) continue;
+
+    if (scope === "global" || scope === "both") {
+      locations.push({
+        dir: resolveProviderPath(provider.global),
+        location: `global-${provider.name}`,
+        scope: "global",
+        providerName: provider.name,
+        providerLabel: provider.label,
+      });
+    }
+
+    if (scope === "project" || scope === "both") {
+      locations.push({
+        dir: resolveProviderPath(provider.project),
+        location: `project-${provider.name}`,
+        scope: "project",
+        providerName: provider.name,
+        providerLabel: provider.label,
+      });
+    }
   }
 
-  if (scope === "project" || scope === "both") {
-    locations.push(
-      { dir: resolve(".claude", "skills"), location: "project-claude", scope: "project" },
-      { dir: resolve(".agents", "skills"), location: "project-agents", scope: "project" },
-    );
+  for (const custom of config.customPaths) {
+    if (scope === custom.scope || scope === "both") {
+      locations.push({
+        dir: resolveProviderPath(custom.path),
+        location: `${custom.scope}-custom`,
+        scope: custom.scope,
+        providerName: "custom",
+        providerLabel: custom.label,
+      });
+    }
   }
 
   return locations;
@@ -88,12 +110,14 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
     skills.push({
       name: fm.name || entry,
       version: fm.version || "0.0.0",
-      description: fm.description || "",
+      description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
       dirName: entry,
       path: resolve(entryPath),
       originalPath: entryPath,
       location: loc.location,
       scope: loc.scope,
+      provider: loc.providerName,
+      providerLabel: loc.providerLabel,
       isSymlink,
       symlinkTarget,
       fileCount,
@@ -103,8 +127,8 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
   return skills;
 }
 
-export async function scanAllSkills(scope: Scope): Promise<SkillInfo[]> {
-  const locations = getScanLocations(scope);
+export async function scanAllSkills(config: AppConfig, scope: Scope): Promise<SkillInfo[]> {
+  const locations = buildScanLocations(config, scope);
   const results = await Promise.all(locations.map(scanDirectory));
   return results.flat();
 }
@@ -116,7 +140,8 @@ export function searchSkills(skills: SkillInfo[], query: string): SkillInfo[] {
     (s) =>
       s.name.toLowerCase().includes(q) ||
       s.description.toLowerCase().includes(q) ||
-      s.location.toLowerCase().includes(q),
+      s.location.toLowerCase().includes(q) ||
+      s.providerLabel.toLowerCase().includes(q),
   );
 }
 

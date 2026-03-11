@@ -1,7 +1,7 @@
 {
   "name": "skill-manager",
   "version": "1.0.0",
-  "description": "Interactive TUI for managing installed pskills across global and project scopes",
+  "description": "Interactive TUI for managing installed skills for AI coding agents (Claude Code, Codex, OpenClaw, and more)",
   "type": "module",
   "bin": {
     "skill-manager": "bin/skill-manager.ts"

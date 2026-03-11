@@ -5,9 +5,9 @@ const VERSION = "1.0.0";
 const arg = process.argv[2];
 
 if (arg === "--help" || arg === "-h") {
-  console.log(`\x1b[1m\x1b[36mpskills manager\x1b[0m v${VERSION}
+  console.log(`\x1b[1m\x1b[36mskill-manager\x1b[0m v${VERSION}
 
-Interactive TUI for managing installed pskills across global and project scopes.
+Interactive TUI for managing installed skills for AI coding agents (Claude Code, Codex, OpenClaw, and more).
 
 \x1b[1mUsage:\x1b[0m
   skill-manager              Launch the interactive TUI dashboard
@@ -17,6 +17,9 @@ Interactive TUI for managing installed pskills across global and project scopes.
 \x1b[1mRequirements:\x1b[0m
   Bun >= 1.0.0  (https://bun.sh)
 
+\x1b[1mConfig:\x1b[0m
+  ~/.config/skill-manager/config.json
+
 \x1b[1mTUI Keybindings:\x1b[0m
   ↑/↓ or j/k   Navigate skill list
   Enter         View skill details
@@ -25,13 +28,15 @@ Interactive TUI for managing installed pskills across global and project scopes.
   Esc           Back / clear filter / close dialog
   Tab           Cycle scope: Global → Project → Both
   s             Cycle sort: Name → Version → Location
+  r             Refresh / rescan skills
+  c             Open configuration
   q             Quit
   ?             Toggle help overlay`);
   process.exit(0);
 }
 
 if (arg === "--version" || arg === "-v") {
-  console.log(`pskills manager v${VERSION}`);
+  console.log(`skill-manager v${VERSION}`);
   process.exit(0);
 }
 

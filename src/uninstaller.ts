@@ -1,11 +1,12 @@
 import { rm, readFile, writeFile, access, lstat } from "fs/promises";
-import { join, resolve } from "path";
+import { join, resolve, dirname } from "path";
 import { homedir } from "os";
-import type { SkillInfo, RemovalPlan } from "./utils/types";
+import { resolveProviderPath } from "./config";
+import type { SkillInfo, RemovalPlan, AppConfig } from "./utils/types";
 
 const HOME = homedir();
 
-export function buildRemovalPlan(skill: SkillInfo): RemovalPlan {
+export function buildRemovalPlan(skill: SkillInfo, config: AppConfig): RemovalPlan {
   const plan: RemovalPlan = {
     directories: [],
     ruleFiles: [],
@@ -20,8 +21,8 @@ export function buildRemovalPlan(skill: SkillInfo): RemovalPlan {
 
   const name = skill.dirName;
 
-  // Check for tool-specific rule files based on scope
-  if (skill.scope === "project" || skill.location === "project-claude" || skill.location === "project-agents") {
+  // Check for tool-specific rule files (project scope only)
+  if (skill.scope === "project") {
     plan.ruleFiles.push(
       resolve(".cursor", "rules", `${name}.mdc`),
       resolve(".windsurf", "rules", `${name}.md`),
@@ -33,15 +34,25 @@ export function buildRemovalPlan(skill: SkillInfo): RemovalPlan {
   }
 
   if (skill.scope === "global") {
-    plan.agentsBlocks.push(
-      { file: join(HOME, ".codex", "AGENTS.md"), skillName: name },
-    );
+    // Check AGENTS.md for all enabled providers with global paths
+    for (const provider of config.providers) {
+      if (!provider.enabled) continue;
+      const globalDir = resolveProviderPath(provider.global);
+      const agentsMdPath = join(dirname(globalDir), "AGENTS.md");
+      plan.agentsBlocks.push({ file: agentsMdPath, skillName: name });
+    }
+    // Also check ~/.codex/AGENTS.md explicitly (common location)
+    const codexAgentsMd = join(HOME, ".codex", "AGENTS.md");
+    const alreadyIncluded = plan.agentsBlocks.some((b) => b.file === codexAgentsMd);
+    if (!alreadyIncluded) {
+      plan.agentsBlocks.push({ file: codexAgentsMd, skillName: name });
+    }
   }
 
   return plan;
 }
 
-export function buildFullRemovalPlan(dirName: string, allSkills: SkillInfo[]): RemovalPlan {
+export function buildFullRemovalPlan(dirName: string, allSkills: SkillInfo[], config: AppConfig): RemovalPlan {
   const matching = allSkills.filter((s) => s.dirName === dirName);
   if (matching.length === 0) {
     return { directories: [], ruleFiles: [], agentsBlocks: [] };
@@ -58,7 +69,7 @@ export function buildFullRemovalPlan(dirName: string, allSkills: SkillInfo[]): R
   const seenBlocks = new Set<string>();
 
   for (const skill of matching) {
-    const plan = buildRemovalPlan(skill);
+    const plan = buildRemovalPlan(skill, config);
 
     for (const dir of plan.directories) {
       if (!seenDirs.has(dir.path)) {
@@ -98,31 +109,33 @@ async function fileExists(path: string): Promise<boolean> {
 async function removeAgentsMdBlock(filePath: string, skillName: string): Promise<void> {
   if (!(await fileExists(filePath))) return;
 
-  const content = await readFile(filePath, "utf-8");
-  const startMarker = `<!-- pskills: ${skillName} -->`;
-  const endMarker = `<!-- /pskills: ${skillName} -->`;
+  let content = await readFile(filePath, "utf-8");
 
-  const startIdx = content.indexOf(startMarker);
-  const endIdx = content.indexOf(endMarker);
+  // Try both new and old marker formats for backward compatibility
+  for (const prefix of ["skill-manager", "pskills"]) {
+    const startMarker = `<!-- ${prefix}: ${skillName} -->`;
+    const endMarker = `<!-- /${prefix}: ${skillName} -->`;
 
-  if (startIdx === -1 || endIdx === -1) return;
+    const startIdx = content.indexOf(startMarker);
+    const endIdx = content.indexOf(endMarker);
 
-  // Remove from just before the start marker to just after the end marker
-  let removeStart = startIdx;
-  // Include the preceding newline if present
-  if (removeStart > 0 && content[removeStart - 1] === "\n") {
-    removeStart--;
+    if (startIdx === -1 || endIdx === -1) continue;
+
+    let removeStart = startIdx;
+    if (removeStart > 0 && content[removeStart - 1] === "\n") {
+      removeStart--;
+    }
+
+    const removeEnd = endIdx + endMarker.length;
+    let actualEnd = removeEnd;
+    if (actualEnd < content.length && content[actualEnd] === "\n") {
+      actualEnd++;
+    }
+
+    content = content.slice(0, removeStart) + content.slice(actualEnd);
   }
 
-  const removeEnd = endIdx + endMarker.length;
-  // Include the trailing newline if present
-  let actualEnd = removeEnd;
-  if (actualEnd < content.length && content[actualEnd] === "\n") {
-    actualEnd++;
-  }
-
-  const newContent = content.slice(0, removeStart) + content.slice(actualEnd);
-  await writeFile(filePath, newContent, "utf-8");
+  await writeFile(filePath, content, "utf-8");
 }
 
 export async function executeRemoval(plan: RemovalPlan): Promise<string[]> {
@@ -188,7 +201,11 @@ export async function getExistingTargets(plan: RemovalPlan): Promise<string[]> {
   for (const block of plan.agentsBlocks) {
     if (await fileExists(block.file)) {
       const content = await readFile(block.file, "utf-8");
-      if (content.includes(`<!-- pskills: ${block.skillName} -->`)) {
+      // Check both new and old marker formats
+      if (
+        content.includes(`<!-- skill-manager: ${block.skillName} -->`) ||
+        content.includes(`<!-- pskills: ${block.skillName} -->`)
+      ) {
         existing.push(`${block.file} (AGENTS.md block)`);
       }
     }
