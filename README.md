@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <em>The universal skill manager for AI coding agents.</em>
+  <em>The universal skill manager for AI agents.</em>
 </p>
 
 <p align="center">
@@ -22,6 +22,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License" /></a>
+  <a href="https://www.npmjs.com/package/agent-skill-manager"><img src="https://img.shields.io/npm/v/agent-skill-manager.svg" alt="npm version" /></a>
   <a href="https://bun.sh"><img src="https://img.shields.io/badge/runtime-Bun%20%E2%89%A5%201.0-black.svg" alt="Bun" /></a>
   <a href="https://github.com/luongnv89/agent-skill-manager/actions"><img src="https://github.com/luongnv89/agent-skill-manager/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
 </p>
@@ -50,6 +51,22 @@
 
 ## Install
 
+### npm (recommended)
+
+The npm package ships as a pre-built bundle — **no build step required** on install.
+
+**Prerequisites:** [Bun](https://bun.sh) >= 1.0.0 (used as the runtime)
+
+```bash
+# Install globally via npm
+npm install -g agent-skill-manager
+
+# Or via Bun
+bun install -g agent-skill-manager
+```
+
+> **Note:** While the package is installed through npm, it requires the [Bun](https://bun.sh) runtime to execute. Install Bun with: `curl -fsSL https://bun.sh/install | bash`
+
 ### Quick Install (one command)
 
 ```bash
@@ -64,27 +81,20 @@ wget -qO- https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/i
 
 This will automatically install [Bun](https://bun.sh) (if not already installed) and then install `agent-skill-manager` globally.
 
-### Manual Install
-
-**Prerequisites:** [Bun](https://bun.sh) >= 1.0.0
-
-```bash
-bun install -g agent-skill-manager
-```
-
 ### From Source
 
 ```bash
 git clone https://github.com/luongnv89/agent-skill-manager.git
 cd agent-skill-manager
 bun install
-bun run start
+bun run build    # bundle to dist/
+bun run start    # run from source (development)
 ```
 
 ### Advanced Options
 
 ```bash
-# Download and inspect before running
+# Download and inspect the install script before running
 curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh -o install.sh
 less install.sh  # review the script
 bash install.sh
@@ -116,7 +126,7 @@ asm config edit                # Open config in $EDITOR
 
 ### Global Options
 
-```
+```text
 -h, --help             Show help for any command
 -v, --version          Print version and exit
 --json                 Output as JSON (list, search, inspect, audit)
@@ -227,10 +237,14 @@ Additional tools can be added via the config file.
 
 ## Project Structure
 
-```
+```text
 agent-skill-manager/
-├── bin/                       # CLI entry point
+├── bin/                       # CLI entry point (source)
 │   └── agent-skill-manager.ts
+├── dist/                      # Built bundle (npm package ships this)
+│   └── agent-skill-manager.js
+├── scripts/
+│   └── build.ts               # Build script with version injection
 ├── src/
 │   ├── index.ts               # TUI app bootstrap & keyboard handling
 │   ├── cli.ts                 # CLI command parser & dispatcher
@@ -271,6 +285,7 @@ agent-skill-manager/
 
 - **Runtime:** [Bun](https://bun.sh) >= 1.0.0
 - **Language:** TypeScript (ESNext, strict mode)
+- **Build:** Bun bundler (ships pre-built via npm)
 - **TUI Framework:** [OpenTUI](https://github.com/nicholasgasior/opentui)
 - **Testing:** Bun test runner
 - **CI:** GitHub Actions + pre-commit hooks

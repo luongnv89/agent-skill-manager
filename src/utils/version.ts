@@ -1,20 +1,26 @@
 import { resolve } from "path";
 
-const pkg = await Bun.file(
-  resolve(import.meta.dir, "../../package.json"),
-).json();
+let _version: string = (process.env.__ASM_VERSION__ as string) || "0.0.0";
+try {
+  const pkg = await Bun.file(
+    resolve(import.meta.dir, "../../package.json"),
+  ).json();
+  _version = pkg.version;
+} catch {
+  // Bundled mode — use build-time injected version
+}
 
-let commitHash = "unknown";
+let _commit: string = (process.env.__ASM_COMMIT__ as string) || "unknown";
 try {
   const proc = Bun.spawn(["git", "rev-parse", "--short", "HEAD"], {
     stdout: "pipe",
     stderr: "pipe",
   });
-  commitHash = (await new Response(proc.stdout).text()).trim() || "unknown";
+  _commit = (await new Response(proc.stdout).text()).trim() || _commit;
 } catch {
   // Not in a git repo or git not available
 }
 
-export const VERSION = pkg.version as string;
-export const COMMIT_HASH = commitHash;
+export const VERSION = _version;
+export const COMMIT_HASH = _commit;
 export const VERSION_STRING = `v${VERSION} (${COMMIT_HASH})`;

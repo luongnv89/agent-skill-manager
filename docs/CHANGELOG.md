@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-03-11
+
+### Added
+
+- Build step (`bun run build`) to bundle the project into a single JS file for npm distribution
+- `prepublishOnly` script to auto-build before `npm publish`
+- Build script (`scripts/build.ts`) with version and commit hash injection at build time
+- `files` field in package.json for clean npm package (only `dist/`, `README.md`, `LICENSE`)
+
+### Changed
+
+- Bin entry points now reference bundled `dist/agent-skill-manager.js` instead of raw TypeScript source
+- Version resolution falls back to build-time injected values when running as bundled binary
+
+### Fixed
+
+- Version display works correctly in both development (source) and production (bundled) modes
+
 ## [1.1.0] - 2026-03-11
 
 ### Added

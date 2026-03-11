@@ -1,18 +1,25 @@
 {
   "name": "agent-skill-manager",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Interactive TUI for managing installed skills for AI coding agents (Claude Code, Codex, OpenClaw, and more)",
   "type": "module",
   "bin": {
-    "agent-skill-manager": "bin/agent-skill-manager.ts",
-    "asm": "bin/agent-skill-manager.ts"
+    "agent-skill-manager": "dist/agent-skill-manager.js",
+    "asm": "dist/agent-skill-manager.js"
   },
   "scripts": {
     "start": "bun run src/index.ts",
     "typecheck": "bun run --bun tsc --noEmit",
     "test": "bun test",
-    "dev": "bun run src/index.ts"
+    "dev": "bun run src/index.ts",
+    "build": "bun run scripts/build.ts",
+    "prepublishOnly": "bun run build"
   },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "@opentui/core": "latest"
   },
