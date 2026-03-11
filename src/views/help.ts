@@ -1,6 +1,7 @@
 import { BoxRenderable, TextRenderable } from "@opentui/core";
 import type { RenderContext } from "@opentui/core";
 import { theme } from "../utils/colors";
+import { VERSION_STRING } from "../utils/version";
 
 const KEYBINDINGS = [
   ["\u2191 / k", "Move up"],
@@ -19,7 +20,7 @@ const KEYBINDINGS = [
 
 export function createHelpView(ctx: RenderContext): BoxRenderable {
   const boxWidth = 44;
-  const boxHeight = KEYBINDINGS.length + 6;
+  const boxHeight = KEYBINDINGS.length + 7;
   const top = Math.max(0, Math.floor((ctx.height - boxHeight) / 2));
   const left = Math.max(0, Math.floor((ctx.width - boxWidth) / 2));
 
@@ -67,10 +68,16 @@ export function createHelpView(ctx: RenderContext): BoxRenderable {
   }
 
   const footer = new TextRenderable(ctx, {
-    content: "\n  Press ? or Esc to close",
+    content: `\n  Press ? or Esc to close`,
     fg: theme.fgDim,
   });
   container.add(footer);
+
+  const versionText = new TextRenderable(ctx, {
+    content: `  ${VERSION_STRING}`,
+    fg: theme.fgDim,
+  });
+  container.add(versionText);
 
   return container;
 }

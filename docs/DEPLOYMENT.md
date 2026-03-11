@@ -28,7 +28,7 @@ bunx npm publish
 Users install with:
 
 ```bash
-bun install -g skill-manager
+bun install -g agent-skill-manager
 ```
 
 ## Running from Source

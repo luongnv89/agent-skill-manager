@@ -43,7 +43,7 @@
 **Prerequisites:** [Bun](https://bun.sh) >= 1.0.0
 
 ```bash
-bun install -g skill-manager
+bun install -g agent-skill-manager
 ```
 
 Or run directly from source:

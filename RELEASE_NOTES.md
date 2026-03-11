@@ -25,7 +25,7 @@ Initial release of **skill-manager** — the universal skill manager for AI codi
 ### Install
 
 ```bash
-bun install -g skill-manager
+bun install -g agent-skill-manager
 ```
 
 **Full Changelog**: https://github.com/luongnv89/skill-manager/commits/v1.0.0

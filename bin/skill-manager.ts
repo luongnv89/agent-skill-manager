@@ -1,11 +1,11 @@
 #!/usr/bin/env bun
 
-const VERSION = "1.0.0";
+import { VERSION, VERSION_STRING } from "../src/utils/version";
 
 const arg = process.argv[2];
 
 if (arg === "--help" || arg === "-h") {
-  console.log(`\x1b[1m\x1b[36mskill-manager\x1b[0m v${VERSION}
+  console.log(`\x1b[1m\x1b[36mskill-manager\x1b[0m ${VERSION_STRING}
 
 Interactive TUI for managing installed skills for AI coding agents (Claude Code, Codex, OpenClaw, and more).
 
@@ -36,7 +36,7 @@ Interactive TUI for managing installed skills for AI coding agents (Claude Code,
 }
 
 if (arg === "--version" || arg === "-v") {
-  console.log(`skill-manager v${VERSION}`);
+  console.log(`skill-manager ${VERSION_STRING}`);
   process.exit(0);
 }
 
