@@ -44,19 +44,44 @@
 
 ## Install
 
+### Quick Install (one command)
+
+```bash
+curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh | bash
+```
+
+Or with wget:
+
+```bash
+wget -qO- https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh | bash
+```
+
+This will automatically install [Bun](https://bun.sh) (if not already installed) and then install `agent-skill-manager` globally.
+
+### Manual Install
+
 **Prerequisites:** [Bun](https://bun.sh) >= 1.0.0
 
 ```bash
 bun install -g agent-skill-manager
 ```
 
-Or run directly from source:
+### From Source
 
 ```bash
 git clone https://github.com/luongnv89/agent-skill-manager.git
 cd agent-skill-manager
 bun install
 bun run start
+```
+
+### Advanced Options
+
+```bash
+# Download and inspect before running
+curl -sSL https://raw.githubusercontent.com/luongnv89/agent-skill-manager/main/install.sh -o install.sh
+less install.sh  # review the script
+bash install.sh
 ```
 
 ## Usage
