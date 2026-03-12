@@ -239,6 +239,28 @@ describe("parseArgs", () => {
     expect(result.flags.yes).toBe(true);
     expect(result.command).toBe("list");
   });
+
+  test("parses --verbose flag", () => {
+    const result = parse("list", "--verbose");
+    expect(result.flags.verbose).toBe(true);
+  });
+
+  test("parses -V flag as verbose", () => {
+    const result = parse("list", "-V");
+    expect(result.flags.verbose).toBe(true);
+  });
+
+  test("defaults verbose to false", () => {
+    const result = parse("list");
+    expect(result.flags.verbose).toBe(false);
+  });
+
+  test("--verbose combines with other flags", () => {
+    const result = parse("list", "--verbose", "--json", "--scope", "global");
+    expect(result.flags.verbose).toBe(true);
+    expect(result.flags.json).toBe(true);
+    expect(result.flags.scope).toBe("global");
+  });
 });
 
 // ─── isCLIMode unit tests ──────────────────────────────────────────────────
@@ -842,5 +864,42 @@ describe("CLI integration: install", () => {
   test("main --help includes install command", async () => {
     const { stdout } = await runCLI("--help");
     expect(stdout).toContain("install");
+  });
+});
+
+// ─── CLI integration: verbose flag ──────────────────────────────────────
+
+describe("CLI integration: verbose flag", () => {
+  test("list -V produces verbose output on stderr", async () => {
+    const { stdout, stderr, exitCode } = await runCLI("list", "-V");
+    expect(exitCode).toBe(0);
+    expect(stderr).toContain("[verbose]");
+    expect(stderr).toMatch(/\+\d+ms/);
+  });
+
+  test("list --verbose produces verbose output on stderr", async () => {
+    const { stderr, exitCode } = await runCLI("list", "--verbose");
+    expect(exitCode).toBe(0);
+    expect(stderr).toContain("[verbose]");
+  });
+
+  test("verbose does not pollute stdout with --json", async () => {
+    const { stdout, stderr, exitCode } = await runCLI(
+      "list",
+      "--verbose",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    // stdout should be valid JSON
+    const data = JSON.parse(stdout);
+    expect(Array.isArray(data)).toBe(true);
+    // stderr should have verbose output
+    expect(stderr).toContain("[verbose]");
+  });
+
+  test("--help includes --verbose in global options", async () => {
+    const { stdout } = await runCLI("--help");
+    expect(stdout).toContain("--verbose");
+    expect(stdout).toContain("-V");
   });
 });

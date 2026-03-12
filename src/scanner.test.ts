@@ -1,5 +1,7 @@
-import { describe, expect, it } from "bun:test";
-import { searchSkills, sortSkills } from "./scanner";
+import { describe, expect, it, beforeEach, afterEach, spyOn } from "bun:test";
+import { searchSkills, sortSkills, scanAllSkills } from "./scanner";
+import { setVerbose } from "./logger";
+import { getDefaultConfig } from "./config";
 import type { SkillInfo } from "./utils/types";
 
 function makeSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
@@ -133,5 +135,35 @@ describe("sortSkills", () => {
     const result = sortSkills(single, "name");
     expect(result).toHaveLength(1);
     expect(result[0].name).toBe("only");
+  });
+});
+
+describe("scanner verbose output", () => {
+  let stderrSpy: ReturnType<typeof spyOn>;
+
+  beforeEach(() => {
+    stderrSpy = spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    setVerbose(false);
+    stderrSpy.mockRestore();
+  });
+
+  it("emits debug lines when verbose is enabled", async () => {
+    setVerbose(true);
+    const config = getDefaultConfig();
+    await scanAllSkills(config, "global");
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    expect(output).toContain("[verbose]");
+    expect(output).toContain("scanning:");
+  });
+
+  it("emits no debug lines when verbose is disabled", async () => {
+    setVerbose(false);
+    const config = getDefaultConfig();
+    await scanAllSkills(config, "global");
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    expect(output).not.toContain("[verbose]");
   });
 });

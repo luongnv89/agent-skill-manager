@@ -1,6 +1,7 @@
 import { readFile, writeFile, mkdir } from "fs/promises";
 import { join, resolve, dirname } from "path";
 import { homedir } from "os";
+import { debug } from "./logger";
 import type { AppConfig, ProviderConfig } from "./utils/types";
 
 const HOME = homedir();
@@ -91,12 +92,15 @@ function mergeWithDefaults(config: Partial<AppConfig>): AppConfig {
 }
 
 export async function loadConfig(): Promise<AppConfig> {
+  debug(`config: checking ${CONFIG_PATH}`);
   try {
     const raw = await readFile(CONFIG_PATH, "utf-8");
     const parsed = JSON.parse(raw);
+    debug(`config: loaded from ${CONFIG_PATH}`);
     return mergeWithDefaults(parsed);
   } catch {
     // Config doesn't exist or is invalid — use defaults
+    debug("config: using defaults (file not found or invalid)");
     const config = getDefaultConfig();
     await saveConfig(config);
     return config;

@@ -14,6 +14,7 @@ import { join, resolve } from "path";
 import { tmpdir } from "os";
 import { parseFrontmatter } from "./utils/frontmatter";
 import { resolveProviderPath } from "./config";
+import { debug } from "./logger";
 import type {
   ParsedSource,
   InstallPlan,
@@ -82,12 +83,14 @@ export function parseSource(input: string): ParsedSource {
     );
   }
 
-  return {
+  const result = {
     owner,
     repo,
     ref,
     cloneUrl: `https://github.com/${owner}/${repo}.git`,
   };
+  debug(`install: parsed source → owner=${owner} repo=${repo} ref=${ref}`);
+  return result;
 }
 
 export function sanitizeName(name: string): string {
@@ -128,6 +131,7 @@ export function sanitizeName(name: string): string {
 export async function checkGitAvailable(): Promise<void> {
   try {
     await execFileAsync("git", ["--version"]);
+    debug("install: git available");
   } catch {
     throw new Error(
       "git is required for installing skills. Install git from https://git-scm.com",
@@ -136,6 +140,9 @@ export async function checkGitAvailable(): Promise<void> {
 }
 
 export async function cloneToTemp(source: ParsedSource): Promise<string> {
+  debug(
+    `install: cloning ${source.cloneUrl}${source.ref ? ` (ref: ${source.ref})` : ""}`,
+  );
   const tempDir = await mkdtemp(join(tmpdir(), "asm-install-"));
 
   const args = ["clone", "--depth", "1"];
@@ -172,9 +179,12 @@ export async function validateSkill(
   const fm = parseFrontmatter(content);
   const dirName = tempDir.split("/").pop() || "unknown";
 
+  const name = fm.name || dirName;
+  const version = fm.version || "0.0.0";
+  debug(`install: validated skill "${name}" v${version}`);
   return {
-    name: fm.name || dirName,
-    version: fm.version || "0.0.0",
+    name,
+    version,
     description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
   };
 }
@@ -392,6 +402,8 @@ export async function executeInstall(
     // .git might not exist, that's fine
   }
 
+  debug(`install: copied files to ${plan.targetDir}`);
+
   // Verify SKILL.md at target
   const skillMd = join(plan.targetDir, "SKILL.md");
   try {
@@ -525,6 +537,9 @@ export async function checkConflict(
   try {
     await access(targetDir);
     // Directory exists
+    debug(
+      `install: target ${targetDir} — conflict (exists)${force ? ", force overwrite" : ""}`,
+    );
     if (!force) {
       throw new Error(
         `Skill already exists at: ${targetDir}\nUse --force to overwrite.`,
@@ -534,5 +549,6 @@ export async function checkConflict(
     // If our own error, re-throw
     if (err.message?.includes("--force")) throw err;
     // Otherwise, directory doesn't exist — no conflict
+    debug(`install: target ${targetDir} — no conflict`);
   }
 }

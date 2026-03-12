@@ -9,6 +9,7 @@ import {
 import { join, resolve } from "path";
 import { parseFrontmatter } from "./utils/frontmatter";
 import { resolveProviderPath } from "./config";
+import { debug } from "./logger";
 import type { SkillInfo, Scope, SortBy, AppConfig } from "./utils/types";
 
 interface ScanLocation {
@@ -23,11 +24,16 @@ function buildScanLocations(config: AppConfig, scope: Scope): ScanLocation[] {
   const locations: ScanLocation[] = [];
 
   for (const provider of config.providers) {
-    if (!provider.enabled) continue;
+    if (!provider.enabled) {
+      debug(`scan: skipping disabled provider "${provider.name}"`);
+      continue;
+    }
 
     if (scope === "global" || scope === "both") {
+      const dir = resolveProviderPath(provider.global);
+      debug(`scan: adding location ${dir} (${provider.label}, global)`);
       locations.push({
-        dir: resolveProviderPath(provider.global),
+        dir,
         location: `global-${provider.name}`,
         scope: "global",
         providerName: provider.name,
@@ -36,8 +42,10 @@ function buildScanLocations(config: AppConfig, scope: Scope): ScanLocation[] {
     }
 
     if (scope === "project" || scope === "both") {
+      const dir = resolveProviderPath(provider.project);
+      debug(`scan: adding location ${dir} (${provider.label}, project)`);
       locations.push({
-        dir: resolveProviderPath(provider.project),
+        dir,
         location: `project-${provider.name}`,
         scope: "project",
         providerName: provider.name,
@@ -48,8 +56,12 @@ function buildScanLocations(config: AppConfig, scope: Scope): ScanLocation[] {
 
   for (const custom of config.customPaths) {
     if (scope === custom.scope || scope === "both") {
+      const dir = resolveProviderPath(custom.path);
+      debug(
+        `scan: adding custom location ${dir} (${custom.label}, ${custom.scope})`,
+      );
       locations.push({
-        dir: resolveProviderPath(custom.path),
+        dir,
         location: `${custom.scope}-custom`,
         scope: custom.scope,
         providerName: "custom",
@@ -73,10 +85,13 @@ async function countFiles(dir: string): Promise<number> {
 async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
   const skills: SkillInfo[] = [];
 
+  debug(`scanning: ${loc.dir} (${loc.location})`);
+
   let entries: string[];
   try {
     entries = await readdir(loc.dir);
   } catch {
+    debug(`scanning: ${loc.dir} — not found, skipping`);
     return skills;
   }
 
@@ -85,8 +100,12 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
 
     try {
       const entryStat = await stat(entryPath);
-      if (!entryStat.isDirectory()) continue;
+      if (!entryStat.isDirectory()) {
+        debug(`  skip: "${entry}" — not a directory`);
+        continue;
+      }
     } catch {
+      debug(`  skip: "${entry}" — stat failed`);
       continue;
     }
 
@@ -95,6 +114,7 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
     try {
       content = await readFile(skillMdPath, "utf-8");
     } catch {
+      debug(`  skip: "${entry}" — no SKILL.md`);
       continue;
     }
 
@@ -140,6 +160,7 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
     });
   }
 
+  debug(`found ${skills.length} skill(s) in ${loc.dir}`);
   return skills;
 }
 

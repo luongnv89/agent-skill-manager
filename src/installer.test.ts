@@ -1,4 +1,12 @@
-import { describe, test, expect, mock, beforeEach, afterEach } from "bun:test";
+import {
+  describe,
+  test,
+  expect,
+  mock,
+  beforeEach,
+  afterEach,
+  spyOn,
+} from "bun:test";
 import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
@@ -507,5 +515,58 @@ describe("checkConflict", () => {
     const existing = join(tempDir, "existing");
     await mkdir(existing);
     await expect(checkConflict(existing, true)).resolves.toBeUndefined();
+  });
+});
+
+// ─── Installer verbose output tests ──────────────────────────────────────
+
+import { setVerbose } from "./logger";
+
+describe("installer verbose output", () => {
+  let stderrSpy: ReturnType<typeof spyOn>;
+
+  beforeEach(() => {
+    stderrSpy = spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    setVerbose(false);
+    stderrSpy.mockRestore();
+  });
+
+  test("parseSource emits debug when verbose", () => {
+    setVerbose(true);
+    parseSource("github:alice/my-skill#v1.0");
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    expect(output).toContain("[verbose]");
+    expect(output).toContain("install: parsed source");
+    expect(output).toContain("owner=alice");
+    expect(output).toContain("repo=my-skill");
+  });
+
+  test("parseSource is silent when not verbose", () => {
+    setVerbose(false);
+    parseSource("github:alice/my-skill");
+    expect(stderrSpy).not.toHaveBeenCalled();
+  });
+
+  test("checkGitAvailable emits debug when verbose", async () => {
+    setVerbose(true);
+    await checkGitAvailable();
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    expect(output).toContain("install: git available");
+  });
+
+  test("checkConflict emits debug when verbose", async () => {
+    setVerbose(true);
+    const tempDir = await mkdtemp(join(tmpdir(), "asm-test-verbose-"));
+    try {
+      await checkConflict(join(tempDir, "nonexistent"), false);
+      const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+      expect(output).toContain("install: target");
+      expect(output).toContain("no conflict");
+    } finally {
+      await rm(tempDir, { recursive: true, force: true });
+    }
   });
 });

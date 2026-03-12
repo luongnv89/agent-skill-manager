@@ -39,6 +39,7 @@ import {
   formatAuditReportJSON,
 } from "./auditor";
 import { VERSION_STRING } from "./utils/version";
+import { setVerbose } from "./logger";
 import type { Scope, SortBy } from "./utils/types";
 
 // ─── Arg Parser ─────────────────────────────────────────────────────────────
@@ -60,6 +61,7 @@ interface ParsedArgs {
     force: boolean;
     path: string | null;
     all: boolean;
+    verbose: boolean;
   };
 }
 
@@ -83,6 +85,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       force: false,
       path: null,
       all: false,
+      verbose: false,
     },
   };
 
@@ -132,6 +135,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.path = args[i] || null;
     } else if (arg === "--all") {
       result.flags.all = true;
+    } else if (arg === "--verbose" || arg === "-V") {
+      result.flags.verbose = true;
     } else if (arg.startsWith("-")) {
       error(`Unknown option: ${arg}`);
       console.error(`Run "asm --help" for usage.`);
@@ -189,7 +194,8 @@ ${ansi.bold("Global Options:")}
   -s, --scope <scope>    Filter: global, project, or both (default: both)
   --no-color             Disable ANSI colors
   --sort <field>         Sort by: name, version, or location (default: name)
-  -y, --yes              Skip confirmation prompts`);
+  -y, --yes              Skip confirmation prompts
+  -V, --verbose          Show debug output`);
 }
 
 function printListHelp() {
@@ -201,7 +207,8 @@ ${ansi.bold("Options:")}
   --sort <field>     Sort by: name, version, or location (default: name)
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --json             Output as JSON array
-  --no-color         Disable ANSI colors`);
+  --no-color         Disable ANSI colors
+  -V, --verbose      Show debug output`);
 }
 
 function printSearchHelp() {
@@ -213,7 +220,8 @@ ${ansi.bold("Options:")}
   --sort <field>     Sort by: name, version, or location (default: name)
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --json             Output as JSON array
-  --no-color         Disable ANSI colors`);
+  --no-color         Disable ANSI colors
+  -V, --verbose      Show debug output`);
 }
 
 function printInspectHelp() {
@@ -224,7 +232,8 @@ Show detailed information for a skill. The <skill-name> is the directory name.
 ${ansi.bold("Options:")}
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --json             Output as JSON object
-  --no-color         Disable ANSI colors`);
+  --no-color         Disable ANSI colors
+  -V, --verbose      Show debug output`);
 }
 
 function printUninstallHelp() {
@@ -235,7 +244,8 @@ Remove a skill and its associated rule files.
 ${ansi.bold("Options:")}
   -y, --yes          Skip confirmation prompt
   -s, --scope <s>    Filter: global, project, or both (default: both)
-  --no-color         Disable ANSI colors`);
+  --no-color         Disable ANSI colors
+  -V, --verbose      Show debug output`);
 }
 
 function printAuditHelp() {
@@ -249,7 +259,8 @@ ${ansi.bold("Subcommands:")}
 ${ansi.bold("Options:")}
   --json             Output as JSON
   -y, --yes          Auto-remove duplicates, keeping one instance per group
-  --no-color         Disable ANSI colors`);
+  --no-color         Disable ANSI colors
+  -V, --verbose      Show debug output`);
 }
 
 function printConfigHelp() {
@@ -261,7 +272,10 @@ ${ansi.bold("Subcommands:")}
   show     Print current config as JSON
   path     Print config file path
   reset    Reset config to defaults (with confirmation)
-  edit     Open config in $EDITOR`);
+  edit     Open config in $EDITOR
+
+${ansi.bold("Options:")}
+  -V, --verbose      Show debug output`);
 }
 
 // ─── Command Handlers ───────────────────────────────────────────────────────
@@ -537,6 +551,7 @@ ${ansi.bold("Options:")}
   -y, --yes              Skip confirmation prompt
   --json                 Output result as JSON
   --no-color             Disable ANSI colors
+  -V, --verbose          Show debug output
 
 ${ansi.bold("Single-skill repo:")}
   asm install github:user/my-skill
@@ -879,6 +894,11 @@ export async function runCLI(argv: string[]): Promise<void> {
   // Apply --no-color
   if (args.flags.noColor) {
     (globalThis as any).__CLI_NO_COLOR = true;
+  }
+
+  // Apply --verbose
+  if (args.flags.verbose) {
+    setVerbose(true);
   }
 
   // --version at top level

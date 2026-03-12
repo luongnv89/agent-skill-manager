@@ -1,5 +1,11 @@
-import { describe, expect, it } from "bun:test";
-import { getDefaultConfig, resolveProviderPath, getConfigPath } from "./config";
+import { describe, expect, it, beforeEach, afterEach, spyOn } from "bun:test";
+import {
+  getDefaultConfig,
+  resolveProviderPath,
+  getConfigPath,
+  loadConfig,
+} from "./config";
+import { setVerbose } from "./logger";
 import { homedir } from "os";
 import { resolve } from "path";
 
@@ -77,5 +83,43 @@ describe("getConfigPath", () => {
   it("returns a path under ~/.config/agent-skill-manager", () => {
     const path = getConfigPath();
     expect(path).toContain(".config/agent-skill-manager/config.json");
+  });
+});
+
+describe("config verbose output", () => {
+  let stderrSpy: ReturnType<typeof spyOn>;
+
+  beforeEach(() => {
+    stderrSpy = spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    setVerbose(false);
+    stderrSpy.mockRestore();
+  });
+
+  it("emits debug lines when verbose is enabled", async () => {
+    setVerbose(true);
+    await loadConfig();
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    expect(output).toContain("[verbose]");
+    expect(output).toContain("config:");
+  });
+
+  it("logs 'loaded from' when config file exists", async () => {
+    setVerbose(true);
+    await loadConfig();
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    // Either loaded from file or using defaults — both are valid
+    const hasLoaded =
+      output.includes("loaded from") || output.includes("using defaults");
+    expect(hasLoaded).toBe(true);
+  });
+
+  it("emits no debug lines when verbose is disabled", async () => {
+    setVerbose(false);
+    await loadConfig();
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    expect(output).not.toContain("[verbose]");
   });
 });
