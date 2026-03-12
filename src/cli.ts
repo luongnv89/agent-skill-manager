@@ -18,6 +18,21 @@ import {
   ansi,
 } from "./formatter";
 import {
+  parseSource,
+  sanitizeName,
+  checkGitAvailable,
+  cloneToTemp,
+  validateSkill,
+  discoverSkills,
+  scanForWarnings,
+  executeInstall,
+  cleanupTemp,
+  resolveProvider,
+  buildInstallPlan,
+  checkConflict,
+} from "./installer";
+import type { InstallResult } from "./utils/types";
+import {
   detectDuplicates,
   sortInstancesForKeep,
   formatAuditReport,
@@ -40,6 +55,11 @@ interface ParsedArgs {
     noColor: boolean;
     scope: Scope;
     sort: SortBy;
+    provider: string | null;
+    name: string | null;
+    force: boolean;
+    path: string | null;
+    all: boolean;
   };
 }
 
@@ -58,6 +78,11 @@ export function parseArgs(argv: string[]): ParsedArgs {
       noColor: false,
       scope: "both",
       sort: "name",
+      provider: null,
+      name: null,
+      force: false,
+      path: null,
+      all: false,
     },
   };
 
@@ -94,6 +119,19 @@ export function parseArgs(argv: string[]): ParsedArgs {
         error(`Invalid sort: "${val}". Must be name, version, or location.`);
         process.exit(2);
       }
+    } else if (arg === "--provider" || arg === "-p") {
+      i++;
+      result.flags.provider = args[i] || null;
+    } else if (arg === "--name") {
+      i++;
+      result.flags.name = args[i] || null;
+    } else if (arg === "--force" || arg === "-f") {
+      result.flags.force = true;
+    } else if (arg === "--path") {
+      i++;
+      result.flags.path = args[i] || null;
+    } else if (arg === "--all") {
+      result.flags.all = true;
     } else if (arg.startsWith("-")) {
       error(`Unknown option: ${arg}`);
       console.error(`Run "asm --help" for usage.`);
@@ -137,6 +175,7 @@ ${ansi.bold("Commands:")}
   search <query>         Search skills by name/description/provider
   inspect <skill-name>   Show detailed info for a skill
   uninstall <skill-name> Remove a skill (with confirmation)
+  install <source>       Install a skill from GitHub
   audit                  Detect duplicate skills across providers
   config show            Print current config
   config path            Print config file path
@@ -480,6 +519,358 @@ async function cmdConfig(args: ParsedArgs) {
   }
 }
 
+function printInstallHelp() {
+  console.log(`${ansi.bold("Usage:")} asm install <source> [options]
+
+Install a skill from a GitHub repository.
+
+${ansi.bold("Source Format:")}
+  github:owner/repo          Install from default branch
+  github:owner/repo#ref      Install from specific branch or tag
+
+${ansi.bold("Options:")}
+  -p, --provider <name>  Target provider (claude, codex, openclaw, agents)
+  --name <name>          Override skill directory name
+  --path <subdir>        Install skill from a subdirectory of the repo
+  --all                  Install all skills found in the repo
+  -f, --force            Overwrite if skill already exists
+  -y, --yes              Skip confirmation prompt
+  --json                 Output result as JSON
+  --no-color             Disable ANSI colors
+
+${ansi.bold("Single-skill repo:")}
+  asm install github:user/my-skill
+  asm install github:user/my-skill#v1.0.0 -p claude
+
+${ansi.bold("Multi-skill repo:")}
+  asm install github:user/skills --path skills/code-review
+  asm install github:user/skills --all -p claude -y
+  asm install github:user/skills              ${ansi.dim("(interactive picker)")}`);
+}
+
+async function installSingleSkill(
+  args: ParsedArgs,
+  sourceStr: string,
+  source: ReturnType<typeof parseSource>,
+  tempDir: string,
+  skillDir: string,
+  skillNameOverride: string | null,
+  config: Awaited<ReturnType<typeof loadConfig>>,
+  provider: Awaited<ReturnType<typeof resolveProvider>>,
+): Promise<InstallResult> {
+  // Validate
+  const metadata = await validateSkill(skillDir);
+  console.error(`Found skill: ${metadata.name} v${metadata.version}`);
+
+  // Scan for warnings
+  const warnings = await scanForWarnings(skillDir);
+
+  // Determine skill name: --name flag > dirName of skill subdir > repo name
+  const dirName = skillDir === tempDir ? null : skillDir.split("/").pop();
+  const rawName = skillNameOverride || dirName || source.repo;
+  const skillName = sanitizeName(rawName);
+
+  // Build install plan
+  const plan = buildInstallPlan(
+    source,
+    tempDir,
+    skillDir,
+    skillName,
+    provider,
+    args.flags.force,
+  );
+
+  // Check conflict
+  await checkConflict(plan.targetDir, plan.force);
+
+  // Preview
+  console.error(`\n${ansi.bold("Install preview:")}`);
+  console.error(`  Name:        ${metadata.name}`);
+  console.error(`  Version:     ${metadata.version}`);
+  console.error(`  Description: ${metadata.description || "(none)"}`);
+  console.error(`  Source:      ${sourceStr}`);
+  console.error(`  Provider:    ${provider.label} (${provider.name})`);
+  console.error(`  Target:      ${plan.targetDir}`);
+
+  if (warnings.length > 0) {
+    console.error(`\n${ansi.yellow(ansi.bold("Security warnings:"))}`);
+    const grouped = new Map<string, typeof warnings>();
+    for (const w of warnings) {
+      const list = grouped.get(w.category) || [];
+      list.push(w);
+      grouped.set(w.category, list);
+    }
+    for (const [category, items] of grouped) {
+      console.error(
+        `\n  ${ansi.yellow(`[${category}]`)} (${items.length} match${items.length > 1 ? "es" : ""})`,
+      );
+      for (const item of items.slice(0, 5)) {
+        console.error(
+          `    ${ansi.dim(item.file)}:${item.line} — ${item.match}`,
+        );
+      }
+      if (items.length > 5) {
+        console.error(`    ... and ${items.length - 5} more`);
+      }
+    }
+  }
+
+  // Confirmation (only when not in batch/--all mode — caller handles --all confirmation)
+  if (!args.flags.yes && !args.flags.all) {
+    if (!process.stdin.isTTY) {
+      error(
+        "Cannot prompt for confirmation in non-interactive mode. Use --yes to skip.",
+      );
+      process.exit(2);
+    }
+    process.stderr.write(`\n${ansi.bold("Proceed with installation?")} [y/N] `);
+    const answer = await readLine();
+    if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+      console.error("Aborted.");
+      process.exit(0);
+    }
+  }
+
+  // Execute install
+  console.error(`\nInstalling to ${plan.targetDir}...`);
+  return await executeInstall(plan);
+}
+
+async function cmdInstall(args: ParsedArgs) {
+  if (args.flags.help) {
+    printInstallHelp();
+    return;
+  }
+
+  const sourceStr = args.subcommand;
+  if (!sourceStr) {
+    error("Missing required argument: <source>");
+    console.error(`Run "asm install --help" for usage.`);
+    process.exit(2);
+  }
+
+  let tempDir: string | null = null;
+
+  // SIGINT/SIGTERM cleanup handler
+  const cleanup = () => {
+    if (tempDir) {
+      cleanupTemp(tempDir).finally(() => process.exit(1));
+    } else {
+      process.exit(1);
+    }
+  };
+  process.on("SIGINT", cleanup);
+  process.on("SIGTERM", cleanup);
+
+  try {
+    // Parse source
+    const source = parseSource(sourceStr);
+    console.error(`Parsing source: ${sourceStr}`);
+
+    // Check git
+    await checkGitAvailable();
+
+    // Clone
+    console.error(
+      `Cloning ${source.cloneUrl}${source.ref ? ` (ref: ${source.ref})` : ""}...`,
+    );
+    tempDir = await cloneToTemp(source);
+
+    // Select provider early (needed for all paths)
+    const config = await loadConfig();
+    const provider = await resolveProvider(
+      config,
+      args.flags.provider,
+      !!process.stdin.isTTY,
+    );
+
+    // Determine which skill(s) to install
+    const { join: joinPath } = await import("path");
+    let results: InstallResult[] = [];
+
+    // Case 1: --path flag — install specific subdirectory
+    if (args.flags.path) {
+      const skillDir = joinPath(tempDir, args.flags.path);
+      try {
+        await validateSkill(skillDir);
+      } catch {
+        throw new Error(
+          `No SKILL.md found at path "${args.flags.path}" in the repository.`,
+        );
+      }
+      const result = await installSingleSkill(
+        args,
+        sourceStr,
+        source,
+        tempDir,
+        skillDir,
+        args.flags.name,
+        config,
+        provider,
+      );
+      results.push(result);
+
+      // Case 2: SKILL.md at root — single-skill repo
+    } else {
+      let isRootSkill = false;
+      try {
+        await validateSkill(tempDir);
+        isRootSkill = true;
+      } catch {
+        // Not a root-level skill
+      }
+
+      if (isRootSkill) {
+        const result = await installSingleSkill(
+          args,
+          sourceStr,
+          source,
+          tempDir,
+          tempDir,
+          args.flags.name,
+          config,
+          provider,
+        );
+        results.push(result);
+
+        // Case 3: Multi-skill repo — discover skills in subdirectories
+      } else {
+        console.error("No SKILL.md at repository root. Scanning for skills...");
+        const discovered = await discoverSkills(tempDir);
+
+        if (discovered.length === 0) {
+          throw new Error(
+            "No skills found in this repository. Skills must have a SKILL.md file.",
+          );
+        }
+
+        console.error(`Found ${discovered.length} skill(s):\n`);
+        for (let i = 0; i < discovered.length; i++) {
+          console.error(
+            `  ${ansi.bold(`${i + 1})`)} ${discovered[i].name} v${discovered[i].version} ${ansi.dim(`(${discovered[i].relPath})`)}`,
+          );
+          if (discovered[i].description) {
+            console.error(`     ${discovered[i].description}`);
+          }
+        }
+
+        let selectedPaths: string[];
+
+        if (args.flags.all) {
+          // --all: install everything
+          selectedPaths = discovered.map((s) => s.relPath);
+          console.error(`\nInstalling all ${selectedPaths.length} skills...`);
+
+          if (!args.flags.yes) {
+            if (!process.stdin.isTTY) {
+              error(
+                "Cannot prompt for confirmation in non-interactive mode. Use --yes to skip.",
+              );
+              process.exit(2);
+            }
+            process.stderr.write(
+              `\n${ansi.bold(`Install all ${selectedPaths.length} skills?`)} [y/N] `,
+            );
+            const answer = await readLine();
+            if (
+              answer.toLowerCase() !== "y" &&
+              answer.toLowerCase() !== "yes"
+            ) {
+              console.error("Aborted.");
+              process.exit(0);
+            }
+          }
+        } else if (process.stdin.isTTY) {
+          // Interactive picker
+          process.stderr.write(`\nEnter skill number (or "all"): `);
+          const answer = await readLine();
+
+          if (answer.toLowerCase() === "all") {
+            selectedPaths = discovered.map((s) => s.relPath);
+          } else {
+            const idx = parseInt(answer, 10) - 1;
+            if (isNaN(idx) || idx < 0 || idx >= discovered.length) {
+              throw new Error("Invalid selection. Aborting.");
+            }
+            selectedPaths = [discovered[idx].relPath];
+          }
+        } else {
+          // Non-interactive without --path or --all
+          error(
+            `Repository contains ${discovered.length} skills. Use --path <subdir> to pick one or --all to install all.\n` +
+              `Available skills:\n${discovered.map((s) => `  --path ${s.relPath}`).join("\n")}`,
+          );
+          process.exit(2);
+        }
+
+        for (const relPath of selectedPaths) {
+          const skillDir = joinPath(tempDir, relPath);
+          console.error(`\n${"─".repeat(40)}`);
+          try {
+            const result = await installSingleSkill(
+              args,
+              sourceStr,
+              source,
+              tempDir,
+              skillDir,
+              // For multi-skill, don't use --name (it would conflict across skills)
+              selectedPaths.length === 1 ? args.flags.name : null,
+              config,
+              provider,
+            );
+            results.push(result);
+            console.error(
+              ansi.green(`✓ Installed "${result.name}" to ${result.path}`),
+            );
+          } catch (skillErr: any) {
+            console.error(
+              ansi.red(
+                `✗ Failed to install from ${relPath}: ${skillErr.message}`,
+              ),
+            );
+            if (selectedPaths.length === 1) throw skillErr;
+          }
+        }
+      }
+    }
+
+    // Remove signal handlers
+    process.removeListener("SIGINT", cleanup);
+    process.removeListener("SIGTERM", cleanup);
+
+    if (args.flags.json) {
+      console.log(
+        JSON.stringify(results.length === 1 ? results[0] : results, null, 2),
+      );
+    } else if (results.length === 1) {
+      console.error(
+        ansi.green(`\n✓ Installed "${results[0].name}" to ${results[0].path}`),
+      );
+    } else {
+      console.error(
+        `\n${ansi.green(`✓ Installed ${results.length} skill(s) successfully.`)}`,
+      );
+    }
+  } catch (err: any) {
+    // Remove signal handlers
+    process.removeListener("SIGINT", cleanup);
+    process.removeListener("SIGTERM", cleanup);
+
+    if (args.flags.json) {
+      console.log(
+        JSON.stringify({ success: false, error: err.message }, null, 2),
+      );
+    } else {
+      error(err.message);
+    }
+    process.exit(1);
+  } finally {
+    if (tempDir) {
+      await cleanupTemp(tempDir);
+    }
+  }
+}
+
 // ─── Main CLI dispatcher ────────────────────────────────────────────────────
 
 export async function runCLI(argv: string[]): Promise<void> {
@@ -523,6 +914,9 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "audit":
       await cmdAudit(args);
       break;
+    case "install":
+      await cmdInstall(args);
+      break;
     case "config":
       await cmdConfig(args);
       break;
@@ -547,6 +941,7 @@ export function isCLIMode(argv: string[]): boolean {
     "uninstall",
     "audit",
     "config",
+    "install",
   ];
   const first = args[0];
 

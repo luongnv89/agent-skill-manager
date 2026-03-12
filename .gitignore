@@ -19,3 +19,11 @@ Thumbs.db
 
 # Coverage
 coverage/
+
+
+# dev tools
+.claude
+.opencode
+openspec/
+docs/IMPLEMENTATION_PLAN.md
+TODOS.md

@@ -1,0 +1,511 @@
+import { describe, test, expect, mock, beforeEach, afterEach } from "bun:test";
+import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
+import { join } from "path";
+import { tmpdir } from "os";
+import {
+  parseSource,
+  sanitizeName,
+  checkGitAvailable,
+  validateSkill,
+  discoverSkills,
+  scanForWarnings,
+  resolveProvider,
+  buildInstallPlan,
+  checkConflict,
+} from "./installer";
+import type { AppConfig, ProviderConfig } from "./utils/types";
+
+// ─── parseSource tests ─────────────────────────────────────────────────────
+
+describe("parseSource", () => {
+  test("valid source without ref", () => {
+    const result = parseSource("github:alice/my-skill");
+    expect(result.owner).toBe("alice");
+    expect(result.repo).toBe("my-skill");
+    expect(result.ref).toBeNull();
+    expect(result.cloneUrl).toBe("https://github.com/alice/my-skill.git");
+  });
+
+  test("valid source with ref", () => {
+    const result = parseSource("github:alice/my-skill#develop");
+    expect(result.owner).toBe("alice");
+    expect(result.repo).toBe("my-skill");
+    expect(result.ref).toBe("develop");
+  });
+
+  test("valid source with tag ref", () => {
+    const result = parseSource("github:alice/my-skill#v1.2.0");
+    expect(result.ref).toBe("v1.2.0");
+  });
+
+  test("valid source with slashes in ref", () => {
+    const result = parseSource("github:alice/my-skill#feature/new-thing");
+    expect(result.ref).toBe("feature/new-thing");
+  });
+
+  test("owner with hyphens and underscores", () => {
+    const result = parseSource("github:my-org_team/skill-repo");
+    expect(result.owner).toBe("my-org_team");
+    expect(result.repo).toBe("skill-repo");
+  });
+
+  test("repo with dots", () => {
+    const result = parseSource("github:user/my.skill.repo");
+    expect(result.repo).toBe("my.skill.repo");
+  });
+
+  // Rejection tests
+  test("rejects missing github prefix", () => {
+    expect(() => parseSource("alice/my-skill")).toThrow(
+      'must start with "github:"',
+    );
+  });
+
+  test("rejects missing repo", () => {
+    expect(() => parseSource("github:alice")).toThrow("github:owner/repo");
+  });
+
+  test("rejects empty owner", () => {
+    expect(() => parseSource("github:/my-skill")).toThrow(
+      "owner cannot be empty",
+    );
+  });
+
+  test("rejects empty repo", () => {
+    expect(() => parseSource("github:alice/")).toThrow("repo cannot be empty");
+  });
+
+  test("rejects invalid characters in owner", () => {
+    expect(() => parseSource("github:al ice/my-skill")).toThrow(
+      "invalid characters",
+    );
+  });
+
+  test("rejects invalid characters in owner (@)", () => {
+    expect(() => parseSource("github:al@ce/my-skill")).toThrow(
+      "invalid characters",
+    );
+  });
+
+  test("rejects invalid characters in repo", () => {
+    expect(() => parseSource("github:alice/my skill")).toThrow(
+      "invalid characters",
+    );
+  });
+
+  test("rejects empty ref after #", () => {
+    expect(() => parseSource("github:alice/my-skill#")).toThrow(
+      "ref cannot be empty",
+    );
+  });
+});
+
+// ─── sanitizeName tests ────────────────────────────────────────────────────
+
+describe("sanitizeName", () => {
+  test("valid name passes through", () => {
+    expect(sanitizeName("code-review-skill")).toBe("code-review-skill");
+  });
+
+  test("valid name with dots and underscores", () => {
+    expect(sanitizeName("my_skill.v2")).toBe("my_skill.v2");
+  });
+
+  test("valid single character name", () => {
+    expect(sanitizeName("x")).toBe("x");
+  });
+
+  test("rejects path traversal (..)", () => {
+    expect(() => sanitizeName("..")).toThrow("unsafe characters");
+    expect(() => sanitizeName("foo/../bar")).toThrow("unsafe characters");
+  });
+
+  test("rejects forward slash", () => {
+    expect(() => sanitizeName("foo/bar")).toThrow("unsafe characters");
+  });
+
+  test("rejects backslash", () => {
+    expect(() => sanitizeName("foo\\bar")).toThrow("unsafe characters");
+  });
+
+  test("rejects null bytes", () => {
+    expect(() => sanitizeName("foo\0bar")).toThrow("unsafe characters");
+  });
+
+  test("rejects leading dot", () => {
+    expect(() => sanitizeName(".hidden-skill")).toThrow(
+      "must not start with a dot",
+    );
+  });
+
+  test("rejects empty name", () => {
+    expect(() => sanitizeName("")).toThrow("cannot be empty");
+  });
+
+  test("rejects name exceeding length limit", () => {
+    const longName = "a".repeat(129);
+    expect(() => sanitizeName(longName)).toThrow("maximum length of 128");
+  });
+
+  test("accepts name at exactly 128 characters", () => {
+    const name = "a".repeat(128);
+    expect(sanitizeName(name)).toBe(name);
+  });
+});
+
+// ─── checkGitAvailable tests ───────────────────────────────────────────────
+
+describe("checkGitAvailable", () => {
+  test("succeeds when git is available", async () => {
+    // git should be available on CI and dev machines
+    await expect(checkGitAvailable()).resolves.toBeUndefined();
+  });
+});
+
+// ─── validateSkill tests ───────────────────────────────────────────────────
+
+describe("validateSkill", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-validate-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("valid SKILL.md with frontmatter", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      `---
+name: test-skill
+version: 1.0.0
+description: A test skill
+---
+
+# Test Skill
+
+Instructions here.
+`,
+    );
+
+    const result = await validateSkill(tempDir);
+    expect(result.name).toBe("test-skill");
+    expect(result.version).toBe("1.0.0");
+    expect(result.description).toBe("A test skill");
+  });
+
+  test("SKILL.md with missing optional fields uses defaults", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      `---
+name: minimal-skill
+---
+
+# Minimal
+`,
+    );
+
+    const result = await validateSkill(tempDir);
+    expect(result.name).toBe("minimal-skill");
+    expect(result.version).toBe("0.0.0");
+    expect(result.description).toBe("");
+  });
+
+  test("SKILL.md without frontmatter uses directory name", async () => {
+    await writeFile(join(tempDir, "SKILL.md"), "# Just content\n");
+
+    const result = await validateSkill(tempDir);
+    // name falls back to directory name
+    expect(result.version).toBe("0.0.0");
+    expect(result.description).toBe("");
+  });
+
+  test("throws when SKILL.md is missing", async () => {
+    await expect(validateSkill(tempDir)).rejects.toThrow("SKILL.md not found");
+  });
+});
+
+// ─── discoverSkills tests ──────────────────────────────────────────────────
+
+describe("discoverSkills", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-discover-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("discovers skills in subdirectories", async () => {
+    // Create multi-skill repo structure
+    await mkdir(join(tempDir, "skills", "code-review"), { recursive: true });
+    await mkdir(join(tempDir, "skills", "auto-push"), { recursive: true });
+    await writeFile(
+      join(tempDir, "skills", "code-review", "SKILL.md"),
+      "---\nname: code-review\nversion: 1.0.0\ndescription: Review code\n---\n# Code Review\n",
+    );
+    await writeFile(
+      join(tempDir, "skills", "auto-push", "SKILL.md"),
+      "---\nname: auto-push\nversion: 0.5.0\n---\n# Auto Push\n",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered.length).toBe(2);
+    expect(discovered.map((s) => s.name).sort()).toEqual([
+      "auto-push",
+      "code-review",
+    ]);
+    expect(discovered.find((s) => s.name === "code-review")?.relPath).toBe(
+      "skills/code-review",
+    );
+    expect(discovered.find((s) => s.name === "code-review")?.version).toBe(
+      "1.0.0",
+    );
+  });
+
+  test("discovers skills at first level subdirectories", async () => {
+    await mkdir(join(tempDir, "my-skill"), { recursive: true });
+    await writeFile(
+      join(tempDir, "my-skill", "SKILL.md"),
+      "---\nname: my-skill\nversion: 2.0.0\n---\n# My Skill\n",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered.length).toBe(1);
+    expect(discovered[0].relPath).toBe("my-skill");
+  });
+
+  test("returns empty array when no skills found", async () => {
+    await mkdir(join(tempDir, "empty-dir"), { recursive: true });
+    await writeFile(join(tempDir, "empty-dir", "README.md"), "# Not a skill\n");
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered.length).toBe(0);
+  });
+
+  test("skips .git directory", async () => {
+    await mkdir(join(tempDir, ".git", "hooks"), { recursive: true });
+    await writeFile(
+      join(tempDir, ".git", "hooks", "SKILL.md"),
+      "---\nname: fake\n---\n",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered.length).toBe(0);
+  });
+
+  test("does not recurse deeper than 3 levels", async () => {
+    // Level 1/2/3/4 — only first 3 levels should be scanned
+    await mkdir(join(tempDir, "a", "b", "c", "d"), { recursive: true });
+    await writeFile(
+      join(tempDir, "a", "b", "c", "d", "SKILL.md"),
+      "---\nname: deep-skill\n---\n",
+    );
+    // But level 3 should work
+    await mkdir(join(tempDir, "x", "y", "z"), { recursive: true });
+    await writeFile(
+      join(tempDir, "x", "y", "z", "SKILL.md"),
+      "---\nname: level3-skill\n---\n",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    expect(discovered.map((s) => s.name)).toEqual(["level3-skill"]);
+  });
+
+  test("stops recursing into directories that have SKILL.md", async () => {
+    // Parent has SKILL.md, child also has SKILL.md — should find parent only
+    await mkdir(join(tempDir, "parent", "child"), { recursive: true });
+    await writeFile(
+      join(tempDir, "parent", "SKILL.md"),
+      "---\nname: parent-skill\n---\n",
+    );
+    await writeFile(
+      join(tempDir, "parent", "child", "SKILL.md"),
+      "---\nname: child-skill\n---\n",
+    );
+
+    const discovered = await discoverSkills(tempDir);
+    // Parent has SKILL.md so it's found; child is NOT recursed into
+    expect(discovered.length).toBe(1);
+    expect(discovered[0].name).toBe("parent-skill");
+  });
+});
+
+// ─── scanForWarnings tests ─────────────────────────────────────────────────
+
+describe("scanForWarnings", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-scan-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("detects shell command patterns", async () => {
+    await writeFile(join(tempDir, "SKILL.md"), "Run this: bash script.sh\n");
+
+    const warnings = await scanForWarnings(tempDir);
+    expect(warnings.some((w) => w.category === "Shell commands")).toBe(true);
+  });
+
+  test("detects eval patterns", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      "Use eval() to run dynamic code\n",
+    );
+
+    const warnings = await scanForWarnings(tempDir);
+    expect(warnings.some((w) => w.category === "Code execution")).toBe(true);
+  });
+
+  test("detects credential patterns", async () => {
+    await writeFile(join(tempDir, "config.txt"), "API_KEY = sk-1234567890\n");
+
+    const warnings = await scanForWarnings(tempDir);
+    expect(warnings.some((w) => w.category === "Credentials")).toBe(true);
+  });
+
+  test("detects external URL patterns", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      "Visit https://example.com for docs\n",
+    );
+
+    const warnings = await scanForWarnings(tempDir);
+    expect(warnings.some((w) => w.category === "External URLs")).toBe(true);
+  });
+
+  test("returns no warnings for clean content", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      `---
+name: clean-skill
+version: 1.0.0
+---
+
+# Clean Skill
+
+This is a clean skill with no suspicious patterns.
+`,
+    );
+
+    const warnings = await scanForWarnings(tempDir);
+    expect(warnings.length).toBe(0);
+  });
+
+  test("skips .git directory", async () => {
+    await mkdir(join(tempDir, ".git"), { recursive: true });
+    await writeFile(join(tempDir, ".git", "config"), "API_KEY = secret\n");
+    await writeFile(join(tempDir, "SKILL.md"), "# Clean\n");
+
+    const warnings = await scanForWarnings(tempDir);
+    expect(warnings.every((w) => !w.file.startsWith(".git"))).toBe(true);
+  });
+});
+
+// ─── resolveProvider tests ─────────────────────────────────────────────────
+
+describe("resolveProvider", () => {
+  const makeConfig = (providers: ProviderConfig[]): AppConfig => ({
+    version: 1,
+    providers,
+    customPaths: [],
+    preferences: { defaultScope: "both", defaultSort: "name" },
+  });
+
+  const claude: ProviderConfig = {
+    name: "claude",
+    label: "Claude Code",
+    global: "~/.claude/skills",
+    project: ".claude/skills",
+    enabled: true,
+  };
+
+  const codex: ProviderConfig = {
+    name: "codex",
+    label: "Codex",
+    global: "~/.codex/skills",
+    project: ".codex/skills",
+    enabled: true,
+  };
+
+  const disabledProvider: ProviderConfig = {
+    name: "disabled",
+    label: "Disabled",
+    global: "~/.disabled/skills",
+    project: ".disabled/skills",
+    enabled: false,
+  };
+
+  test("selects provider by flag name", async () => {
+    const config = makeConfig([claude, codex]);
+    const result = await resolveProvider(config, "claude", false);
+    expect(result.name).toBe("claude");
+  });
+
+  test("rejects unknown provider", async () => {
+    const config = makeConfig([claude]);
+    await expect(resolveProvider(config, "unknown", false)).rejects.toThrow(
+      "Unknown provider",
+    );
+  });
+
+  test("rejects disabled provider", async () => {
+    const config = makeConfig([claude, disabledProvider]);
+    await expect(resolveProvider(config, "disabled", false)).rejects.toThrow(
+      "disabled",
+    );
+  });
+
+  test("auto-selects single enabled provider", async () => {
+    const config = makeConfig([claude, disabledProvider]);
+    const result = await resolveProvider(config, null, false);
+    expect(result.name).toBe("claude");
+  });
+
+  test("errors in non-TTY without provider flag when multiple providers", async () => {
+    const config = makeConfig([claude, codex]);
+    await expect(resolveProvider(config, null, false)).rejects.toThrow(
+      "--provider is required",
+    );
+  });
+});
+
+// ─── Conflict detection tests ──────────────────────────────────────────────
+
+describe("checkConflict", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-conflict-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("no conflict when directory does not exist", async () => {
+    await expect(
+      checkConflict(join(tempDir, "nonexistent"), false),
+    ).resolves.toBeUndefined();
+  });
+
+  test("throws when directory exists without force", async () => {
+    const existing = join(tempDir, "existing");
+    await mkdir(existing);
+    await expect(checkConflict(existing, false)).rejects.toThrow("--force");
+  });
+
+  test("allows overwrite with force", async () => {
+    const existing = join(tempDir, "existing");
+    await mkdir(existing);
+    await expect(checkConflict(existing, true)).resolves.toBeUndefined();
+  });
+});

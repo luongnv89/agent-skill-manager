@@ -66,6 +66,52 @@ export interface AppConfig {
   preferences: UserPreferences;
 }
 
+// ─── Install Types ─────────────────────────────────────────────────────────
+
+export interface ParsedSource {
+  owner: string;
+  repo: string;
+  ref: string | null;
+  cloneUrl: string;
+}
+
+export interface InstallPlan {
+  source: ParsedSource;
+  tempDir: string;
+  sourceDir: string;
+  targetDir: string;
+  skillName: string;
+  force: boolean;
+  providerName: string;
+  providerLabel: string;
+}
+
+export interface InstallResult {
+  success: boolean;
+  path: string;
+  name: string;
+  version: string;
+  provider: string;
+  source: string;
+  error?: string;
+}
+
+export interface InstallOptions {
+  provider: string | null;
+  name: string | null;
+  force: boolean;
+  yes: boolean;
+  path: string | null;
+  all: boolean;
+}
+
+export interface DiscoveredSkill {
+  relPath: string;
+  name: string;
+  version: string;
+  description: string;
+}
+
 // ─── UI Types ───────────────────────────────────────────────────────────────
 
 export type Scope = "global" | "project" | "both";

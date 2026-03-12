@@ -45,6 +45,8 @@
 - **Sort** — By name, version, or location
 - **Detailed skill view** — Metadata from SKILL.md frontmatter including provider, path, symlink info
 - **Duplicate audit** — Detect and remove duplicate skills across providers and scopes
+- **Install from GitHub** — Install skills from any public/private GitHub repo with `asm install github:user/repo`
+- **Security scanning** — Automatic pattern-based security warnings before installing skills
 - **Safe uninstall** — Confirmation dialog, removes skill directories, rule files, and AGENTS.md blocks
 - **In-TUI config editor** — Toggle providers on/off, or open config in `$EDITOR`
 - **JSON output** — Machine-readable output for scripting (`--json`)
@@ -116,6 +118,7 @@ asm                    # or: agent-skill-manager
 asm list                       # List all discovered skills
 asm search <query>             # Search by name/description/provider
 asm inspect <skill-name>       # Show detailed info for a skill
+asm install <source>           # Install a skill from GitHub
 asm uninstall <skill-name>     # Remove a skill (with confirmation)
 asm audit                      # Detect duplicate skills
 asm config show                # Print current config
@@ -135,6 +138,44 @@ asm config edit                # Open config in $EDITOR
 -y, --yes              Skip confirmation prompts
 --no-color             Disable ANSI colors
 ```
+
+### Installing Skills from GitHub
+
+Install skills directly from GitHub repositories — supports both single-skill repos and multi-skill collections:
+
+```bash
+# Single-skill repo (SKILL.md at root)
+asm install github:user/my-skill
+asm install github:user/my-skill#v1.0.0 -p claude
+
+# Multi-skill repo (skills in subdirectories)
+asm install github:user/skills --path skills/code-review
+asm install github:user/skills --all -p claude -y
+asm install github:user/skills              # interactive picker
+
+# Other options
+asm install github:user/my-skill --name custom-name
+asm install github:user/my-skill --force
+asm install github:user/my-skill -p claude --yes --json
+```
+
+**Source format:** `github:owner/repo[#branch-or-tag]`
+
+**Install flags:**
+
+| Flag                    | Description                                       |
+| ----------------------- | ------------------------------------------------- |
+| `-p, --provider <name>` | Target provider (claude, codex, openclaw, agents) |
+| `--name <name>`         | Override skill directory name                     |
+| `--path <subdir>`       | Install a specific skill from a subdirectory      |
+| `--all`                 | Install all skills found in the repo              |
+| `-f, --force`           | Overwrite if skill already exists                 |
+| `-y, --yes`             | Skip confirmation prompt                          |
+| `--json`                | Output result as JSON                             |
+
+**Multi-skill repo support:** When a repo doesn't have `SKILL.md` at the root, `asm` automatically scans for skills in subdirectories (up to 3 levels deep). In interactive mode, it presents a numbered picker. Use `--path` to target a specific skill or `--all` to batch-install everything.
+
+The install command clones the repository, validates `SKILL.md` files, scans for security warnings, previews skill metadata, and installs to the selected provider's global skill directory. Requires `git` on PATH.
 
 ### Examples
 
@@ -251,6 +292,7 @@ agent-skill-manager/
 │   ├── config.ts              # Config loading & saving
 │   ├── scanner.ts             # Skill directory scanning & filtering
 │   ├── auditor.ts             # Duplicate detection & reporting
+│   ├── installer.ts           # GitHub skill installation pipeline
 │   ├── uninstaller.ts         # Safe skill removal logic
 │   ├── formatter.ts           # Output formatting (tables, detail, JSON)
 │   ├── utils/

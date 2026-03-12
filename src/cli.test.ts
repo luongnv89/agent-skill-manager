@@ -691,3 +691,156 @@ describe("CLI integration: config", () => {
     expect(stderr).toContain("Unknown config subcommand");
   });
 });
+
+// ─── parseArgs: install command ─────────────────────────────────────────────
+
+describe("parseArgs: install", () => {
+  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+
+  test("parses install with source", () => {
+    const result = parse("install", "github:user/repo");
+    expect(result.command).toBe("install");
+    expect(result.subcommand).toBe("github:user/repo");
+  });
+
+  test("parses --provider flag", () => {
+    const result = parse("install", "github:user/repo", "--provider", "claude");
+    expect(result.flags.provider).toBe("claude");
+  });
+
+  test("parses -p shorthand", () => {
+    const result = parse("install", "github:user/repo", "-p", "codex");
+    expect(result.flags.provider).toBe("codex");
+  });
+
+  test("parses --name flag", () => {
+    const result = parse(
+      "install",
+      "github:user/repo",
+      "--name",
+      "my-custom-name",
+    );
+    expect(result.flags.name).toBe("my-custom-name");
+  });
+
+  test("parses --force flag", () => {
+    const result = parse("install", "github:user/repo", "--force");
+    expect(result.flags.force).toBe(true);
+  });
+
+  test("parses -f shorthand", () => {
+    const result = parse("install", "github:user/repo", "-f");
+    expect(result.flags.force).toBe(true);
+  });
+
+  test("parses combined flags", () => {
+    const result = parse(
+      "install",
+      "github:user/repo",
+      "-p",
+      "claude",
+      "--name",
+      "review",
+      "-f",
+      "-y",
+    );
+    expect(result.flags.provider).toBe("claude");
+    expect(result.flags.name).toBe("review");
+    expect(result.flags.force).toBe(true);
+    expect(result.flags.yes).toBe(true);
+  });
+
+  test("defaults provider to null", () => {
+    const result = parse("install", "github:user/repo");
+    expect(result.flags.provider).toBeNull();
+  });
+
+  test("defaults name to null", () => {
+    const result = parse("install", "github:user/repo");
+    expect(result.flags.name).toBeNull();
+  });
+
+  test("defaults force to false", () => {
+    const result = parse("install", "github:user/repo");
+    expect(result.flags.force).toBe(false);
+  });
+
+  test("parses --path flag", () => {
+    const result = parse(
+      "install",
+      "github:user/repo",
+      "--path",
+      "skills/code-review",
+    );
+    expect(result.flags.path).toBe("skills/code-review");
+  });
+
+  test("parses --all flag", () => {
+    const result = parse("install", "github:user/repo", "--all");
+    expect(result.flags.all).toBe(true);
+  });
+
+  test("defaults path to null", () => {
+    const result = parse("install", "github:user/repo");
+    expect(result.flags.path).toBeNull();
+  });
+
+  test("defaults all to false", () => {
+    const result = parse("install", "github:user/repo");
+    expect(result.flags.all).toBe(false);
+  });
+
+  test("combined flags with --path and --all", () => {
+    const result = parse(
+      "install",
+      "github:user/repo",
+      "--all",
+      "-p",
+      "claude",
+      "-f",
+      "-y",
+    );
+    expect(result.flags.all).toBe(true);
+    expect(result.flags.provider).toBe("claude");
+    expect(result.flags.force).toBe(true);
+    expect(result.flags.yes).toBe(true);
+  });
+});
+
+// ─── isCLIMode: install ────────────────────────────────────────────────────
+
+describe("isCLIMode: install", () => {
+  const check = (...args: string[]) => isCLIMode(["bun", "script.ts", ...args]);
+
+  test("install → CLI mode", () => {
+    expect(check("install")).toBe(true);
+  });
+});
+
+// ─── CLI integration: install ──────────────────────────────────────────────
+
+describe("CLI integration: install", () => {
+  test("install --help shows usage", async () => {
+    const { stdout, exitCode } = await runCLI("install", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("asm install");
+    expect(stdout).toContain("github:owner/repo");
+    expect(stdout).toContain("--provider");
+    expect(stdout).toContain("--name");
+    expect(stdout).toContain("--path");
+    expect(stdout).toContain("--all");
+    expect(stdout).toContain("--force");
+    expect(stdout).toContain("--yes");
+  });
+
+  test("install with missing source exits 2", async () => {
+    const { stderr, exitCode } = await runCLI("install");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("main --help includes install command", async () => {
+    const { stdout } = await runCLI("--help");
+    expect(stdout).toContain("install");
+  });
+});
