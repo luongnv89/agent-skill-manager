@@ -349,7 +349,7 @@ async function cmdInspect(args: ParsedArgs) {
   } else {
     for (let i = 0; i < matches.length; i++) {
       if (i > 0) console.log("\n" + "─".repeat(40) + "\n");
-      console.log(formatSkillDetail(matches[i]));
+      console.log(await formatSkillDetail(matches[i]));
     }
   }
 }
@@ -406,17 +406,42 @@ async function cmdUninstall(args: ParsedArgs) {
   console.error(ansi.green("\nDone."));
 }
 
-function readLine(): Promise<string> {
+export function readLine(): Promise<string> {
   return new Promise((resolve) => {
     let data = "";
-    process.stdin.setEncoding("utf-8");
-    process.stdin.on("data", (chunk: string) => {
+    let resolved = false;
+
+    function cleanup() {
+      process.stdin.removeListener("data", onData);
+      process.stdin.removeListener("end", onEnd);
+      clearTimeout(timer);
+    }
+
+    function finish(value: string) {
+      if (resolved) return;
+      resolved = true;
+      cleanup();
+      resolve(value);
+    }
+
+    function onData(chunk: string) {
       data += chunk;
       if (data.includes("\n")) {
-        process.stdin.removeAllListeners("data");
-        resolve(data.trim());
+        finish(data.trim());
       }
-    });
+    }
+
+    function onEnd() {
+      finish(data.trim());
+    }
+
+    const timer = setTimeout(() => {
+      finish(data.trim());
+    }, 30_000);
+
+    process.stdin.setEncoding("utf-8");
+    process.stdin.on("data", onData);
+    process.stdin.on("end", onEnd);
     process.stdin.resume();
   });
 }
@@ -516,12 +541,14 @@ async function cmdConfig(args: ParsedArgs) {
       const configPath = getConfigPath();
       // Ensure config file exists
       await loadConfig();
-      const proc = Bun.spawn([editor, configPath], {
-        stdin: "inherit",
-        stdout: "inherit",
-        stderr: "inherit",
+      const { spawn: spawnProcess } = await import("child_process");
+      await new Promise<void>((resolve, reject) => {
+        const proc = spawnProcess(editor, [configPath], {
+          stdio: "inherit",
+        });
+        proc.on("close", () => resolve());
+        proc.on("error", reject);
       });
-      await proc.exited;
       break;
     }
     default: {

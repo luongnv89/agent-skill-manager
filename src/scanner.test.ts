@@ -1,5 +1,10 @@
 import { describe, expect, it, beforeEach, afterEach, spyOn } from "bun:test";
-import { searchSkills, sortSkills, scanAllSkills } from "./scanner";
+import {
+  searchSkills,
+  sortSkills,
+  scanAllSkills,
+  compareSemver,
+} from "./scanner";
 import { setVerbose } from "./logger";
 import { getDefaultConfig } from "./config";
 import type { SkillInfo } from "./utils/types";
@@ -135,6 +140,48 @@ describe("sortSkills", () => {
     const result = sortSkills(single, "name");
     expect(result).toHaveLength(1);
     expect(result[0].name).toBe("only");
+  });
+});
+
+describe("compareSemver", () => {
+  it("sorts 0.9.0 before 0.10.0", () => {
+    expect(compareSemver("0.9.0", "0.10.0")).toBeLessThan(0);
+  });
+
+  it("sorts 1.2.3 before 1.2.10", () => {
+    expect(compareSemver("1.2.3", "1.2.10")).toBeLessThan(0);
+  });
+
+  it("treats 1.0 as equal to 1.0.0", () => {
+    expect(compareSemver("1.0", "1.0.0")).toBe(0);
+  });
+
+  it("falls back to localeCompare for non-numeric segments", () => {
+    const result = compareSemver("1.0.0", "unknown");
+    expect(typeof result).toBe("number");
+  });
+
+  it("sorts 0.0.0 before 1.0.0", () => {
+    expect(compareSemver("0.0.0", "1.0.0")).toBeLessThan(0);
+  });
+
+  it("stable sort for equal versions via sortSkills", () => {
+    const skills = [
+      makeSkill({ name: "aaa", version: "1.0.0" }),
+      makeSkill({ name: "bbb", version: "1.0.0" }),
+    ];
+    const result = sortSkills(skills, "version");
+    expect(result.map((s) => s.name)).toEqual(["aaa", "bbb"]);
+  });
+
+  it("sorts version list with two-digit segments correctly", () => {
+    const skills = [
+      makeSkill({ name: "b", version: "0.10.0" }),
+      makeSkill({ name: "a", version: "0.9.0" }),
+      makeSkill({ name: "c", version: "0.2.0" }),
+    ];
+    const result = sortSkills(skills, "version");
+    expect(result.map((s) => s.version)).toEqual(["0.2.0", "0.9.0", "0.10.0"]);
   });
 });
 

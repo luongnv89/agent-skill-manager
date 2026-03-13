@@ -869,6 +869,66 @@ describe("CLI integration: install", () => {
 
 // ─── CLI integration: verbose flag ──────────────────────────────────────
 
+describe("readLine", () => {
+  test("resolves with input followed by newline", async () => {
+    // Test readLine directly using a helper subprocess
+    const script = `
+      import { readLine } from "./src/cli";
+      const result = await readLine();
+      process.stdout.write(result);
+    `;
+    const proc = Bun.spawn(["bun", "-e", script], {
+      stdout: "pipe",
+      stderr: "pipe",
+      stdin: new Blob(["hello\n"]),
+      env: { ...process.env },
+      cwd: join(import.meta.dir, ".."),
+    });
+    const stdout = await new Response(proc.stdout).text();
+    const exitCode = await proc.exited;
+    expect(exitCode).toBe(0);
+    expect(stdout).toBe("hello");
+  });
+
+  test("resolves on EOF without trailing newline", async () => {
+    const script = `
+      import { readLine } from "./src/cli";
+      const result = await readLine();
+      process.stdout.write(result);
+    `;
+    const proc = Bun.spawn(["bun", "-e", script], {
+      stdout: "pipe",
+      stderr: "pipe",
+      stdin: new Blob(["yes"]),
+      env: { ...process.env },
+      cwd: join(import.meta.dir, ".."),
+    });
+    const stdout = await new Response(proc.stdout).text();
+    const exitCode = await proc.exited;
+    expect(exitCode).toBe(0);
+    expect(stdout).toBe("yes");
+  });
+
+  test("empty EOF resolves with empty string", async () => {
+    const script = `
+      import { readLine } from "./src/cli";
+      const result = await readLine();
+      process.stdout.write(JSON.stringify(result));
+    `;
+    const proc = Bun.spawn(["bun", "-e", script], {
+      stdout: "pipe",
+      stderr: "pipe",
+      stdin: new Blob([""]),
+      env: { ...process.env },
+      cwd: join(import.meta.dir, ".."),
+    });
+    const stdout = await new Response(proc.stdout).text();
+    const exitCode = await proc.exited;
+    expect(exitCode).toBe(0);
+    expect(stdout).toBe('""');
+  });
+});
+
 describe("CLI integration: verbose flag", () => {
   test("list -V produces verbose output on stderr", async () => {
     const { stdout, stderr, exitCode } = await runCLI("list", "-V");

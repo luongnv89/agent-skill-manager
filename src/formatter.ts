@@ -1,4 +1,5 @@
 import type { SkillInfo } from "./utils/types";
+import { countFiles } from "./scanner";
 
 // ─── Color helpers ──────────────────────────────────────────────────────────
 
@@ -61,7 +62,7 @@ export function formatSkillTable(skills: SkillInfo[]): string {
 
 // ─── Detail formatter ───────────────────────────────────────────────────────
 
-export function formatSkillDetail(skill: SkillInfo): string {
+export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   const lines: string[] = [];
   const label = (key: string, value: string) =>
     `${useColor() ? ansi.bold(key + ":") : key + ":"} ${value}`;
@@ -76,7 +77,8 @@ export function formatSkillDetail(skill: SkillInfo): string {
   if (skill.isSymlink && skill.symlinkTarget) {
     lines.push(label("Symlink Target", skill.symlinkTarget));
   }
-  lines.push(label("File Count", String(skill.fileCount)));
+  const fileCount = skill.fileCount ?? (await countFiles(skill.path));
+  lines.push(label("File Count", String(fileCount)));
   if (skill.description) {
     lines.push("");
     lines.push(label("Description", skill.description));

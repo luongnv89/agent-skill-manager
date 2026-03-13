@@ -2,6 +2,7 @@ import { BoxRenderable, TextRenderable } from "@opentui/core";
 import type { RenderContext } from "@opentui/core";
 import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
+import { countFiles } from "../scanner";
 
 function detailRow(
   ctx: RenderContext,
@@ -87,7 +88,35 @@ export function createDetailView(
       skill.isSymlink ? theme.yellow : theme.fgDim,
     ),
   );
-  container.add(detailRow(ctx, "files", "Files", String(skill.fileCount)));
+  const fileCountDisplay =
+    skill.fileCount !== undefined ? String(skill.fileCount) : "...";
+  const filesValueText = new TextRenderable(ctx, {
+    content: fileCountDisplay,
+    fg: theme.fg,
+  });
+  const filesRow = new BoxRenderable(ctx, {
+    id: "detail-row-files",
+    flexDirection: "row",
+    width: "100%",
+    height: 1,
+  });
+  filesRow.add(
+    new TextRenderable(ctx, {
+      content: "Files:".padEnd(15),
+      fg: theme.fgDim,
+      width: 16,
+    }),
+  );
+  filesRow.add(filesValueText);
+  container.add(filesRow);
+
+  if (skill.fileCount === undefined) {
+    countFiles(skill.path)
+      .then((count) => {
+        filesValueText.content = String(count);
+      })
+      .catch(() => {});
+  }
   container.add(detailRow(ctx, "scope", "Scope", skill.scope, theme.accentAlt));
 
   const descLabel = new TextRenderable(ctx, {

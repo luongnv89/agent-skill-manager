@@ -125,8 +125,8 @@ describe("formatSkillDetail", () => {
     delete (globalThis as any).__CLI_NO_COLOR;
   });
 
-  test("includes all fields", () => {
-    const output = formatSkillDetail(makeSkill());
+  test("includes all fields", async () => {
+    const output = await formatSkillDetail(makeSkill());
     expect(output).toContain("Name: test-skill");
     expect(output).toContain("Version: 1.0.0");
     expect(output).toContain("Provider: Claude Code");
@@ -137,49 +137,51 @@ describe("formatSkillDetail", () => {
     expect(output).toContain("Description: A test skill");
   });
 
-  test("shows symlink target when symlink", () => {
-    const output = formatSkillDetail(
+  test("shows symlink target when symlink", async () => {
+    const output = await formatSkillDetail(
       makeSkill({ isSymlink: true, symlinkTarget: "/opt/skills/test" }),
     );
     expect(output).toContain("Type: symlink");
     expect(output).toContain("Symlink Target: /opt/skills/test");
   });
 
-  test("omits symlink target when not symlink", () => {
-    const output = formatSkillDetail(makeSkill());
+  test("omits symlink target when not symlink", async () => {
+    const output = await formatSkillDetail(makeSkill());
     expect(output).not.toContain("Symlink Target");
   });
 
-  test("omits symlink target when symlink but target is null", () => {
-    const output = formatSkillDetail(
+  test("omits symlink target when symlink but target is null", async () => {
+    const output = await formatSkillDetail(
       makeSkill({ isSymlink: true, symlinkTarget: null }),
     );
     expect(output).toContain("Type: symlink");
     expect(output).not.toContain("Symlink Target");
   });
 
-  test("omits description section when empty", () => {
-    const output = formatSkillDetail(makeSkill({ description: "" }));
+  test("omits description section when empty", async () => {
+    const output = await formatSkillDetail(makeSkill({ description: "" }));
     expect(output).not.toContain("Description:");
   });
 
-  test("shows project scope", () => {
-    const output = formatSkillDetail(makeSkill({ scope: "project" }));
+  test("shows project scope", async () => {
+    const output = await formatSkillDetail(makeSkill({ scope: "project" }));
     expect(output).toContain("Scope: project");
   });
 
-  test("shows zero file count", () => {
-    const output = formatSkillDetail(makeSkill({ fileCount: 0 }));
+  test("shows zero file count", async () => {
+    const output = await formatSkillDetail(makeSkill({ fileCount: 0 }));
     expect(output).toContain("File Count: 0");
   });
 
-  test("shows large file count", () => {
-    const output = formatSkillDetail(makeSkill({ fileCount: 12345 }));
+  test("shows large file count", async () => {
+    const output = await formatSkillDetail(makeSkill({ fileCount: 12345 }));
     expect(output).toContain("File Count: 12345");
   });
 
-  test("description appears after a blank line", () => {
-    const output = formatSkillDetail(makeSkill({ description: "Some desc" }));
+  test("description appears after a blank line", async () => {
+    const output = await formatSkillDetail(
+      makeSkill({ description: "Some desc" }),
+    );
     const lines = output.split("\n");
     const descIndex = lines.findIndex((l) => l.includes("Description:"));
     // There should be a blank line before the description

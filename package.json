@@ -24,6 +24,7 @@
     "@opentui/core": "0.1.87"
   },
   "engines": {
+    "node": ">=18",
     "bun": ">=1.0.0"
   },
   "keywords": [

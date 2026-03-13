@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from "fs/promises";
+import { readFile, writeFile, mkdir, copyFile } from "fs/promises";
 import { join, resolve, dirname } from "path";
 import { homedir } from "os";
 import { debug } from "./logger";
@@ -93,14 +93,33 @@ function mergeWithDefaults(config: Partial<AppConfig>): AppConfig {
 
 export async function loadConfig(): Promise<AppConfig> {
   debug(`config: checking ${CONFIG_PATH}`);
+
+  let raw: string;
   try {
-    const raw = await readFile(CONFIG_PATH, "utf-8");
+    raw = await readFile(CONFIG_PATH, "utf-8");
+  } catch (err: any) {
+    if (err?.code === "ENOENT") {
+      // Config doesn't exist — silently use defaults
+      debug("config: using defaults (file not found)");
+      const config = getDefaultConfig();
+      await saveConfig(config);
+      return config;
+    }
+    throw err;
+  }
+
+  try {
     const parsed = JSON.parse(raw);
     debug(`config: loaded from ${CONFIG_PATH}`);
     return mergeWithDefaults(parsed);
   } catch {
-    // Config doesn't exist or is invalid — use defaults
-    debug("config: using defaults (file not found or invalid)");
+    // Parse error — backup corrupted file before resetting
+    const backupPath = CONFIG_PATH + ".bak";
+    debug(`config: parse error, backing up to ${backupPath}`);
+    await copyFile(CONFIG_PATH, backupPath);
+    console.error(
+      `Warning: Config file was corrupted. Backup saved to ${backupPath}. Using defaults.`,
+    );
     const config = getDefaultConfig();
     await saveConfig(config);
     return config;

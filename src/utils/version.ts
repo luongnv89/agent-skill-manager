@@ -1,10 +1,14 @@
-import { resolve } from "path";
+import { readFileSync } from "fs";
+import { resolve, dirname } from "path";
+import { fileURLToPath } from "url";
+import { execSync } from "child_process";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 let _version: string = (process.env.__ASM_VERSION__ as string) || "0.0.0";
 try {
-  const pkg = await Bun.file(
-    resolve(import.meta.dir, "../../package.json"),
-  ).json();
+  const raw = readFileSync(resolve(__dirname, "../../package.json"), "utf-8");
+  const pkg = JSON.parse(raw);
   _version = pkg.version;
 } catch {
   // Bundled mode — use build-time injected version
@@ -12,11 +16,9 @@ try {
 
 let _commit: string = (process.env.__ASM_COMMIT__ as string) || "unknown";
 try {
-  const proc = Bun.spawn(["git", "rev-parse", "--short", "HEAD"], {
-    stdout: "pipe",
-    stderr: "pipe",
-  });
-  _commit = (await new Response(proc.stdout).text()).trim() || _commit;
+  _commit =
+    execSync("git rev-parse --short HEAD", { encoding: "utf-8" }).trim() ||
+    _commit;
 } catch {
   // Not in a git repo or git not available
 }

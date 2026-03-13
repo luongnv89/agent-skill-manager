@@ -4,10 +4,14 @@ import {
   resolveProviderPath,
   getConfigPath,
   loadConfig,
+  saveConfig,
 } from "./config";
 import { setVerbose } from "./logger";
 import { homedir } from "os";
-import { resolve } from "path";
+import { resolve, join, dirname } from "path";
+import { writeFile, readFile, rm, mkdir } from "fs/promises";
+import { mkdtempSync } from "fs";
+import { tmpdir } from "os";
 
 const HOME = homedir();
 
@@ -83,6 +87,105 @@ describe("getConfigPath", () => {
   it("returns a path under ~/.config/agent-skill-manager", () => {
     const path = getConfigPath();
     expect(path).toContain(".config/agent-skill-manager/config.json");
+  });
+});
+
+describe("config backup on corruption", () => {
+  const configPath = getConfigPath();
+  const backupPath = configPath + ".bak";
+  let originalContent: string | null = null;
+  let stderrSpy: ReturnType<typeof spyOn>;
+
+  beforeEach(async () => {
+    stderrSpy = spyOn(console, "error").mockImplementation(() => {});
+    // Save original config if it exists
+    try {
+      originalContent = await readFile(configPath, "utf-8");
+    } catch {
+      originalContent = null;
+    }
+    // Remove backup if it exists
+    try {
+      await rm(backupPath);
+    } catch {}
+  });
+
+  afterEach(async () => {
+    stderrSpy.mockRestore();
+    // Restore original config
+    if (originalContent !== null) {
+      await mkdir(dirname(configPath), { recursive: true });
+      await writeFile(configPath, originalContent, "utf-8");
+    } else {
+      try {
+        await rm(configPath);
+      } catch {}
+    }
+    // Clean up backup
+    try {
+      await rm(backupPath);
+    } catch {}
+  });
+
+  it("creates .bak and warns on corrupted config", async () => {
+    await mkdir(dirname(configPath), { recursive: true });
+    await writeFile(configPath, "this is not valid json!!!", "utf-8");
+
+    const config = await loadConfig();
+
+    // Should return defaults
+    expect(config.version).toBe(1);
+    expect(config.providers).toHaveLength(4);
+
+    // Should have created backup
+    const backup = await readFile(backupPath, "utf-8");
+    expect(backup).toBe("this is not valid json!!!");
+
+    // Should have warned to stderr
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    expect(output).toContain("corrupted");
+    expect(output).toContain(".bak");
+  });
+
+  it("silently creates defaults for missing config", async () => {
+    try {
+      await rm(configPath);
+    } catch {}
+
+    const config = await loadConfig();
+
+    // Should return defaults
+    expect(config.version).toBe(1);
+
+    // Should NOT have created backup
+    let backupExists = false;
+    try {
+      await readFile(backupPath);
+      backupExists = true;
+    } catch {}
+    expect(backupExists).toBe(false);
+
+    // Should NOT have warned
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    expect(output).not.toContain("corrupted");
+  });
+
+  it("treats empty file as parse error and backs up", async () => {
+    await mkdir(dirname(configPath), { recursive: true });
+    await writeFile(configPath, "", "utf-8");
+
+    const config = await loadConfig();
+
+    // Should return defaults
+    expect(config.version).toBe(1);
+
+    // Should have created backup of empty file
+    const backup = await readFile(backupPath, "utf-8");
+    expect(backup).toBe("");
+
+    // Should have warned
+    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    expect(output).toContain("corrupted");
   });
 });
 

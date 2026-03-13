@@ -14,7 +14,7 @@ export interface SkillInfo {
   isSymlink: boolean;
   symlinkTarget: string | null;
   realPath: string;
-  fileCount: number;
+  fileCount?: number;
 }
 
 export interface RemovalPlan {

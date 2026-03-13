@@ -22,8 +22,9 @@ try {
 const result = await Bun.build({
   entrypoints: [resolve(root, "bin/agent-skill-manager.ts")],
   outdir: resolve(root, "dist"),
-  target: "bun",
+  target: "node",
   minify: true,
+  splitting: true,
   define: {
     "process.env.__ASM_VERSION__": JSON.stringify(version),
     "process.env.__ASM_COMMIT__": JSON.stringify(commitHash),

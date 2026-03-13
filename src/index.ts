@@ -277,12 +277,14 @@ async function main() {
         const parts = editorCmd.split(/\s+/);
         const configPath = getConfigPath();
         renderer.destroy();
-        const proc = Bun.spawn([...parts, configPath], {
-          stdin: "inherit",
-          stdout: "inherit",
-          stderr: "inherit",
+        const { spawn: spawnProcess } = await import("child_process");
+        await new Promise<void>((resolve, reject) => {
+          const proc = spawnProcess(parts[0], [...parts.slice(1), configPath], {
+            stdio: "inherit",
+          });
+          proc.on("close", () => resolve());
+          proc.on("error", reject);
         });
-        await proc.exited;
         // Reload config and restart
         currentConfig = await loadConfig();
         process.exit(0); // User needs to restart after external edit

@@ -73,7 +73,7 @@ function buildScanLocations(config: AppConfig, scope: Scope): ScanLocation[] {
   return locations;
 }
 
-async function countFiles(dir: string): Promise<number> {
+export async function countFiles(dir: string): Promise<number> {
   try {
     const entries = await readdir(dir, { recursive: true } as any);
     return entries.length;
@@ -140,8 +140,6 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
       resolvedRealPath = resolvedPath;
     }
 
-    const fileCount = await countFiles(entryPath);
-
     skills.push({
       name: fm.name || entry,
       version: fm.version || "0.0.0",
@@ -156,7 +154,6 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
       isSymlink,
       symlinkTarget,
       realPath: resolvedRealPath,
-      fileCount,
     });
   }
 
@@ -185,6 +182,25 @@ export function searchSkills(skills: SkillInfo[], query: string): SkillInfo[] {
   );
 }
 
+export function compareSemver(a: string, b: string): number {
+  const partsA = a.split(".");
+  const partsB = b.split(".");
+  const len = Math.max(partsA.length, partsB.length);
+
+  for (let i = 0; i < len; i++) {
+    const numA = parseInt(partsA[i] ?? "0", 10);
+    const numB = parseInt(partsB[i] ?? "0", 10);
+
+    if (isNaN(numA) || isNaN(numB)) {
+      return a.localeCompare(b);
+    }
+
+    if (numA !== numB) return numA - numB;
+  }
+
+  return 0;
+}
+
 export function sortSkills(skills: SkillInfo[], by: SortBy): SkillInfo[] {
   const sorted = [...skills];
   switch (by) {
@@ -192,7 +208,7 @@ export function sortSkills(skills: SkillInfo[], by: SortBy): SkillInfo[] {
       sorted.sort((a, b) => a.name.localeCompare(b.name));
       break;
     case "version":
-      sorted.sort((a, b) => a.version.localeCompare(b.version));
+      sorted.sort((a, b) => compareSemver(a.version, b.version));
       break;
     case "location":
       sorted.sort((a, b) => a.location.localeCompare(b.location));
