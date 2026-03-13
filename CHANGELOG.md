@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.7.0 — 2026-03-13
+
+### Features
+
+- Add YAML frontmatter validation for SKILL.md files using the `yaml` library
+- Detect and report `invalid-yaml` warnings in `asm inspect` and `asm list` health checks
+
+### Dependencies
+
+- Add `yaml` (^2.8.2) as a runtime dependency for strict YAML parsing
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.6.2...v1.7.0
+
 ## v1.6.2 — 2026-03-13
 
 ### Bug Fixes

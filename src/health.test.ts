@@ -140,6 +140,43 @@ Body content here.
     expect(warnings).toHaveLength(0);
   });
 
+  it("warns on invalid YAML frontmatter", async () => {
+    // Embedded quotes + colon later triggers YAML flow mapping error
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      `---
+name: test-skill
+version: 1.0.0
+description: Use when users ask to "build a CLI", "create a tool", or mention frameworks. Follows a strict workflow: Analyze -> Execute.
+---
+
+Body content here.
+`,
+    );
+    const skill = makeSkill({ path: tempDir });
+    const warnings = await checkHealth(skill);
+    const cats = warnings.map((w) => w.category);
+    expect(cats).toContain("invalid-yaml");
+  });
+
+  it("does not warn on valid YAML frontmatter", async () => {
+    await writeFile(
+      join(tempDir, "SKILL.md"),
+      `---
+name: test-skill
+version: 1.0.0
+description: "Use when users ask to build a CLI or create something"
+---
+
+Body content here.
+`,
+    );
+    const skill = makeSkill({ path: tempDir });
+    const warnings = await checkHealth(skill);
+    const cats = warnings.map((w) => w.category);
+    expect(cats).not.toContain("invalid-yaml");
+  });
+
   it("warning objects have category and message", async () => {
     await writeFile(
       join(tempDir, "SKILL.md"),

@@ -1,6 +1,6 @@
 {
   "name": "agent-skill-manager",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "Interactive TUI for managing installed skills for AI coding agents (Claude Code, Codex, OpenClaw, and more)",
   "type": "module",
   "bin": {
@@ -21,7 +21,8 @@
     "LICENSE"
   ],
   "dependencies": {
-    "@opentui/core": "0.1.87"
+    "@opentui/core": "0.1.87",
+    "yaml": "^2.8.2"
   },
   "engines": {
     "node": ">=18",

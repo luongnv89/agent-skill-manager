@@ -1,5 +1,6 @@
 import { readFile } from "fs/promises";
 import { join } from "path";
+import { parse as parseYaml } from "yaml";
 import type { SkillInfo, SkillWarning } from "./utils/types";
 
 const HIGH_FILE_COUNT_THRESHOLD = 500;
@@ -26,6 +27,32 @@ function hasBody(content: string): boolean {
   return false;
 }
 
+function extractRawFrontmatter(content: string): string | null {
+  const lines = content.split("\n");
+  let start = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].trim() === "---") {
+      if (start === -1) {
+        start = i + 1;
+      } else {
+        return lines.slice(start, i).join("\n");
+      }
+    }
+  }
+  return null;
+}
+
+function validateYamlFrontmatter(content: string): string | null {
+  const raw = extractRawFrontmatter(content);
+  if (raw === null) return null;
+  try {
+    parseYaml(raw);
+    return null;
+  } catch (err: any) {
+    return err.message || "invalid YAML";
+  }
+}
+
 export async function checkHealth(skill: SkillInfo): Promise<SkillWarning[]> {
   const warnings: SkillWarning[] = [];
 
@@ -44,7 +71,7 @@ export async function checkHealth(skill: SkillInfo): Promise<SkillWarning[]> {
     });
   }
 
-  // Check for empty body
+  // Check SKILL.md content
   try {
     const skillMdPath = join(skill.path, "SKILL.md");
     const content = await readFile(skillMdPath, "utf-8");
@@ -54,8 +81,16 @@ export async function checkHealth(skill: SkillInfo): Promise<SkillWarning[]> {
         message: "SKILL.md contains only frontmatter with no body content",
       });
     }
+
+    const yamlError = validateYamlFrontmatter(content);
+    if (yamlError) {
+      warnings.push({
+        category: "invalid-yaml",
+        message: `SKILL.md has invalid YAML frontmatter: ${yamlError}`,
+      });
+    }
   } catch {
-    // Can't read SKILL.md — skip body check
+    // Can't read SKILL.md — skip content checks
   }
 
   const fileCount = skill.fileCount;
