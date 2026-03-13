@@ -7,8 +7,16 @@ import {
   afterEach,
   spyOn,
 } from "bun:test";
-import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
-import { join } from "path";
+import {
+  mkdtemp,
+  writeFile,
+  mkdir,
+  rm,
+  readlink,
+  lstat,
+  symlink,
+} from "fs/promises";
+import { join, relative } from "path";
 import { tmpdir } from "os";
 import {
   parseSource,
@@ -18,6 +26,7 @@ import {
   discoverSkills,
   scanForWarnings,
   resolveProvider,
+  executeInstallAllProviders,
   buildInstallPlan,
   checkConflict,
 } from "./installer";
@@ -505,7 +514,8 @@ describe("resolveProvider", () => {
   test("selects provider by flag name", async () => {
     const config = makeConfig([claude, codex]);
     const result = await resolveProvider(config, "claude", false);
-    expect(result.name).toBe("claude");
+    expect(result.provider.name).toBe("claude");
+    expect(result.allProviders).toBeNull();
   });
 
   test("rejects unknown provider", async () => {
@@ -525,7 +535,8 @@ describe("resolveProvider", () => {
   test("auto-selects single enabled provider", async () => {
     const config = makeConfig([claude, disabledProvider]);
     const result = await resolveProvider(config, null, false);
-    expect(result.name).toBe("claude");
+    expect(result.provider.name).toBe("claude");
+    expect(result.allProviders).toBeNull();
   });
 
   test("errors in non-TTY without provider flag when multiple providers", async () => {
@@ -533,6 +544,188 @@ describe("resolveProvider", () => {
     await expect(resolveProvider(config, null, false)).rejects.toThrow(
       "--provider is required",
     );
+  });
+
+  test("selects all providers with 'all' flag", async () => {
+    const agents: ProviderConfig = {
+      name: "agents",
+      label: "Agents",
+      global: "~/.agents/skills",
+      project: ".agents/skills",
+      enabled: true,
+    };
+    const config = makeConfig([claude, codex, agents]);
+    const result = await resolveProvider(config, "all", false);
+    expect(result.provider.name).toBe("agents");
+    expect(result.allProviders).toHaveLength(3);
+    expect(result.allProviders!.map((p) => p.name)).toEqual([
+      "claude",
+      "codex",
+      "agents",
+    ]);
+  });
+
+  test("selects first enabled as primary when 'all' and no agents provider", async () => {
+    const config = makeConfig([claude, codex]);
+    const result = await resolveProvider(config, "all", false);
+    expect(result.provider.name).toBe("claude");
+    expect(result.allProviders).toHaveLength(2);
+  });
+});
+
+// ─── executeInstallAllProviders tests ────────────────────────────────────────
+
+describe("executeInstallAllProviders", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "asm-test-allproviders-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  async function setupSourceAndPlan() {
+    // Create source skill directory with SKILL.md
+    const sourceDir = join(tempDir, "source", "my-skill");
+    await mkdir(sourceDir, { recursive: true });
+    await writeFile(
+      join(sourceDir, "SKILL.md"),
+      "---\nname: my-skill\nversion: 1.0.0\ndescription: Test skill\n---\n# My Skill\n",
+    );
+
+    // Primary install target (agents provider)
+    const primaryDir = join(tempDir, "providers", "agents", "skills");
+    const targetDir = join(primaryDir, "my-skill");
+    await mkdir(primaryDir, { recursive: true });
+
+    const plan: import("./utils/types").InstallPlan = {
+      source: {
+        owner: "user",
+        repo: "my-skill",
+        ref: null,
+        cloneUrl: "https://github.com/user/my-skill.git",
+      },
+      tempDir: join(tempDir, "source"),
+      sourceDir,
+      targetDir,
+      skillName: "my-skill",
+      force: false,
+      providerName: "agents",
+      providerLabel: "Agents",
+    };
+
+    const providers: ProviderConfig[] = [
+      {
+        name: "claude",
+        label: "Claude Code",
+        global: join(tempDir, "providers", "claude", "skills"),
+        project: ".claude/skills",
+        enabled: true,
+      },
+      {
+        name: "codex",
+        label: "Codex",
+        global: join(tempDir, "providers", "codex", "skills"),
+        project: ".codex/skills",
+        enabled: true,
+      },
+      {
+        name: "agents",
+        label: "Agents",
+        global: join(tempDir, "providers", "agents", "skills"),
+        project: ".agents/skills",
+        enabled: true,
+      },
+    ];
+
+    return { plan, providers };
+  }
+
+  test("creates relative symlinks in non-primary providers", async () => {
+    const { plan, providers } = await setupSourceAndPlan();
+    const result = await executeInstallAllProviders(plan, providers);
+
+    expect(result.success).toBe(true);
+
+    // Check symlinks exist in claude and codex provider dirs
+    for (const name of ["claude", "codex"]) {
+      const linkPath = join(tempDir, "providers", name, "skills", "my-skill");
+      const stats = await lstat(linkPath);
+      expect(stats.isSymbolicLink()).toBe(true);
+
+      // Verify symlink is relative, not absolute
+      const target = await readlink(linkPath);
+      expect(target.startsWith("/")).toBe(false);
+
+      // Verify relative path resolves correctly
+      const providerDir = join(tempDir, "providers", name, "skills");
+      const expectedRel = relative(providerDir, plan.targetDir);
+      expect(target).toBe(expectedRel);
+    }
+  });
+
+  test("replaces existing symlinks", async () => {
+    const { plan, providers } = await setupSourceAndPlan();
+
+    // Pre-create a stale symlink in the claude provider dir
+    const claudeDir = join(tempDir, "providers", "claude", "skills");
+    await mkdir(claudeDir, { recursive: true });
+    await symlink(
+      "/nonexistent/old-target",
+      join(claudeDir, "my-skill"),
+      "dir",
+    );
+
+    const result = await executeInstallAllProviders(plan, providers);
+    expect(result.success).toBe(true);
+
+    // Symlink should now point to the primary install, not the old target
+    const target = await readlink(join(claudeDir, "my-skill"));
+    const expectedRel = relative(claudeDir, plan.targetDir);
+    expect(target).toBe(expectedRel);
+  });
+
+  test("skips existing real directories instead of deleting them", async () => {
+    const { plan, providers } = await setupSourceAndPlan();
+
+    // Pre-create a real directory (not a symlink) in the codex provider dir
+    const codexSkillDir = join(
+      tempDir,
+      "providers",
+      "codex",
+      "skills",
+      "my-skill",
+    );
+    await mkdir(codexSkillDir, { recursive: true });
+    await writeFile(join(codexSkillDir, "important-file.txt"), "do not delete");
+
+    const result = await executeInstallAllProviders(plan, providers);
+    expect(result.success).toBe(true);
+
+    // Real directory should still exist untouched
+    const stats = await lstat(codexSkillDir);
+    expect(stats.isSymbolicLink()).toBe(false);
+    expect(stats.isDirectory()).toBe(true);
+
+    // Claude provider should still get a symlink
+    const claudeLink = join(
+      tempDir,
+      "providers",
+      "claude",
+      "skills",
+      "my-skill",
+    );
+    const claudeStats = await lstat(claudeLink);
+    expect(claudeStats.isSymbolicLink()).toBe(true);
+  });
+
+  test("result provider string contains 'All' with all provider labels", async () => {
+    const { plan, providers } = await setupSourceAndPlan();
+    const result = await executeInstallAllProviders(plan, providers);
+
+    expect(result.provider).toBe("All (Claude Code, Codex, Agents)");
   });
 });
 

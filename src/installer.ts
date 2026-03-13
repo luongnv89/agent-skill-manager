@@ -9,8 +9,11 @@ import {
   cp,
   access,
   stat,
+  lstat,
+  symlink,
+  mkdir,
 } from "fs/promises";
-import { join, resolve } from "path";
+import { join, resolve, relative } from "path";
 import { tmpdir } from "os";
 import { parseFrontmatter } from "./utils/frontmatter";
 import { resolveProviderPath } from "./config";
@@ -438,6 +441,49 @@ export async function executeInstall(
   };
 }
 
+export async function executeInstallAllProviders(
+  plan: InstallPlan,
+  allProviders: ProviderConfig[],
+): Promise<InstallResult> {
+  // Step 1: Install to the "agents" provider as primary (the canonical location)
+  const primaryResult = await executeInstall(plan);
+
+  // Step 2: Create symlinks in all other enabled providers
+  for (const provider of allProviders) {
+    if (provider.name === plan.providerName) continue; // skip primary
+
+    const providerDir = resolveProviderPath(provider.global);
+    const targetPath = join(providerDir, plan.skillName);
+
+    // Ensure parent directory exists
+    await mkdir(providerDir, { recursive: true });
+
+    // Remove existing symlink, or warn and skip if it's a real directory
+    try {
+      const stats = await lstat(targetPath);
+      if (stats.isSymbolicLink()) {
+        await rm(targetPath);
+      } else {
+        debug(
+          `install: skipping ${targetPath} — existing non-symlink directory`,
+        );
+        continue;
+      }
+    } catch {
+      // doesn't exist — fine
+    }
+
+    // Create relative symlink pointing to the primary install location
+    const relTarget = relative(providerDir, plan.targetDir);
+    await symlink(relTarget, targetPath, "dir");
+    debug(`install: symlinked ${targetPath} → ${relTarget}`);
+  }
+
+  // Update result to indicate all-providers install
+  primaryResult.provider = `All (${allProviders.map((p) => p.label).join(", ")})`;
+  return primaryResult;
+}
+
 export async function cleanupTemp(tempDir: string): Promise<void> {
   try {
     await rm(tempDir, { recursive: true, force: true });
@@ -452,7 +498,10 @@ export async function resolveProvider(
   config: AppConfig,
   providerName: string | null,
   isTTY: boolean,
-): Promise<ProviderConfig> {
+): Promise<{
+  provider: ProviderConfig;
+  allProviders: ProviderConfig[] | null;
+}> {
   const enabled = config.providers.filter((p) => p.enabled);
 
   if (enabled.length === 0) {
@@ -461,12 +510,19 @@ export async function resolveProvider(
     );
   }
 
+  // Handle "all" provider selection
+  if (providerName === "all") {
+    // Use "agents" as primary provider, or first enabled if "agents" not available
+    const primary = enabled.find((p) => p.name === "agents") || enabled[0];
+    return { provider: primary, allProviders: enabled };
+  }
+
   if (providerName) {
     const provider = config.providers.find((p) => p.name === providerName);
     if (!provider) {
       const validNames = config.providers.map((p) => p.name).join(", ");
       throw new Error(
-        `Unknown provider: "${providerName}". Valid providers: ${validNames}`,
+        `Unknown provider: "${providerName}". Valid providers: ${validNames}, all`,
       );
     }
     if (!provider.enabled) {
@@ -474,18 +530,18 @@ export async function resolveProvider(
         `Provider "${providerName}" is disabled. Enable it in your config or choose another provider.`,
       );
     }
-    return provider;
+    return { provider, allProviders: null };
   }
 
   // Auto-select if only one enabled
   if (enabled.length === 1) {
-    return enabled[0];
+    return { provider: enabled[0], allProviders: null };
   }
 
   if (!isTTY) {
     const names = enabled.map((p) => p.name).join(", ");
     throw new Error(
-      `--provider is required in non-interactive mode. Available: ${names}`,
+      `--provider is required in non-interactive mode. Available: ${names}, all`,
     );
   }
 
@@ -494,6 +550,9 @@ export async function resolveProvider(
   for (let i = 0; i < enabled.length; i++) {
     console.error(`  ${i + 1}) ${enabled[i].label} (${enabled[i].name})`);
   }
+  console.error(
+    `  ${enabled.length + 1}) All providers (shared .agents/skills/ + symlinks)`,
+  );
   process.stderr.write("\nEnter number: ");
 
   const answer = await new Promise<string>((resolve) => {
@@ -510,11 +569,16 @@ export async function resolveProvider(
   });
 
   const idx = parseInt(answer, 10) - 1;
+  if (idx === enabled.length) {
+    // "All providers" selected
+    const primary = enabled.find((p) => p.name === "agents") || enabled[0];
+    return { provider: primary, allProviders: enabled };
+  }
   if (isNaN(idx) || idx < 0 || idx >= enabled.length) {
     throw new Error("Invalid selection. Aborting.");
   }
 
-  return enabled[idx];
+  return { provider: enabled[idx], allProviders: null };
 }
 
 export function buildInstallPlan(

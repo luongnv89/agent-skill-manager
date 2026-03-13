@@ -26,12 +26,13 @@ import {
   discoverSkills,
   scanForWarnings,
   executeInstall,
+  executeInstallAllProviders,
   cleanupTemp,
   resolveProvider,
   buildInstallPlan,
   checkConflict,
 } from "./installer";
-import type { InstallResult, SkillInfo } from "./utils/types";
+import type { InstallResult, ProviderConfig, SkillInfo } from "./utils/types";
 import { checkHealth } from "./health";
 import { buildManifest } from "./exporter";
 import { scaffoldSkill, directoryExists } from "./initializer";
@@ -596,7 +597,8 @@ ${ansi.bold("Source Format:")}
   https://github.com/owner/repo  Install via HTTPS URL
 
 ${ansi.bold("Options:")}
-  -p, --provider <name>  Target provider (claude, codex, openclaw, agents)
+  -p, --provider <name>  Target provider (claude, codex, openclaw, agents, all)
+                         Use "all" to install to all providers (shared + symlinks)
   --name <name>          Override skill directory name
   --path <subdir>        Install skill from a subdirectory of the repo
   --all                  Install all skills found in the repo
@@ -610,10 +612,12 @@ ${ansi.bold("Single-skill repo:")}
   asm install github:user/my-skill
   asm install github:user/my-skill#v1.0.0 -p claude
   asm install https://github.com/user/my-skill
+  asm install github:user/my-skill -p all    ${ansi.dim("(install to all providers)")}
 
 ${ansi.bold("Multi-skill repo:")}
   asm install github:user/skills --path skills/code-review
   asm install github:user/skills --all -p claude -y
+  asm install github:user/skills --all -p all -y  ${ansi.dim("(all skills, all providers)")}
   asm install https://github.com/user/skills --all
   asm install github:user/skills              ${ansi.dim("(interactive picker)")}`);
 }
@@ -626,7 +630,8 @@ async function installSingleSkill(
   skillDir: string,
   skillNameOverride: string | null,
   config: Awaited<ReturnType<typeof loadConfig>>,
-  provider: Awaited<ReturnType<typeof resolveProvider>>,
+  provider: ProviderConfig,
+  allProviders: ProviderConfig[] | null,
 ): Promise<InstallResult> {
   // Validate
   const metadata = await validateSkill(skillDir);
@@ -659,7 +664,20 @@ async function installSingleSkill(
   console.error(`  Version:     ${metadata.version}`);
   console.error(`  Description: ${metadata.description || "(none)"}`);
   console.error(`  Source:      ${sourceStr}`);
-  console.error(`  Provider:    ${provider.label} (${provider.name})`);
+  if (allProviders) {
+    console.error(
+      `  Provider:    All (${allProviders.map((p) => p.label).join(", ")})`,
+    );
+    console.error(`  Primary:     ${provider.label} (${provider.name})`);
+    console.error(
+      `  Symlinks:    ${allProviders
+        .filter((p) => p.name !== provider.name)
+        .map((p) => p.label)
+        .join(", ")}`,
+    );
+  } else {
+    console.error(`  Provider:    ${provider.label} (${provider.name})`);
+  }
   console.error(`  Target:      ${plan.targetDir}`);
 
   if (warnings.length > 0) {
@@ -703,6 +721,9 @@ async function installSingleSkill(
 
   // Execute install
   console.error(`\nInstalling to ${plan.targetDir}...`);
+  if (allProviders) {
+    return await executeInstallAllProviders(plan, allProviders);
+  }
   return await executeInstall(plan);
 }
 
@@ -748,7 +769,7 @@ async function cmdInstall(args: ParsedArgs) {
 
     // Select provider early (needed for all paths)
     const config = await loadConfig();
-    const provider = await resolveProvider(
+    const { provider, allProviders } = await resolveProvider(
       config,
       args.flags.provider,
       !!process.stdin.isTTY,
@@ -777,6 +798,7 @@ async function cmdInstall(args: ParsedArgs) {
         args.flags.name,
         config,
         provider,
+        allProviders,
       );
       results.push(result);
 
@@ -800,6 +822,7 @@ async function cmdInstall(args: ParsedArgs) {
           args.flags.name,
           config,
           provider,
+          allProviders,
         );
         results.push(result);
 
@@ -887,6 +910,7 @@ async function cmdInstall(args: ParsedArgs) {
               selectedPaths.length === 1 ? args.flags.name : null,
               config,
               provider,
+              allProviders,
             );
             results.push(result);
             console.error(
@@ -1006,7 +1030,7 @@ async function cmdInit(args: ParsedArgs) {
   } else {
     // Resolve provider and scaffold in provider's skill directory
     const config = await loadConfig();
-    const provider = await resolveProvider(
+    const { provider } = await resolveProvider(
       config,
       args.flags.provider,
       !!process.stdin.isTTY,
@@ -1123,7 +1147,7 @@ async function cmdLink(args: ParsedArgs) {
 
   // Resolve provider
   const config = await loadConfig();
-  const provider = await resolveProvider(
+  const { provider } = await resolveProvider(
     config,
     args.flags.provider,
     !!process.stdin.isTTY,
