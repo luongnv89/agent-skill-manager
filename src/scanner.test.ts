@@ -201,7 +201,9 @@ describe("scanner verbose output", () => {
     setVerbose(true);
     const config = getDefaultConfig();
     await scanAllSkills(config, "global");
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     expect(output).toContain("[verbose]");
     expect(output).toContain("scanning:");
   });
@@ -210,7 +212,9 @@ describe("scanner verbose output", () => {
     setVerbose(false);
     const config = getDefaultConfig();
     await scanAllSkills(config, "global");
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     expect(output).not.toContain("[verbose]");
   });
 });

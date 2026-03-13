@@ -142,7 +142,9 @@ describe("config backup on corruption", () => {
     expect(backup).toBe("this is not valid json!!!");
 
     // Should have warned to stderr
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     expect(output).toContain("corrupted");
     expect(output).toContain(".bak");
   });
@@ -166,7 +168,9 @@ describe("config backup on corruption", () => {
     expect(backupExists).toBe(false);
 
     // Should NOT have warned
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     expect(output).not.toContain("corrupted");
   });
 
@@ -184,7 +188,9 @@ describe("config backup on corruption", () => {
     expect(backup).toBe("");
 
     // Should have warned
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     expect(output).toContain("corrupted");
   });
 });
@@ -204,7 +210,9 @@ describe("config verbose output", () => {
   it("emits debug lines when verbose is enabled", async () => {
     setVerbose(true);
     await loadConfig();
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     expect(output).toContain("[verbose]");
     expect(output).toContain("config:");
   });
@@ -212,7 +220,9 @@ describe("config verbose output", () => {
   it("logs 'loaded from' when config file exists", async () => {
     setVerbose(true);
     await loadConfig();
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     // Either loaded from file or using defaults — both are valid
     const hasLoaded =
       output.includes("loaded from") || output.includes("using defaults");
@@ -222,7 +232,9 @@ describe("config verbose output", () => {
   it("emits no debug lines when verbose is disabled", async () => {
     setVerbose(false);
     await loadConfig();
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     expect(output).not.toContain("[verbose]");
   });
 });

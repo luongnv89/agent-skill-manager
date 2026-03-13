@@ -537,7 +537,9 @@ describe("installer verbose output", () => {
   test("parseSource emits debug when verbose", () => {
     setVerbose(true);
     parseSource("github:alice/my-skill#v1.0");
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     expect(output).toContain("[verbose]");
     expect(output).toContain("install: parsed source");
     expect(output).toContain("owner=alice");
@@ -553,7 +555,9 @@ describe("installer verbose output", () => {
   test("checkGitAvailable emits debug when verbose", async () => {
     setVerbose(true);
     await checkGitAvailable();
-    const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+    const output = stderrSpy.mock.calls
+      .map((c: unknown[]) => c[0] as string)
+      .join("\n");
     expect(output).toContain("install: git available");
   });
 
@@ -562,7 +566,9 @@ describe("installer verbose output", () => {
     const tempDir = await mkdtemp(join(tmpdir(), "asm-test-verbose-"));
     try {
       await checkConflict(join(tempDir, "nonexistent"), false);
-      const output = stderrSpy.mock.calls.map((c) => c[0] as string).join("\n");
+      const output = stderrSpy.mock.calls
+        .map((c: unknown[]) => c[0] as string)
+        .join("\n");
       expect(output).toContain("install: target");
       expect(output).toContain("no conflict");
     } finally {
