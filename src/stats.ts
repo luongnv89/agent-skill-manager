@@ -72,7 +72,7 @@ export function formatHumanSize(bytes: number): string {
 function bar(value: number, maxValue: number, maxWidth: number = 20): string {
   const filled = Math.round((value / maxValue) * maxWidth);
   const empty = maxWidth - filled;
-  return ansi.green("█".repeat(filled)) + ansi.dim("░".repeat(empty));
+  return ansi.green("#".repeat(filled)) + ansi.dim("-".repeat(empty));
 }
 
 // ─── Provider label mapping ─────────────────────────────────────────────────
