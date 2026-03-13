@@ -14,6 +14,7 @@ import {
 import {
   formatSkillTable,
   formatSkillDetail,
+  formatSkillInspect,
   formatJSON,
   ansi,
 } from "./formatter";
@@ -373,10 +374,7 @@ async function cmdInspect(args: ParsedArgs) {
   if (args.flags.json) {
     console.log(formatJSON(matches.length === 1 ? matches[0] : matches));
   } else {
-    for (let i = 0; i < matches.length; i++) {
-      if (i > 0) console.log("\n" + "-".repeat(40) + "\n");
-      console.log(await formatSkillDetail(matches[i]));
-    }
+    console.log(await formatSkillInspect(matches));
   }
 }
 

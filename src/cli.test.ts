@@ -611,8 +611,6 @@ describe("CLI integration: inspect", () => {
     expect(exitCode).toBe(0);
     expect(stdout).toContain("Name:");
     expect(stdout).toContain("Version:");
-    expect(stdout).toContain("Provider:");
-    expect(stdout).toContain("Scope:");
     expect(stdout).toContain("Path:");
   });
 });

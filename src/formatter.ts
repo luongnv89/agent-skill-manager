@@ -97,6 +97,118 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   return lines.join("\n");
 }
 
+// ─── Multi-instance detail formatter ────────────────────────────────────────
+
+export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
+  if (skills.length === 0) return "No skills found.";
+  if (skills.length === 1) return formatSkillDetail(skills[0]);
+
+  const lines: string[] = [];
+  const label = (key: string, value: string) =>
+    `${useColor() ? ansi.bold(key + ":") : key + ":"} ${value}`;
+  const ref = skills[0];
+
+  // ── Header ──
+  const title = ` ${ref.name} `;
+  const bar = "=".repeat(Math.max(title.length, 40));
+  lines.push(useColor() ? ansi.blueBold(bar) : bar);
+  lines.push(useColor() ? ansi.blueBold(title) : title);
+  lines.push(useColor() ? ansi.blueBold(bar) : bar);
+  lines.push("");
+
+  // ── Shared info ──
+  lines.push(label("Name", ref.name));
+  lines.push(
+    label("Version", useColor() ? ansi.green(ref.version) : ref.version),
+  );
+
+  const fileCount = ref.fileCount ?? (await countFiles(ref.path));
+  lines.push(label("File Count", String(fileCount)));
+
+  lines.push(
+    label(
+      "Installed in",
+      useColor()
+        ? ansi.cyan(`${skills.length} providers`)
+        : `${skills.length} providers`,
+    ),
+  );
+
+  // ── Description ──
+  if (ref.description) {
+    lines.push("");
+    const descHeader = "Description";
+    lines.push(useColor() ? ansi.bold(descHeader + ":") : descHeader + ":");
+    // Word-wrap description to ~76 chars with 2-space indent
+    const wrapped = wordWrap(ref.description, 76);
+    for (const wl of wrapped) {
+      lines.push("  " + wl);
+    }
+  }
+
+  // ── Installations table ──
+  lines.push("");
+  const instHeader = `Installations (${skills.length})`;
+  lines.push(useColor() ? ansi.bold(instHeader) : instHeader);
+  lines.push("-".repeat(instHeader.length));
+
+  for (let i = 0; i < skills.length; i++) {
+    const s = skills[i];
+    const idx = useColor() ? ansi.dim(`[${i + 1}]`) : `[${i + 1}]`;
+    const provider = useColor() ? ansi.cyan(s.providerLabel) : s.providerLabel;
+    const type = s.isSymlink
+      ? useColor()
+        ? ansi.yellow("symlink")
+        : "symlink"
+      : useColor()
+        ? ansi.green("directory")
+        : "directory";
+    const scope = useColor() ? ansi.dim(s.scope) : s.scope;
+
+    lines.push(`${idx} ${provider} (${scope}, ${type})`);
+    lines.push(`    ${label("Path", s.path)}`);
+    if (s.isSymlink && s.symlinkTarget) {
+      lines.push(`    ${label("Target", s.symlinkTarget)}`);
+    }
+    if (i < skills.length - 1) lines.push("");
+  }
+
+  // ── Warnings (aggregate) ──
+  const allWarnings = skills.flatMap((s) => {
+    if (!s.warnings || s.warnings.length === 0) return [];
+    return s.warnings.map((w) => ({ ...w, provider: s.providerLabel }));
+  });
+
+  if (allWarnings.length > 0) {
+    lines.push("");
+    const warnHeader = `Warnings (${allWarnings.length})`;
+    lines.push(useColor() ? ansi.bold(warnHeader) : warnHeader);
+    lines.push("-".repeat(warnHeader.length));
+    for (const w of allWarnings) {
+      const icon = useColor() ? ansi.yellow("!") : "!";
+      lines.push(`  ${icon} [${w.category}] ${w.message}`);
+    }
+  }
+
+  return lines.join("\n");
+}
+
+function wordWrap(text: string, maxWidth: number): string[] {
+  const words = text.split(/\s+/);
+  const lines: string[] = [];
+  let current = "";
+  for (const word of words) {
+    if (current.length + word.length + 1 > maxWidth && current.length > 0) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = current ? current + " " + word : word;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
 // ─── JSON formatter ─────────────────────────────────────────────────────────
 
 export function formatJSON(data: unknown): string {

@@ -2,6 +2,7 @@ import { describe, test, expect, beforeEach, afterEach } from "bun:test";
 import {
   formatSkillTable,
   formatSkillDetail,
+  formatSkillInspect,
   formatJSON,
   ansi,
 } from "./formatter";
@@ -186,6 +187,145 @@ describe("formatSkillDetail", () => {
     const descIndex = lines.findIndex((l) => l.includes("Description:"));
     // There should be a blank line before the description
     expect(lines[descIndex - 1]).toBe("");
+  });
+});
+
+// ─── formatSkillInspect ────────────────────────────────────────────────────
+
+describe("formatSkillInspect", () => {
+  beforeEach(() => {
+    (globalThis as any).__CLI_NO_COLOR = true;
+  });
+  afterEach(() => {
+    delete (globalThis as any).__CLI_NO_COLOR;
+  });
+
+  test("single skill delegates to formatSkillDetail", async () => {
+    const skill = makeSkill();
+    const inspect = await formatSkillInspect([skill]);
+    const detail = await formatSkillDetail(skill);
+    expect(inspect).toBe(detail);
+  });
+
+  test("empty array returns no skills message", async () => {
+    const output = await formatSkillInspect([]);
+    expect(output).toBe("No skills found.");
+  });
+
+  test("multi-instance shows header banner", async () => {
+    const skills = [
+      makeSkill({ providerLabel: "Claude Code", provider: "claude" }),
+      makeSkill({
+        providerLabel: "Codex",
+        provider: "codex",
+        path: "/home/user/.codex/skills/test-skill",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).toContain("========");
+    expect(output).toContain(" test-skill ");
+  });
+
+  test("multi-instance shows shared info once", async () => {
+    const skills = [
+      makeSkill({ providerLabel: "Claude Code" }),
+      makeSkill({
+        providerLabel: "Codex",
+        path: "/home/user/.codex/skills/test-skill",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).toContain("Name: test-skill");
+    expect(output).toContain("Version: 1.0.0");
+    expect(output).toContain("Installed in: 2 providers");
+  });
+
+  test("multi-instance shows installation entries", async () => {
+    const skills = [
+      makeSkill({ providerLabel: "Claude Code" }),
+      makeSkill({
+        providerLabel: "Codex",
+        path: "/home/user/.codex/skills/test-skill",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).toContain("[1] Claude Code (global, directory)");
+    expect(output).toContain("[2] Codex (global, directory)");
+    expect(output).toContain("Installations (2)");
+  });
+
+  test("multi-instance shows symlink info per installation", async () => {
+    const skills = [
+      makeSkill({
+        providerLabel: "Claude Code",
+        isSymlink: true,
+        symlinkTarget: "/opt/target",
+      }),
+      makeSkill({
+        providerLabel: "Codex",
+        path: "/home/user/.codex/skills/test-skill",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).toContain("[1] Claude Code (global, symlink)");
+    expect(output).toContain("Target: /opt/target");
+    expect(output).toContain("[2] Codex (global, directory)");
+  });
+
+  test("multi-instance shows description in wrapped block", async () => {
+    const skills = [
+      makeSkill({ description: "A short description" }),
+      makeSkill({
+        providerLabel: "Codex",
+        path: "/home/user/.codex/skills/test-skill",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).toContain("Description:");
+    expect(output).toContain("  A short description");
+  });
+
+  test("multi-instance omits description when empty", async () => {
+    const skills = [
+      makeSkill({ description: "" }),
+      makeSkill({
+        providerLabel: "Codex",
+        description: "",
+        path: "/home/user/.codex/skills/test-skill",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).not.toContain("Description:");
+  });
+
+  test("multi-instance aggregates warnings", async () => {
+    const skills = [
+      makeSkill({
+        providerLabel: "Claude Code",
+        warnings: [{ category: "missing-version", message: "No version" }],
+      }),
+      makeSkill({
+        providerLabel: "Codex",
+        path: "/home/user/.codex/skills/test-skill",
+        warnings: [{ category: "empty-body", message: "No body" }],
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).toContain("Warnings (2)");
+    expect(output).toContain("[missing-version] No version");
+    expect(output).toContain("[empty-body] No body");
+  });
+
+  test("multi-instance hides warnings section when none", async () => {
+    const skills = [
+      makeSkill({ providerLabel: "Claude Code" }),
+      makeSkill({
+        providerLabel: "Codex",
+        path: "/home/user/.codex/skills/test-skill",
+      }),
+    ];
+    const output = await formatSkillInspect(skills);
+    expect(output).not.toContain("Warnings");
   });
 });
 
