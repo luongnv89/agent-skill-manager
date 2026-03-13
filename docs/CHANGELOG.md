@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.0] - 2026-03-13
+
+### Added
+
+- `asm install github:user/repo` command for installing skills directly from GitHub repositories
+- `--verbose` / `-V` flag for debug output across all commands
+- Node.js compatibility layer, config backup, semver sort, readline safety, lazy file counts
+- `export`, `init`, `stats`, `link` commands and skill health warnings
+
+### Fixed
+
+- Pin @opentui/core to exact version 0.1.87 for stability
+- Make list table test resilient to environments without skills
+
 ## [1.3.0] - 2026-03-11
 
 ### Added
