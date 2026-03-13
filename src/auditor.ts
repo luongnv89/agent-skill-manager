@@ -1,4 +1,4 @@
-import { ansi } from "./formatter";
+import { ansi, colorProvider, shortenPath } from "./formatter";
 import type { SkillInfo, DuplicateGroup, AuditReport } from "./utils/types";
 
 // ─── Detection ─────────────────────────────────────────────────────────────
@@ -125,28 +125,35 @@ export function formatAuditReport(report: AuditReport): string {
   }
 
   const lines: string[] = [];
+  lines.push("");
   lines.push(
     ansi.bold(
-      `Found ${report.duplicateGroups.length} duplicate group(s) (${report.totalDuplicateInstances} total instances):`,
+      `  Found ${report.duplicateGroups.length} duplicate group(s) (${report.totalDuplicateInstances} total instances):`,
     ),
   );
   lines.push("");
 
   for (const group of report.duplicateGroups) {
     lines.push(
-      ansi.yellow(`  Group: "${group.key}" (${reasonLabel(group.reason)})`),
+      `  ${ansi.yellow(`"${group.key}"`)} ${ansi.dim(`(${reasonLabel(group.reason)})`)}`,
     );
     const sorted = sortInstancesForKeep(group.instances);
     for (let i = 0; i < sorted.length; i++) {
       const s = sorted[i];
-      const keepLabel = i === 0 ? ansi.green(" (recommended keep)") : "";
+      const provider = colorProvider(s.provider, s.providerLabel);
+      const keepTag = i === 0 ? ansi.green(" [keep]") : ansi.dim("       ");
+      const scope = ansi.dim(`(${s.scope})`);
       lines.push(
-        `    ${ansi.dim("•")} ${s.path}  [${s.providerLabel}/${s.scope}]${keepLabel}`,
+        `   ${keepTag} ${provider} ${scope}  ${ansi.dim(shortenPath(s.path))}`,
       );
     }
     lines.push("");
   }
 
+  lines.push(
+    ansi.dim(`  Run ${ansi.bold("asm audit -y")} to auto-remove duplicates`),
+  );
+  lines.push("");
   return lines.join("\n");
 }
 

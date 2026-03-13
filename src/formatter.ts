@@ -18,9 +18,42 @@ const ansi = {
   dim: (s: string) => (useColor() ? `\x1b[2m${s}\x1b[0m` : s),
   red: (s: string) => (useColor() ? `\x1b[31m${s}\x1b[0m` : s),
   blueBold: (s: string) => (useColor() ? `\x1b[1m\x1b[34m${s}\x1b[0m` : s),
+  magenta: (s: string) => (useColor() ? `\x1b[35m${s}\x1b[0m` : s),
+  bgDim: (s: string) => (useColor() ? `\x1b[48;5;236m${s}\x1b[0m` : s),
 };
 
 export { ansi };
+
+// ─── Provider colors ───────────────────────────────────────────────────────
+
+const PROVIDER_COLORS: Record<string, (s: string) => string> = {
+  claude: ansi.blueBold,
+  codex: ansi.cyan,
+  openclaw: ansi.yellow,
+  agents: ansi.green,
+  custom: ansi.magenta,
+};
+
+export function colorProvider(provider: string, label: string): string {
+  const colorFn = PROVIDER_COLORS[provider] || ansi.dim;
+  return colorFn(label);
+}
+
+function providerBadge(provider: string, label: string): string {
+  if (!useColor()) return `[${label}]`;
+  const colorFn = PROVIDER_COLORS[provider] || ansi.dim;
+  return colorFn(`[${label}]`);
+}
+
+// ─── Path shortening ───────────────────────────────────────────────────────
+
+export function shortenPath(fullPath: string): string {
+  const home = process.env.HOME || process.env.USERPROFILE || "";
+  if (home && fullPath.startsWith(home)) {
+    return "~" + fullPath.slice(home.length);
+  }
+  return fullPath;
+}
 
 // ─── Table formatter ────────────────────────────────────────────────────────
 
@@ -37,7 +70,7 @@ export function formatSkillTable(skills: SkillInfo[]): string {
     s.providerLabel,
     s.scope,
     s.isSymlink ? "symlink" : "directory",
-    s.path,
+    shortenPath(s.path),
   ]);
 
   // Calculate column widths
@@ -60,6 +93,193 @@ export function formatSkillTable(skills: SkillInfo[]): string {
   ].join("\n");
 }
 
+// ─── Grouped table formatter ────────────────────────────────────────────────
+
+interface GroupedSkill {
+  name: string;
+  version: string;
+  providers: Array<{ provider: string; label: string }>;
+  scope: "global" | "project" | "mixed";
+  type: "symlink" | "directory" | "mixed";
+  path: string;
+  warningCount: number;
+}
+
+function groupSkills(skills: SkillInfo[]): GroupedSkill[] {
+  const groups = new Map<string, SkillInfo[]>();
+
+  for (const s of skills) {
+    const key = `${s.dirName}||${s.scope}`;
+    const list = groups.get(key) ?? [];
+    list.push(s);
+    groups.set(key, list);
+  }
+
+  const result: GroupedSkill[] = [];
+  for (const [, members] of groups) {
+    const ref = members[0];
+    const scopes = new Set(members.map((m) => m.scope));
+    const types = new Set(
+      members.map((m) => (m.isSymlink ? "symlink" : "directory")),
+    );
+
+    result.push({
+      name: ref.name,
+      version: ref.version,
+      providers: members.map((m) => ({
+        provider: m.provider,
+        label: m.providerLabel,
+      })),
+      scope: scopes.size > 1 ? "mixed" : ref.scope,
+      type: types.size > 1 ? "mixed" : ref.isSymlink ? "symlink" : "directory",
+      path: shortenPath(ref.path),
+      warningCount: members.reduce(
+        (sum, m) => sum + (m.warnings?.length ?? 0),
+        0,
+      ),
+    });
+  }
+
+  return result;
+}
+
+export function formatGroupedTable(skills: SkillInfo[]): string {
+  if (skills.length === 0) {
+    return "No skills found.";
+  }
+
+  const grouped = groupSkills(skills);
+  const lines: string[] = [];
+
+  // Calculate column widths
+  const nameW = Math.max(4, ...grouped.map((g) => g.name.length));
+  const versionW = Math.max(7, ...grouped.map((g) => g.version.length));
+  const scopeW = 7; // "project" is longest
+  const typeW = 9; // "directory" is longest
+
+  // Build provider badges (measure without ANSI codes)
+  const providerStrs = grouped.map((g) =>
+    g.providers.map((p) => providerBadge(p.provider, p.label)).join(" "),
+  );
+  const providerPlain = grouped.map((g) =>
+    g.providers.map((p) => `[${p.label}]`).join(" "),
+  );
+  const providerW = Math.max(9, ...providerPlain.map((s) => s.length));
+
+  const pad = (s: string, w: number) => s.padEnd(w);
+
+  // Header
+  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Providers", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
+  lines.push(useColor() ? ansi.bold(header) : header);
+  lines.push(
+    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
+  );
+
+  // Data rows
+  for (let i = 0; i < grouped.length; i++) {
+    const g = grouped[i];
+    const name = pad(g.name, nameW);
+    const version = pad(g.version, versionW);
+    // Provider badges have ANSI codes, so we pad based on plain text width
+    const provPadding = providerW - providerPlain[i].length;
+    const prov = providerStrs[i] + " ".repeat(Math.max(0, provPadding));
+    const scope = pad(g.scope, scopeW);
+    const type = pad(g.type, typeW);
+    const warn =
+      g.warningCount > 0
+        ? ` ${ansi.yellow(`(${g.warningCount} warning${g.warningCount > 1 ? "s" : ""})`)}`
+        : "";
+
+    lines.push(`${name}  ${version}  ${prov}  ${scope}  ${type}${warn}`);
+  }
+
+  // Footer summary
+  const uniqueCount = grouped.length;
+  const totalCount = skills.length;
+  const providerSet = new Set(skills.map((s) => s.provider));
+  const globalCount = skills.filter((s) => s.scope === "global").length;
+  const projectCount = skills.filter((s) => s.scope === "project").length;
+
+  lines.push("");
+  const footer = `${totalCount} skills (${uniqueCount} unique) across ${providerSet.size} providers | ${globalCount} global, ${projectCount} project`;
+  lines.push(ansi.dim(footer));
+
+  return lines.join("\n");
+}
+
+// ─── Search result formatter ────────────────────────────────────────────────
+
+function highlightMatch(text: string, query: string): string {
+  if (!useColor() || !query) return text;
+  const idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return text;
+  const before = text.slice(0, idx);
+  const match = text.slice(idx, idx + query.length);
+  const after = text.slice(idx + query.length);
+  return `${before}${ansi.bold(ansi.yellow(match))}${after}`;
+}
+
+export function formatSearchResults(
+  skills: SkillInfo[],
+  query: string,
+): string {
+  if (skills.length === 0) {
+    return `No skills matching "${query}". Try ${ansi.bold("asm list")} to see all skills.`;
+  }
+
+  const grouped = groupSkills(skills);
+  const lines: string[] = [];
+
+  // Summary header
+  lines.push(
+    ansi.dim(
+      `Found ${skills.length} result${skills.length === 1 ? "" : "s"} (${grouped.length} unique) matching "${query}"`,
+    ) + "\n",
+  );
+
+  // Calculate column widths
+  const nameW = Math.max(4, ...grouped.map((g) => g.name.length));
+  const versionW = Math.max(7, ...grouped.map((g) => g.version.length));
+
+  const providerStrs = grouped.map((g) =>
+    g.providers.map((p) => providerBadge(p.provider, p.label)).join(" "),
+  );
+  const providerPlain = grouped.map((g) =>
+    g.providers.map((p) => `[${p.label}]`).join(" "),
+  );
+  const providerW = Math.max(9, ...providerPlain.map((s) => s.length));
+
+  const scopeW = 7;
+  const typeW = 9;
+
+  const pad = (s: string, w: number) => s.padEnd(w);
+
+  // Header
+  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Providers", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
+  lines.push(useColor() ? ansi.bold(header) : header);
+  lines.push(
+    `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
+  );
+
+  // Data rows with highlighting
+  for (let i = 0; i < grouped.length; i++) {
+    const g = grouped[i];
+    const nameHighlighted = highlightMatch(g.name, query);
+    // Pad based on original name length (without ANSI)
+    const namePad = nameW - g.name.length;
+    const name = nameHighlighted + " ".repeat(Math.max(0, namePad));
+    const version = pad(g.version, versionW);
+    const provPadding = providerW - providerPlain[i].length;
+    const prov = providerStrs[i] + " ".repeat(Math.max(0, provPadding));
+    const scope = pad(g.scope, scopeW);
+    const type = pad(g.type, typeW);
+
+    lines.push(`${name}  ${version}  ${prov}  ${scope}  ${type}`);
+  }
+
+  return lines.join("\n");
+}
+
 // ─── Detail formatter ───────────────────────────────────────────────────────
 
 export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
@@ -72,7 +292,7 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   lines.push(label("Provider", skill.providerLabel));
   lines.push(label("Scope", skill.scope));
   lines.push(label("Location", skill.location));
-  lines.push(label("Path", skill.path));
+  lines.push(label("Path", shortenPath(skill.path)));
   lines.push(label("Type", skill.isSymlink ? "symlink" : "directory"));
   if (skill.isSymlink && skill.symlinkTarget) {
     lines.push(label("Symlink Target", skill.symlinkTarget));
@@ -109,53 +329,48 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   const ref = skills[0];
 
   // ── Header ──
-  const title = ` ${ref.name} `;
-  const bar = "=".repeat(Math.max(title.length, 40));
-  lines.push(useColor() ? ansi.blueBold(bar) : bar);
-  lines.push(useColor() ? ansi.blueBold(title) : title);
-  lines.push(useColor() ? ansi.blueBold(bar) : bar);
+  const title = ref.name;
+  lines.push("");
+  lines.push(useColor() ? ansi.blueBold(`  ${title}`) : `  ${title}`);
+  lines.push(
+    useColor()
+      ? ansi.dim("  " + "-".repeat(title.length + 2))
+      : "  " + "-".repeat(title.length + 2),
+  );
   lines.push("");
 
   // ── Shared info ──
-  lines.push(label("Name", ref.name));
   lines.push(
-    label("Version", useColor() ? ansi.green(ref.version) : ref.version),
+    label("  Version", useColor() ? ansi.green(ref.version) : ref.version),
   );
 
   const fileCount = ref.fileCount ?? (await countFiles(ref.path));
-  lines.push(label("File Count", String(fileCount)));
+  lines.push(label("  File Count", String(fileCount)));
 
-  lines.push(
-    label(
-      "Installed in",
-      useColor()
-        ? ansi.cyan(`${skills.length} providers`)
-        : `${skills.length} providers`,
-    ),
-  );
+  // Provider badges
+  const badges = skills
+    .map((s) => providerBadge(s.provider, s.providerLabel))
+    .join(" ");
+  lines.push(label("  Installed in", badges));
 
   // ── Description ──
   if (ref.description) {
     lines.push("");
-    const descHeader = "Description";
-    lines.push(useColor() ? ansi.bold(descHeader + ":") : descHeader + ":");
-    // Word-wrap description to ~76 chars with 2-space indent
-    const wrapped = wordWrap(ref.description, 76);
+    lines.push(useColor() ? ansi.bold("  Description:") : "  Description:");
+    const wrapped = wordWrap(ref.description, 72);
     for (const wl of wrapped) {
-      lines.push("  " + wl);
+      lines.push("    " + wl);
     }
   }
 
-  // ── Installations table ──
+  // ── Installations ──
   lines.push("");
-  const instHeader = `Installations (${skills.length})`;
+  const instHeader = `  Installations (${skills.length})`;
   lines.push(useColor() ? ansi.bold(instHeader) : instHeader);
-  lines.push("-".repeat(instHeader.length));
 
   for (let i = 0; i < skills.length; i++) {
     const s = skills[i];
-    const idx = useColor() ? ansi.dim(`[${i + 1}]`) : `[${i + 1}]`;
-    const provider = useColor() ? ansi.cyan(s.providerLabel) : s.providerLabel;
+    const provider = colorProvider(s.provider, s.providerLabel);
     const type = s.isSymlink
       ? useColor()
         ? ansi.yellow("symlink")
@@ -163,14 +378,13 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
       : useColor()
         ? ansi.green("directory")
         : "directory";
-    const scope = useColor() ? ansi.dim(s.scope) : s.scope;
+    const scope = ansi.dim(s.scope);
 
-    lines.push(`${idx} ${provider} (${scope}, ${type})`);
-    lines.push(`    ${label("Path", s.path)}`);
+    lines.push(`    ${provider} (${scope}, ${type})`);
+    lines.push(`      ${ansi.dim("Path:")} ${shortenPath(s.path)}`);
     if (s.isSymlink && s.symlinkTarget) {
-      lines.push(`    ${label("Target", s.symlinkTarget)}`);
+      lines.push(`      ${ansi.dim("Target:")} ${s.symlinkTarget}`);
     }
-    if (i < skills.length - 1) lines.push("");
   }
 
   // ── Warnings (aggregate) ──
@@ -181,15 +395,15 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
 
   if (allWarnings.length > 0) {
     lines.push("");
-    const warnHeader = `Warnings (${allWarnings.length})`;
+    const warnHeader = `  Warnings (${allWarnings.length})`;
     lines.push(useColor() ? ansi.bold(warnHeader) : warnHeader);
-    lines.push("-".repeat(warnHeader.length));
     for (const w of allWarnings) {
       const icon = useColor() ? ansi.yellow("!") : "!";
-      lines.push(`  ${icon} [${w.category}] ${w.message}`);
+      lines.push(`    ${icon} [${w.category}] ${w.message}`);
     }
   }
 
+  lines.push("");
   return lines.join("\n");
 }
 

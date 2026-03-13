@@ -1,6 +1,6 @@
 import { readdir, stat } from "fs/promises";
 import { join } from "path";
-import { ansi } from "./formatter";
+import { ansi, colorProvider } from "./formatter";
 import type { SkillInfo, AuditReport, StatsReport } from "./utils/types";
 
 export async function dirSize(dirPath: string): Promise<number> {
@@ -67,41 +67,85 @@ export function formatHumanSize(bytes: number): string {
   return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
 }
 
+// ─── Bar chart helper ───────────────────────────────────────────────────────
+
+function bar(value: number, maxValue: number, maxWidth: number = 20): string {
+  const filled = Math.round((value / maxValue) * maxWidth);
+  const empty = maxWidth - filled;
+  return ansi.green("█".repeat(filled)) + ansi.dim("░".repeat(empty));
+}
+
+// ─── Provider label mapping ─────────────────────────────────────────────────
+
+const PROVIDER_LABELS: Record<string, string> = {
+  claude: "Claude Code",
+  codex: "Codex",
+  openclaw: "OpenClaw",
+  agents: "Agents",
+};
+
 export function formatStatsReport(report: StatsReport): string {
   const lines: string[] = [];
-  const label = (key: string, value: string) =>
-    `${ansi.bold(key + ":")} ${value}`;
 
-  lines.push(ansi.bold("Skill Statistics"));
+  // Title
   lines.push("");
-  lines.push(label("Total Skills", String(report.totalSkills)));
-  lines.push(label("Disk Usage", formatHumanSize(report.totalDiskBytes)));
+  lines.push(ansi.blueBold("  Skill Statistics"));
+  lines.push(ansi.dim("  " + "-".repeat(20)));
   lines.push("");
 
-  // By provider
-  lines.push(ansi.bold("By Provider:"));
-  for (const [provider, count] of Object.entries(report.byProvider).sort(
+  // Overview
+  lines.push(
+    `  ${ansi.bold("Total:")}      ${ansi.cyan(String(report.totalSkills))} skills`,
+  );
+  lines.push(
+    `  ${ansi.bold("Disk:")}       ${ansi.cyan(formatHumanSize(report.totalDiskBytes))}`,
+  );
+  lines.push("");
+
+  // By Provider (with bar chart)
+  lines.push(ansi.bold("  By Provider"));
+  const providerEntries = Object.entries(report.byProvider).sort(
     (a, b) => b[1] - a[1],
-  )) {
-    lines.push(`  ${provider}: ${count}`);
+  );
+  const maxProviderCount = Math.max(...providerEntries.map(([, c]) => c));
+  const labelWidth = Math.max(
+    ...providerEntries.map(([p]) => (PROVIDER_LABELS[p] || p).length),
+  );
+
+  for (const [provider, count] of providerEntries) {
+    const label = PROVIDER_LABELS[provider] || provider;
+    const coloredLabel = colorProvider(provider, label.padEnd(labelWidth));
+    const countStr = String(count).padStart(4);
+    lines.push(
+      `    ${coloredLabel}  ${countStr}  ${bar(count, maxProviderCount)}`,
+    );
   }
   lines.push("");
 
-  // By scope
-  lines.push(ansi.bold("By Scope:"));
-  lines.push(`  global: ${report.byScope.global}`);
-  lines.push(`  project: ${report.byScope.project}`);
+  // By Scope (with bar chart)
+  lines.push(ansi.bold("  By Scope"));
+  const maxScopeCount = Math.max(report.byScope.global, report.byScope.project);
+  const globalStr = String(report.byScope.global).padStart(4);
+  const projectStr = String(report.byScope.project).padStart(4);
+  lines.push(
+    `    ${"global ".padEnd(labelWidth)}  ${globalStr}  ${bar(report.byScope.global, maxScopeCount)}`,
+  );
+  lines.push(
+    `    ${"project".padEnd(labelWidth)}  ${projectStr}  ${bar(report.byScope.project, maxScopeCount)}`,
+  );
   lines.push("");
 
   // Duplicates
-  lines.push(ansi.bold("Duplicates:"));
+  lines.push(ansi.bold("  Duplicates"));
   if (report.duplicateGroups > 0) {
     lines.push(
-      `  ${ansi.yellow(`${report.duplicateGroups} group(s), ${report.duplicateInstances} total instance(s)`)}`,
+      `    ${ansi.yellow(`${report.duplicateGroups} group(s), ${report.duplicateInstances} total instance(s)`)}`,
     );
+    lines.push(ansi.dim(`    Run ${ansi.bold("asm audit")} to review`));
   } else {
-    lines.push(`  ${ansi.green("None")}`);
+    lines.push(`    ${ansi.green("None")}`);
   }
 
+  lines.push("");
   return lines.join("\n");
 }

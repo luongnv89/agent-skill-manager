@@ -13,10 +13,13 @@ import {
 } from "./uninstaller";
 import {
   formatSkillTable,
+  formatGroupedTable,
   formatSkillDetail,
   formatSkillInspect,
+  formatSearchResults,
   formatJSON,
   ansi,
+  shortenPath,
 } from "./formatter";
 import {
   parseSource,
@@ -69,6 +72,7 @@ interface ParsedArgs {
     path: string | null;
     all: boolean;
     verbose: boolean;
+    flat: boolean;
   };
 }
 
@@ -93,6 +97,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       path: null,
       all: false,
       verbose: false,
+      flat: false,
     },
   };
 
@@ -144,6 +149,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       result.flags.all = true;
     } else if (arg === "--verbose" || arg === "-V") {
       result.flags.verbose = true;
+    } else if (arg === "--flat") {
+      result.flags.flat = true;
     } else if (arg.startsWith("-")) {
       error(`Unknown option: ${arg}`);
       console.error(`Run "asm --help" for usage.`);
@@ -203,8 +210,10 @@ ${ansi.bold("Global Options:")}
   -v, --version          Print version and exit
   --json                 Output as JSON (list, search, inspect)
   -s, --scope <scope>    Filter: global, project, or both (default: both)
+  -p, --provider <name>  Filter by provider (list, search)
   --no-color             Disable ANSI colors
   --sort <field>         Sort by: name, version, or location (default: name)
+  --flat                 Show one row per provider instance (list, search)
   -y, --yes              Skip confirmation prompts
   -V, --verbose          Show debug output`);
 }
@@ -212,57 +221,90 @@ ${ansi.bold("Global Options:")}
 function printListHelp() {
   console.log(`${ansi.bold("Usage:")} asm list [options]
 
-List all discovered skills.
+List all discovered skills. By default, skills installed across multiple
+providers are grouped into a single row with provider badges.
 
 ${ansi.bold("Options:")}
-  --sort <field>     Sort by: name, version, or location (default: name)
-  -s, --scope <s>    Filter: global, project, or both (default: both)
-  --json             Output as JSON array
-  --no-color         Disable ANSI colors
-  -V, --verbose      Show debug output`);
+  --sort <field>       Sort by: name, version, or location (default: name)
+  -s, --scope <s>      Filter: global, project, or both (default: both)
+  -p, --provider <p>   Filter by provider (claude, codex, openclaw, agents)
+  --flat               Show one row per provider instance (ungrouped)
+  --json               Output as JSON array
+  --no-color           Disable ANSI colors
+  -V, --verbose        Show debug output
+
+${ansi.bold("Examples:")}
+  asm list                          ${ansi.dim("List all skills (grouped)")}
+  asm list --flat                   ${ansi.dim("One row per provider instance")}
+  asm list -p claude                ${ansi.dim("Only Claude Code skills")}
+  asm list -s project               ${ansi.dim("Only project-scoped skills")}
+  asm list --sort version           ${ansi.dim("Sort by version")}
+  asm list --json                   ${ansi.dim("Output as JSON")}`);
 }
 
 function printSearchHelp() {
   console.log(`${ansi.bold("Usage:")} asm search <query> [options]
 
-Search skills by name, description, or provider.
+Search skills by name, description, or provider. Matching terms are
+highlighted in the output.
 
 ${ansi.bold("Options:")}
-  --sort <field>     Sort by: name, version, or location (default: name)
-  -s, --scope <s>    Filter: global, project, or both (default: both)
-  --json             Output as JSON array
-  --no-color         Disable ANSI colors
-  -V, --verbose      Show debug output`);
+  --sort <field>       Sort by: name, version, or location (default: name)
+  -s, --scope <s>      Filter: global, project, or both (default: both)
+  -p, --provider <p>   Filter by provider (claude, codex, openclaw, agents)
+  --flat               Show one row per provider instance (ungrouped)
+  --json               Output as JSON array
+  --no-color           Disable ANSI colors
+  -V, --verbose        Show debug output
+
+${ansi.bold("Examples:")}
+  asm search code                   ${ansi.dim("Search for 'code' in all fields")}
+  asm search review -p claude       ${ansi.dim("Search within Claude Code only")}
+  asm search "test" -s global       ${ansi.dim("Search global skills only")}
+  asm search openspec --json        ${ansi.dim("Output matches as JSON")}`);
 }
 
 function printInspectHelp() {
   console.log(`${ansi.bold("Usage:")} asm inspect <skill-name> [options]
 
 Show detailed information for a skill. The <skill-name> is the directory name.
+Shows version, description, file count, and all provider installations.
 
 ${ansi.bold("Options:")}
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --json             Output as JSON object
   --no-color         Disable ANSI colors
-  -V, --verbose      Show debug output`);
+  -V, --verbose      Show debug output
+
+${ansi.bold("Examples:")}
+  asm inspect code-review           ${ansi.dim("Show details for code-review")}
+  asm inspect code-review --json    ${ansi.dim("Output as JSON")}
+  asm inspect code-review -s global ${ansi.dim("Global installations only")}`);
 }
 
 function printUninstallHelp() {
   console.log(`${ansi.bold("Usage:")} asm uninstall <skill-name> [options]
 
-Remove a skill and its associated rule files.
+Remove a skill and its associated rule files. Shows a removal plan
+before proceeding and asks for confirmation.
 
 ${ansi.bold("Options:")}
   -y, --yes          Skip confirmation prompt
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --no-color         Disable ANSI colors
-  -V, --verbose      Show debug output`);
+  -V, --verbose      Show debug output
+
+${ansi.bold("Examples:")}
+  asm uninstall code-review         ${ansi.dim("Remove with confirmation")}
+  asm uninstall code-review -y      ${ansi.dim("Remove without confirmation")}
+  asm uninstall code-review -s project  ${ansi.dim("Remove project copy only")}`);
 }
 
 function printAuditHelp() {
   console.log(`${ansi.bold("Usage:")} asm audit [subcommand] [options]
 
-Detect and optionally remove duplicate skills.
+Detect and optionally remove duplicate skills. Duplicate detection
+considers both directory names and SKILL.md frontmatter names.
 
 ${ansi.bold("Subcommands:")}
   duplicates   Find duplicate skills (default)
@@ -271,13 +313,18 @@ ${ansi.bold("Options:")}
   --json             Output as JSON
   -y, --yes          Auto-remove duplicates, keeping one instance per group
   --no-color         Disable ANSI colors
-  -V, --verbose      Show debug output`);
+  -V, --verbose      Show debug output
+
+${ansi.bold("Examples:")}
+  asm audit                         ${ansi.dim("Find duplicates")}
+  asm audit -y                      ${ansi.dim("Auto-remove duplicates")}
+  asm audit --json                  ${ansi.dim("Output as JSON")}`);
 }
 
 function printConfigHelp() {
   console.log(`${ansi.bold("Usage:")} asm config <subcommand>
 
-Manage configuration.
+Manage configuration. Config is stored at ~/.config/agent-skill-manager/.
 
 ${ansi.bold("Subcommands:")}
   show     Print current config as JSON
@@ -286,7 +333,12 @@ ${ansi.bold("Subcommands:")}
   edit     Open config in $EDITOR
 
 ${ansi.bold("Options:")}
-  -V, --verbose      Show debug output`);
+  -V, --verbose      Show debug output
+
+${ansi.bold("Examples:")}
+  asm config show                   ${ansi.dim("View current config")}
+  asm config edit                   ${ansi.dim("Edit in $EDITOR")}
+  asm config reset -y               ${ansi.dim("Reset without confirmation")}`);
 }
 
 // ─── Command Handlers ───────────────────────────────────────────────────────
@@ -304,13 +356,19 @@ async function cmdList(args: ParsedArgs) {
   }
 
   const config = await loadConfig();
-  const allSkills = await scanAllSkills(config, args.flags.scope);
+  let allSkills = await scanAllSkills(config, args.flags.scope);
+
+  // Provider filter (for list/search — not for install/init where it means target)
+  if (args.flags.provider && args.command === "list") {
+    allSkills = allSkills.filter((s) => s.provider === args.flags.provider);
+  }
+
   await enrichWithHealth(allSkills);
   const sorted = sortSkills(allSkills, args.flags.sort);
 
   if (args.flags.json) {
     console.log(formatJSON(sorted));
-  } else {
+  } else if (args.flags.flat) {
     let output = formatSkillTable(sorted);
     const withWarnings = sorted.filter(
       (s) => s.warnings && s.warnings.length > 0,
@@ -319,6 +377,8 @@ async function cmdList(args: ParsedArgs) {
       output += `\n${ansi.yellow(`${withWarnings.length} skill${withWarnings.length === 1 ? "" : "s"} with warnings -- use --json for details`)}`;
     }
     console.log(output);
+  } else {
+    console.log(formatGroupedTable(sorted));
   }
 }
 
@@ -336,14 +396,22 @@ async function cmdSearch(args: ParsedArgs) {
   }
 
   const config = await loadConfig();
-  const allSkills = await scanAllSkills(config, args.flags.scope);
+  let allSkills = await scanAllSkills(config, args.flags.scope);
+
+  // Provider filter
+  if (args.flags.provider) {
+    allSkills = allSkills.filter((s) => s.provider === args.flags.provider);
+  }
+
   const filtered = searchSkills(allSkills, query);
   const sorted = sortSkills(filtered, args.flags.sort);
 
   if (args.flags.json) {
     console.log(formatJSON(sorted));
-  } else {
+  } else if (args.flags.flat) {
     console.log(formatSkillTable(sorted));
+  } else {
+    console.log(formatSearchResults(sorted, query));
   }
 }
 
@@ -366,6 +434,11 @@ async function cmdInspect(args: ParsedArgs) {
 
   if (matches.length === 0) {
     error(`Skill "${skillName}" not found.`);
+    console.error(
+      ansi.dim(
+        `Try ${ansi.bold("asm list")} to see all skills or ${ansi.bold(`asm search "${skillName}"`)} to search.`,
+      ),
+    );
     process.exit(1);
   }
 
@@ -404,7 +477,7 @@ async function cmdUninstall(args: ParsedArgs) {
   // Show removal plan
   console.error(ansi.bold("Removal plan:"));
   for (const target of existing) {
-    console.error(`  ${ansi.red("•")} ${target}`);
+    console.error(`  ${ansi.red("•")} ${shortenPath(target)}`);
   }
 
   if (!args.flags.yes) {
@@ -1026,12 +1099,18 @@ async function cmdInstall(args: ParsedArgs) {
 function printExportHelp() {
   console.log(`${ansi.bold("Usage:")} asm export [options]
 
-Export skill inventory as a portable JSON manifest.
+Export skill inventory as a portable JSON manifest. Useful for backup,
+sharing, or scripting.
 
 ${ansi.bold("Options:")}
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --no-color         Disable ANSI colors
-  -V, --verbose      Show debug output`);
+  -V, --verbose      Show debug output
+
+${ansi.bold("Examples:")}
+  asm export                        ${ansi.dim("Export all skills")}
+  asm export -s global              ${ansi.dim("Export global skills only")}
+  asm export > skills.json          ${ansi.dim("Save to file")}`);
 }
 
 async function cmdExport(args: ParsedArgs) {
@@ -1051,14 +1130,20 @@ async function cmdExport(args: ParsedArgs) {
 function printInitHelp() {
   console.log(`${ansi.bold("Usage:")} asm init <name> [options]
 
-Scaffold a new skill directory with a SKILL.md template.
+Scaffold a new skill directory with a SKILL.md template. Creates a
+ready-to-edit skill in the target provider's skill folder.
 
 ${ansi.bold("Options:")}
   -p, --provider <name>  Target provider (claude, codex, openclaw, agents)
   --path <dir>           Scaffold in specified directory instead of provider path
   -f, --force            Overwrite if skill already exists
   --no-color             Disable ANSI colors
-  -V, --verbose          Show debug output`);
+  -V, --verbose          Show debug output
+
+${ansi.bold("Examples:")}
+  asm init my-skill                 ${ansi.dim("Scaffold (interactive provider)")}
+  asm init my-skill -p claude       ${ansi.dim("Scaffold in Claude Code")}
+  asm init my-skill --path ./skills ${ansi.dim("Scaffold in custom directory")}`);
 }
 
 async function cmdInit(args: ParsedArgs) {
@@ -1130,13 +1215,19 @@ async function cmdInit(args: ParsedArgs) {
 function printStatsHelp() {
   console.log(`${ansi.bold("Usage:")} asm stats [options]
 
-Show aggregate skill metrics dashboard.
+Show aggregate skill metrics with provider distribution charts,
+scope breakdown, disk usage, and duplicate summary.
 
 ${ansi.bold("Options:")}
   --json             Output as JSON
   -s, --scope <s>    Filter: global, project, or both (default: both)
   --no-color         Disable ANSI colors
-  -V, --verbose      Show debug output`);
+  -V, --verbose      Show debug output
+
+${ansi.bold("Examples:")}
+  asm stats                         ${ansi.dim("Show full dashboard")}
+  asm stats -s global               ${ansi.dim("Global skills only")}
+  asm stats --json                  ${ansi.dim("Output raw data as JSON")}`);
 }
 
 async function cmdStats(args: ParsedArgs) {
@@ -1157,7 +1248,13 @@ async function cmdStats(args: ParsedArgs) {
   const report = await computeStats(allSkills, duplicates);
 
   if (args.flags.json) {
-    console.log(formatJSON(report));
+    if (!args.flags.verbose) {
+      // Omit per-skill disk bytes for cleaner JSON output
+      const { perSkillDiskBytes: _, ...summary } = report;
+      console.log(formatJSON(summary));
+    } else {
+      console.log(formatJSON(report));
+    }
   } else {
     console.log(formatStatsReport(report));
   }
@@ -1168,7 +1265,8 @@ async function cmdStats(args: ParsedArgs) {
 function printLinkHelp() {
   console.log(`${ansi.bold("Usage:")} asm link <path> [options]
 
-Symlink a local skill directory into an agent's skill folder.
+Symlink a local skill directory into an agent's skill folder. Useful
+for local development — changes to the source are reflected immediately.
 
 ${ansi.bold("Options:")}
   -p, --provider <name>  Target provider (claude, codex, openclaw, agents)
@@ -1176,7 +1274,12 @@ ${ansi.bold("Options:")}
   -f, --force            Overwrite if target already exists
   --json                 Output as JSON
   --no-color             Disable ANSI colors
-  -V, --verbose          Show debug output`);
+  -V, --verbose          Show debug output
+
+${ansi.bold("Examples:")}
+  asm link ./my-skill               ${ansi.dim("Link (interactive provider)")}
+  asm link ./my-skill -p claude     ${ansi.dim("Link to Claude Code")}
+  asm link ./my-skill --name alias  ${ansi.dim("Link with custom name")}`);
 }
 
 async function cmdLink(args: ParsedArgs) {
