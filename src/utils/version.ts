@@ -17,8 +17,10 @@ try {
 let _commit: string = (process.env.__ASM_COMMIT__ as string) || "unknown";
 try {
   _commit =
-    execSync("git rev-parse --short HEAD", { encoding: "utf-8" }).trim() ||
-    _commit;
+    execSync("git rev-parse --short HEAD", {
+      encoding: "utf-8",
+      stdio: ["pipe", "pipe", "ignore"],
+    }).trim() || _commit;
 } catch {
   // Not in a git repo or git not available
 }

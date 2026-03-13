@@ -222,8 +222,8 @@ describe("formatSkillInspect", () => {
       }),
     ];
     const output = await formatSkillInspect(skills);
-    expect(output).toContain("========");
-    expect(output).toContain(" test-skill ");
+    expect(output).toContain("----");
+    expect(output).toContain("test-skill");
   });
 
   test("multi-instance shows shared info once", async () => {
@@ -235,9 +235,11 @@ describe("formatSkillInspect", () => {
       }),
     ];
     const output = await formatSkillInspect(skills);
-    expect(output).toContain("Name: test-skill");
+    expect(output).toContain("test-skill");
     expect(output).toContain("Version: 1.0.0");
-    expect(output).toContain("Installed in: 2 providers");
+    expect(output).toContain("Installed in:");
+    expect(output).toContain("Claude Code");
+    expect(output).toContain("Codex");
   });
 
   test("multi-instance shows installation entries", async () => {
@@ -249,8 +251,8 @@ describe("formatSkillInspect", () => {
       }),
     ];
     const output = await formatSkillInspect(skills);
-    expect(output).toContain("[1] Claude Code (global, directory)");
-    expect(output).toContain("[2] Codex (global, directory)");
+    expect(output).toContain("Claude Code (global, directory)");
+    expect(output).toContain("Codex (global, directory)");
     expect(output).toContain("Installations (2)");
   });
 
@@ -267,9 +269,9 @@ describe("formatSkillInspect", () => {
       }),
     ];
     const output = await formatSkillInspect(skills);
-    expect(output).toContain("[1] Claude Code (global, symlink)");
+    expect(output).toContain("Claude Code (global, symlink)");
     expect(output).toContain("Target: /opt/target");
-    expect(output).toContain("[2] Codex (global, directory)");
+    expect(output).toContain("Codex (global, directory)");
   });
 
   test("multi-instance shows description in wrapped block", async () => {

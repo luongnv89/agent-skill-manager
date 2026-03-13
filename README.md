@@ -32,7 +32,7 @@
 **agent-skill-manager** (`asm`) is an interactive TUI and CLI for managing installed skills across AI coding agents — [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Codex](https://github.com/openai/codex), [OpenClaw](https://github.com/openclaw), and more. Built with [OpenTUI](https://github.com/nicholasgasior/opentui) and [Bun](https://bun.sh).
 
 <p align="center">
-  <img src="assets/screenshots/agent-skill-manager.png" alt="agent-skill-manager TUI dashboard" width="800" />
+  <img src="assets/screenshots/asm-list.png" alt="agent-skill-manager TUI dashboard" width="800" />
 </p>
 
 ## Features
