@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.8.0 — 2026-03-14
+
+### Features
+
+- Add `--transport <https|ssh|auto>` flag for `asm install` to support private GitHub repos via SSH with automatic fallback (Issue #6)
+- Add `asm audit security` subcommand for scanning skills for dangerous patterns (shell execution, network access, credential exposure, obfuscation)
+- Add `--all` flag for `asm audit security` to audit all installed skills at once
+- Support auditing remote GitHub skills before installing via `asm audit security github:owner/repo`
+
+### Improvements
+
+- Extract shared file utilities (`BINARY_EXTENSIONS`, `readFilesRecursive`) into `src/utils/fs.ts` to eliminate duplication
+- Consolidate ANSI color helpers into `formatter.ts` with new `bg*` variants
+- Split `cmdAuditSecurity` into focused sub-functions for readability
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.7.0...v1.8.0
+
 ## v1.7.0 — 2026-03-13
 
 ### Features

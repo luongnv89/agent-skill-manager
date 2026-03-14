@@ -121,6 +121,7 @@ asm inspect <skill-name>       # Show detailed info for a skill
 asm install <source>           # Install a skill from GitHub
 asm uninstall <skill-name>     # Remove a skill (with confirmation)
 asm audit                      # Detect duplicate skills
+asm audit security <name>     # Run security audit on a skill
 asm config show                # Print current config
 asm config path                # Print config file path
 asm config reset               # Reset config to defaults
@@ -153,6 +154,10 @@ asm install github:user/skills --path skills/code-review
 asm install github:user/skills --all -p claude -y
 asm install github:user/skills              # interactive picker
 
+# Private repos (SSH transport)
+asm install github:user/private-skill --transport ssh
+asm install github:user/private-skill -t auto  # try HTTPS, fallback to SSH
+
 # Other options
 asm install github:user/my-skill --name custom-name
 asm install github:user/my-skill --force
@@ -163,15 +168,16 @@ asm install github:user/my-skill -p claude --yes --json
 
 **Install flags:**
 
-| Flag                    | Description                                       |
-| ----------------------- | ------------------------------------------------- |
-| `-p, --provider <name>` | Target provider (claude, codex, openclaw, agents) |
-| `--name <name>`         | Override skill directory name                     |
-| `--path <subdir>`       | Install a specific skill from a subdirectory      |
-| `--all`                 | Install all skills found in the repo              |
-| `-f, --force`           | Overwrite if skill already exists                 |
-| `-y, --yes`             | Skip confirmation prompt                          |
-| `--json`                | Output result as JSON                             |
+| Flag                     | Description                                            |
+| ------------------------ | ------------------------------------------------------ |
+| `-p, --provider <name>`  | Target provider (claude, codex, openclaw, agents)      |
+| `--name <name>`          | Override skill directory name                          |
+| `--path <subdir>`        | Install a specific skill from a subdirectory           |
+| `--all`                  | Install all skills found in the repo                   |
+| `-t, --transport <mode>` | Transport: `https`, `ssh`, or `auto` (default: `auto`) |
+| `-f, --force`            | Overwrite if skill already exists                      |
+| `-y, --yes`              | Skip confirmation prompt                               |
+| `--json`                 | Output result as JSON                                  |
 
 **Multi-skill repo support:** When a repo doesn't have `SKILL.md` at the root, `asm` automatically scans for skills in subdirectories (up to 3 levels deep). In interactive mode, it presents a numbered picker. Use `--path` to target a specific skill or `--all` to batch-install everything.
 
@@ -191,6 +197,12 @@ asm inspect my-skill
 
 # Remove duplicates automatically
 asm audit --yes
+
+# Security audit a skill before installing
+asm audit security github:user/repo
+
+# Audit all installed skills
+asm audit security --all
 
 # Uninstall without confirmation
 asm uninstall old-skill --yes
