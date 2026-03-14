@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.9.0 — 2026-03-14
+
+### Features
+
+- Support GitHub subfolder URLs for `asm install` and `asm audit security` — URLs like `https://github.com/user/skills/tree/main/skills/agent-config` are now automatically parsed to detect the branch and subfolder path
+- Add `github:owner/repo#ref:path` shorthand syntax for installing skills from a specific subfolder on a specific branch
+- Add `resolveSubpath()` function that uses `git ls-remote` to disambiguate branch names from subfolder paths in `/tree/` URLs
+- Subfolder URL support works across all operations: install, security audit, and multi-skill discovery
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.8.3...v1.9.0
+
 ## v1.8.3 — 2026-03-14
 
 ### Bug Fixes

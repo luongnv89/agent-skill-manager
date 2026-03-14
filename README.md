@@ -154,6 +154,10 @@ asm install github:user/skills --path skills/code-review
 asm install github:user/skills --all -p claude -y
 asm install github:user/skills              # interactive picker
 
+# Subfolder URL (auto-detects branch and path)
+asm install https://github.com/user/skills/tree/main/skills/agent-config
+asm install github:user/skills#main:skills/agent-config
+
 # Private repos (SSH transport)
 asm install github:user/private-skill --transport ssh
 asm install github:user/private-skill -t auto  # try HTTPS, fallback to SSH
@@ -164,7 +168,7 @@ asm install github:user/my-skill --force
 asm install github:user/my-skill -p claude --yes --json
 ```
 
-**Source format:** `github:owner/repo[#branch-or-tag]`
+**Source format:** `github:owner/repo[#branch-or-tag]` or `github:owner/repo#ref:path` for subfolder installs. HTTPS GitHub URLs with `/tree/` paths (e.g., `https://github.com/user/skills/tree/main/skills/agent-config`) are also supported — the branch and subfolder are auto-detected.
 
 **Install flags:**
 
