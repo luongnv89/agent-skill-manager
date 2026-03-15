@@ -644,7 +644,11 @@ async function cmdAuditSecurityAll(args: ParsedArgs) {
   const allSkills = await scanAllSkills(config, args.flags.scope);
 
   if (allSkills.length === 0) {
-    console.log("No skills found to audit.");
+    if (args.flags.json) {
+      console.log("[]");
+    } else {
+      console.log("No skills found to audit.");
+    }
     return;
   }
 
