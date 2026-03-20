@@ -82,7 +82,7 @@ export function createSkillList(
   const descHeader = descWidth > 0 ? " Description" : "";
   const headerRow = new TextRenderable(ctx, {
     id: "skill-list-header",
-    content: `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Provider".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`,
+    content: `${"#".padStart(3)} ${"Name".padEnd(26)} ${"Ver".padEnd(8)} ${"Tool".padEnd(12)} ${"Scope".padEnd(8)} ${"Type".padEnd(6)}${descHeader}`,
     fg: theme.fgDim,
     height: 1,
   });

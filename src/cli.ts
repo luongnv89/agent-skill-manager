@@ -152,7 +152,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
         error(`Invalid sort: "${val}". Must be name, version, or location.`);
         process.exit(2);
       }
-    } else if (arg === "--provider" || arg === "-p") {
+    } else if (arg === "--provider" || arg === "-p" || arg === "--tool") {
       i++;
       result.flags.provider = args[i] || null;
     } else if (arg === "--name") {
@@ -222,11 +222,11 @@ ${ansi.bold("Usage:")}
 
 ${ansi.bold("Commands:")}
   list                   List all discovered skills
-  search <query>         Search skills by name/description/provider
+  search <query>         Search skills by name/description/tool
   inspect <skill-name>   Show detailed info for a skill
   uninstall <skill-name> Remove a skill (with confirmation)
   install <source>       Install a skill from GitHub
-  audit                  Detect duplicate skills across providers
+  audit                  Detect duplicate skills across tools
   audit security <name>  Run security audit on a skill (or GitHub source)
   export                 Export skill inventory as JSON manifest
   init <name>            Scaffold a new skill with SKILL.md template
@@ -243,10 +243,10 @@ ${ansi.bold("Global Options:")}
   -v, --version          Print version and exit
   --json                 Output as JSON (list, search, inspect)
   -s, --scope <scope>    Filter: global, project, or both (default: both)
-  -p, --provider <name>  Filter by provider (list, search)
+  -p, --tool <name>      Filter by tool (list, search)
   --no-color             Disable ANSI colors
   --sort <field>         Sort by: name, version, or location (default: name)
-  --flat                 Show one row per provider instance (list, search)
+  --flat                 Show one row per tool instance (list, search)
   -y, --yes              Skip confirmation prompts
   -V, --verbose          Show debug output`);
 }
@@ -255,20 +255,20 @@ function printListHelp() {
   console.log(`${ansi.bold("Usage:")} asm list [options]
 
 List all discovered skills. By default, skills installed across multiple
-providers are grouped into a single row with provider badges.
+tools are grouped into a single row with tool badges.
 
 ${ansi.bold("Options:")}
   --sort <field>       Sort by: name, version, or location (default: name)
   -s, --scope <s>      Filter: global, project, or both (default: both)
-  -p, --provider <p>   Filter by provider (claude, codex, openclaw, agents)
-  --flat               Show one row per provider instance (ungrouped)
+  -p, --tool <p>       Filter by tool (claude, codex, openclaw, agents)
+  --flat               Show one row per tool instance (ungrouped)
   --json               Output as JSON array
   --no-color           Disable ANSI colors
   -V, --verbose        Show debug output
 
 ${ansi.bold("Examples:")}
   asm list                          ${ansi.dim("List all skills (grouped)")}
-  asm list --flat                   ${ansi.dim("One row per provider instance")}
+  asm list --flat                   ${ansi.dim("One row per tool instance")}
   asm list -p claude                ${ansi.dim("Only Claude Code skills")}
   asm list -s project               ${ansi.dim("Only project-scoped skills")}
   asm list --sort version           ${ansi.dim("Sort by version")}
@@ -284,10 +284,10 @@ status and include copy-paste install commands for available skills.
 ${ansi.bold("Options:")}
   --sort <field>       Sort by: name, version, or location (default: name)
   -s, --scope <s>      Filter: global, project, or both (default: both)
-  -p, --provider <p>   Filter by provider (claude, codex, openclaw, agents)
+  -p, --tool <p>       Filter by tool (claude, codex, openclaw, agents)
   --installed          Show only installed skills
   --available          Show only available (not installed) skills
-  --flat               Show one row per provider instance (ungrouped)
+  --flat               Show one row per tool instance (ungrouped)
   --json               Output as JSON array
   --no-color           Disable ANSI colors
   -V, --verbose        Show debug output
@@ -933,8 +933,8 @@ ${ansi.bold("Source Format:")}
                                  Install from a subfolder URL (auto-detects branch)
 
 ${ansi.bold("Options:")}
-  -p, --provider <name>  Target provider (claude, codex, openclaw, agents, all)
-                         Use "all" to install to all providers (shared + symlinks)
+  -p, --tool <name>      Target tool (claude, codex, openclaw, agents, all)
+                         Use "all" to install to all tools (shared + symlinks)
   --name <name>          Override skill directory name
   --path <subdir>        Install skill from a subdirectory of the repo
   --all                  Install all skills found in the repo
@@ -950,13 +950,13 @@ ${ansi.bold("Single-skill repo:")}
   asm install github:user/my-skill
   asm install github:user/my-skill#v1.0.0 -p claude
   asm install https://github.com/user/my-skill
-  asm install github:user/my-skill -p all    ${ansi.dim("(install to all providers)")}
+  asm install github:user/my-skill -p all    ${ansi.dim("(install to all tools)")}
   asm install github:user/private-skill -t ssh  ${ansi.dim("(clone via SSH)")}
 
 ${ansi.bold("Multi-skill repo:")}
   asm install github:user/skills --path skills/code-review
   asm install github:user/skills --all -p claude -y
-  asm install github:user/skills --all -p all -y  ${ansi.dim("(all skills, all providers)")}
+  asm install github:user/skills --all -p all -y  ${ansi.dim("(all skills, all tools)")}
   asm install https://github.com/user/skills --all
   asm install github:user/skills              ${ansi.dim("(interactive picker)")}
 
@@ -1089,7 +1089,7 @@ function displaySkillInspection(
     console.info(`    ${ansi.bold("Source:")}      ${sourceStr}`);
     if (allProviders) {
       console.info(
-        `    ${ansi.bold("Provider:")}    All (${allProviders.map((p) => p.label).join(", ")})`,
+        `    ${ansi.bold("Tool:")}    All (${allProviders.map((p) => p.label).join(", ")})`,
       );
       console.info(
         `    ${ansi.bold("Primary:")}     ${provider.label} (${provider.name})`,
@@ -1102,7 +1102,7 @@ function displaySkillInspection(
       );
     } else {
       console.info(
-        `    ${ansi.bold("Provider:")}    ${provider.label} (${provider.name})`,
+        `    ${ansi.bold("Tool:")}    ${provider.label} (${provider.name})`,
       );
     }
     console.info(`    ${ansi.bold("Target:")}      ${plan.targetDir}`);
@@ -1404,11 +1404,11 @@ async function cmdInstall(args: ParsedArgs) {
       console.info(`    ${ansi.bold("Source:")}      ${sourceStr}`);
       if (allProviders) {
         console.info(
-          `    ${ansi.bold("Provider:")}    All (${allProviders.map((p) => p.label).join(", ")})`,
+          `    ${ansi.bold("Tool:")}    All (${allProviders.map((p) => p.label).join(", ")})`,
         );
       } else {
         console.info(
-          `    ${ansi.bold("Provider:")}    ${provider.label} (${provider.name})`,
+          `    ${ansi.bold("Tool:")}    ${provider.label} (${provider.name})`,
         );
       }
 
@@ -1583,17 +1583,17 @@ function printInitHelp() {
   console.log(`${ansi.bold("Usage:")} asm init <name> [options]
 
 Scaffold a new skill directory with a SKILL.md template. Creates a
-ready-to-edit skill in the target provider's skill folder.
+ready-to-edit skill in the target tool's skill folder.
 
 ${ansi.bold("Options:")}
-  -p, --provider <name>  Target provider (claude, codex, openclaw, agents)
+  -p, --tool <name>      Target tool (claude, codex, openclaw, agents)
   --path <dir>           Scaffold in specified directory instead of provider path
   -f, --force            Overwrite if skill already exists
   --no-color             Disable ANSI colors
   -V, --verbose          Show debug output
 
 ${ansi.bold("Examples:")}
-  asm init my-skill                 ${ansi.dim("Scaffold (interactive provider)")}
+  asm init my-skill                 ${ansi.dim("Scaffold (interactive tool)")}
   asm init my-skill -p claude       ${ansi.dim("Scaffold in Claude Code")}
   asm init my-skill --path ./skills ${ansi.dim("Scaffold in custom directory")}`);
 }
@@ -1721,7 +1721,7 @@ Symlink a local skill directory into an agent's skill folder. Useful
 for local development — changes to the source are reflected immediately.
 
 ${ansi.bold("Options:")}
-  -p, --provider <name>  Target provider (claude, codex, openclaw, agents)
+  -p, --tool <name>      Target tool (claude, codex, openclaw, agents)
   --name <name>          Override symlink name (default: directory basename)
   -f, --force            Overwrite if target already exists
   --json                 Output as JSON
@@ -1729,7 +1729,7 @@ ${ansi.bold("Options:")}
   -V, --verbose          Show debug output
 
 ${ansi.bold("Examples:")}
-  asm link ./my-skill               ${ansi.dim("Link (interactive provider)")}
+  asm link ./my-skill               ${ansi.dim("Link (interactive tool)")}
   asm link ./my-skill -p claude     ${ansi.dim("Link to Claude Code")}
   asm link ./my-skill --name alias  ${ansi.dim("Link with custom name")}`);
 }

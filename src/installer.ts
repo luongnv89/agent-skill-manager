@@ -616,17 +616,17 @@ export async function resolveProvider(
   if (!isTTY) {
     const names = enabled.map((p) => p.name).join(", ");
     throw new Error(
-      `--provider is required in non-interactive mode. Available: ${names}, all`,
+      `--tool (or --provider) is required in non-interactive mode. Available: ${names}, all`,
     );
   }
 
   // Interactive picker
-  console.info("\nSelect a provider:");
+  console.info("\nSelect a tool:");
   for (let i = 0; i < enabled.length; i++) {
     console.info(`  ${i + 1}) ${enabled[i].label} (${enabled[i].name})`);
   }
   console.info(
-    `  ${enabled.length + 1}) All providers (shared .agents/skills/ + symlinks)`,
+    `  ${enabled.length + 1}) All tools (shared .agents/skills/ + symlinks)`,
   );
   process.stderr.write("\nEnter number: ");
 

@@ -65,7 +65,7 @@ export function createConfigView(
   // Section header
   const headerText = new TextRenderable(ctx, {
     id: "config-header",
-    content: "Providers (Enter to toggle, e to edit config file):",
+    content: "Tools (Enter to toggle, e to edit config file):",
     fg: theme.yellow,
   });
   container.add(headerText);

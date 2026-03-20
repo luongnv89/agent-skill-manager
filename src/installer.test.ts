@@ -757,7 +757,7 @@ describe("resolveProvider", () => {
   test("errors in non-TTY without provider flag when multiple providers", async () => {
     const config = makeConfig([claude, codex]);
     await expect(resolveProvider(config, null, false)).rejects.toThrow(
-      "--provider is required",
+      "--tool (or --provider) is required",
     );
   });
 

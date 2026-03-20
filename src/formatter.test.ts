@@ -46,7 +46,7 @@ describe("formatSkillTable", () => {
     const output = formatSkillTable([makeSkill()]);
     expect(output).toContain("Name");
     expect(output).toContain("Version");
-    expect(output).toContain("Provider");
+    expect(output).toContain("Tool");
     expect(output).toContain("test-skill");
     expect(output).toContain("1.0.0");
     expect(output).toContain("Claude Code");
@@ -81,7 +81,7 @@ describe("formatSkillTable", () => {
     const headerLine = output.split("\n")[0];
     expect(headerLine).toContain("Name");
     expect(headerLine).toContain("Version");
-    expect(headerLine).toContain("Provider");
+    expect(headerLine).toContain("Tool");
     expect(headerLine).toContain("Scope");
     expect(headerLine).toContain("Type");
     expect(headerLine).toContain("Path");
@@ -130,7 +130,7 @@ describe("formatSkillDetail", () => {
     const output = await formatSkillDetail(makeSkill());
     expect(output).toContain("Name: test-skill");
     expect(output).toContain("Version: 1.0.0");
-    expect(output).toContain("Provider: Claude Code");
+    expect(output).toContain("Tool: Claude Code");
     expect(output).toContain("Scope: global");
     expect(output).toContain("Location: global-claude");
     expect(output).toContain("File Count: 3");

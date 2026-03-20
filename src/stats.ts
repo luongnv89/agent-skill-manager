@@ -103,7 +103,7 @@ export function formatStatsReport(report: StatsReport): string {
   lines.push("");
 
   // By Provider (with bar chart)
-  lines.push(ansi.bold("  By Provider"));
+  lines.push(ansi.bold("  By Tool"));
   const providerEntries = Object.entries(report.byProvider).sort(
     (a, b) => b[1] - a[1],
   );

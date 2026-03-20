@@ -67,13 +67,7 @@ export function createDetailView(
     detailRow(ctx, "version", "Version", skill.version, theme.green),
   );
   container.add(
-    detailRow(
-      ctx,
-      "provider",
-      "Provider",
-      skill.providerLabel,
-      theme.accentAlt,
-    ),
+    detailRow(ctx, "provider", "Tool", skill.providerLabel, theme.accentAlt),
   );
   container.add(
     detailRow(ctx, "location", "Location", skill.location, theme.cyan),

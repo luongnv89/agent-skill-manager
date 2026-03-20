@@ -71,7 +71,7 @@ export function formatSkillTable(skills: SkillInfo[]): string {
     return "No skills found.";
   }
 
-  const headers = ["Name", "Version", "Provider", "Scope", "Type", "Path"];
+  const headers = ["Name", "Version", "Tool", "Scope", "Type", "Path"];
 
   const rows = skills.map((s) => [
     s.name,
@@ -178,7 +178,7 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
   const pad = (s: string, w: number) => s.padEnd(w);
 
   // Header
-  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Providers", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
+  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
   lines.push(useColor() ? ansi.bold(header) : header);
   lines.push(
     `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
@@ -210,7 +210,7 @@ export function formatGroupedTable(skills: SkillInfo[]): string {
   const projectCount = skills.filter((s) => s.scope === "project").length;
 
   lines.push("");
-  const footer = `${totalCount} skills (${uniqueCount} unique) across ${providerSet.size} providers | ${globalCount} global, ${projectCount} project`;
+  const footer = `${totalCount} skills (${uniqueCount} unique) across ${providerSet.size} tools | ${globalCount} global, ${projectCount} project`;
   lines.push(ansi.dim(footer));
 
   return lines.join("\n");
@@ -264,7 +264,7 @@ export function formatSearchResults(
   const pad = (s: string, w: number) => s.padEnd(w);
 
   // Header
-  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Providers", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
+  const header = `${pad("Name", nameW)}  ${pad("Version", versionW)}  ${pad("Tools", providerW)}  ${pad("Scope", scopeW)}  ${pad("Type", typeW)}`;
   lines.push(useColor() ? ansi.bold(header) : header);
   lines.push(
     `${"-".repeat(nameW)}  ${"-".repeat(versionW)}  ${"-".repeat(providerW)}  ${"-".repeat(scopeW)}  ${"-".repeat(typeW)}`,
@@ -298,7 +298,7 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
 
   lines.push(label("Name", skill.name));
   lines.push(label("Version", skill.version));
-  lines.push(label("Provider", skill.providerLabel));
+  lines.push(label("Tool", skill.providerLabel));
   lines.push(label("Scope", skill.scope));
   lines.push(label("Location", skill.location));
   lines.push(label("Path", shortenPath(skill.path)));

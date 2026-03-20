@@ -454,7 +454,7 @@ describe("CLI integration: list", () => {
     if (stdout !== "No skills found.") {
       expect(stdout).toContain("Name");
       expect(stdout).toContain("Version");
-      expect(stdout).toContain("Provider");
+      expect(stdout).toContain("Tool");
     }
   });
 
@@ -887,7 +887,7 @@ describe("CLI integration: install", () => {
     expect(stdout).toContain("asm install");
     expect(stdout).toContain("github:owner/repo");
     expect(stdout).toContain("https://github.com/owner/repo");
-    expect(stdout).toContain("--provider");
+    expect(stdout).toContain("--tool");
     expect(stdout).toContain("--name");
     expect(stdout).toContain("--path");
     expect(stdout).toContain("--all");

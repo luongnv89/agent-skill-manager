@@ -95,7 +95,7 @@ export function createDashboard(
   });
   const providerStat = new TextRenderable(ctx, {
     id: "stat-providers",
-    content: "Providers: 0",
+    content: "Tools: 0",
     fg: theme.accentAlt,
   });
 
@@ -227,7 +227,7 @@ export function createDashboard(
     globalStat.content = `Global: ${globalCount}`;
     projectStat.content = `Project: ${projectCount}`;
     symlinkStat.content = `Symlinks: ${symlinks}`;
-    providerStat.content = `Providers: ${providers}`;
+    providerStat.content = `Tools: ${providers}`;
     duplicateStat.content =
       duplicateCount > 0 ? `Dupes: ${duplicateCount}` : "Dupes: 0";
   }
