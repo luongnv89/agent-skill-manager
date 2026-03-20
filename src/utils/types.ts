@@ -115,6 +115,8 @@ export interface ParsedSource {
   subpath: string | null;
   cloneUrl: string;
   sshCloneUrl: string;
+  isLocal?: boolean;
+  localPath?: string;
 }
 
 export interface InstallPlan {

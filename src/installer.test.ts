@@ -20,6 +20,8 @@ import { join, relative } from "path";
 import { tmpdir } from "os";
 import {
   parseSource,
+  isLocalPath,
+  parseLocalSource,
   resolveSubpath,
   sanitizeName,
   checkGitAvailable,
@@ -1034,5 +1036,127 @@ describe("installer verbose output", () => {
     } finally {
       await rm(tempDir, { recursive: true, force: true });
     }
+  });
+});
+
+// ─── isLocalPath tests ──────────────────────────────────────────────────────
+
+describe("isLocalPath", () => {
+  test("detects absolute paths", () => {
+    expect(isLocalPath("/absolute/path/to/skill")).toBe(true);
+    expect(isLocalPath("/home/user/skills/my-skill")).toBe(true);
+  });
+
+  test("detects relative paths with ./", () => {
+    expect(isLocalPath("./my-skill")).toBe(true);
+    expect(isLocalPath("./relative/path/to/skill")).toBe(true);
+  });
+
+  test("detects parent-relative paths with ../", () => {
+    expect(isLocalPath("../sibling/skill")).toBe(true);
+    expect(isLocalPath("../my-skill")).toBe(true);
+  });
+
+  test("detects tilde paths", () => {
+    expect(isLocalPath("~/skills/my-skill")).toBe(true);
+    expect(isLocalPath("~user/skills")).toBe(true);
+    expect(isLocalPath("~")).toBe(true);
+  });
+
+  test("detects bare dot and double dot", () => {
+    expect(isLocalPath(".")).toBe(true);
+    expect(isLocalPath("..")).toBe(true);
+  });
+
+  test("does not match GitHub source formats", () => {
+    expect(isLocalPath("github:owner/repo")).toBe(false);
+    expect(isLocalPath("https://github.com/owner/repo")).toBe(false);
+  });
+
+  test("does not match bare repo names", () => {
+    expect(isLocalPath("alice/my-skill")).toBe(false);
+    expect(isLocalPath("my-skill")).toBe(false);
+  });
+});
+
+// ─── parseLocalSource tests ─────────────────────────────────────────────────
+
+describe("parseLocalSource", () => {
+  test("parses absolute path", () => {
+    const result = parseLocalSource("/home/user/my-skill");
+    expect(result.isLocal).toBe(true);
+    expect(result.localPath).toBe("/home/user/my-skill");
+    expect(result.owner).toBe("local");
+    expect(result.repo).toBe("my-skill");
+    expect(result.ref).toBeNull();
+    expect(result.subpath).toBeNull();
+    expect(result.cloneUrl).toBe("");
+    expect(result.sshCloneUrl).toBe("");
+  });
+
+  test("parses relative path", () => {
+    const result = parseLocalSource("./my-skill");
+    expect(result.isLocal).toBe(true);
+    expect(result.localPath).toBeTruthy();
+    // Should resolve to an absolute path
+    expect(result.localPath!.startsWith("/")).toBe(true);
+    expect(result.repo).toBe("my-skill");
+  });
+
+  test("parses parent-relative path", () => {
+    const result = parseLocalSource("../sibling-skill");
+    expect(result.isLocal).toBe(true);
+    expect(result.localPath!.startsWith("/")).toBe(true);
+    expect(result.repo).toBe("sibling-skill");
+  });
+
+  test("parses tilde path", () => {
+    const result = parseLocalSource("~/skills/my-skill");
+    expect(result.isLocal).toBe(true);
+    expect(result.localPath!.startsWith("/")).toBe(true);
+    expect(result.repo).toBe("my-skill");
+    // Should NOT contain tilde in resolved path
+    expect(result.localPath).not.toContain("~");
+  });
+});
+
+// ─── parseSource local path integration tests ──────────────────────────────
+
+describe("parseSource with local paths", () => {
+  test("detects and parses absolute path", () => {
+    const result = parseSource("/home/user/skills/my-skill");
+    expect(result.isLocal).toBe(true);
+    expect(result.localPath).toBe("/home/user/skills/my-skill");
+    expect(result.repo).toBe("my-skill");
+  });
+
+  test("detects and parses relative path", () => {
+    const result = parseSource("./my-skill");
+    expect(result.isLocal).toBe(true);
+    expect(result.localPath!.startsWith("/")).toBe(true);
+  });
+
+  test("detects and parses parent-relative path", () => {
+    const result = parseSource("../my-skill");
+    expect(result.isLocal).toBe(true);
+    expect(result.localPath!.startsWith("/")).toBe(true);
+  });
+
+  test("detects and parses tilde path", () => {
+    const result = parseSource("~/my-skill");
+    expect(result.isLocal).toBe(true);
+    expect(result.localPath).not.toContain("~");
+  });
+
+  test("does not interfere with github: prefix", () => {
+    const result = parseSource("github:alice/my-skill");
+    expect(result.isLocal).toBeUndefined();
+    expect(result.owner).toBe("alice");
+  });
+
+  test("does not interfere with HTTPS URLs", () => {
+    const result = parseSource("https://github.com/owner/repo");
+    expect(result.isLocal).toBeUndefined();
+    expect(result.owner).toBe("owner");
   });
 });

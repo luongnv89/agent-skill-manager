@@ -13,7 +13,8 @@ import {
   symlink,
   mkdir,
 } from "fs/promises";
-import { join, resolve, relative } from "path";
+import { join, resolve, relative, basename } from "path";
+import { homedir } from "os";
 import { tmpdir } from "os";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 import { resolveProviderPath } from "./config";
@@ -40,7 +41,46 @@ const MAX_NAME_LENGTH = 128;
 const GITHUB_URL_RE =
   /^https?:\/\/github\.com\/([^/]+)\/([^/]+?)(?:\/tree\/(.+))?\/?$/;
 
+export function isLocalPath(input: string): boolean {
+  return (
+    input.startsWith("/") ||
+    input.startsWith("./") ||
+    input.startsWith("../") ||
+    input.startsWith("~") ||
+    input === "." ||
+    input === ".."
+  );
+}
+
+export function parseLocalSource(input: string): ParsedSource {
+  let absPath: string;
+  if (input.startsWith("~")) {
+    absPath = resolve(homedir(), input.slice(input.startsWith("~/") ? 2 : 1));
+  } else {
+    absPath = resolve(input);
+  }
+
+  const dirName = basename(absPath);
+  debug(`install: parsed local source -> path=${absPath}`);
+
+  return {
+    owner: "local",
+    repo: dirName,
+    ref: null,
+    subpath: null,
+    cloneUrl: "",
+    sshCloneUrl: "",
+    isLocal: true,
+    localPath: absPath,
+  };
+}
+
 export function parseSource(input: string): ParsedSource {
+  // Check for local path first
+  if (isLocalPath(input)) {
+    return parseLocalSource(input);
+  }
+
   // Normalize HTTPS GitHub URLs to github:owner/repo[#ref] format
   const urlMatch = GITHUB_URL_RE.exec(input);
   if (urlMatch) {
@@ -51,7 +91,7 @@ export function parseSource(input: string): ParsedSource {
 
   if (!input.startsWith("github:")) {
     throw new Error(
-      `Invalid source format. Got: "${input}"\nSupported formats:\n  github:owner/repo[#ref]\n  github:owner/repo#ref:path\n  https://github.com/owner/repo\n  https://github.com/owner/repo/tree/branch/path/to/skill`,
+      `Invalid source format. Got: "${input}"\nSupported formats:\n  github:owner/repo[#ref]\n  github:owner/repo#ref:path\n  https://github.com/owner/repo\n  https://github.com/owner/repo/tree/branch/path/to/skill\n  /path/to/local/skill\n  ./relative/path/to/skill`,
     );
   }
 
@@ -460,7 +500,9 @@ export async function scanForWarnings(
 export async function executeInstall(
   plan: InstallPlan,
 ): Promise<InstallResult> {
-  const sourceStr = `github:${plan.source.owner}/${plan.source.repo}${plan.source.ref ? `#${plan.source.ref}` : ""}${plan.source.subpath ? `:${plan.source.subpath}` : ""}`;
+  const sourceStr = plan.source.isLocal
+    ? `local:${plan.source.localPath}`
+    : `github:${plan.source.owner}/${plan.source.repo}${plan.source.ref ? `#${plan.source.ref}` : ""}${plan.source.subpath ? `:${plan.source.subpath}` : ""}`;
 
   // Handle force removal of existing
   if (plan.force) {
