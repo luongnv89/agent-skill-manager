@@ -23,6 +23,7 @@ import {
 } from "./formatter";
 import {
   parseSource,
+  isLocalPath,
   sanitizeName,
   checkGitAvailable,
   cloneToTemp,
@@ -226,7 +227,7 @@ ${ansi.bold("Commands:")}
   search <query>         Search skills by name/description/tool
   inspect <skill-name>   Show detailed info for a skill
   uninstall <skill-name> Remove a skill (with confirmation)
-  install <source>       Install a skill from GitHub
+  install <source>       Install a skill from GitHub or local path
   audit                  Detect duplicate skills across tools
   audit security <name>  Run security audit on a skill (or GitHub source)
   export                 Export skill inventory as JSON manifest
@@ -924,7 +925,7 @@ async function cmdConfig(args: ParsedArgs) {
 function printInstallHelp() {
   console.log(`${ansi.bold("Usage:")} asm install <source> [options]
 
-Install a skill from a GitHub repository.
+Install a skill from a GitHub repository or a local folder path.
 
 ${ansi.bold("Source Format:")}
   github:owner/repo              Install from default branch
@@ -933,6 +934,9 @@ ${ansi.bold("Source Format:")}
   https://github.com/owner/repo  Install via HTTPS URL
   https://github.com/owner/repo/tree/branch/path/to/skill
                                  Install from a subfolder URL (auto-detects branch)
+  /absolute/path/to/skill        Install from a local folder (absolute path)
+  ./relative/path/to/skill       Install from a local folder (relative path)
+  ~/path/to/skill                Install from a local folder (home-relative path)
 
 ${ansi.bold("Options:")}
   -p, --tool <name>      Target tool (claude, codex, openclaw, agents, all)
@@ -947,6 +951,13 @@ ${ansi.bold("Options:")}
   --json                 Output result as JSON
   --no-color             Disable ANSI colors
   -V, --verbose          Show debug output
+
+${ansi.bold("Local folder:")}
+  asm install ./my-skill                   ${ansi.dim("(relative path)")}
+  asm install /home/user/skills/my-skill   ${ansi.dim("(absolute path)")}
+  asm install ~/skills/my-skill            ${ansi.dim("(home-relative path)")}
+  asm install ../other-project/skill       ${ansi.dim("(parent-relative path)")}
+  asm install ./skills-dir --all           ${ansi.dim("(all skills in directory)")}
 
 ${ansi.bold("Single-skill repo:")}
   asm install github:user/my-skill
@@ -1192,9 +1203,30 @@ async function cmdInstall(args: ParsedArgs) {
     // Step 1: Parse source
     console.info(stepHeader("Parsing source"));
     let source = parseSource(sourceStr);
-    await checkGitAvailable();
-    source = await resolveSubpath(source);
-    console.info(`  ${ansi.dim(sourceStr)}`);
+    const isLocal = !!source.isLocal;
+
+    if (isLocal) {
+      // Local path — validate it exists and is a directory
+      const localPath = source.localPath!;
+      console.info(`  ${ansi.dim(`local: ${localPath}`)}`);
+      const { stat: fsStat } = await import("fs/promises");
+      try {
+        const stats = await fsStat(localPath);
+        if (!stats.isDirectory()) {
+          throw new Error(`Path is not a directory: ${localPath}`);
+        }
+      } catch (err: any) {
+        if (err.code === "ENOENT") {
+          throw new Error(`Path does not exist: ${localPath}`);
+        }
+        throw err;
+      }
+    } else {
+      // Remote — resolve subpath via git ls-remote
+      await checkGitAvailable();
+      source = await resolveSubpath(source);
+      console.info(`  ${ansi.dim(sourceStr)}`);
+    }
 
     // Step 2: Select provider (before cloning — no wasted time if user cancels)
     console.info(stepHeader("Selecting provider"));
@@ -1205,19 +1237,29 @@ async function cmdInstall(args: ParsedArgs) {
       !!process.stdin.isTTY,
     );
 
-    // Step 3: Clone repository
-    console.info(stepHeader("Cloning repository"));
-    const transport = args.flags.transport;
-    const displayUrl =
-      transport === "ssh"
-        ? source.sshCloneUrl
-        : transport === "https"
-          ? source.cloneUrl
-          : `${source.cloneUrl} ${ansi.dim("(auto)")}`;
-    console.info(
-      `  ${displayUrl}${source.ref ? ` ${ansi.dim(`(ref: ${source.ref})`)}` : ""}${source.subpath ? ` ${ansi.dim(`(path: ${source.subpath})`)}` : ""}`,
-    );
-    tempDir = await cloneToTemp(source, transport);
+    // Step 3: Clone repository (or read local source)
+    if (isLocal) {
+      console.info(stepHeader("Reading local source"));
+      console.info(`  ${ansi.dim(source.localPath!)}`);
+      // For local sources, use the local path directly — no temp dir needed
+      tempDir = null;
+    } else {
+      console.info(stepHeader("Cloning repository"));
+      const transport = args.flags.transport;
+      const displayUrl =
+        transport === "ssh"
+          ? source.sshCloneUrl
+          : transport === "https"
+            ? source.cloneUrl
+            : `${source.cloneUrl} ${ansi.dim("(auto)")}`;
+      console.info(
+        `  ${displayUrl}${source.ref ? ` ${ansi.dim(`(ref: ${source.ref})`)}` : ""}${source.subpath ? ` ${ansi.dim(`(path: ${source.subpath})`)}` : ""}`,
+      );
+      tempDir = await cloneToTemp(source, transport);
+    }
+
+    // The base directory to scan for skills
+    const scanBaseDir = isLocal ? source.localPath! : tempDir!;
 
     // Step 4: Scan for skills
     console.info(stepHeader("Scanning for skills"));
@@ -1233,7 +1275,7 @@ async function cmdInstall(args: ParsedArgs) {
 
     if (effectivePath) {
       // Case 1: path specified — install specific subdirectory
-      const skillDir = joinPath(tempDir, effectivePath);
+      const skillDir = joinPath(scanBaseDir, effectivePath);
       try {
         await validateSkill(skillDir);
       } catch {
@@ -1246,25 +1288,25 @@ async function cmdInstall(args: ParsedArgs) {
     } else {
       let isRootSkill = false;
       try {
-        await validateSkill(tempDir);
+        await validateSkill(scanBaseDir);
         isRootSkill = true;
       } catch {
         // Not a root-level skill
       }
 
       if (isRootSkill) {
-        // Case 2: SKILL.md at root — single-skill repo
-        const metadata = await validateSkill(tempDir);
+        // Case 2: SKILL.md at root — single-skill directory/repo
+        const metadata = await validateSkill(scanBaseDir);
         console.info(
           `  Found: ${ansi.bold(metadata.name)} v${metadata.version}`,
         );
-        selectedDirs = [{ skillDir: tempDir, nameOverride: args.flags.name }];
+        selectedDirs = [
+          { skillDir: scanBaseDir, nameOverride: args.flags.name },
+        ];
       } else {
-        // Case 3: Multi-skill repo — discover skills in subdirectories
-        console.info(
-          `  No SKILL.md at repository root. Scanning subdirectories...`,
-        );
-        const discovered = await discoverSkills(tempDir);
+        // Case 3: Multi-skill directory/repo — discover skills in subdirectories
+        console.info(`  No SKILL.md at root. Scanning subdirectories...`);
+        const discovered = await discoverSkills(scanBaseDir);
 
         if (discovered.length === 0) {
           throw new Error(
@@ -1360,7 +1402,7 @@ async function cmdInstall(args: ParsedArgs) {
         }
 
         selectedDirs = selectedPaths.map((relPath) => ({
-          skillDir: joinPath(tempDir!, relPath),
+          skillDir: joinPath(scanBaseDir, relPath),
           nameOverride: selectedPaths.length === 1 ? args.flags.name : null,
         }));
 
@@ -1380,7 +1422,7 @@ async function cmdInstall(args: ParsedArgs) {
       const inspection = await inspectSkillForInstall(
         args,
         source,
-        tempDir,
+        scanBaseDir,
         skillDir,
         nameOverride,
         config,
