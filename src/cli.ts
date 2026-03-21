@@ -49,6 +49,7 @@ import type {
   SkillInfo,
   InstallMethod,
 } from "./utils/types";
+import { checkboxPicker } from "./utils/checkbox-picker";
 import { checkHealth } from "./health";
 import { buildManifest } from "./exporter";
 import { scaffoldSkill, directoryExists } from "./initializer";
@@ -1411,37 +1412,33 @@ async function cmdInstall(args: ParsedArgs) {
             `  Selected all ${ansi.bold(String(selectedPaths.length))} skills`,
           );
         } else if (process.stdin.isTTY) {
-          // Interactive picker
-          const defaultHint = args.flags.all
-            ? ansi.dim(`(comma-separated, or press Enter for all)`)
-            : ansi.dim(`(comma-separated, or "all")`);
-          process.stderr.write(`\n  Enter skill numbers ${defaultHint}: `);
-          const answer = await readLine();
-
-          if (
-            answer.toLowerCase() === "all" ||
-            (args.flags.all && answer.trim() === "")
-          ) {
-            selectedPaths = discovered.map((s) => s.relPath);
+          // Interactive checkbox picker
+          if (discovered.length === 1) {
+            // Single skill: auto-select without showing picker
+            selectedPaths = [discovered[0].relPath];
+            console.info(
+              `  Auto-selected: ${ansi.bold(discovered[0].name)} ${ansi.dim(`v${discovered[0].version}`)}`,
+            );
           } else {
-            // Support comma-separated and space-separated numbers
-            const indices = answer
-              .split(/[,\s]+/)
-              .map((s) => s.trim())
-              .filter(Boolean);
-            if (indices.length === 0) {
+            const pickerItems = discovered.map((s) => ({
+              label: s.name,
+              hint: `v${s.version}${s.description ? "  " + s.description : ""}`,
+              checked: !!args.flags.all,
+            }));
+
+            console.info(""); // blank line before picker
+            const selectedIndices = await checkboxPicker({
+              items: pickerItems,
+            });
+
+            if (selectedIndices.length === 0) {
               throw new Error("No skills selected. Aborting.");
             }
-            selectedPaths = [];
-            for (const indexStr of indices) {
-              const idx = parseInt(indexStr, 10) - 1;
-              if (isNaN(idx) || idx < 0 || idx >= discovered.length) {
-                throw new Error(
-                  `Invalid selection: "${indexStr}". Valid range: 1-${discovered.length}.`,
-                );
-              }
-              selectedPaths.push(discovered[idx].relPath);
-            }
+
+            selectedPaths = selectedIndices.map((i) => discovered[i].relPath);
+            console.info(
+              `  Selected ${ansi.bold(String(selectedPaths.length))} skill(s)`,
+            );
           }
         } else {
           error(
