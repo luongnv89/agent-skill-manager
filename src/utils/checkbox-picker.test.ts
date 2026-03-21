@@ -25,6 +25,8 @@ describe("CheckboxState", () => {
     expect(state.scrollOffset).toBe(0);
     expect(state.selected).toEqual([false, false, false]);
     expect(state.totalRows).toBe(4); // 3 items + 1 "Select All"
+    expect(state.filter).toBe("");
+    expect(state.searchActive).toBe(false);
   });
 
   test("initializes with pre-checked items", () => {
@@ -150,6 +152,118 @@ describe("CheckboxState", () => {
   });
 });
 
+// ─── Filter/Search ───────────────────────────────────────────────────────────
+
+describe("CheckboxState filter", () => {
+  test("applyFilter with empty string shows all items", () => {
+    const items = makeItems(5);
+    const state = new CheckboxState(items, 10);
+    state.filter = "";
+    state.applyFilter(items);
+    expect(state.filteredMap).toEqual([0, 1, 2, 3, 4]);
+    expect(state.totalRows).toBe(6); // 5 items + Select All
+  });
+
+  test("applyFilter narrows to matching items", () => {
+    const items: CheckboxItem[] = [
+      { label: "agent-config", hint: "v1.0  Config tool", checked: false },
+      { label: "code-review", hint: "v2.0  Review code", checked: false },
+      { label: "code-optimizer", hint: "v1.0  Optimize code", checked: false },
+      { label: "blog-draft", hint: "v1.0  Draft blogs", checked: false },
+    ];
+    const state = new CheckboxState(items, 10);
+    state.filter = "code";
+    state.applyFilter(items);
+    expect(state.filteredMap).toEqual([1, 2]); // code-review, code-optimizer
+    expect(state.totalRows).toBe(3); // 2 items + Select All
+  });
+
+  test("applyFilter is case-insensitive", () => {
+    const items: CheckboxItem[] = [
+      { label: "Code-Review", hint: "v1.0", checked: false },
+      { label: "blog-draft", hint: "v1.0", checked: false },
+    ];
+    const state = new CheckboxState(items, 10);
+    state.filter = "CODE";
+    state.applyFilter(items);
+    expect(state.filteredMap).toEqual([0]);
+  });
+
+  test("applyFilter matches against hint too", () => {
+    const items: CheckboxItem[] = [
+      { label: "skill-a", hint: "v1.0  Database migration", checked: false },
+      { label: "skill-b", hint: "v1.0  Frontend UI", checked: false },
+    ];
+    const state = new CheckboxState(items, 10);
+    state.filter = "database";
+    state.applyFilter(items);
+    expect(state.filteredMap).toEqual([0]);
+  });
+
+  test("applyFilter with no matches produces empty filteredMap", () => {
+    const items = makeItems(3);
+    const state = new CheckboxState(items, 10);
+    state.filter = "zzzznotfound";
+    state.applyFilter(items);
+    expect(state.filteredMap).toEqual([]);
+    expect(state.totalRows).toBe(1); // only "Select All" row
+  });
+
+  test("cursor clamps when filter reduces list", () => {
+    const items = makeItems(10);
+    const state = new CheckboxState(items, 15);
+    state.cursor = 8;
+    state.filter = "skill-1"; // matches skill-1, skill-10
+    state.applyFilter(items);
+    // totalRows = 3 (Select All + 2 matches), cursor should clamp
+    expect(state.cursor).toBeLessThan(state.totalRows);
+  });
+
+  test("toggleAll with filter only toggles filtered items", () => {
+    const items: CheckboxItem[] = [
+      { label: "code-review", checked: false, hint: "" },
+      { label: "blog-draft", checked: false, hint: "" },
+      { label: "code-optimizer", checked: false, hint: "" },
+    ];
+    const state = new CheckboxState(items, 10);
+    state.filter = "code";
+    state.applyFilter(items);
+    state.toggleAll();
+    // Only code-review (0) and code-optimizer (2) should be toggled
+    expect(state.selected).toEqual([true, false, true]);
+  });
+
+  test("toggleCurrent with filter maps to correct original index", () => {
+    const items: CheckboxItem[] = [
+      { label: "alpha", checked: false, hint: "" },
+      { label: "beta", checked: false, hint: "" },
+      { label: "bravo", checked: false, hint: "" },
+    ];
+    const state = new CheckboxState(items, 10);
+    state.filter = "b";
+    state.applyFilter(items);
+    // filteredMap = [1, 2] (beta, bravo)
+    state.cursor = 1; // first filtered item = beta (original index 1)
+    state.toggleCurrent();
+    expect(state.selected).toEqual([false, true, false]);
+
+    state.cursor = 2; // second filtered item = bravo (original index 2)
+    state.toggleCurrent();
+    expect(state.selected).toEqual([false, true, true]);
+  });
+
+  test("getSelectedIndices returns all selected regardless of filter", () => {
+    const items = makeItems(5);
+    const state = new CheckboxState(items, 10);
+    state.selected[0] = true;
+    state.selected[3] = true;
+    state.filter = "skill-1"; // only shows skill-1
+    state.applyFilter(items);
+    // getSelectedIndices should still return both
+    expect(state.getSelectedIndices()).toEqual([0, 3]);
+  });
+});
+
 // ─── renderCheckboxLines ─────────────────────────────────────────────────────
 
 describe("renderCheckboxLines", () => {
@@ -248,9 +362,7 @@ describe("renderCheckboxLines", () => {
     const stripped = lines.map(stripAnsi);
 
     // The hint line should be truncated
-    // Total visible chars in the item line should not exceed 40
     const itemLine = stripped[1]; // item row
-    // Just verify it contains "..." indicating truncation
     expect(itemLine).toContain("...");
   });
 
@@ -274,6 +386,85 @@ describe("renderCheckboxLines", () => {
     const stripped = lines.map(stripAnsi);
 
     expect(stripped[1]).toContain("no-hint-skill");
+  });
+
+  test("renders search bar when searchActive", () => {
+    const items = makeItems(3);
+    const state = new CheckboxState(items, 10);
+    state.searchActive = true;
+    state.filter = "skill";
+    const lines = renderCheckboxLines(state, items, 80);
+    const stripped = lines.map(stripAnsi);
+
+    expect(stripped[0]).toContain("/skill");
+  });
+
+  test("renders 'No matches found' when filter has no results", () => {
+    const items = makeItems(3);
+    const state = new CheckboxState(items, 10);
+    state.searchActive = true;
+    state.filter = "zzzzz";
+    state.applyFilter(items);
+    const lines = renderCheckboxLines(state, items, 80);
+    const stripped = lines.map(stripAnsi);
+
+    expect(stripped.some((l) => l.includes("No matches found"))).toBe(true);
+  });
+
+  test("shows matching count when filter is active", () => {
+    const items: CheckboxItem[] = [
+      { label: "code-review", checked: false, hint: "" },
+      { label: "blog-draft", checked: false, hint: "" },
+      { label: "code-optimizer", checked: false, hint: "" },
+    ];
+    const state = new CheckboxState(items, 10);
+    state.filter = "code";
+    state.applyFilter(items);
+    const lines = renderCheckboxLines(state, items, 80);
+    const stripped = lines.map(stripAnsi);
+    const footer = stripped[stripped.length - 1];
+
+    expect(footer).toContain("matching: 2/3");
+  });
+
+  test("shows 'Select All Matching' when filter is active", () => {
+    const items: CheckboxItem[] = [
+      { label: "code-review", checked: false, hint: "" },
+      { label: "blog-draft", checked: false, hint: "" },
+      { label: "code-optimizer", checked: false, hint: "" },
+    ];
+    const state = new CheckboxState(items, 10);
+    state.filter = "code";
+    state.applyFilter(items);
+    state.cursor = 0;
+    const lines = renderCheckboxLines(state, items, 80);
+    const stripped = lines.map(stripAnsi);
+
+    expect(stripped.some((l) => l.includes("Select All Matching (2)"))).toBe(
+      true,
+    );
+  });
+
+  test("shows search-mode keybindings when searchActive", () => {
+    const items = makeItems(3);
+    const state = new CheckboxState(items, 10);
+    state.searchActive = true;
+    const lines = renderCheckboxLines(state, items, 80);
+    const stripped = lines.map(stripAnsi);
+    const footer = stripped[stripped.length - 1];
+
+    expect(footer).toContain("Type to filter");
+    expect(footer).not.toContain("/ Search");
+  });
+
+  test("shows normal keybindings with / Search when not searching", () => {
+    const items = makeItems(3);
+    const state = new CheckboxState(items, 10);
+    const lines = renderCheckboxLines(state, items, 80);
+    const stripped = lines.map(stripAnsi);
+    const footer = stripped[stripped.length - 1];
+
+    expect(footer).toContain("/ Search");
   });
 });
 

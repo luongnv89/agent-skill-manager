@@ -17,32 +17,80 @@ export interface CheckboxPickerOptions {
 
 export class CheckboxState {
   selected: boolean[];
-  cursor: number; // 0 = "Select All" virtual row, 1..N = items
+  cursor: number; // index into visibleRows (0 = "Select All", 1..N = filtered items)
   scrollOffset: number;
   readonly pageSize: number;
-  readonly totalRows: number; // items.length + 1 (for "Select All")
+  readonly itemCount: number;
+
+  // Search/filter
+  filter: string;
+  searchActive: boolean;
+  /** Maps filtered row index (1-based) → original item index (0-based) */
+  filteredMap: number[];
 
   constructor(items: CheckboxItem[], pageSize: number) {
     this.selected = items.map((i) => i.checked);
     this.cursor = 1; // start on first real item, not "Select All"
     this.scrollOffset = 0;
     this.pageSize = pageSize;
-    this.totalRows = items.length + 1;
+    this.itemCount = items.length;
+    this.filter = "";
+    this.searchActive = false;
+    this.filteredMap = items.map((_, i) => i); // identity mapping initially
+  }
+
+  get totalRows(): number {
+    return this.filteredMap.length + 1; // filtered items + "Select All"
+  }
+
+  applyFilter(items: CheckboxItem[]): void {
+    if (this.filter === "") {
+      this.filteredMap = items.map((_, i) => i);
+    } else {
+      const query = this.filter.toLowerCase();
+      this.filteredMap = [];
+      for (let i = 0; i < items.length; i++) {
+        const text =
+          items[i].label.toLowerCase() +
+          " " +
+          (items[i].hint?.toLowerCase() ?? "");
+        if (text.includes(query)) {
+          this.filteredMap.push(i);
+        }
+      }
+    }
+    // Reset cursor/scroll to stay in bounds
+    if (this.cursor >= this.totalRows) {
+      this.cursor = Math.max(0, this.totalRows - 1);
+    }
+    if (this.scrollOffset > 0 && this.scrollOffset >= this.totalRows) {
+      this.scrollOffset = Math.max(0, this.totalRows - this.pageSize);
+    }
+  }
+
+  /** Map current cursor position to original item index. Returns -1 if on "Select All" row. */
+  cursorToOriginalIndex(): number {
+    if (this.cursor === 0) return -1;
+    return this.filteredMap[this.cursor - 1] ?? -1;
   }
 
   toggleCurrent(): void {
     if (this.cursor === 0) {
       this.toggleAll();
     } else {
-      const idx = this.cursor - 1;
-      this.selected[idx] = !this.selected[idx];
+      const origIdx = this.cursorToOriginalIndex();
+      if (origIdx >= 0) {
+        this.selected[origIdx] = !this.selected[origIdx];
+      }
     }
   }
 
   toggleAll(): void {
-    const allChecked = this.selected.every(Boolean);
-    const newValue = !allChecked;
-    for (let i = 0; i < this.selected.length; i++) {
+    // When filtered, toggle only visible (filtered) items
+    const visibleIndices = this.filteredMap;
+    const allVisible = visibleIndices.every((i) => this.selected[i]);
+    const newValue = !allVisible;
+    for (const i of visibleIndices) {
       this.selected[i] = newValue;
     }
   }
@@ -96,6 +144,19 @@ export function renderCheckboxLines(
   width: number,
 ): string[] {
   const lines: string[] = [];
+
+  // Search bar (always shown when search is active or filter is non-empty)
+  if (state.searchActive || state.filter !== "") {
+    const searchPrompt = ansi.cyan("/");
+    const filterText = state.filter;
+    const cursor = state.searchActive ? ansi.cyan("█") : "";
+    lines.push(`  ${searchPrompt}${filterText}${cursor}`);
+    if (state.filteredMap.length === 0) {
+      lines.push(ansi.dim("  No matches found"));
+    }
+    lines.push(""); // separator
+  }
+
   const { start, end } = state.getVisibleRange();
 
   // Scroll indicator: above
@@ -108,15 +169,21 @@ export function renderCheckboxLines(
     const pointer = isCursor ? ansi.cyan(">") : " ";
 
     if (row === 0) {
-      // "Select All" virtual row
-      const allChecked = state.selected.every(Boolean);
+      // "Select All" virtual row — reflects state of filtered items
+      const visibleIndices = state.filteredMap;
+      const allChecked =
+        visibleIndices.length > 0 &&
+        visibleIndices.every((i) => state.selected[i]);
       const marker = allChecked ? ansi.green("[*]") : "[ ]";
-      const label = "Select All / Deselect All";
+      const label =
+        state.filter !== ""
+          ? `Select All Matching (${state.filteredMap.length})`
+          : "Select All / Deselect All";
       lines.push(`${pointer} ${marker} ${ansi.bold(label)}`);
     } else {
-      const idx = row - 1;
-      const item = items[idx];
-      const checked = state.selected[idx];
+      const origIdx = state.filteredMap[row - 1];
+      const item = items[origIdx];
+      const checked = state.selected[origIdx];
       const marker = checked ? ansi.green("[*]") : "[ ]";
 
       // Build the line: "> [*] label  hint"
@@ -149,15 +216,28 @@ export function renderCheckboxLines(
     lines.push(ansi.dim(`  ... ${remainingBelow} more below`));
   }
 
-  // Selection count
+  // Selection count + keybindings footer
   const selectedCount = state.getSelectedIndices().length;
+  const filterNote =
+    state.filter !== ""
+      ? `  matching: ${state.filteredMap.length}/${state.itemCount}`
+      : "";
   lines.push("");
-  lines.push(
-    ansi.dim(
-      `  ${selectedCount} of ${items.length} selected  |  ` +
-        `↑/↓ Navigate  Space Toggle  a All  Enter Confirm  Esc Cancel`,
-    ),
-  );
+  if (state.searchActive) {
+    lines.push(
+      ansi.dim(
+        `  ${selectedCount} of ${state.itemCount} selected${filterNote}  |  ` +
+          `Type to filter  Esc Clear  Enter Done searching`,
+      ),
+    );
+  } else {
+    lines.push(
+      ansi.dim(
+        `  ${selectedCount} of ${state.itemCount} selected${filterNote}  |  ` +
+          `↑/↓ Navigate  Space Toggle  a All  / Search  Enter Confirm  Esc Cancel`,
+      ),
+    );
+  }
 
   return lines;
 }
@@ -242,6 +322,71 @@ export async function checkboxPicker(
     }
 
     function handleKey(key: string) {
+      // ── Search mode ──────────────────────────────────────────────────
+      if (state.searchActive) {
+        if (key === "\x1b") {
+          // Escape: clear filter and exit search mode
+          state.searchActive = false;
+          state.filter = "";
+          state.applyFilter(items);
+          render();
+          return;
+        }
+        if (key === "\r" || key === "\n") {
+          // Enter: exit search mode, keep filter applied
+          state.searchActive = false;
+          render();
+          return;
+        }
+        if (key === "\x7f" || key === "\b") {
+          // Backspace
+          if (state.filter.length > 0) {
+            state.filter = state.filter.slice(0, -1);
+            state.applyFilter(items);
+          } else {
+            // Empty filter + backspace: exit search mode
+            state.searchActive = false;
+          }
+          render();
+          return;
+        }
+        if (key === "\x03") {
+          // Ctrl-C
+          cleanup();
+          process.kill(process.pid, "SIGINT");
+          return;
+        }
+        // Arrow keys still work during search for navigation
+        if (key === "\x1b[A" || key === "k") {
+          // Only arrow keys navigate in search mode, not 'k'
+        }
+        if (key === "\x1b[A") {
+          state.moveUp();
+          render();
+          return;
+        }
+        if (key === "\x1b[B") {
+          state.moveDown();
+          render();
+          return;
+        }
+        if (key === " ") {
+          // Space toggles even in search mode
+          state.toggleCurrent();
+          render();
+          return;
+        }
+        // Printable character: append to filter
+        if (key.length === 1 && key >= " " && key <= "~") {
+          state.filter += key;
+          state.applyFilter(items);
+          render();
+          return;
+        }
+        return;
+      }
+
+      // ── Normal mode ──────────────────────────────────────────────────
       switch (key) {
         case "\x1b[A": // Up arrow
         case "k":
@@ -257,16 +402,35 @@ export async function checkboxPicker(
           state.toggleCurrent();
           render();
           break;
-        case "a": // Toggle all
+        case "a": // Toggle all (visible)
           state.toggleAll();
+          render();
+          break;
+        case "/": // Activate search
+          state.searchActive = true;
           render();
           break;
         case "\r": // Enter — confirm
         case "\n":
           finish(state.getSelectedIndices());
           break;
-        case "\x1b": // Escape (standalone)
-          finish([]);
+        case "\x1b": // Escape
+          if (state.filter !== "") {
+            // Clear filter first
+            state.filter = "";
+            state.applyFilter(items);
+            render();
+          } else {
+            finish([]);
+          }
+          break;
+        case "\x7f": // Backspace — remove last filter char if filter active
+        case "\b":
+          if (state.filter.length > 0) {
+            state.filter = state.filter.slice(0, -1);
+            state.applyFilter(items);
+            render();
+          }
           break;
         case "\x03": // Ctrl-C
           cleanup();
