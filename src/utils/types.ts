@@ -164,6 +164,21 @@ export interface DiscoveredSkill {
 
 // ─── Skill Index Types ───────────────────────────────────────────────────────
 
+export interface SkillIndexResource {
+  source: string;
+  url: string;
+  owner: string;
+  repo: string;
+  description: string;
+  maintainer: string;
+  enabled: boolean;
+}
+
+export interface SkillIndexResources {
+  updatedAt: string;
+  repos: SkillIndexResource[];
+}
+
 export interface IndexedSkill {
   name: string;
   description: string;
