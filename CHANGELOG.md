@@ -1,5 +1,30 @@
 # Changelog
 
+## v1.12.0 — 2026-03-23
+
+### Features
+
+- Add MiniMax-AI/skills repo to curated skill index — 10 new skills discoverable via `asm search` (#43, #47)
+- Enrich skill-index with license/creator metadata and filter flags (#10, #46)
+- Extract curated skill repos into `data/skill-index-resources.json` for maintainability (#13, #45)
+- Add `effort` field to SKILL.md frontmatter (#36, #37)
+
+### Bug Fixes
+
+- Stub `bun:ffi` at build time for Node.js compatibility (#35, #44)
+- Scope unit-tests CI job to `src/` to exclude E2E tests
+
+### Testing
+
+- Add E2E tests for skill index search via both Bun and Node runtimes
+- Add multi-job CI pipeline with E2E validation for Node 18/20/22
+
+### Documentation
+
+- Add effort field documentation to README
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.11.0...v1.12.0
+
 ## v1.11.0 — 2026-03-21
 
 ### Features
