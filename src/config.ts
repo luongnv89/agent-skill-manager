@@ -3,7 +3,11 @@ import { join, resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { homedir } from "os";
 import { debug } from "./logger";
-import type { AppConfig, ProviderConfig } from "./utils/types";
+import type {
+  AppConfig,
+  ProviderConfig,
+  SkillIndexResources,
+} from "./utils/types";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -145,6 +149,16 @@ export function getBundledIndexDir(): string {
   // In built dist/: __dirname is dist/, data/ is at ../data/
   // In dev (src/): __dirname is src/, data/ is at ../data/
   return resolve(__dirname, "..", "data", "skill-index");
+}
+
+export function getSkillIndexResourcesPath(): string {
+  return resolve(__dirname, "..", "data", "skill-index-resources.json");
+}
+
+export async function loadSkillIndexResources(): Promise<SkillIndexResources> {
+  const resourcesPath = getSkillIndexResourcesPath();
+  const raw = await readFile(resourcesPath, "utf-8");
+  return JSON.parse(raw) as SkillIndexResources;
 }
 
 export function resolveProviderPath(pathTemplate: string): string {

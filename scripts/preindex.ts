@@ -4,43 +4,40 @@
  * Pre-index script: clones all repos from the curated list and generates
  * index JSON files into data/skill-index/ so they ship with the npm package.
  *
+ * Reads the curated repo list from data/skill-index-resources.json.
+ *
  * Usage: bun run scripts/preindex.ts
  */
 
 import { resolve, join } from "path";
-import { mkdirSync } from "fs";
+import { mkdirSync, readFileSync } from "fs";
 import { copyFile } from "fs/promises";
 import { ingestRepo } from "../src/ingester";
 import { getIndexDir } from "../src/config";
+import type { SkillIndexResources } from "../src/utils/types";
 
 const root = resolve(import.meta.dir, "..");
 const outputDir = resolve(root, "data", "skill-index");
+const resourcesPath = resolve(root, "data", "skill-index-resources.json");
 
-// Curated repos from README — same order as the table
-const CURATED_REPOS = [
-  "github:anthropics/skills",
-  "github:obra/superpowers",
-  "github:affaan-m/everything-claude-code",
-  "github:msitarzewski/agency-agents",
-  "github:nextlevelbuilder/ui-ux-pro-max-skill",
-  "github:sickn33/antigravity-awesome-skills",
-  "github:coreyhaines31/marketingskills",
-  "github:agentskills/agentskills",
-  "github:Leonxlnx/taste-skill",
-  "github:Affitor/affiliate-skills",
-  "github:luongnv89/skills",
-];
+function loadResources(): string[] {
+  const raw = readFileSync(resourcesPath, "utf-8");
+  const data: SkillIndexResources = JSON.parse(raw);
+  return data.repos.filter((r) => r.enabled).map((r) => r.source);
+}
 
 async function main() {
+  const repos = loadResources();
+
   // Ensure output directory exists and is clean
   mkdirSync(outputDir, { recursive: true });
 
-  console.log(`Pre-indexing ${CURATED_REPOS.length} repos into ${outputDir}\n`);
+  console.log(`Pre-indexing ${repos.length} repos into ${outputDir}\n`);
 
   let succeeded = 0;
   let failed = 0;
 
-  for (const repo of CURATED_REPOS) {
+  for (const repo of repos) {
     process.stdout.write(`  ${repo} ... `);
     const result = await ingestRepo(repo);
 

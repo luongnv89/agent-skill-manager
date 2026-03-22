@@ -1,0 +1,104 @@
+{
+  "updatedAt": "2026-03-18T00:00:00Z",
+  "repos": [
+    {
+      "source": "github:anthropics/skills",
+      "url": "https://github.com/anthropics/skills",
+      "owner": "anthropics",
+      "repo": "skills",
+      "description": "Official Agent Skills from Anthropic",
+      "maintainer": "@anthropics",
+      "enabled": true
+    },
+    {
+      "source": "github:obra/superpowers",
+      "url": "https://github.com/obra/superpowers",
+      "owner": "obra",
+      "repo": "superpowers",
+      "description": "Agentic skills framework & development methodology",
+      "maintainer": "@obra",
+      "enabled": true
+    },
+    {
+      "source": "github:affaan-m/everything-claude-code",
+      "url": "https://github.com/affaan-m/everything-claude-code",
+      "owner": "affaan-m",
+      "repo": "everything-claude-code",
+      "description": "Performance optimization system for Claude Code, Codex, and beyond",
+      "maintainer": "@affaan-m",
+      "enabled": true
+    },
+    {
+      "source": "github:msitarzewski/agency-agents",
+      "url": "https://github.com/msitarzewski/agency-agents",
+      "owner": "msitarzewski",
+      "repo": "agency-agents",
+      "description": "Specialized expert agents with personality and proven deliverables",
+      "maintainer": "@msitarzewski",
+      "enabled": true
+    },
+    {
+      "source": "github:nextlevelbuilder/ui-ux-pro-max-skill",
+      "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "owner": "nextlevelbuilder",
+      "repo": "ui-ux-pro-max-skill",
+      "description": "Design intelligence for building professional UI/UX",
+      "maintainer": "@nextlevelbuilder",
+      "enabled": true
+    },
+    {
+      "source": "github:sickn33/antigravity-awesome-skills",
+      "url": "https://github.com/sickn33/antigravity-awesome-skills",
+      "owner": "sickn33",
+      "repo": "antigravity-awesome-skills",
+      "description": "1,000+ battle-tested skills for Claude Code, Cursor, and more",
+      "maintainer": "@sickn33",
+      "enabled": true
+    },
+    {
+      "source": "github:coreyhaines31/marketingskills",
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "owner": "coreyhaines31",
+      "repo": "marketingskills",
+      "description": "Marketing skills — CRO, copywriting, SEO, analytics, growth",
+      "maintainer": "@coreyhaines31",
+      "enabled": true
+    },
+    {
+      "source": "github:agentskills/agentskills",
+      "url": "https://github.com/agentskills/agentskills",
+      "owner": "agentskills",
+      "repo": "agentskills",
+      "description": "Specification and documentation for Agent Skills",
+      "maintainer": "@agentskills",
+      "enabled": true
+    },
+    {
+      "source": "github:Leonxlnx/taste-skill",
+      "url": "https://github.com/Leonxlnx/taste-skill",
+      "owner": "Leonxlnx",
+      "repo": "taste-skill",
+      "description": "Gives your AI good taste — stops generic, boring output",
+      "maintainer": "@Leonxlnx",
+      "enabled": true
+    },
+    {
+      "source": "github:Affitor/affiliate-skills",
+      "url": "https://github.com/Affitor/affiliate-skills",
+      "owner": "Affitor",
+      "repo": "affiliate-skills",
+      "description": "Full affiliate marketing funnel: research to deploy",
+      "maintainer": "@Affitor",
+      "enabled": true
+    },
+    {
+      "source": "github:luongnv89/skills",
+      "url": "https://github.com/luongnv89/skills",
+      "owner": "luongnv89",
+      "repo": "skills",
+      "description": "Reusable skills to supercharge your AI agents",
+      "maintainer": "@luongnv89",
+      "enabled": true
+    }
+  ]
+}
