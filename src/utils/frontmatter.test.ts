@@ -1,5 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import { parseFrontmatter, resolveVersion } from "./frontmatter";
+import {
+  parseFrontmatter,
+  resolveVersion,
+  resolveAllowedTools,
+} from "./frontmatter";
 
 describe("parseFrontmatter", () => {
   it("parses simple key-value pairs", () => {
@@ -294,5 +298,90 @@ describe("resolveVersion", () => {
 
   it("defaults to 0.0.0 for empty object", () => {
     expect(resolveVersion({})).toBe("0.0.0");
+  });
+});
+
+describe("parseFrontmatter — allowed-tools", () => {
+  it("parses space-delimited allowed-tools", () => {
+    const input = `---
+name: my-skill
+allowed-tools: Bash Read Grep
+---`;
+    const result = parseFrontmatter(input);
+    expect(result["allowed-tools"]).toBe("Bash Read Grep");
+  });
+
+  it("parses allowed-tools as multiline block scalar", () => {
+    const input = `---
+name: my-skill
+allowed-tools: |
+  Bash Read Grep
+  WebFetch Write
+---`;
+    const result = parseFrontmatter(input);
+    expect(result["allowed-tools"]).toBe("Bash Read Grep WebFetch Write");
+  });
+
+  it("parses compatibility field", () => {
+    const input = `---
+name: my-skill
+compatibility: Claude Code, Codex
+---`;
+    const result = parseFrontmatter(input);
+    expect(result.compatibility).toBe("Claude Code, Codex");
+  });
+
+  it("parses full frontmatter with all spec fields", () => {
+    const input = `---
+name: code-review
+description: Perform code reviews
+license: MIT
+compatibility: Claude Code
+allowed-tools: Bash Read Grep Glob WebFetch
+metadata:
+  version: 1.0.1
+  creator: Luong NGUYEN
+---
+# Body`;
+    const result = parseFrontmatter(input);
+    expect(result.name).toBe("code-review");
+    expect(result.description).toBe("Perform code reviews");
+    expect(result.license).toBe("MIT");
+    expect(result.compatibility).toBe("Claude Code");
+    expect(result["allowed-tools"]).toBe("Bash Read Grep Glob WebFetch");
+    expect(result["metadata.version"]).toBe("1.0.1");
+    expect(result["metadata.creator"]).toBe("Luong NGUYEN");
+  });
+});
+
+describe("resolveAllowedTools", () => {
+  it("splits space-delimited tools", () => {
+    expect(resolveAllowedTools({ "allowed-tools": "Bash Read Grep" })).toEqual([
+      "Bash",
+      "Read",
+      "Grep",
+    ]);
+  });
+
+  it("handles multiline joined value", () => {
+    expect(
+      resolveAllowedTools({
+        "allowed-tools": "Bash Read Grep WebFetch Write",
+      }),
+    ).toEqual(["Bash", "Read", "Grep", "WebFetch", "Write"]);
+  });
+
+  it("returns empty array when field is missing", () => {
+    expect(resolveAllowedTools({})).toEqual([]);
+  });
+
+  it("returns empty array for empty value", () => {
+    expect(resolveAllowedTools({ "allowed-tools": "" })).toEqual([]);
+  });
+
+  it("handles comma-separated tools", () => {
+    expect(
+      resolveAllowedTools({ "allowed-tools": "Bash, Read, Grep" }),
+    ).toEqual(["Bash", "Read", "Grep"]);
   });
 });

@@ -114,3 +114,12 @@ export function parseFrontmatter(content: string): Record<string, string> {
 export function resolveVersion(fm: Record<string, string>): string {
   return fm["metadata.version"] || fm.version || "0.0.0";
 }
+
+export function resolveAllowedTools(fm: Record<string, string>): string[] {
+  const raw = fm["allowed-tools"] || "";
+  if (!raw.trim()) return [];
+  return raw
+    .split(/[\s,]+/)
+    .map((t) => t.trim())
+    .filter(Boolean);
+}

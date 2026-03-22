@@ -50,11 +50,22 @@ export function createDetailView(
   const descMaxWidth = 56;
   const desc = skill.description || "(no description)";
   const wrappedDescLines = wordWrap(desc, descMaxWidth);
-  // 9 detail rows + optional effort row + 2 (desc label with blank line) + desc lines + 2 (footer with blank line) + 2 (border) + 2 (padding)
+  // base detail rows (name, version, creator, license, tool, location, path, symlink, files, scope) = 10
+  // + optional rows: effort, compatibility, allowed-tools (label + tools + optional warning)
   const effortRows = skill.effort ? 1 : 0;
+  const compatRows = skill.compatibility ? 1 : 0;
+  const toolsRows = skill.allowedTools && skill.allowedTools.length > 0 ? 2 : 0;
   const boxHeight = Math.min(
     ctx.height - 2,
-    9 + effortRows + 2 + wrappedDescLines.length + 2 + 2 + 2,
+    10 +
+      effortRows +
+      compatRows +
+      toolsRows +
+      2 +
+      wrappedDescLines.length +
+      2 +
+      2 +
+      2,
   );
   const top = Math.max(0, Math.floor((ctx.height - boxHeight) / 2));
   const left = Math.max(0, Math.floor((ctx.width - boxWidth) / 2));
@@ -91,6 +102,26 @@ export function createDetailView(
       skill.creator ? theme.fg : theme.fgDim,
     ),
   );
+  container.add(
+    detailRow(
+      ctx,
+      "license",
+      "License",
+      skill.license || "\u2014",
+      skill.license ? theme.fg : theme.fgDim,
+    ),
+  );
+  if (skill.compatibility) {
+    container.add(
+      detailRow(
+        ctx,
+        "compat",
+        "Compatibility",
+        skill.compatibility,
+        theme.cyan,
+      ),
+    );
+  }
   if (skill.effort) {
     container.add(
       detailRow(
@@ -173,6 +204,32 @@ export function createDetailView(
     height: visibleLines.length,
   });
   container.add(descText);
+
+  if (skill.allowedTools && skill.allowedTools.length > 0) {
+    const HIGH_RISK = new Set(["Bash", "Write", "Edit", "NotebookEdit"]);
+    const MEDIUM_RISK = new Set(["WebFetch", "WebSearch"]);
+    const toolsLabel = new TextRenderable(ctx, {
+      content: "\nAllowed Tools:",
+      fg: theme.fgDim,
+      height: 2,
+    });
+    container.add(toolsLabel);
+    const toolsText = new TextRenderable(ctx, {
+      content:
+        "  " +
+        skill.allowedTools
+          .map((t) => {
+            if (HIGH_RISK.has(t)) return `[${t}]`;
+            if (MEDIUM_RISK.has(t)) return `[${t}]`;
+            return `[${t}]`;
+          })
+          .join(" "),
+      fg: skill.allowedTools.some((t) => HIGH_RISK.has(t))
+        ? theme.red
+        : theme.green,
+    });
+    container.add(toolsText);
+  }
 
   const footer = new TextRenderable(ctx, {
     content: "\n  Esc Back    d Uninstall",
