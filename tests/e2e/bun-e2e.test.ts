@@ -82,6 +82,53 @@ describe("Bun dist E2E: search", () => {
   });
 });
 
+describe("Bun dist E2E: search skill index", () => {
+  test("search 'minimax' finds MiniMax-AI skills", async () => {
+    const { stdout, exitCode } = await runBunDist(
+      "search",
+      "minimax",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data.length).toBeGreaterThanOrEqual(1);
+    const repos = data.map((s: any) => s.repo);
+    expect(repos).toContain("MiniMax-AI/skills");
+  });
+
+  test("search 'shader' finds shader-dev skill", async () => {
+    const { stdout, exitCode } = await runBunDist("search", "shader", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    const names = data.map((s: any) => s.name);
+    expect(names).toContain("shader-dev");
+  });
+
+  test("index search 'pdf' finds minimax-pdf", async () => {
+    const { stdout, exitCode } = await runBunDist(
+      "index",
+      "search",
+      "pdf",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    const names = data.map((s: any) => s.name);
+    expect(names).toContain("minimax-pdf");
+  });
+
+  test("search nonexistent query returns empty results", async () => {
+    const { stdout, exitCode } = await runBunDist(
+      "search",
+      "qzxwvut9876",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data).toEqual([]);
+  });
+});
+
 describe("Bun dist E2E: audit", () => {
   test("audit exits 0", async () => {
     const { exitCode } = await runBunDist("audit");

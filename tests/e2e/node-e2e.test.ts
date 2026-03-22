@@ -127,6 +127,91 @@ describe("Node E2E: search", () => {
   });
 });
 
+describe("Node E2E: search skill index", () => {
+  test("search 'minimax' finds MiniMax-AI skills", async () => {
+    const { stdout, exitCode } = await runNode("search", "minimax", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(Array.isArray(data)).toBe(true);
+    expect(data.length).toBeGreaterThanOrEqual(1);
+    const repos = data.map((s: any) => s.repo);
+    expect(repos).toContain("MiniMax-AI/skills");
+  });
+
+  test("search 'shader' finds shader-dev skill", async () => {
+    const { stdout, exitCode } = await runNode("search", "shader", "--json");
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    const names = data.map((s: any) => s.name);
+    expect(names).toContain("shader-dev");
+  });
+
+  test("search 'frontend-dev' returns results from multiple repos", async () => {
+    const { stdout, exitCode } = await runNode(
+      "search",
+      "frontend-dev",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data.length).toBeGreaterThanOrEqual(2);
+    const repos = new Set(data.map((s: any) => s.repo));
+    expect(repos.size).toBeGreaterThanOrEqual(2);
+  });
+
+  test("search nonexistent query returns empty results", async () => {
+    const { stdout, exitCode } = await runNode(
+      "search",
+      "qzxwvut9876",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data).toEqual([]);
+  });
+
+  test("index search 'pdf' finds results across repos", async () => {
+    const { stdout, exitCode } = await runNode(
+      "index",
+      "search",
+      "pdf",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data.length).toBeGreaterThanOrEqual(2);
+    const names = data.map((s: any) => s.name);
+    expect(names).toContain("minimax-pdf");
+  });
+
+  test("index search 'android' finds android-native-dev", async () => {
+    const { stdout, exitCode } = await runNode(
+      "index",
+      "search",
+      "android",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    const names = data.map((s: any) => s.name);
+    expect(names).toContain("android-native-dev");
+  });
+
+  test("search results include installCommand field", async () => {
+    const { stdout, exitCode } = await runNode(
+      "search",
+      "shader-dev",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    const shader = data.find((s: any) => s.name === "shader-dev");
+    expect(shader).toBeDefined();
+    expect(shader.installCommand).toContain("asm install");
+    expect(shader.installCommand).toContain("MiniMax-AI/skills");
+  });
+});
+
 describe("Node E2E: audit", () => {
   test("audit exits 0", async () => {
     const { exitCode } = await runNode("audit");
