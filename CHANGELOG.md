@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.13.1 — 2026-03-23
+
+### Fixed
+
+- Node.js v25 compatibility: resolve `ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING` caused by `@opentui/core` shipping `.ts` entry points in node_modules
+- Cross-runtime TUI support: `bun:ffi` shim now uses real FFI on Bun (native rendering) and no-op stubs on Node.js (CLI-only)
+- Auto re-exec with Bun for interactive TUI mode when running on Node.js, with helpful error if Bun is not installed
+- Clean `dist/` before build to prevent stale chunks from previous builds
+
 ## v1.13.0 — 2026-03-23
 
 ### Added
