@@ -274,6 +274,26 @@ asm install github:anthropics/skills --all
 
 ---
 
+## Browse Skills Online — ASM Catalog
+
+Don't want to install anything yet? **[Browse the full skill catalog in your browser &rarr;](https://luongnv.com/asm/)**
+
+The **ASM Catalog** is a web-based interface that lets you search, filter, and explore all 1,700+ skills across every indexed repository — no installation required. Features include:
+
+- **Search** across all skill names and descriptions
+- **Filter** by category (16 categories) or by repository
+- **One-click install commands** — copy `asm install ...` directly from any skill card
+- **Skill details** — view metadata, version, license, creator, allowed tools, and link to SKILL.md on GitHub
+- **URL state** — share filtered views with teammates via URL (e.g. `?q=code-review&cat=development`)
+
+The catalog is auto-generated from the same index data that powers `asm index search`. It's a static site — no backend, no accounts, no tracking beyond basic analytics.
+
+<p align="center">
+  <a href="https://luongnv.com/asm/"><strong>Open ASM Catalog &rarr;</strong></a>
+</p>
+
+---
+
 ## Supported Agent Tools
 
 `asm` ships with **15 built-in providers**, all enabled by default. Disable any you don't need via `asm config edit`.
