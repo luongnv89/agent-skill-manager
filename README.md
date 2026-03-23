@@ -736,6 +736,8 @@ Every skill is a directory containing a `SKILL.md` file. The file starts with a 
 name: my-skill
 description: "A short description of what this skill does"
 license: "MIT"
+compatibility: "Claude Code, Codex"
+allowed-tools: Bash Read Grep Glob WebFetch
 effort: medium
 metadata:
   version: 1.0.0
@@ -748,6 +750,8 @@ metadata:
 | `name`             |   yes    | Unique skill identifier (used in list/search)       |
 | `description`      |   yes    | One-line summary shown in listings                  |
 | `license`          |    no    | SPDX license identifier (e.g., `MIT`, `Apache-2.0`) |
+| `compatibility`    |    no    | Comma-separated list of compatible AI agents        |
+| `allowed-tools`    |    no    | Space or comma-delimited tool names the skill uses  |
 | `effort`           |    no    | Effort level: `low`, `medium`, `high`, or `max`     |
 | `metadata.version` |    no    | Semver version string (defaults to `0.0.0`)         |
 | `metadata.creator` |    no    | Author name and optional email                      |

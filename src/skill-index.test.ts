@@ -120,6 +120,8 @@ describe("getMissingMetadataFields", () => {
       version: "",
       license: "",
       creator: "",
+      compatibility: "",
+      allowedTools: [],
       installUrl: "github:test/test",
       relPath: "test",
     };
@@ -136,6 +138,8 @@ describe("getMissingMetadataFields", () => {
       version: "1.0.0",
       license: "MIT",
       creator: "Test Author",
+      compatibility: "",
+      allowedTools: [],
       installUrl: "github:test/test",
       relPath: "test",
     };
@@ -150,6 +154,8 @@ describe("getMissingMetadataFields", () => {
       version: "0.0.0",
       license: "MIT",
       creator: "Author",
+      compatibility: "",
+      allowedTools: [],
       installUrl: "github:test/test",
       relPath: "test",
     };

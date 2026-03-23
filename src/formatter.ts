@@ -365,6 +365,41 @@ export function formatSearchResults(
   return lines.join("\n");
 }
 
+// ─── Allowed-tools risk coloring ────────────────────────────────────────────
+
+export const HIGH_RISK_TOOLS = new Set([
+  "Bash",
+  "Write",
+  "Edit",
+  "NotebookEdit",
+]);
+export const MEDIUM_RISK_TOOLS = new Set(["WebFetch", "WebSearch"]);
+
+export function colorTool(tool: string): string {
+  if (HIGH_RISK_TOOLS.has(tool)) return ansi.red(tool);
+  if (MEDIUM_RISK_TOOLS.has(tool)) return ansi.yellow(tool);
+  return ansi.green(tool);
+}
+
+export function formatAllowedTools(tools: string[]): string {
+  if (tools.length === 0) return "";
+  return tools.map(colorTool).join("  ");
+}
+
+function toolRiskWarning(tools: string[]): string | null {
+  const high = tools.filter((t) => HIGH_RISK_TOOLS.has(t));
+  if (high.length === 0) return null;
+  const actions: string[] = [];
+  if (high.includes("Bash")) actions.push("execute shell commands");
+  if (
+    high.includes("Write") ||
+    high.includes("Edit") ||
+    high.includes("NotebookEdit")
+  )
+    actions.push("modify files");
+  return `This skill can ${actions.join(" and ")}`;
+}
+
 // ─── Detail formatter ───────────────────────────────────────────────────────
 
 export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
@@ -375,6 +410,10 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   lines.push(label("Name", skill.name));
   lines.push(label("Version", skill.version));
   lines.push(label("Creator", skill.creator || "\u2014"));
+  lines.push(label("License", skill.license || "\u2014"));
+  if (skill.compatibility) {
+    lines.push(label("Compatibility", skill.compatibility));
+  }
   if (skill.effort) {
     lines.push(label("Effort", colorEffort(skill.effort)));
   }
@@ -391,6 +430,16 @@ export async function formatSkillDetail(skill: SkillInfo): Promise<string> {
   if (skill.description) {
     lines.push("");
     lines.push(label("Description", skill.description));
+  }
+
+  if (skill.allowedTools && skill.allowedTools.length > 0) {
+    lines.push("");
+    lines.push(useColor() ? ansi.bold("Allowed Tools:") : "Allowed Tools:");
+    lines.push(`  ${formatAllowedTools(skill.allowedTools)}`);
+    const warning = toolRiskWarning(skill.allowedTools);
+    if (warning) {
+      lines.push(`  ${useColor() ? ansi.yellow("\u26A0") : "!"} ${warning}`);
+    }
   }
 
   if (skill.warnings && skill.warnings.length > 0) {
@@ -431,6 +480,10 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
   // ── Shared info ──
   lines.push(label("  Version", ref.version));
   lines.push(label("  Creator", ref.creator || "\u2014"));
+  lines.push(label("  License", ref.license || "\u2014"));
+  if (ref.compatibility) {
+    lines.push(label("  Compatibility", ref.compatibility));
+  }
   if (ref.effort) {
     lines.push(label("  Effort", colorEffort(ref.effort)));
   }
@@ -451,6 +504,17 @@ export async function formatSkillInspect(skills: SkillInfo[]): Promise<string> {
     const wrapped = wordWrap(ref.description, 72);
     for (const wl of wrapped) {
       lines.push("    " + wl);
+    }
+  }
+
+  // ── Allowed Tools ──
+  if (ref.allowedTools && ref.allowedTools.length > 0) {
+    lines.push("");
+    lines.push(useColor() ? ansi.bold("  Allowed Tools:") : "  Allowed Tools:");
+    lines.push(`    ${formatAllowedTools(ref.allowedTools)}`);
+    const warning = toolRiskWarning(ref.allowedTools);
+    if (warning) {
+      lines.push(`    ${useColor() ? ansi.yellow("\u26A0") : "!"} ${warning}`);
     }
   }
 

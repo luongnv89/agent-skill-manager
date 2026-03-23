@@ -7,7 +7,11 @@ import {
   realpath,
 } from "fs/promises";
 import { join, resolve } from "path";
-import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
+import {
+  parseFrontmatter,
+  resolveVersion,
+  resolveAllowedTools,
+} from "./utils/frontmatter";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import type { SkillInfo, Scope, SortBy, AppConfig } from "./utils/types";
@@ -145,6 +149,9 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
       version: resolveVersion(fm),
       description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
       creator: fm["metadata.creator"] || "",
+      license: (fm.license || "").trim(),
+      compatibility: (fm.compatibility || "").trim(),
+      allowedTools: resolveAllowedTools(fm),
       effort: fm.effort || fm["metadata.effort"] || undefined,
       dirName: entry,
       path: resolvedPath,

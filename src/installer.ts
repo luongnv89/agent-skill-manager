@@ -16,7 +16,11 @@ import {
 import { join, resolve, relative, basename } from "path";
 import { homedir } from "os";
 import { tmpdir } from "os";
-import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
+import {
+  parseFrontmatter,
+  resolveVersion,
+  resolveAllowedTools,
+} from "./utils/frontmatter";
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import { readFilesRecursive } from "./utils/fs";
@@ -444,6 +448,8 @@ export async function discoverSkills(
           effort: fm.effort || fm["metadata.effort"] || undefined,
           license: (fm.license || "").trim(),
           creator: (fm["metadata.creator"] || "").trim(),
+          compatibility: (fm.compatibility || "").trim(),
+          allowedTools: resolveAllowedTools(fm),
         });
         // Don't recurse into directories that have SKILL.md
       } catch {

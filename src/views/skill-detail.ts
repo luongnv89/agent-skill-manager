@@ -3,7 +3,7 @@ import type { RenderContext } from "@opentui/core";
 import { theme } from "../utils/colors";
 import type { SkillInfo } from "../utils/types";
 import { countFiles } from "../scanner";
-import { wordWrap } from "../formatter";
+import { wordWrap, HIGH_RISK_TOOLS, MEDIUM_RISK_TOOLS } from "../formatter";
 
 const EFFORT_COLORS: Record<string, string> = {
   low: theme.green,
@@ -50,11 +50,30 @@ export function createDetailView(
   const descMaxWidth = 56;
   const desc = skill.description || "(no description)";
   const wrappedDescLines = wordWrap(desc, descMaxWidth);
-  // 9 detail rows + optional effort row + 2 (desc label with blank line) + desc lines + 2 (footer with blank line) + 2 (border) + 2 (padding)
+  // base detail rows (name, version, creator, license, tool, location, path, symlink, files, scope) = 10
+  // + optional rows: effort, compatibility, allowed-tools (label + tools + optional warning)
   const effortRows = skill.effort ? 1 : 0;
+  const compatRows = skill.compatibility ? 1 : 0;
+  const hasHighRiskTools = skill.allowedTools?.some((t) =>
+    HIGH_RISK_TOOLS.has(t),
+  );
+  const toolsRows =
+    skill.allowedTools && skill.allowedTools.length > 0
+      ? hasHighRiskTools
+        ? 3
+        : 2
+      : 0;
   const boxHeight = Math.min(
     ctx.height - 2,
-    9 + effortRows + 2 + wrappedDescLines.length + 2 + 2 + 2,
+    10 +
+      effortRows +
+      compatRows +
+      toolsRows +
+      2 +
+      wrappedDescLines.length +
+      2 +
+      2 +
+      2,
   );
   const top = Math.max(0, Math.floor((ctx.height - boxHeight) / 2));
   const left = Math.max(0, Math.floor((ctx.width - boxWidth) / 2));
@@ -91,6 +110,26 @@ export function createDetailView(
       skill.creator ? theme.fg : theme.fgDim,
     ),
   );
+  container.add(
+    detailRow(
+      ctx,
+      "license",
+      "License",
+      skill.license || "\u2014",
+      skill.license ? theme.fg : theme.fgDim,
+    ),
+  );
+  if (skill.compatibility) {
+    container.add(
+      detailRow(
+        ctx,
+        "compat",
+        "Compatibility",
+        skill.compatibility,
+        theme.cyan,
+      ),
+    );
+  }
   if (skill.effort) {
     container.add(
       detailRow(
@@ -173,6 +212,52 @@ export function createDetailView(
     height: visibleLines.length,
   });
   container.add(descText);
+
+  if (skill.allowedTools && skill.allowedTools.length > 0) {
+    const toolsLabel = new TextRenderable(ctx, {
+      content: "\nAllowed Tools:",
+      fg: theme.fgDim,
+      height: 2,
+    });
+    container.add(toolsLabel);
+
+    // Render each tool with its risk-level color
+    const toolsRow = new BoxRenderable(ctx, {
+      id: "detail-row-tools",
+      flexDirection: "row",
+      width: "100%",
+      height: 1,
+    });
+    toolsRow.add(new TextRenderable(ctx, { content: "  ", fg: theme.fg }));
+    for (let i = 0; i < skill.allowedTools.length; i++) {
+      const t = skill.allowedTools[i];
+      let color: string = theme.green;
+      if (HIGH_RISK_TOOLS.has(t)) color = theme.red;
+      else if (MEDIUM_RISK_TOOLS.has(t)) color = theme.yellow;
+      toolsRow.add(
+        new TextRenderable(ctx, {
+          content: i < skill.allowedTools.length - 1 ? `${t}  ` : t,
+          fg: color,
+        }),
+      );
+    }
+    container.add(toolsRow);
+
+    // Warning line for high-risk tools
+    const highRisk = skill.allowedTools.filter((t) => HIGH_RISK_TOOLS.has(t));
+    if (highRisk.length > 0) {
+      const actions: string[] = [];
+      if (highRisk.includes("Bash")) actions.push("execute shell commands");
+      if (highRisk.some((t) => ["Write", "Edit", "NotebookEdit"].includes(t)))
+        actions.push("modify files");
+      container.add(
+        new TextRenderable(ctx, {
+          content: `  ! This skill can ${actions.join(" and ")}`,
+          fg: theme.yellow,
+        }),
+      );
+    }
+  }
 
   const footer = new TextRenderable(ctx, {
     content: "\n  Esc Back    d Uninstall",
