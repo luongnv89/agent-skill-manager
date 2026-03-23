@@ -1292,6 +1292,67 @@ describe("buildRepoUrl", () => {
   });
 });
 
+// ─── buildInstallPlan scope tests ────────────────────────────────────────────
+
+describe("buildInstallPlan", () => {
+  const source = {
+    owner: "user",
+    repo: "my-skill",
+    ref: null,
+    subpath: null,
+    cloneUrl: "https://github.com/user/my-skill.git",
+    sshCloneUrl: "git@github.com:user/my-skill.git",
+  };
+  const provider: ProviderConfig = {
+    name: "claude",
+    label: "Claude Code",
+    global: "~/.claude/skills",
+    project: ".claude/skills",
+    enabled: true,
+  };
+
+  test("uses provider.global path when scope is global", () => {
+    const plan = buildInstallPlan(
+      source,
+      "/tmp/source",
+      "/tmp/source/skill",
+      "my-skill",
+      provider,
+      false,
+      "global",
+    );
+    expect(plan.scope).toBe("global");
+    expect(plan.targetDir).toContain(".claude/skills/my-skill");
+    expect(plan.targetDir).not.toMatch(/^\.\//);
+  });
+
+  test("uses provider.project path when scope is project", () => {
+    const plan = buildInstallPlan(
+      source,
+      "/tmp/source",
+      "/tmp/source/skill",
+      "my-skill",
+      provider,
+      false,
+      "project",
+    );
+    expect(plan.scope).toBe("project");
+    expect(plan.targetDir).toContain(".claude/skills/my-skill");
+  });
+
+  test("defaults to global scope when scope is omitted", () => {
+    const plan = buildInstallPlan(
+      source,
+      "/tmp/source",
+      "/tmp/source/skill",
+      "my-skill",
+      provider,
+      false,
+    );
+    expect(plan.scope).toBe("global");
+  });
+});
+
 // ─── checkNpxAvailable tests ────────────────────────────────────────────────
 
 describe("checkNpxAvailable", () => {

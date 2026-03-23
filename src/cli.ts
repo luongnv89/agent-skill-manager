@@ -1251,7 +1251,7 @@ async function cmdInstall(args: ParsedArgs) {
   }
 
   let tempDir: string | null = null;
-  const totalSteps = 7;
+  const totalSteps = 8;
   let currentStep = 0;
   const stepHeader = (label: string) => {
     currentStep++;
@@ -1404,7 +1404,7 @@ async function cmdInstall(args: ParsedArgs) {
     // The base directory to scan for skills
     const scanBaseDir = isLocal ? source.localPath! : tempDir!;
 
-    // Step 4: Scan for skills
+    // Step 5: Scan for skills
     console.info(stepHeader("Scanning for skills"));
     const { join: joinPath } = await import("path");
     let results: InstallResult[] = [];
@@ -1472,7 +1472,7 @@ async function cmdInstall(args: ParsedArgs) {
           }
         }
 
-        // Step 5: Select skills
+        // Step 6: Select skills
         console.info(stepHeader("Selecting skills"));
         currentStep--; // will be re-incremented by stepHeader for next step
 
@@ -1550,7 +1550,7 @@ async function cmdInstall(args: ParsedArgs) {
       }
     }
 
-    // Step 6: Inspect selected skills (security scan + NEW/UPDATE status)
+    // Step 7: Inspect selected skills (security scan + NEW/UPDATE status)
     console.info(stepHeader("Inspecting skills"));
     const existingSkills = await scanAllSkills(config, "both");
     const inspections: SkillInspection[] = [];
@@ -1617,7 +1617,7 @@ async function cmdInstall(args: ParsedArgs) {
       console.info(`    ${ansi.bold("Risk:")}        ${riskParts.join(", ")}`);
     }
 
-    // Step 7: Confirm & Install
+    // Step 8: Confirm & Install
     console.info(stepHeader("Installing"));
 
     // Confirmation prompt
