@@ -108,6 +108,15 @@
       "description": "Agent skills from MiniMax AI",
       "maintainer": "@MiniMax-AI",
       "enabled": true
+    },
+    {
+      "source": "github:slavingia/skills",
+      "url": "https://github.com/slavingia/skills",
+      "owner": "slavingia",
+      "repo": "skills",
+      "description": "Claude Code skills based on The Minimalist Entrepreneur",
+      "maintainer": "@slavingia",
+      "enabled": true
     }
   ]
 }
