@@ -1,0 +1,108 @@
+{
+  "repoUrl": "https://github.com/slavingia/skills.git",
+  "owner": "slavingia",
+  "repo": "skills",
+  "updatedAt": "2026-03-23T20:54:31.702Z",
+  "skillCount": 9,
+  "skills": [
+    {
+      "name": "company-values",
+      "description": "Help define company values and culture for a minimalist business. Use when someone is setting up their company culture, preparing to hire, or wanting to codify what their company stands for.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:slavingia/skills:skills/company-values",
+      "relPath": "skills/company-values"
+    },
+    {
+      "name": "find-community",
+      "description": "Help identify and evaluate communities to build a minimalist business around. Use when someone is looking for a business idea, trying to find their community, or wondering where to start as an entrepreneur.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:slavingia/skills:skills/find-community",
+      "relPath": "skills/find-community"
+    },
+    {
+      "name": "first-customers",
+      "description": "Create a strategy for selling to your first 100 customers using the minimalist entrepreneur playbook. Use when someone has a product and needs to find customers, or is struggling with early sales.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:slavingia/skills:skills/first-customers",
+      "relPath": "skills/first-customers"
+    },
+    {
+      "name": "grow-sustainably",
+      "description": "Evaluate business decisions through the lens of sustainable, profitable growth. Use when someone is making decisions about spending, hiring, fundraising, or scaling their business.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:slavingia/skills:skills/grow-sustainably",
+      "relPath": "skills/grow-sustainably"
+    },
+    {
+      "name": "marketing-plan",
+      "description": "Create a minimalist marketing plan focused on building an audience through content, not ads. Use when someone has product-market fit (~100 customers) and wants to scale with marketing, or needs a content strategy.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:slavingia/skills:skills/marketing-plan",
+      "relPath": "skills/marketing-plan"
+    },
+    {
+      "name": "minimalist-review",
+      "description": "Review any business decision, plan, or strategy through the minimalist entrepreneur lens. Use when someone wants a gut-check on a business decision, wants to simplify their approach, or needs to decide between options.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:slavingia/skills:skills/minimalist-review",
+      "relPath": "skills/minimalist-review"
+    },
+    {
+      "name": "mvp",
+      "description": "Guide building a minimum viable product the minimalist entrepreneur way — manual first, then processized, then productized. Use when someone is ready to build their first product or struggling with scope.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:slavingia/skills:skills/mvp",
+      "relPath": "skills/mvp"
+    },
+    {
+      "name": "pricing",
+      "description": "Help figure out pricing for a product or service using minimalist entrepreneur principles. Use when someone is setting prices, considering price changes, or struggling with what to charge.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:slavingia/skills:skills/pricing",
+      "relPath": "skills/pricing"
+    },
+    {
+      "name": "validate-idea",
+      "description": "Validate a business idea using the minimalist entrepreneur framework. Use when someone has a business idea and wants to test if it's worth pursuing before building anything.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:slavingia/skills:skills/validate-idea",
+      "relPath": "skills/validate-idea"
+    }
+  ]
+}
