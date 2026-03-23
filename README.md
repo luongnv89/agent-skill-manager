@@ -24,7 +24,17 @@
 
 <p align="center">
   <a href="#get-started-in-30-seconds"><strong>Get Started in 30 Seconds &rarr;</strong></a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="https://luongnv.com/asm/"><strong>Browse 1,700+ Skills Online &rarr;</strong></a>
 </p>
+
+---
+
+### 🌐 ASM Catalog — Browse Skills in Your Browser
+
+Don't want to install anything yet? **[Explore the full skill catalog online &rarr;](https://luongnv.com/asm/)**
+
+Search, filter by category or repo, and copy install commands — all from a single page. No signup, no backend, no tracking. Share filtered views via URL (e.g. `?q=code-review&cat=development`).
 
 ---
 
@@ -270,26 +280,6 @@ asm install github:anthropics/skills --all
 <p align="center">
   <img src="assets/screenshots/asm-inspect-oss-ready.png" alt="asm inspect — detailed skill information" width="700" />
   <br/><em>asm inspect oss-ready — version, creator, and every tool installation at once</em>
-</p>
-
----
-
-## Browse Skills Online — ASM Catalog
-
-Don't want to install anything yet? **[Browse the full skill catalog in your browser &rarr;](https://luongnv.com/asm/)**
-
-The **ASM Catalog** is a web-based interface that lets you search, filter, and explore all 1,700+ skills across every indexed repository — no installation required. Features include:
-
-- **Search** across all skill names and descriptions
-- **Filter** by category (16 categories) or by repository
-- **One-click install commands** — copy `asm install ...` directly from any skill card
-- **Skill details** — view metadata, version, license, creator, allowed tools, and link to SKILL.md on GitHub
-- **URL state** — share filtered views with teammates via URL (e.g. `?q=code-review&cat=development`)
-
-The catalog is auto-generated from the same index data that powers `asm index search`. It's a static site — no backend, no accounts, no tracking beyond basic analytics.
-
-<p align="center">
-  <a href="https://luongnv.com/asm/"><strong>Open ASM Catalog &rarr;</strong></a>
 </p>
 
 ---
