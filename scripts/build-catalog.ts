@@ -262,6 +262,7 @@ interface CatalogSkill {
   compatibility: string;
   allowedTools: string[];
   installUrl: string;
+  skillUrl: string;
   owner: string;
   repo: string;
   categories: string[];
@@ -342,6 +343,12 @@ for (const file of files) {
     const categories = categorizeSkill(skill.name, skill.description);
     for (const c of categories) categorySet.add(c);
 
+    // Build SKILL.md URL from installUrl (format: github:owner/repo:relPath)
+    const relPath = skill.installUrl.split(":").slice(2).join(":") || "";
+    const skillUrl = relPath
+      ? `https://github.com/${repoIndex.owner}/${repoIndex.repo}/blob/main/${relPath}/SKILL.md`
+      : `https://github.com/${repoIndex.owner}/${repoIndex.repo}/blob/main/SKILL.md`;
+
     skillMap.set(id, {
       id,
       name: skill.name,
@@ -352,6 +359,7 @@ for (const file of files) {
       compatibility: skill.compatibility,
       allowedTools: skill.allowedTools || [],
       installUrl: skill.installUrl,
+      skillUrl,
       owner: repoIndex.owner,
       repo: repoIndex.repo,
       categories,

@@ -430,6 +430,25 @@ a:hover { text-decoration: underline; }
   word-break: break-all;
 }
 .modal-install .copy-btn { font-size: 12px; padding: 5px 12px; }
+.modal-skill-link {
+  margin-top: 12px;
+  text-align: center;
+}
+.modal-skill-link a {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--brand);
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  transition: all 0.15s;
+}
+.modal-skill-link a:hover {
+  border-color: var(--brand);
+  background: var(--brand-glow);
+  text-decoration: none;
+}
 
 /* ─── Pagination ────────────────────────────────────────────────────────── */
 .pagination {
@@ -787,7 +806,8 @@ function openModal(skillId) {
     + '<div class="modal-install">'
     + '<code>' + esc(cmd) + '</code>'
     + '<button class="copy-btn" data-cmd="' + esc(cmd) + '" onclick="copyCmd(this)">copy</button>'
-    + '</div>';
+    + '</div>'
+    + (skill.skillUrl ? '<div class="modal-skill-link"><a href="' + esc(skill.skillUrl) + '" target="_blank" rel="noopener">View SKILL.md on GitHub &rarr;</a></div>' : '');
 
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
