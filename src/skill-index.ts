@@ -72,12 +72,13 @@ async function loadIndicesFromDir(
     try {
       const content = await readFile(filePath, "utf-8");
       const index = JSON.parse(content) as RepoIndex;
-      // Backfill license/creator for indices created before these fields existed
+      // Backfill license/creator/verified for indices created before these fields existed
       for (const skill of index.skills) {
         if (!("license" in skill)) (skill as any).license = "";
         if (!("creator" in skill)) (skill as any).creator = "";
         if (!("compatibility" in skill)) (skill as any).compatibility = "";
         if (!("allowedTools" in skill)) (skill as any).allowedTools = [];
+        if (!("verified" in skill)) (skill as any).verified = false;
       }
       indices.set(`${index.owner}/${index.repo}`, index);
     } catch {

@@ -241,6 +241,7 @@ interface IndexedSkill {
   allowedTools: string[];
   installUrl: string;
   relPath: string;
+  verified?: boolean;
 }
 
 interface RepoIndex {
@@ -266,6 +267,7 @@ interface CatalogSkill {
   owner: string;
   repo: string;
   categories: string[];
+  verified: boolean;
 }
 
 interface CatalogRepo {
@@ -365,6 +367,7 @@ for (const file of files) {
       owner: repoIndex.owner,
       repo: repoIndex.repo,
       categories,
+      verified: skill.verified === true,
     });
   }
 }

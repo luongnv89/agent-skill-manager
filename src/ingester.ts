@@ -1,4 +1,4 @@
-import { writeFile, mkdir, unlink } from "fs/promises";
+import { writeFile, mkdir, unlink, readFile } from "fs/promises";
 import { join } from "path";
 import {
   parseSource,
@@ -10,6 +10,7 @@ import {
 import { getIndexDir } from "./config";
 import { loadAllIndices } from "./skill-index";
 import { debug } from "./logger";
+import { verifySkill } from "./verifier";
 import type { RepoIndex, IndexedSkill, ParsedSource } from "./utils/types";
 
 export interface IngestResult {
@@ -53,17 +54,38 @@ export async function ingestRepo(sourceInput: string): Promise<IngestResult> {
     const discovered = await discoverSkills(tempDir);
     debug(`ingester: found ${discovered.length} skills`);
 
-    const skills: IndexedSkill[] = discovered.map((skill) => ({
-      name: skill.name,
-      description: skill.description,
-      version: skill.version,
-      license: skill.license,
-      creator: skill.creator,
-      compatibility: skill.compatibility,
-      allowedTools: skill.allowedTools,
-      installUrl: `github:${source.owner}/${source.repo}${source.ref ? `#${source.ref}` : ""}${skill.relPath ? `:${skill.relPath}` : ""}`,
-      relPath: skill.relPath,
-    }));
+    const skills: IndexedSkill[] = [];
+    for (const skill of discovered) {
+      // Read SKILL.md content for verification
+      const skillMdPath = join(tempDir, skill.relPath, "SKILL.md");
+      let skillMdContent = "";
+      try {
+        skillMdContent = await readFile(skillMdPath, "utf-8");
+      } catch {
+        // If we can't read SKILL.md, the skill won't pass verification
+        debug(`ingester: could not read SKILL.md at ${skillMdPath}`);
+      }
+
+      const verification = verifySkill(skill, skillMdContent);
+      if (!verification.verified) {
+        debug(
+          `ingester: ${skill.name} not verified: ${verification.reasons.join(", ")}`,
+        );
+      }
+
+      skills.push({
+        name: skill.name,
+        description: skill.description,
+        version: skill.version,
+        license: skill.license,
+        creator: skill.creator,
+        compatibility: skill.compatibility,
+        allowedTools: skill.allowedTools,
+        installUrl: `github:${source.owner}/${source.repo}${source.ref ? `#${source.ref}` : ""}${skill.relPath ? `:${skill.relPath}` : ""}`,
+        relPath: skill.relPath,
+        verified: verification.verified,
+      });
+    }
 
     const repoIndex: RepoIndex = {
       repoUrl: source.cloneUrl,

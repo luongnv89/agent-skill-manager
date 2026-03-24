@@ -327,6 +327,20 @@ a:hover { text-decoration: underline; }
   font-size: 12px;
   color: var(--text-muted);
 }
+.filter-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+}
+.filter-check input[type="checkbox"] {
+  accent-color: #60a5fa;
+  cursor: pointer;
+}
 
 /* ─── Grid ──────────────────────────────────────────────────────────────── */
 .skill-grid {
@@ -362,6 +376,14 @@ a:hover { text-decoration: underline; }
   color: var(--brand);
   background: var(--brand-glow);
   font-weight: 600;
+}
+.badge-verified {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  font-weight: 600;
+}
+.skill-card.verified {
+  border-left: 3px solid #60a5fa;
 }
 .card-header {
   display: flex;
@@ -939,6 +961,9 @@ a:hover { text-decoration: underline; }
     <select class="filter-select" id="repo-filter">
       <option value="all">All Repos</option>
     </select>
+    <label class="filter-check" title="Show only skills that passed verification checks">
+      <input type="checkbox" id="verified-filter"> Verified only
+    </label>
     <span class="result-count" id="result-count"></span>
   </div>
 </div>
@@ -986,6 +1011,7 @@ let catalog = null;
 let searchQuery = '';
 let activeCategory = 'all';
 let activeRepo = 'all';
+let verifiedOnly = false;
 let currentPage = 1;
 const PAGE_SIZE = 48;
 let debounceTimer = null;
@@ -996,6 +1022,7 @@ function pushState() {
   if (searchQuery) params.set('q', searchQuery);
   if (activeCategory !== 'all') params.set('cat', activeCategory);
   if (activeRepo !== 'all') params.set('repo', activeRepo);
+  if (verifiedOnly) params.set('verified', '1');
   if (currentPage > 1) params.set('page', currentPage);
   const qs = params.toString();
   history.replaceState(null, '', qs ? '?' + qs : location.pathname);
@@ -1006,6 +1033,7 @@ function readState() {
   searchQuery = params.get('q') || '';
   activeCategory = params.get('cat') || 'all';
   activeRepo = params.get('repo') || 'all';
+  verifiedOnly = params.get('verified') === '1';
   currentPage = parseInt(params.get('page'), 10) || 1;
 }
 
@@ -1060,6 +1088,11 @@ function getFiltered() {
     results = results.filter(s => s.owner + '/' + s.repo === activeRepo);
   }
 
+  // Verified filter
+  if (verifiedOnly) {
+    results = results.filter(s => s.verified === true);
+  }
+
   // Search
   if (searchQuery.trim()) {
     results = results
@@ -1081,8 +1114,12 @@ function renderCard(s) {
     : '';
   const ver = s.version && s.version !== '0.0.0' ? '<span class="skill-version">v' + esc(s.version) + '</span>' : '';
   const isOfficial = s.owner === 'anthropics';
+  const isVerified = s.verified === true;
   const officialBadge = isOfficial ? '<span class="badge badge-official">official</span>' : '';
-  const cardClass = 'skill-card' + (isOfficial ? ' official' : '');
+  const verifiedBadge = isVerified ? '<span class="badge badge-verified">&#x2713; verified</span>' : '';
+  let cardClass = 'skill-card';
+  if (isOfficial) cardClass += ' official';
+  if (isVerified) cardClass += ' verified';
 
   return '<article class="' + cardClass + '" data-id="' + esc(s.id) + '" tabindex="0" role="button">'
     + '<div class="card-header">'
@@ -1091,7 +1128,7 @@ function renderCard(s) {
     + '</div>'
     + '<p class="skill-desc">' + esc(s.description) + '</p>'
     + '<div class="card-footer">'
-    + '<div class="badge-row">' + officialBadge + cats + warn + '</div>'
+    + '<div class="badge-row">' + officialBadge + verifiedBadge + cats + warn + '</div>'
     + ver
     + '</div>'
     + '<div class="install-bar">'
@@ -1120,7 +1157,7 @@ function renderGrid() {
 
   // Result count
   const countEl = document.getElementById('result-count');
-  if (searchQuery || activeCategory !== 'all' || activeRepo !== 'all') {
+  if (searchQuery || activeCategory !== 'all' || activeRepo !== 'all' || verifiedOnly) {
     countEl.textContent = 'Showing ' + total + ' of ' + catalog.totalSkills + ' skills';
   } else {
     countEl.textContent = total + ' skills';
@@ -1174,6 +1211,7 @@ function openModal(skillId) {
   const cats = skill.categories.map(c => '<span class="badge badge-cat">' + esc(c) + '</span>').join(' ');
 
   let meta = '';
+  meta += '<span class="meta-label">Status</span><span class="meta-value">' + (skill.verified ? '<span class="badge badge-verified">&#x2713; verified</span>' : '<span class="badge">unverified</span>') + '</span>';
   if (skill.version && skill.version !== '0.0.0') meta += '<span class="meta-label">Version</span><span class="meta-value">' + esc(skill.version) + '</span>';
   if (skill.license) meta += '<span class="meta-label">License</span><span class="meta-value">' + esc(skill.license) + '</span>';
   if (skill.creator) meta += '<span class="meta-label">Creator</span><span class="meta-value">' + esc(skill.creator) + '</span>';
@@ -1368,6 +1406,16 @@ function attachEvents() {
   // Repo filter
   document.getElementById('repo-filter').addEventListener('change', function(e) {
     activeRepo = e.target.value;
+    currentPage = 1;
+    renderGrid();
+    pushState();
+  });
+
+  // Verified filter
+  var verifiedEl = document.getElementById('verified-filter');
+  verifiedEl.checked = verifiedOnly;
+  verifiedEl.addEventListener('change', function(e) {
+    verifiedOnly = e.target.checked;
     currentPage = 1;
     renderGrid();
     pushState();
