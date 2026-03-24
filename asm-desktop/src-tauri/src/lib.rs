@@ -154,7 +154,23 @@ async fn security_audit(skill_name: String) -> Result<CliResult, String> {
     if sanitized != skill_name {
         return Err("Invalid skill name: contains disallowed characters".to_string());
     }
-    invoke_asm(vec!["audit".to_string(), "security".to_string(), sanitized]).await
+    let mut result = invoke_asm(vec!["audit".to_string(), "security".to_string(), sanitized.clone()]).await?;
+
+    let findings = result.stdout.to_lowercase();
+    let has_risks = findings.contains("warning")
+        || findings.contains("failed")
+        || findings.contains("risk")
+        || findings.contains("vulnerability")
+        || findings.contains("error");
+
+    if has_risks {
+        result.success = false;
+        if result.stdout.is_empty() {
+            result.stdout = format!("Security audit found risks for skill: {}", sanitized);
+        }
+    }
+
+    Ok(result)
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

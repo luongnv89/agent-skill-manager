@@ -144,7 +144,7 @@ describe("Installed", () => {
     });
   });
 
-  it.skip("shows symlink confirmation dialog when skill is a symlink", async () => {
+  it("shows symlink confirmation dialog when skill is a symlink", async () => {
     mockedListInstalledSkills.mockResolvedValue({
       success: true,
       stdout: JSON.stringify([

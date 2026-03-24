@@ -416,14 +416,6 @@
   border-radius: 4px;
 }
 
-.skill-category {
-  font-size: 12px;
-  color: #89b4fa;
-  background: #313244;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
 .dialog-overlay {
   position: fixed;
   top: 0;
@@ -634,6 +626,9 @@
   color: #89b4fa;
   font-size: 14px;
   margin-bottom: 16px;
+  background: #313244;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .skill-description {

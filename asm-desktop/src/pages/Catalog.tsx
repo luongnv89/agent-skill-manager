@@ -186,6 +186,20 @@ export function Catalog() {
         return;
       }
 
+      if (auditResult.stdout && auditResult.stdout.trim()) {
+        const auditFindings = auditResult.stdout.trim();
+        if (
+          auditFindings.includes("WARNING") ||
+          auditFindings.includes("FAILED") ||
+          auditFindings.includes("risk")
+        ) {
+          setError("Security audit found issues: " + auditFindings);
+          setInstallingSkill(null);
+          setPendingInstall(null);
+          return;
+        }
+      }
+
       const result = await installSkill(pendingInstall);
       if (result.success) {
         setAllSkills((prev) =>
