@@ -1701,78 +1701,144 @@ function renderChangelogPage() {
 
     + renderChangelogEntry('1.14.0', '2026-03-24', [
       { tag: 'added', items: [
-        'Skill catalog website with docs, changelog, and version display',
-        'SEO optimization, AI bot indexing, and Google Analytics',
-        'Redesigned logo as The Nexus — hub-and-spoke skill graph',
-        'GitHub star count on catalog website',
-        'SKILL.md link in skill detail modal',
-        'Re-index repos with compatibility and allowedTools fields'
+        'Skill catalog website with search, category filters, and one-click install commands',
+        'SEO optimization, AI bot indexing (<code>llms.txt</code>, <code>robots.txt</code>), and Google Analytics',
+        'Redesign logo as The Nexus — hub-and-spoke skill graph brand identity',
+        'GitHub star count and SKILL.md link on catalog website',
+        'Usability review improvements and Nexus logo update for catalog',
+        '<code>.skill-lock.json</code> to track installed skills with integrity hashes',
+        'Re-index existing repos with <code>compatibility</code> and <code>allowedTools</code> fields',
+        '6 new skill sources added to index',
+        'Scope selection step for global/project install'
+      ]},
+      { tag: 'fixed', items: [
+        'Null-skills validation bug in lock module',
+        'Git identity in <code>getCommitHash</code> test for CI compatibility',
+        'Correct step counter in install flow'
       ]}
     ])
     + renderChangelogEntry('1.13.1', '2026-03-23', [
-      { tag: 'fixed', items: ['Node.js v25 compatibility and cross-runtime TUI support'] },
-      { tag: 'added', items: ['Parse and display full SKILL.md frontmatter spec (compatibility, allowed-tools)'] }
+      { tag: 'fixed', items: [
+        'Node.js v25 compatibility: resolve <code>ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING</code>',
+        'Cross-runtime TUI support: <code>bun:ffi</code> shim with real FFI on Bun, no-op stubs on Node.js',
+        'Auto re-exec with Bun for interactive TUI mode when running on Node.js',
+        'Clean <code>dist/</code> before build to prevent stale chunks'
+      ]}
+    ])
+    + renderChangelogEntry('1.13.0', '2026-03-23', [
+      { tag: 'added', items: [
+        'Parse and display all 6 SKILL.md frontmatter fields: name, description, license, compatibility, allowed-tools, metadata',
+        '<code>allowed-tools</code> risk coloring in CLI and TUI (red for Bash/Write/Edit, yellow for WebFetch/WebSearch)',
+        'Warning line for skills with high-risk tools',
+        '<code>license</code>, <code>compatibility</code>, and <code>allowedTools</code> in <code>--json</code> output'
+      ]},
+      { tag: 'fixed', items: [
+        '<code>asm index search --json</code> now includes compatibility and allowedTools fields',
+        'TUI detail overlay height accounts for warning row'
+      ]}
     ])
     + renderChangelogEntry('1.12.0', '2026-03-23', [
       { tag: 'added', items: [
-        'MiniMax-AI/skills repo to curated skill index',
+        'MiniMax-AI/skills repo to curated skill index — 10 new skills',
         'Enrich skill-index with license/creator metadata and filter flags',
         'Extract curated skill repos into <code>data/skill-index-resources.json</code>',
-        'E2E tests and multi-job CI pipeline'
+        '<code>effort</code> field in SKILL.md frontmatter',
+        'E2E tests and multi-job CI pipeline for Node 18/20/22'
+      ]},
+      { tag: 'fixed', items: [
+        'Stub <code>bun:ffi</code> at build time for Node.js compatibility',
+        'Scope unit-tests CI job to <code>src/</code> to exclude E2E tests'
       ]}
     ])
     + renderChangelogEntry('1.11.0', '2026-03-21', [
       { tag: 'added', items: [
-        'Interactive checkbox picker for provider selection',
-        'Search/filter in checkbox picker',
-        'Interactive checkbox picker for multi-skill install',
-        'Support Vercel skills CLI install format'
+        'Interactive checkbox picker for multi-skill install (navigate with &uarr;/&darr;, toggle with Space, select all with <code>a</code>)',
+        'Search/filter in checkbox picker for long lists',
+        'Interactive checkbox picker for provider selection during config',
+        'Support Vercel skills CLI install format',
+        'Support installing skills from local folder paths',
+        'Wave 1 provider expansion — 8 new providers, <code>$EDITOR</code> config fix, creator column',
+        'Rename user-facing "Provider" to "Tool" in CLI and TUI'
       ]},
       { tag: 'fixed', items: [
-        'Change shebang to node for npm global install compatibility',
-        'Skill detail TUI description overflow'
+        'Change shebang to <code>node</code> for npm global install compatibility',
+        'Skill detail TUI description overflow',
+        'Guard ingester/audit against local paths and restrict tilde expansion',
+        'Checkbox picker re-render cursor positioning'
       ]}
     ])
     + renderChangelogEntry('1.10.0', '2026-03-18', [
       { tag: 'added', items: [
-        '<code>asm index</code> command with bundled pre-indexed skill data',
-        'Support nested metadata blocks in SKILL.md frontmatter',
-        '5 new skill collections in open-source table'
+        '<code>asm index</code> command with bundled pre-indexed skill data for fast offline discovery',
+        'Support nested metadata blocks in SKILL.md frontmatter (dot notation: <code>metadata.version</code>)',
+        '<code>resolveVersion()</code> helper for consistent version resolution',
+        'Updated <code>asm init</code> scaffold template with metadata block format'
       ]},
       { tag: 'fixed', items: [
         'Duplicate install names in multi-skill installs',
-        'Valid JSON for <code>audit security --all --json</code> when no skills found'
+        'Valid JSON for <code>asm audit security --all --json</code> when no skills found',
+        'Upgrade <code>actions/checkout</code> to v5 for Node.js 20 deprecation'
       ]}
     ])
     + renderChangelogEntry('1.9.0', '2026-03-14', [
-      { tag: 'added', items: ['Support GitHub subfolder URLs for skill install and audit'] }
+      { tag: 'added', items: [
+        'Support GitHub subfolder URLs for <code>asm install</code> and <code>asm audit security</code>',
+        '<code>github:owner/repo#ref:path</code> shorthand syntax for subfolder installs',
+        '<code>resolveSubpath()</code> using <code>git ls-remote</code> to disambiguate branches from paths'
+      ]}
     ])
     + renderChangelogEntry('1.8.3', '2026-03-14', [
-      { tag: 'fixed', items: ['Replace Unicode box-drawing characters with ASCII for terminal compatibility'] }
+      { tag: 'fixed', items: ['Replace Unicode box-drawing characters with ASCII equivalents for terminal compatibility'] }
     ])
     + renderChangelogEntry('1.8.2', '2026-03-14', [
-      { tag: 'added', items: ['Redesigned security audit report UI for better readability'] }
+      { tag: 'added', items: [
+        'Redesigned security audit report with compact 4-zone layout',
+        'Deduplicate matches so same file:line appears once per category',
+        'Group matches by file for compact rendering',
+        'Aggregate critical/warning/info counts in threat summary'
+      ]}
     ])
     + renderChangelogEntry('1.8.1', '2026-03-14', [
-      { tag: 'fixed', items: ['Replace duplicate skill folders with symlinks to kept instance'] }
+      { tag: 'fixed', items: ['Duplicate skill removal now creates symlinks to the kept instance instead of just deleting'] }
     ])
     + renderChangelogEntry('1.8.0', '2026-03-14', [
-      { tag: 'added', items: ['SSH transport selection for private repos', 'Security audit command (<code>asm audit security</code>)'] }
+      { tag: 'added', items: [
+        '<code>--transport &lt;https|ssh|auto&gt;</code> flag for private GitHub repos via SSH',
+        '<code>asm audit security</code> subcommand for scanning dangerous patterns',
+        '<code>--all</code> flag for <code>asm audit security</code> to audit all installed skills',
+        'Audit remote GitHub skills before installing'
+      ]}
     ])
     + renderChangelogEntry('1.7.0', '2026-03-13', [
-      { tag: 'added', items: ['YAML frontmatter validation for SKILL.md health checks'] }
+      { tag: 'added', items: [
+        'YAML frontmatter validation for SKILL.md files using the <code>yaml</code> library',
+        'Detect and report <code>invalid-yaml</code> warnings in <code>asm inspect</code> and <code>asm list</code>'
+      ]}
+    ])
+    + renderChangelogEntry('1.6.2', '2026-03-13', [
+      { tag: 'fixed', items: [
+        'Suppress "fatal: not a git repository" stderr noise outside git repos',
+        'Fix 7 failing tests to match new grouped CLI output format from v1.6.0'
+      ]}
+    ])
+    + renderChangelogEntry('1.6.1', '2026-03-13', [
+      { tag: 'fixed', items: ['Replace Unicode bar chart characters with ASCII-safe chars in <code>asm stats</code>'] }
     ])
     + renderChangelogEntry('1.6.0', '2026-03-13', [
       { tag: 'added', items: [
-        'Default grouped list view with colored provider badges',
+        'Default grouped list view with colored <code>[Provider]</code> badges',
         '<code>--flat</code> flag for list and search commands',
         '<code>-p/--provider</code> filter on list and search',
         'Stats dashboard with ASCII bar charts',
-        'Provider-specific colors throughout CLI output'
+        'Provider-specific colors throughout CLI output',
+        'Summary footer on <code>list</code> output',
+        'Practical examples in all subcommand <code>--help</code> texts',
+        'Actionable error hints and audit hints'
       ]},
       { tag: 'changed', items: [
         'Paths shortened with <code>~</code> prefix throughout all CLI output',
-        'Inspect output uses lighter header style with provider badges'
+        'Inspect output uses lighter header style with provider badges',
+        '<code>stats --json</code> omits <code>perSkillDiskBytes</code> by default'
       ]}
     ])
     + renderChangelogEntry('1.5.1', '2026-03-13', [
@@ -1790,45 +1856,59 @@ function renderChangelogPage() {
       ]}
     ])
     + renderChangelogEntry('1.4.1', '2026-03-13', [
-      { tag: 'added', items: ['Accept plain HTTPS GitHub URLs for install'] },
+      { tag: 'added', items: [
+        'Accept plain HTTPS GitHub URLs for install',
+        'Support for <code>.git</code> suffix, <code>/tree/branch</code> paths, and trailing slashes'
+      ]},
       { tag: 'fixed', items: ['Type annotations to fix implicit any errors'] }
     ])
     + renderChangelogEntry('1.4.0', '2026-03-13', [
       { tag: 'added', items: [
         '<code>asm install github:user/repo</code> command',
-        '<code>--verbose</code> flag for debug output',
-        'Node.js compatibility, config backup, semver sort',
-        '<code>export</code>, <code>init</code>, <code>stats</code>, <code>link</code> commands'
-      ]}
+        '<code>--verbose</code> / <code>-V</code> flag for debug output',
+        'Node.js compatibility layer, config backup, semver sort',
+        '<code>export</code>, <code>init</code>, <code>stats</code>, <code>link</code> commands and skill health warnings'
+      ]},
+      { tag: 'fixed', items: ['Pin @opentui/core to exact version 0.1.87 for stability'] }
     ])
     + renderChangelogEntry('1.3.0', '2026-03-11', [
-      { tag: 'added', items: ['Symlink-aware duplicate detection'] },
-      { tag: 'changed', items: ['Audit deduplicates by resolved real path'] }
+      { tag: 'added', items: [
+        'Symlink-aware duplicate detection',
+        '<code>realPath</code> field on scanned skills via <code>fs.realpath()</code>'
+      ]},
+      { tag: 'changed', items: ['Audit deduplicates by resolved real path, preferring non-symlink entries'] }
     ])
     + renderChangelogEntry('1.2.0', '2026-03-11', [
-      { tag: 'added', items: ['Build step for npm distribution', 'Build script with version injection'] },
-      { tag: 'changed', items: ['Bin entry points now reference bundled dist/'] }
+      { tag: 'added', items: [
+        'Build step (<code>bun run build</code>) for npm distribution',
+        'Build script with version and commit hash injection',
+        '<code>prepublishOnly</code> script for auto-build before publish'
+      ]},
+      { tag: 'changed', items: ['Bin entry points reference bundled <code>dist/</code> instead of raw TypeScript'] },
+      { tag: 'fixed', items: ['Version display works in both development and production modes'] }
     ])
     + renderChangelogEntry('1.1.0', '2026-03-11', [
       { tag: 'added', items: [
-        'Non-interactive CLI mode with full command suite',
-        '<code>asm</code> shorthand command alias',
-        'Duplicate skill audit across providers and scopes',
-        'JSON output support (<code>--json</code>)',
-        'One-command install script (<code>curl | bash</code>)'
+        'Non-interactive CLI mode with <code>asm</code> shorthand command',
+        'Duplicate skill audit — detect and remove duplicates across providers (<code>asm audit</code>)',
+        'JSON output support (<code>--json</code>) for CLI commands',
+        'One-command install script (<code>curl | bash</code>)',
+        'TUI audit overlay with two-phase workflow'
       ]},
-      { tag: 'changed', items: ['Rebranded project to agent-skill-manager'] }
+      { tag: 'changed', items: ['Rebranded project to agent-skill-manager'] },
+      { tag: 'fixed', items: ['Bun global bin PATH handling and alias creation in installer'] }
     ])
     + renderChangelogEntry('1.0.0', '2026-03-11', [
       { tag: 'added', items: [
-        'Interactive TUI dashboard with OpenTUI',
-        'Multi-agent support: Claude Code, Codex, OpenClaw, and Agents',
-        'Configurable providers via JSON config',
-        'Global and project scope filtering',
-        'Real-time search and sort',
-        'Detailed skill view with SKILL.md metadata',
-        'Safe uninstall with confirmation dialog',
-        'Unit tests for config, scanner, uninstaller, and frontmatter'
+        'Interactive TUI dashboard built with OpenTUI and Bun',
+        'Multi-agent support: Claude Code, Codex, OpenClaw, and generic Agents',
+        'Configurable providers via <code>~/.config/agent-skill-manager/config.json</code>',
+        'Global and project scope filtering with Tab cycling',
+        'Real-time search and sort (by name, version, location)',
+        'Detailed skill view with SKILL.md frontmatter metadata',
+        'Safe uninstall with confirmation dialog and full removal plan',
+        'In-TUI config editor — toggle providers on/off',
+        'Pre-commit hooks, GitHub Actions CI, 63 unit tests'
       ]}
     ]);
 }
