@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-23T00:00:00Z",
+  "updatedAt": "2026-03-24T00:00:00Z",
   "repos": [
     {
       "source": "github:anthropics/skills",
@@ -170,6 +170,15 @@
       "repo": "finance-skills",
       "description": "Finance-domain skills for AI agents",
       "maintainer": "@himself65",
+      "enabled": true
+    },
+    {
+      "source": "github:Master-cai/Research-Paper-Writing-Skills",
+      "url": "https://github.com/Master-cai/Research-Paper-Writing-Skills",
+      "owner": "Master-cai",
+      "repo": "Research-Paper-Writing-Skills",
+      "description": "Skill package for ML/CV/NLP paper writing, curated from Prof. Peng Sida's open notes",
+      "maintainer": "@Master-cai",
       "enabled": true
     }
   ]
