@@ -654,6 +654,9 @@ a:hover { text-decoration: underline; }
 }
 .loading-state p { animation: pulse 1.5s ease-in-out infinite; }
 
+/* ─── Page Visibility ──────────────────────────────────────────────────── */
+#page-catalog.hidden { display: none; }
+
 /* ─── Page Content (Docs / Changelog) ──────────────────────────────────── */
 .page-content {
   display: none;
@@ -1406,7 +1409,7 @@ function navigateTo(page) {
     link.classList.toggle('active', link.getAttribute('data-page') === page);
   });
   // Show/hide pages
-  document.getElementById('page-catalog').style.display = page === 'catalog' ? '' : 'none';
+  document.getElementById('page-catalog').classList.toggle('hidden', page !== 'catalog');
   var docsEl = document.getElementById('page-docs');
   var changelogEl = document.getElementById('page-changelog');
   docsEl.classList.toggle('active', page === 'docs');
@@ -1427,7 +1430,7 @@ function handleHashChange() {
   var hash = location.hash.replace('#', '');
   if (hash === 'docs' || hash === 'changelog') {
     navigateTo(hash);
-  } else if (!hash || hash === 'catalog') {
+  } else {
     navigateTo('catalog');
   }
 }
@@ -1671,14 +1674,20 @@ function renderChangelogPage() {
     ]);
 }
 
+var VALID_TAGS = { added: true, changed: true, fixed: true };
+
 function renderChangelogEntry(version, date, sections) {
   var html = '<div class="changelog-version">v' + esc(version) + '</div>'
     + '<div class="changelog-date">' + esc(date) + '</div>';
   for (var i = 0; i < sections.length; i++) {
     var s = sections[i];
-    html += '<span class="changelog-tag ' + s.tag + '">' + s.tag.charAt(0).toUpperCase() + s.tag.slice(1) + '</span>';
+    // Only allow known tag values for CSS class safety
+    var tagClass = VALID_TAGS[s.tag] ? s.tag : 'added';
+    html += '<span class="changelog-tag ' + tagClass + '">' + esc(s.tag.charAt(0).toUpperCase() + s.tag.slice(1)) + '</span>';
     html += '<ul>';
     for (var j = 0; j < s.items.length; j++) {
+      // Items are trusted HTML from hardcoded changelog content only.
+      // Never pass external/user-supplied data as items.
       html += '<li>' + s.items[j] + '</li>';
     }
     html += '</ul>';
