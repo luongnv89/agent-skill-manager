@@ -1700,7 +1700,67 @@ function renderChangelogPage() {
     + '<p><a href="https://github.com/luongnv89/agent-skill-manager/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">View full changelog on GitHub &rarr;</a></p>'
 
     + renderChangelogEntry('1.14.0', '2026-03-24', [
-      { tag: 'added', items: ['Documentation page on ASM catalog website', 'Changelog page on ASM catalog website', 'Version display in website header'] }
+      { tag: 'added', items: [
+        'Skill catalog website with docs, changelog, and version display',
+        'SEO optimization, AI bot indexing, and Google Analytics',
+        'Redesigned logo as The Nexus — hub-and-spoke skill graph',
+        'GitHub star count on catalog website',
+        'SKILL.md link in skill detail modal',
+        'Re-index repos with compatibility and allowedTools fields'
+      ]}
+    ])
+    + renderChangelogEntry('1.13.1', '2026-03-23', [
+      { tag: 'fixed', items: ['Node.js v25 compatibility and cross-runtime TUI support'] },
+      { tag: 'added', items: ['Parse and display full SKILL.md frontmatter spec (compatibility, allowed-tools)'] }
+    ])
+    + renderChangelogEntry('1.12.0', '2026-03-23', [
+      { tag: 'added', items: [
+        'MiniMax-AI/skills repo to curated skill index',
+        'Enrich skill-index with license/creator metadata and filter flags',
+        'Extract curated skill repos into <code>data/skill-index-resources.json</code>',
+        'E2E tests and multi-job CI pipeline'
+      ]}
+    ])
+    + renderChangelogEntry('1.11.0', '2026-03-21', [
+      { tag: 'added', items: [
+        'Interactive checkbox picker for provider selection',
+        'Search/filter in checkbox picker',
+        'Interactive checkbox picker for multi-skill install',
+        'Support Vercel skills CLI install format'
+      ]},
+      { tag: 'fixed', items: [
+        'Change shebang to node for npm global install compatibility',
+        'Skill detail TUI description overflow'
+      ]}
+    ])
+    + renderChangelogEntry('1.10.0', '2026-03-18', [
+      { tag: 'added', items: [
+        '<code>asm index</code> command with bundled pre-indexed skill data',
+        'Support nested metadata blocks in SKILL.md frontmatter',
+        '5 new skill collections in open-source table'
+      ]},
+      { tag: 'fixed', items: [
+        'Duplicate install names in multi-skill installs',
+        'Valid JSON for <code>audit security --all --json</code> when no skills found'
+      ]}
+    ])
+    + renderChangelogEntry('1.9.0', '2026-03-14', [
+      { tag: 'added', items: ['Support GitHub subfolder URLs for skill install and audit'] }
+    ])
+    + renderChangelogEntry('1.8.3', '2026-03-14', [
+      { tag: 'fixed', items: ['Replace Unicode box-drawing characters with ASCII for terminal compatibility'] }
+    ])
+    + renderChangelogEntry('1.8.2', '2026-03-14', [
+      { tag: 'added', items: ['Redesigned security audit report UI for better readability'] }
+    ])
+    + renderChangelogEntry('1.8.1', '2026-03-14', [
+      { tag: 'fixed', items: ['Replace duplicate skill folders with symlinks to kept instance'] }
+    ])
+    + renderChangelogEntry('1.8.0', '2026-03-14', [
+      { tag: 'added', items: ['SSH transport selection for private repos', 'Security audit command (<code>asm audit security</code>)'] }
+    ])
+    + renderChangelogEntry('1.7.0', '2026-03-13', [
+      { tag: 'added', items: ['YAML frontmatter validation for SKILL.md health checks'] }
     ])
     + renderChangelogEntry('1.6.0', '2026-03-13', [
       { tag: 'added', items: [
@@ -1748,6 +1808,28 @@ function renderChangelogPage() {
     + renderChangelogEntry('1.2.0', '2026-03-11', [
       { tag: 'added', items: ['Build step for npm distribution', 'Build script with version injection'] },
       { tag: 'changed', items: ['Bin entry points now reference bundled dist/'] }
+    ])
+    + renderChangelogEntry('1.1.0', '2026-03-11', [
+      { tag: 'added', items: [
+        'Non-interactive CLI mode with full command suite',
+        '<code>asm</code> shorthand command alias',
+        'Duplicate skill audit across providers and scopes',
+        'JSON output support (<code>--json</code>)',
+        'One-command install script (<code>curl | bash</code>)'
+      ]},
+      { tag: 'changed', items: ['Rebranded project to agent-skill-manager'] }
+    ])
+    + renderChangelogEntry('1.0.0', '2026-03-11', [
+      { tag: 'added', items: [
+        'Interactive TUI dashboard with OpenTUI',
+        'Multi-agent support: Claude Code, Codex, OpenClaw, and Agents',
+        'Configurable providers via JSON config',
+        'Global and project scope filtering',
+        'Real-time search and sort',
+        'Detailed skill view with SKILL.md metadata',
+        'Safe uninstall with confirmation dialog',
+        'Unit tests for config, scanner, uninstaller, and frontmatter'
+      ]}
     ]);
 }
 
