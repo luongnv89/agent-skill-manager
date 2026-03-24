@@ -1,0 +1,20 @@
+{
+  "repoUrl": "https://github.com/Master-cai/Research-Paper-Writing-Skills.git",
+  "owner": "Master-cai",
+  "repo": "Research-Paper-Writing-Skills",
+  "updatedAt": "2026-03-24T09:54:09.931Z",
+  "skillCount": 1,
+  "skills": [
+    {
+      "name": "research-paper-writing",
+      "description": "Improve academic paper writing quality for ML/CV/NLP-style papers with clear section structure, paragraph flow, and reviewer-facing presentation. Use when drafting or revising Abstract, Introduction, Related Work, Method, Experiments, or Conclusion; polishing figures/tables; checking claim-support alignment; or performing self-review before submission.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Master-cai/Research-Paper-Writing-Skills:research-paper-writing",
+      "relPath": "research-paper-writing"
+    }
+  ]
+}

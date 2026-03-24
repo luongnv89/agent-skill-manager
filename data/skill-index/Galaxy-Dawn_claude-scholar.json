@@ -2,12 +2,12 @@
   "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git",
   "owner": "Galaxy-Dawn",
   "repo": "claude-scholar",
-  "updatedAt": "2026-03-23T22:22:27.806Z",
+  "updatedAt": "2026-03-24T09:54:08.687Z",
   "skillCount": 47,
   "skills": [
     {
       "name": "agent-identifier",
-      "description": "This skill should be used when the user asks to \"create an agent\", \"add an agent\", \"write a subagent\", \"agent frontmatter\", \"when to use description\", \"agent examples\", \"agent tools\", \"agent colors\", \"autonomous agent\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
+      "description": "Use when creating or configuring Claude Code agents and their frontmatter.",
       "version": "0.1.0",
       "license": "",
       "creator": "",
@@ -18,7 +18,7 @@
     },
     {
       "name": "architecture-design",
-      "description": "Use ONLY when creating NEW registrable components in ML projects that require Factory/Registry patterns. ✅ USE when: - Creating a new Dataset class (needs @register_dataset) - Creating a new Model class (needs @register_model) - Creating a new module directory with __init__.py factory - Initializing a new ML project structure from scratch - Adding new component types (Augmentation, CollateFunction, Metrics) ❌ DO NOT USE when: - Modifying existing functions or methods - Fixing bugs in existing code - Adding helper functions or utilities - Refactoring without adding new registrable components - Simple code changes to a single file - Modifying configuration files - Reading or understanding existing code Key indicator: Does the task require @register_* decorator or Factory pattern? If no, skip this skill.",
+      "description": "Use only when creating new registrable ML components that require Factory or Registry patterns.",
       "version": "1.2.0",
       "license": "",
       "creator": "",
@@ -73,7 +73,7 @@
     },
     {
       "name": "daily-coding",
-      "description": "Daily coding assistant that auto-triggers when writing/modifying code, providing a core checklist. ✅ Trigger scenarios: - Implementing new features, adding code, modifying existing code - User requests \"write a...\", \"implement...\", \"add...\", \"modify...\" - Any coding task involving Edit/Write tools ❌ Does not trigger: - Pure reading/understanding code (no modification intent) - Already covered by specialized skills (bug-detective, architecture-design, tdd-guide) - Configuration file changes, documentation writing",
+      "description": "Use for everyday coding tasks that involve writing or modifying source code.",
       "version": "1.0.0",
       "license": "",
       "creator": "",

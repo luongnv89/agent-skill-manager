@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/MiniMax-AI/skills.git",
   "owner": "MiniMax-AI",
   "repo": "skills",
-  "updatedAt": "2026-03-23T22:22:24.231Z",
-  "skillCount": 10,
+  "updatedAt": "2026-03-24T09:54:05.133Z",
+  "skillCount": 11,
   "skills": [
     {
       "name": "android-native-dev",
@@ -103,6 +103,17 @@
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/pptx-generator",
       "relPath": "skills/pptx-generator"
+    },
+    {
+      "name": "pr-review",
+      "description": "Review pull requests for the MiniMax Skills repository. Use when reviewing PRs, validating new skill submissions, or checking existing skills for compliance. Run the validation script first for hard checks, then apply quality guidelines for content review. Triggers: PR review, pull request, validate skill, check skill.",
+      "version": "1.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:MiniMax-AI/skills:.claude/skills/pr-review",
+      "relPath": ".claude/skills/pr-review"
     },
     {
       "name": "shader-dev",
