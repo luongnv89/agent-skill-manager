@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/slavingia/skills.git",
   "owner": "slavingia",
   "repo": "skills",
-  "updatedAt": "2026-03-24T09:54:05.695Z",
+  "updatedAt": "2026-03-24T16:22:58.039Z",
   "skillCount": 9,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:slavingia/skills:skills/company-values",
-      "relPath": "skills/company-values"
+      "relPath": "skills/company-values",
+      "verified": true
     },
     {
       "name": "find-community",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:slavingia/skills:skills/find-community",
-      "relPath": "skills/find-community"
+      "relPath": "skills/find-community",
+      "verified": true
     },
     {
       "name": "first-customers",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:slavingia/skills:skills/first-customers",
-      "relPath": "skills/first-customers"
+      "relPath": "skills/first-customers",
+      "verified": true
     },
     {
       "name": "grow-sustainably",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:slavingia/skills:skills/grow-sustainably",
-      "relPath": "skills/grow-sustainably"
+      "relPath": "skills/grow-sustainably",
+      "verified": true
     },
     {
       "name": "marketing-plan",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:slavingia/skills:skills/marketing-plan",
-      "relPath": "skills/marketing-plan"
+      "relPath": "skills/marketing-plan",
+      "verified": true
     },
     {
       "name": "minimalist-review",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:slavingia/skills:skills/minimalist-review",
-      "relPath": "skills/minimalist-review"
+      "relPath": "skills/minimalist-review",
+      "verified": true
     },
     {
       "name": "mvp",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:slavingia/skills:skills/mvp",
-      "relPath": "skills/mvp"
+      "relPath": "skills/mvp",
+      "verified": true
     },
     {
       "name": "pricing",
@@ -91,7 +98,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:slavingia/skills:skills/pricing",
-      "relPath": "skills/pricing"
+      "relPath": "skills/pricing",
+      "verified": true
     },
     {
       "name": "validate-idea",
@@ -102,7 +110,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:slavingia/skills:skills/validate-idea",
-      "relPath": "skills/validate-idea"
+      "relPath": "skills/validate-idea",
+      "verified": true
     }
   ]
 }

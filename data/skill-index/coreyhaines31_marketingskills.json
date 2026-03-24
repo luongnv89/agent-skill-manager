@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/coreyhaines31/marketingskills.git",
   "owner": "coreyhaines31",
   "repo": "marketingskills",
-  "updatedAt": "2026-03-24T09:54:01.162Z",
+  "updatedAt": "2026-03-24T16:22:52.825Z",
   "skillCount": 33,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/ab-test-setup",
-      "relPath": "skills/ab-test-setup"
+      "relPath": "skills/ab-test-setup",
+      "verified": true
     },
     {
       "name": "ad-creative",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/ad-creative",
-      "relPath": "skills/ad-creative"
+      "relPath": "skills/ad-creative",
+      "verified": true
     },
     {
       "name": "ai-seo",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/ai-seo",
-      "relPath": "skills/ai-seo"
+      "relPath": "skills/ai-seo",
+      "verified": true
     },
     {
       "name": "analytics-tracking",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/analytics-tracking",
-      "relPath": "skills/analytics-tracking"
+      "relPath": "skills/analytics-tracking",
+      "verified": true
     },
     {
       "name": "churn-prevention",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/churn-prevention",
-      "relPath": "skills/churn-prevention"
+      "relPath": "skills/churn-prevention",
+      "verified": true
     },
     {
       "name": "cold-email",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/cold-email",
-      "relPath": "skills/cold-email"
+      "relPath": "skills/cold-email",
+      "verified": true
     },
     {
       "name": "competitor-alternatives",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/competitor-alternatives",
-      "relPath": "skills/competitor-alternatives"
+      "relPath": "skills/competitor-alternatives",
+      "verified": true
     },
     {
       "name": "content-strategy",
@@ -91,7 +98,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/content-strategy",
-      "relPath": "skills/content-strategy"
+      "relPath": "skills/content-strategy",
+      "verified": true
     },
     {
       "name": "copy-editing",
@@ -102,7 +110,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/copy-editing",
-      "relPath": "skills/copy-editing"
+      "relPath": "skills/copy-editing",
+      "verified": true
     },
     {
       "name": "copywriting",
@@ -113,7 +122,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/copywriting",
-      "relPath": "skills/copywriting"
+      "relPath": "skills/copywriting",
+      "verified": true
     },
     {
       "name": "email-sequence",
@@ -124,7 +134,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/email-sequence",
-      "relPath": "skills/email-sequence"
+      "relPath": "skills/email-sequence",
+      "verified": true
     },
     {
       "name": "form-cro",
@@ -135,7 +146,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/form-cro",
-      "relPath": "skills/form-cro"
+      "relPath": "skills/form-cro",
+      "verified": true
     },
     {
       "name": "free-tool-strategy",
@@ -146,7 +158,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/free-tool-strategy",
-      "relPath": "skills/free-tool-strategy"
+      "relPath": "skills/free-tool-strategy",
+      "verified": true
     },
     {
       "name": "launch-strategy",
@@ -157,7 +170,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/launch-strategy",
-      "relPath": "skills/launch-strategy"
+      "relPath": "skills/launch-strategy",
+      "verified": true
     },
     {
       "name": "lead-magnets",
@@ -168,7 +182,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/lead-magnets",
-      "relPath": "skills/lead-magnets"
+      "relPath": "skills/lead-magnets",
+      "verified": true
     },
     {
       "name": "marketing-ideas",
@@ -179,7 +194,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-ideas",
-      "relPath": "skills/marketing-ideas"
+      "relPath": "skills/marketing-ideas",
+      "verified": true
     },
     {
       "name": "marketing-psychology",
@@ -190,7 +206,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/marketing-psychology",
-      "relPath": "skills/marketing-psychology"
+      "relPath": "skills/marketing-psychology",
+      "verified": true
     },
     {
       "name": "onboarding-cro",
@@ -201,7 +218,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/onboarding-cro",
-      "relPath": "skills/onboarding-cro"
+      "relPath": "skills/onboarding-cro",
+      "verified": true
     },
     {
       "name": "page-cro",
@@ -212,7 +230,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/page-cro",
-      "relPath": "skills/page-cro"
+      "relPath": "skills/page-cro",
+      "verified": true
     },
     {
       "name": "paid-ads",
@@ -223,7 +242,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/paid-ads",
-      "relPath": "skills/paid-ads"
+      "relPath": "skills/paid-ads",
+      "verified": true
     },
     {
       "name": "paywall-upgrade-cro",
@@ -234,7 +254,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/paywall-upgrade-cro",
-      "relPath": "skills/paywall-upgrade-cro"
+      "relPath": "skills/paywall-upgrade-cro",
+      "verified": true
     },
     {
       "name": "popup-cro",
@@ -245,7 +266,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/popup-cro",
-      "relPath": "skills/popup-cro"
+      "relPath": "skills/popup-cro",
+      "verified": true
     },
     {
       "name": "pricing-strategy",
@@ -256,7 +278,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/pricing-strategy",
-      "relPath": "skills/pricing-strategy"
+      "relPath": "skills/pricing-strategy",
+      "verified": true
     },
     {
       "name": "product-marketing-context",
@@ -267,7 +290,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/product-marketing-context",
-      "relPath": "skills/product-marketing-context"
+      "relPath": "skills/product-marketing-context",
+      "verified": true
     },
     {
       "name": "programmatic-seo",
@@ -278,7 +302,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/programmatic-seo",
-      "relPath": "skills/programmatic-seo"
+      "relPath": "skills/programmatic-seo",
+      "verified": true
     },
     {
       "name": "referral-program",
@@ -289,7 +314,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/referral-program",
-      "relPath": "skills/referral-program"
+      "relPath": "skills/referral-program",
+      "verified": true
     },
     {
       "name": "revops",
@@ -300,7 +326,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/revops",
-      "relPath": "skills/revops"
+      "relPath": "skills/revops",
+      "verified": true
     },
     {
       "name": "sales-enablement",
@@ -311,7 +338,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/sales-enablement",
-      "relPath": "skills/sales-enablement"
+      "relPath": "skills/sales-enablement",
+      "verified": true
     },
     {
       "name": "schema-markup",
@@ -322,7 +350,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/schema-markup",
-      "relPath": "skills/schema-markup"
+      "relPath": "skills/schema-markup",
+      "verified": true
     },
     {
       "name": "seo-audit",
@@ -333,7 +362,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/seo-audit",
-      "relPath": "skills/seo-audit"
+      "relPath": "skills/seo-audit",
+      "verified": true
     },
     {
       "name": "signup-flow-cro",
@@ -344,7 +374,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/signup-flow-cro",
-      "relPath": "skills/signup-flow-cro"
+      "relPath": "skills/signup-flow-cro",
+      "verified": true
     },
     {
       "name": "site-architecture",
@@ -355,7 +386,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/site-architecture",
-      "relPath": "skills/site-architecture"
+      "relPath": "skills/site-architecture",
+      "verified": true
     },
     {
       "name": "social-content",
@@ -366,7 +398,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:coreyhaines31/marketingskills:skills/social-content",
-      "relPath": "skills/social-content"
+      "relPath": "skills/social-content",
+      "verified": true
     }
   ]
 }

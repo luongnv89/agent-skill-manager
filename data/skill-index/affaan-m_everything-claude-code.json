@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/affaan-m/everything-claude-code.git",
   "owner": "affaan-m",
   "repo": "everything-claude-code",
-  "updatedAt": "2026-03-24T09:53:55.678Z",
+  "updatedAt": "2026-03-24T16:22:45.831Z",
   "skillCount": 183,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/agent-eval",
-      "relPath": "skills/agent-eval"
+      "relPath": "skills/agent-eval",
+      "verified": true
     },
     {
       "name": "agent-harness-construction",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/agent-harness-construction",
-      "relPath": "skills/agent-harness-construction"
+      "relPath": "skills/agent-harness-construction",
+      "verified": true
     },
     {
       "name": "agentic-engineering",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/agentic-engineering",
-      "relPath": ".kiro/skills/agentic-engineering"
+      "relPath": ".kiro/skills/agentic-engineering",
+      "verified": true
     },
     {
       "name": "agentic-engineering",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/agentic-engineering",
-      "relPath": "skills/agentic-engineering"
+      "relPath": "skills/agentic-engineering",
+      "verified": true
     },
     {
       "name": "ai-first-engineering",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/ai-first-engineering",
-      "relPath": "skills/ai-first-engineering"
+      "relPath": "skills/ai-first-engineering",
+      "verified": true
     },
     {
       "name": "ai-regression-testing",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/ai-regression-testing",
-      "relPath": "skills/ai-regression-testing"
+      "relPath": "skills/ai-regression-testing",
+      "verified": true
     },
     {
       "name": "android-clean-architecture",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/android-clean-architecture",
-      "relPath": "skills/android-clean-architecture"
+      "relPath": "skills/android-clean-architecture",
+      "verified": true
     },
     {
       "name": "api-design",
@@ -91,7 +98,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/api-design",
-      "relPath": ".agents/skills/api-design"
+      "relPath": ".agents/skills/api-design",
+      "verified": true
     },
     {
       "name": "api-design",
@@ -102,7 +110,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/api-design",
-      "relPath": ".kiro/skills/api-design"
+      "relPath": ".kiro/skills/api-design",
+      "verified": true
     },
     {
       "name": "api-design",
@@ -113,7 +122,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/api-design",
-      "relPath": "skills/api-design"
+      "relPath": "skills/api-design",
+      "verified": true
     },
     {
       "name": "architecture-decision-records",
@@ -124,7 +134,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/architecture-decision-records",
-      "relPath": "skills/architecture-decision-records"
+      "relPath": "skills/architecture-decision-records",
+      "verified": true
     },
     {
       "name": "article-writing",
@@ -135,7 +146,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/article-writing",
-      "relPath": ".cursor/skills/article-writing"
+      "relPath": ".cursor/skills/article-writing",
+      "verified": true
     },
     {
       "name": "article-writing",
@@ -146,7 +158,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/article-writing",
-      "relPath": ".agents/skills/article-writing"
+      "relPath": ".agents/skills/article-writing",
+      "verified": true
     },
     {
       "name": "article-writing",
@@ -157,7 +170,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/article-writing",
-      "relPath": "skills/article-writing"
+      "relPath": "skills/article-writing",
+      "verified": true
     },
     {
       "name": "autonomous-loops",
@@ -168,7 +182,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/autonomous-loops",
-      "relPath": "skills/autonomous-loops"
+      "relPath": "skills/autonomous-loops",
+      "verified": true
     },
     {
       "name": "backend-patterns",
@@ -179,7 +194,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/backend-patterns",
-      "relPath": ".agents/skills/backend-patterns"
+      "relPath": ".agents/skills/backend-patterns",
+      "verified": true
     },
     {
       "name": "backend-patterns",
@@ -190,7 +206,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/backend-patterns",
-      "relPath": ".kiro/skills/backend-patterns"
+      "relPath": ".kiro/skills/backend-patterns",
+      "verified": true
     },
     {
       "name": "backend-patterns",
@@ -201,7 +218,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/backend-patterns",
-      "relPath": "skills/backend-patterns"
+      "relPath": "skills/backend-patterns",
+      "verified": true
     },
     {
       "name": "benchmark",
@@ -212,7 +230,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/benchmark",
-      "relPath": "skills/benchmark"
+      "relPath": "skills/benchmark",
+      "verified": false
     },
     {
       "name": "blueprint",
@@ -223,7 +242,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/blueprint",
-      "relPath": "skills/blueprint"
+      "relPath": "skills/blueprint",
+      "verified": true
     },
     {
       "name": "browser-qa",
@@ -234,7 +254,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/browser-qa",
-      "relPath": "skills/browser-qa"
+      "relPath": "skills/browser-qa",
+      "verified": false
     },
     {
       "name": "bun-runtime",
@@ -245,7 +266,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/bun-runtime",
-      "relPath": ".cursor/skills/bun-runtime"
+      "relPath": ".cursor/skills/bun-runtime",
+      "verified": true
     },
     {
       "name": "bun-runtime",
@@ -256,7 +278,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/bun-runtime",
-      "relPath": ".agents/skills/bun-runtime"
+      "relPath": ".agents/skills/bun-runtime",
+      "verified": true
     },
     {
       "name": "bun-runtime",
@@ -267,7 +290,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/bun-runtime",
-      "relPath": "skills/bun-runtime"
+      "relPath": "skills/bun-runtime",
+      "verified": true
     },
     {
       "name": "canary-watch",
@@ -278,7 +302,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/canary-watch",
-      "relPath": "skills/canary-watch"
+      "relPath": "skills/canary-watch",
+      "verified": false
     },
     {
       "name": "carrier-relationship-management",
@@ -289,7 +314,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/carrier-relationship-management",
-      "relPath": "skills/carrier-relationship-management"
+      "relPath": "skills/carrier-relationship-management",
+      "verified": true
     },
     {
       "name": "claude-api",
@@ -300,7 +326,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/claude-api",
-      "relPath": ".agents/skills/claude-api"
+      "relPath": ".agents/skills/claude-api",
+      "verified": true
     },
     {
       "name": "claude-api",
@@ -311,7 +338,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/claude-api",
-      "relPath": "skills/claude-api"
+      "relPath": "skills/claude-api",
+      "verified": true
     },
     {
       "name": "claude-devfleet",
@@ -322,7 +350,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/claude-devfleet",
-      "relPath": "skills/claude-devfleet"
+      "relPath": "skills/claude-devfleet",
+      "verified": true
     },
     {
       "name": "click-path-audit",
@@ -333,7 +362,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/click-path-audit",
-      "relPath": "skills/click-path-audit"
+      "relPath": "skills/click-path-audit",
+      "verified": true
     },
     {
       "name": "clickhouse-io",
@@ -344,7 +374,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/clickhouse-io",
-      "relPath": "skills/clickhouse-io"
+      "relPath": "skills/clickhouse-io",
+      "verified": true
     },
     {
       "name": "codebase-onboarding",
@@ -355,7 +386,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/codebase-onboarding",
-      "relPath": "skills/codebase-onboarding"
+      "relPath": "skills/codebase-onboarding",
+      "verified": true
     },
     {
       "name": "coding-standards",
@@ -366,7 +398,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/coding-standards",
-      "relPath": ".agents/skills/coding-standards"
+      "relPath": ".agents/skills/coding-standards",
+      "verified": true
     },
     {
       "name": "coding-standards",
@@ -377,7 +410,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/coding-standards",
-      "relPath": ".kiro/skills/coding-standards"
+      "relPath": ".kiro/skills/coding-standards",
+      "verified": true
     },
     {
       "name": "coding-standards",
@@ -388,7 +422,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/coding-standards",
-      "relPath": "skills/coding-standards"
+      "relPath": "skills/coding-standards",
+      "verified": true
     },
     {
       "name": "compose-multiplatform-patterns",
@@ -399,7 +434,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/compose-multiplatform-patterns",
-      "relPath": "skills/compose-multiplatform-patterns"
+      "relPath": "skills/compose-multiplatform-patterns",
+      "verified": true
     },
     {
       "name": "configure-ecc",
@@ -410,7 +446,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/configure-ecc",
-      "relPath": "skills/configure-ecc"
+      "relPath": "skills/configure-ecc",
+      "verified": true
     },
     {
       "name": "content-engine",
@@ -421,7 +458,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/content-engine",
-      "relPath": ".cursor/skills/content-engine"
+      "relPath": ".cursor/skills/content-engine",
+      "verified": true
     },
     {
       "name": "content-engine",
@@ -432,7 +470,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/content-engine",
-      "relPath": ".agents/skills/content-engine"
+      "relPath": ".agents/skills/content-engine",
+      "verified": true
     },
     {
       "name": "content-engine",
@@ -443,7 +482,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/content-engine",
-      "relPath": "skills/content-engine"
+      "relPath": "skills/content-engine",
+      "verified": true
     },
     {
       "name": "content-hash-cache-pattern",
@@ -454,7 +494,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/content-hash-cache-pattern",
-      "relPath": "skills/content-hash-cache-pattern"
+      "relPath": "skills/content-hash-cache-pattern",
+      "verified": true
     },
     {
       "name": "context-budget",
@@ -465,7 +506,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/context-budget",
-      "relPath": "skills/context-budget"
+      "relPath": "skills/context-budget",
+      "verified": true
     },
     {
       "name": "continuous-agent-loop",
@@ -476,7 +518,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/continuous-agent-loop",
-      "relPath": "skills/continuous-agent-loop"
+      "relPath": "skills/continuous-agent-loop",
+      "verified": true
     },
     {
       "name": "continuous-learning",
@@ -487,7 +530,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/continuous-learning",
-      "relPath": "skills/continuous-learning"
+      "relPath": "skills/continuous-learning",
+      "verified": true
     },
     {
       "name": "continuous-learning-v2",
@@ -498,7 +542,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/continuous-learning-v2",
-      "relPath": "skills/continuous-learning-v2"
+      "relPath": "skills/continuous-learning-v2",
+      "verified": true
     },
     {
       "name": "cost-aware-llm-pipeline",
@@ -509,7 +554,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/cost-aware-llm-pipeline",
-      "relPath": "skills/cost-aware-llm-pipeline"
+      "relPath": "skills/cost-aware-llm-pipeline",
+      "verified": true
     },
     {
       "name": "cpp-coding-standards",
@@ -520,7 +566,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/cpp-coding-standards",
-      "relPath": "skills/cpp-coding-standards"
+      "relPath": "skills/cpp-coding-standards",
+      "verified": true
     },
     {
       "name": "cpp-testing",
@@ -531,7 +578,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/cpp-testing",
-      "relPath": "skills/cpp-testing"
+      "relPath": "skills/cpp-testing",
+      "verified": true
     },
     {
       "name": "crosspost",
@@ -542,7 +590,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/crosspost",
-      "relPath": ".agents/skills/crosspost"
+      "relPath": ".agents/skills/crosspost",
+      "verified": true
     },
     {
       "name": "crosspost",
@@ -553,7 +602,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/crosspost",
-      "relPath": "skills/crosspost"
+      "relPath": "skills/crosspost",
+      "verified": true
     },
     {
       "name": "customs-trade-compliance",
@@ -564,7 +614,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/customs-trade-compliance",
-      "relPath": "skills/customs-trade-compliance"
+      "relPath": "skills/customs-trade-compliance",
+      "verified": true
     },
     {
       "name": "data-scraper-agent",
@@ -575,7 +626,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/data-scraper-agent",
-      "relPath": "skills/data-scraper-agent"
+      "relPath": "skills/data-scraper-agent",
+      "verified": true
     },
     {
       "name": "database-migrations",
@@ -586,7 +638,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/database-migrations",
-      "relPath": ".kiro/skills/database-migrations"
+      "relPath": ".kiro/skills/database-migrations",
+      "verified": true
     },
     {
       "name": "database-migrations",
@@ -597,7 +650,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/database-migrations",
-      "relPath": "skills/database-migrations"
+      "relPath": "skills/database-migrations",
+      "verified": true
     },
     {
       "name": "deep-research",
@@ -608,7 +662,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/deep-research",
-      "relPath": ".agents/skills/deep-research"
+      "relPath": ".agents/skills/deep-research",
+      "verified": true
     },
     {
       "name": "deep-research",
@@ -619,7 +674,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/deep-research",
-      "relPath": "skills/deep-research"
+      "relPath": "skills/deep-research",
+      "verified": true
     },
     {
       "name": "deployment-patterns",
@@ -630,7 +686,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/deployment-patterns",
-      "relPath": ".kiro/skills/deployment-patterns"
+      "relPath": ".kiro/skills/deployment-patterns",
+      "verified": true
     },
     {
       "name": "deployment-patterns",
@@ -641,7 +698,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/deployment-patterns",
-      "relPath": "skills/deployment-patterns"
+      "relPath": "skills/deployment-patterns",
+      "verified": true
     },
     {
       "name": "design-system",
@@ -652,7 +710,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/design-system",
-      "relPath": "skills/design-system"
+      "relPath": "skills/design-system",
+      "verified": false
     },
     {
       "name": "django-patterns",
@@ -663,7 +722,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/django-patterns",
-      "relPath": "skills/django-patterns"
+      "relPath": "skills/django-patterns",
+      "verified": true
     },
     {
       "name": "django-security",
@@ -674,7 +734,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/django-security",
-      "relPath": "skills/django-security"
+      "relPath": "skills/django-security",
+      "verified": true
     },
     {
       "name": "django-tdd",
@@ -685,7 +746,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/django-tdd",
-      "relPath": "skills/django-tdd"
+      "relPath": "skills/django-tdd",
+      "verified": true
     },
     {
       "name": "django-verification",
@@ -696,7 +758,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/django-verification",
-      "relPath": "skills/django-verification"
+      "relPath": "skills/django-verification",
+      "verified": true
     },
     {
       "name": "dmux-workflows",
@@ -707,7 +770,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/dmux-workflows",
-      "relPath": ".agents/skills/dmux-workflows"
+      "relPath": ".agents/skills/dmux-workflows",
+      "verified": true
     },
     {
       "name": "dmux-workflows",
@@ -718,7 +782,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/dmux-workflows",
-      "relPath": "skills/dmux-workflows"
+      "relPath": "skills/dmux-workflows",
+      "verified": true
     },
     {
       "name": "docker-patterns",
@@ -729,7 +794,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/docker-patterns",
-      "relPath": ".kiro/skills/docker-patterns"
+      "relPath": ".kiro/skills/docker-patterns",
+      "verified": true
     },
     {
       "name": "docker-patterns",
@@ -740,7 +806,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/docker-patterns",
-      "relPath": "skills/docker-patterns"
+      "relPath": "skills/docker-patterns",
+      "verified": true
     },
     {
       "name": "documentation-lookup",
@@ -751,7 +818,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/documentation-lookup",
-      "relPath": ".cursor/skills/documentation-lookup"
+      "relPath": ".cursor/skills/documentation-lookup",
+      "verified": true
     },
     {
       "name": "documentation-lookup",
@@ -762,7 +830,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/documentation-lookup",
-      "relPath": ".agents/skills/documentation-lookup"
+      "relPath": ".agents/skills/documentation-lookup",
+      "verified": true
     },
     {
       "name": "documentation-lookup",
@@ -773,7 +842,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/documentation-lookup",
-      "relPath": "skills/documentation-lookup"
+      "relPath": "skills/documentation-lookup",
+      "verified": true
     },
     {
       "name": "e2e-testing",
@@ -784,7 +854,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/e2e-testing",
-      "relPath": ".agents/skills/e2e-testing"
+      "relPath": ".agents/skills/e2e-testing",
+      "verified": true
     },
     {
       "name": "e2e-testing",
@@ -795,7 +866,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/e2e-testing",
-      "relPath": ".kiro/skills/e2e-testing"
+      "relPath": ".kiro/skills/e2e-testing",
+      "verified": true
     },
     {
       "name": "e2e-testing",
@@ -806,7 +878,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/e2e-testing",
-      "relPath": "skills/e2e-testing"
+      "relPath": "skills/e2e-testing",
+      "verified": true
     },
     {
       "name": "energy-procurement",
@@ -817,7 +890,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/energy-procurement",
-      "relPath": "skills/energy-procurement"
+      "relPath": "skills/energy-procurement",
+      "verified": true
     },
     {
       "name": "enterprise-agent-ops",
@@ -828,7 +902,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/enterprise-agent-ops",
-      "relPath": "skills/enterprise-agent-ops"
+      "relPath": "skills/enterprise-agent-ops",
+      "verified": true
     },
     {
       "name": "eval-harness",
@@ -839,7 +914,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/eval-harness",
-      "relPath": ".agents/skills/eval-harness"
+      "relPath": ".agents/skills/eval-harness",
+      "verified": true
     },
     {
       "name": "eval-harness",
@@ -850,7 +926,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/eval-harness",
-      "relPath": "skills/eval-harness"
+      "relPath": "skills/eval-harness",
+      "verified": true
     },
     {
       "name": "everything-claude-code-conventions",
@@ -861,7 +938,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/everything-claude-code",
-      "relPath": ".agents/skills/everything-claude-code"
+      "relPath": ".agents/skills/everything-claude-code",
+      "verified": true
     },
     {
       "name": "everything-claude-code-conventions",
@@ -872,7 +950,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.claude/skills/everything-claude-code",
-      "relPath": ".claude/skills/everything-claude-code"
+      "relPath": ".claude/skills/everything-claude-code",
+      "verified": true
     },
     {
       "name": "exa-search",
@@ -883,7 +962,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/exa-search",
-      "relPath": ".agents/skills/exa-search"
+      "relPath": ".agents/skills/exa-search",
+      "verified": true
     },
     {
       "name": "exa-search",
@@ -894,7 +974,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/exa-search",
-      "relPath": "skills/exa-search"
+      "relPath": "skills/exa-search",
+      "verified": true
     },
     {
       "name": "fal-ai-media",
@@ -905,7 +986,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/fal-ai-media",
-      "relPath": ".agents/skills/fal-ai-media"
+      "relPath": ".agents/skills/fal-ai-media",
+      "verified": true
     },
     {
       "name": "fal-ai-media",
@@ -916,7 +998,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/fal-ai-media",
-      "relPath": "skills/fal-ai-media"
+      "relPath": "skills/fal-ai-media",
+      "verified": true
     },
     {
       "name": "flutter-dart-code-review",
@@ -927,7 +1010,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/flutter-dart-code-review",
-      "relPath": "skills/flutter-dart-code-review"
+      "relPath": "skills/flutter-dart-code-review",
+      "verified": true
     },
     {
       "name": "foundation-models-on-device",
@@ -938,7 +1022,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/foundation-models-on-device",
-      "relPath": "skills/foundation-models-on-device"
+      "relPath": "skills/foundation-models-on-device",
+      "verified": true
     },
     {
       "name": "frontend-patterns",
@@ -949,7 +1034,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/frontend-patterns",
-      "relPath": ".agents/skills/frontend-patterns"
+      "relPath": ".agents/skills/frontend-patterns",
+      "verified": true
     },
     {
       "name": "frontend-patterns",
@@ -960,7 +1046,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/frontend-patterns",
-      "relPath": ".kiro/skills/frontend-patterns"
+      "relPath": ".kiro/skills/frontend-patterns",
+      "verified": true
     },
     {
       "name": "frontend-patterns",
@@ -971,7 +1058,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/frontend-patterns",
-      "relPath": "skills/frontend-patterns"
+      "relPath": "skills/frontend-patterns",
+      "verified": true
     },
     {
       "name": "frontend-slides",
@@ -982,7 +1070,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/frontend-slides",
-      "relPath": ".cursor/skills/frontend-slides"
+      "relPath": ".cursor/skills/frontend-slides",
+      "verified": true
     },
     {
       "name": "frontend-slides",
@@ -993,7 +1082,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/frontend-slides",
-      "relPath": ".agents/skills/frontend-slides"
+      "relPath": ".agents/skills/frontend-slides",
+      "verified": true
     },
     {
       "name": "frontend-slides",
@@ -1004,7 +1094,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/frontend-slides",
-      "relPath": "skills/frontend-slides"
+      "relPath": "skills/frontend-slides",
+      "verified": true
     },
     {
       "name": "golang-patterns",
@@ -1015,7 +1106,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/golang-patterns",
-      "relPath": ".kiro/skills/golang-patterns"
+      "relPath": ".kiro/skills/golang-patterns",
+      "verified": true
     },
     {
       "name": "golang-patterns",
@@ -1026,7 +1118,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/golang-patterns",
-      "relPath": "skills/golang-patterns"
+      "relPath": "skills/golang-patterns",
+      "verified": true
     },
     {
       "name": "golang-testing",
@@ -1037,7 +1130,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/golang-testing",
-      "relPath": ".kiro/skills/golang-testing"
+      "relPath": ".kiro/skills/golang-testing",
+      "verified": true
     },
     {
       "name": "golang-testing",
@@ -1048,7 +1142,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/golang-testing",
-      "relPath": "skills/golang-testing"
+      "relPath": "skills/golang-testing",
+      "verified": true
     },
     {
       "name": "inventory-demand-planning",
@@ -1059,7 +1154,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/inventory-demand-planning",
-      "relPath": "skills/inventory-demand-planning"
+      "relPath": "skills/inventory-demand-planning",
+      "verified": true
     },
     {
       "name": "investor-materials",
@@ -1070,7 +1166,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/investor-materials",
-      "relPath": ".cursor/skills/investor-materials"
+      "relPath": ".cursor/skills/investor-materials",
+      "verified": true
     },
     {
       "name": "investor-materials",
@@ -1081,7 +1178,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/investor-materials",
-      "relPath": ".agents/skills/investor-materials"
+      "relPath": ".agents/skills/investor-materials",
+      "verified": true
     },
     {
       "name": "investor-materials",
@@ -1092,7 +1190,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/investor-materials",
-      "relPath": "skills/investor-materials"
+      "relPath": "skills/investor-materials",
+      "verified": true
     },
     {
       "name": "investor-outreach",
@@ -1103,7 +1202,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/investor-outreach",
-      "relPath": ".cursor/skills/investor-outreach"
+      "relPath": ".cursor/skills/investor-outreach",
+      "verified": true
     },
     {
       "name": "investor-outreach",
@@ -1114,7 +1214,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/investor-outreach",
-      "relPath": ".agents/skills/investor-outreach"
+      "relPath": ".agents/skills/investor-outreach",
+      "verified": true
     },
     {
       "name": "investor-outreach",
@@ -1125,7 +1226,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/investor-outreach",
-      "relPath": "skills/investor-outreach"
+      "relPath": "skills/investor-outreach",
+      "verified": true
     },
     {
       "name": "iterative-retrieval",
@@ -1136,7 +1238,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/iterative-retrieval",
-      "relPath": "skills/iterative-retrieval"
+      "relPath": "skills/iterative-retrieval",
+      "verified": true
     },
     {
       "name": "java-coding-standards",
@@ -1147,7 +1250,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/java-coding-standards",
-      "relPath": "skills/java-coding-standards"
+      "relPath": "skills/java-coding-standards",
+      "verified": true
     },
     {
       "name": "jpa-patterns",
@@ -1158,7 +1262,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/jpa-patterns",
-      "relPath": "skills/jpa-patterns"
+      "relPath": "skills/jpa-patterns",
+      "verified": true
     },
     {
       "name": "kotlin-coroutines-flows",
@@ -1169,7 +1274,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-coroutines-flows",
-      "relPath": "skills/kotlin-coroutines-flows"
+      "relPath": "skills/kotlin-coroutines-flows",
+      "verified": true
     },
     {
       "name": "kotlin-exposed-patterns",
@@ -1180,7 +1286,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-exposed-patterns",
-      "relPath": "skills/kotlin-exposed-patterns"
+      "relPath": "skills/kotlin-exposed-patterns",
+      "verified": true
     },
     {
       "name": "kotlin-ktor-patterns",
@@ -1191,7 +1298,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-ktor-patterns",
-      "relPath": "skills/kotlin-ktor-patterns"
+      "relPath": "skills/kotlin-ktor-patterns",
+      "verified": true
     },
     {
       "name": "kotlin-patterns",
@@ -1202,7 +1310,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-patterns",
-      "relPath": "skills/kotlin-patterns"
+      "relPath": "skills/kotlin-patterns",
+      "verified": true
     },
     {
       "name": "kotlin-testing",
@@ -1213,7 +1322,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-testing",
-      "relPath": "skills/kotlin-testing"
+      "relPath": "skills/kotlin-testing",
+      "verified": true
     },
     {
       "name": "laravel-patterns",
@@ -1224,7 +1334,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-patterns",
-      "relPath": "skills/laravel-patterns"
+      "relPath": "skills/laravel-patterns",
+      "verified": true
     },
     {
       "name": "laravel-security",
@@ -1235,7 +1346,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-security",
-      "relPath": "skills/laravel-security"
+      "relPath": "skills/laravel-security",
+      "verified": true
     },
     {
       "name": "laravel-tdd",
@@ -1246,7 +1358,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-tdd",
-      "relPath": "skills/laravel-tdd"
+      "relPath": "skills/laravel-tdd",
+      "verified": true
     },
     {
       "name": "laravel-verification",
@@ -1257,7 +1370,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-verification",
-      "relPath": "skills/laravel-verification"
+      "relPath": "skills/laravel-verification",
+      "verified": true
     },
     {
       "name": "liquid-glass-design",
@@ -1268,7 +1382,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/liquid-glass-design",
-      "relPath": "skills/liquid-glass-design"
+      "relPath": "skills/liquid-glass-design",
+      "verified": true
     },
     {
       "name": "logistics-exception-management",
@@ -1279,7 +1394,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/logistics-exception-management",
-      "relPath": "skills/logistics-exception-management"
+      "relPath": "skills/logistics-exception-management",
+      "verified": true
     },
     {
       "name": "market-research",
@@ -1290,7 +1406,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/market-research",
-      "relPath": ".cursor/skills/market-research"
+      "relPath": ".cursor/skills/market-research",
+      "verified": true
     },
     {
       "name": "market-research",
@@ -1301,7 +1418,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/market-research",
-      "relPath": ".agents/skills/market-research"
+      "relPath": ".agents/skills/market-research",
+      "verified": true
     },
     {
       "name": "market-research",
@@ -1312,7 +1430,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/market-research",
-      "relPath": "skills/market-research"
+      "relPath": "skills/market-research",
+      "verified": true
     },
     {
       "name": "mcp-server-patterns",
@@ -1323,7 +1442,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/mcp-server-patterns",
-      "relPath": ".cursor/skills/mcp-server-patterns"
+      "relPath": ".cursor/skills/mcp-server-patterns",
+      "verified": true
     },
     {
       "name": "mcp-server-patterns",
@@ -1334,7 +1454,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/mcp-server-patterns",
-      "relPath": ".agents/skills/mcp-server-patterns"
+      "relPath": ".agents/skills/mcp-server-patterns",
+      "verified": true
     },
     {
       "name": "mcp-server-patterns",
@@ -1345,7 +1466,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/mcp-server-patterns",
-      "relPath": "skills/mcp-server-patterns"
+      "relPath": "skills/mcp-server-patterns",
+      "verified": true
     },
     {
       "name": "nanoclaw-repl",
@@ -1356,7 +1478,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/nanoclaw-repl",
-      "relPath": "skills/nanoclaw-repl"
+      "relPath": "skills/nanoclaw-repl",
+      "verified": true
     },
     {
       "name": "nextjs-turbopack",
@@ -1367,7 +1490,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.cursor/skills/nextjs-turbopack",
-      "relPath": ".cursor/skills/nextjs-turbopack"
+      "relPath": ".cursor/skills/nextjs-turbopack",
+      "verified": true
     },
     {
       "name": "nextjs-turbopack",
@@ -1378,7 +1502,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/nextjs-turbopack",
-      "relPath": ".agents/skills/nextjs-turbopack"
+      "relPath": ".agents/skills/nextjs-turbopack",
+      "verified": true
     },
     {
       "name": "nextjs-turbopack",
@@ -1389,7 +1514,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/nextjs-turbopack",
-      "relPath": "skills/nextjs-turbopack"
+      "relPath": "skills/nextjs-turbopack",
+      "verified": true
     },
     {
       "name": "nutrient-document-processing",
@@ -1400,7 +1526,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/nutrient-document-processing",
-      "relPath": "skills/nutrient-document-processing"
+      "relPath": "skills/nutrient-document-processing",
+      "verified": true
     },
     {
       "name": "nuxt4-patterns",
@@ -1411,7 +1538,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/nuxt4-patterns",
-      "relPath": "skills/nuxt4-patterns"
+      "relPath": "skills/nuxt4-patterns",
+      "verified": true
     },
     {
       "name": "perl-patterns",
@@ -1422,7 +1550,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/perl-patterns",
-      "relPath": "skills/perl-patterns"
+      "relPath": "skills/perl-patterns",
+      "verified": true
     },
     {
       "name": "perl-security",
@@ -1433,7 +1562,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/perl-security",
-      "relPath": "skills/perl-security"
+      "relPath": "skills/perl-security",
+      "verified": true
     },
     {
       "name": "perl-testing",
@@ -1444,7 +1574,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/perl-testing",
-      "relPath": "skills/perl-testing"
+      "relPath": "skills/perl-testing",
+      "verified": true
     },
     {
       "name": "plankton-code-quality",
@@ -1455,7 +1586,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/plankton-code-quality",
-      "relPath": "skills/plankton-code-quality"
+      "relPath": "skills/plankton-code-quality",
+      "verified": true
     },
     {
       "name": "postgres-patterns",
@@ -1466,7 +1598,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/postgres-patterns",
-      "relPath": ".kiro/skills/postgres-patterns"
+      "relPath": ".kiro/skills/postgres-patterns",
+      "verified": true
     },
     {
       "name": "postgres-patterns",
@@ -1477,7 +1610,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/postgres-patterns",
-      "relPath": "skills/postgres-patterns"
+      "relPath": "skills/postgres-patterns",
+      "verified": true
     },
     {
       "name": "product-lens",
@@ -1488,7 +1622,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/product-lens",
-      "relPath": "skills/product-lens"
+      "relPath": "skills/product-lens",
+      "verified": false
     },
     {
       "name": "production-scheduling",
@@ -1499,7 +1634,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/production-scheduling",
-      "relPath": "skills/production-scheduling"
+      "relPath": "skills/production-scheduling",
+      "verified": true
     },
     {
       "name": "project-guidelines-example",
@@ -1510,7 +1646,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/project-guidelines-example",
-      "relPath": "skills/project-guidelines-example"
+      "relPath": "skills/project-guidelines-example",
+      "verified": true
     },
     {
       "name": "prompt-optimizer",
@@ -1521,7 +1658,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/prompt-optimizer",
-      "relPath": "skills/prompt-optimizer"
+      "relPath": "skills/prompt-optimizer",
+      "verified": true
     },
     {
       "name": "python-patterns",
@@ -1532,7 +1670,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/python-patterns",
-      "relPath": ".kiro/skills/python-patterns"
+      "relPath": ".kiro/skills/python-patterns",
+      "verified": true
     },
     {
       "name": "python-patterns",
@@ -1543,7 +1682,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/python-patterns",
-      "relPath": "skills/python-patterns"
+      "relPath": "skills/python-patterns",
+      "verified": true
     },
     {
       "name": "python-testing",
@@ -1554,7 +1694,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/python-testing",
-      "relPath": ".kiro/skills/python-testing"
+      "relPath": ".kiro/skills/python-testing",
+      "verified": true
     },
     {
       "name": "python-testing",
@@ -1565,7 +1706,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/python-testing",
-      "relPath": "skills/python-testing"
+      "relPath": "skills/python-testing",
+      "verified": true
     },
     {
       "name": "pytorch-patterns",
@@ -1576,7 +1718,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/pytorch-patterns",
-      "relPath": "skills/pytorch-patterns"
+      "relPath": "skills/pytorch-patterns",
+      "verified": true
     },
     {
       "name": "quality-nonconformance",
@@ -1587,7 +1730,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/quality-nonconformance",
-      "relPath": "skills/quality-nonconformance"
+      "relPath": "skills/quality-nonconformance",
+      "verified": true
     },
     {
       "name": "ralphinho-rfc-pipeline",
@@ -1598,7 +1742,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/ralphinho-rfc-pipeline",
-      "relPath": "skills/ralphinho-rfc-pipeline"
+      "relPath": "skills/ralphinho-rfc-pipeline",
+      "verified": true
     },
     {
       "name": "regex-vs-llm-structured-text",
@@ -1609,7 +1754,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/regex-vs-llm-structured-text",
-      "relPath": "skills/regex-vs-llm-structured-text"
+      "relPath": "skills/regex-vs-llm-structured-text",
+      "verified": true
     },
     {
       "name": "returns-reverse-logistics",
@@ -1620,7 +1766,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/returns-reverse-logistics",
-      "relPath": "skills/returns-reverse-logistics"
+      "relPath": "skills/returns-reverse-logistics",
+      "verified": true
     },
     {
       "name": "rules-distill",
@@ -1631,7 +1778,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/rules-distill",
-      "relPath": "skills/rules-distill"
+      "relPath": "skills/rules-distill",
+      "verified": true
     },
     {
       "name": "rust-patterns",
@@ -1642,7 +1790,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/rust-patterns",
-      "relPath": "skills/rust-patterns"
+      "relPath": "skills/rust-patterns",
+      "verified": true
     },
     {
       "name": "rust-testing",
@@ -1653,7 +1802,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/rust-testing",
-      "relPath": "skills/rust-testing"
+      "relPath": "skills/rust-testing",
+      "verified": true
     },
     {
       "name": "safety-guard",
@@ -1664,7 +1814,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/safety-guard",
-      "relPath": "skills/safety-guard"
+      "relPath": "skills/safety-guard",
+      "verified": false
     },
     {
       "name": "santa-method",
@@ -1675,7 +1826,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/santa-method",
-      "relPath": "skills/santa-method"
+      "relPath": "skills/santa-method",
+      "verified": true
     },
     {
       "name": "search-first",
@@ -1686,7 +1838,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/search-first",
-      "relPath": ".kiro/skills/search-first"
+      "relPath": ".kiro/skills/search-first",
+      "verified": true
     },
     {
       "name": "search-first",
@@ -1697,7 +1850,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/search-first",
-      "relPath": "skills/search-first"
+      "relPath": "skills/search-first",
+      "verified": true
     },
     {
       "name": "security-review",
@@ -1708,7 +1862,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/security-review",
-      "relPath": ".agents/skills/security-review"
+      "relPath": ".agents/skills/security-review",
+      "verified": true
     },
     {
       "name": "security-review",
@@ -1719,7 +1874,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/security-review",
-      "relPath": ".kiro/skills/security-review"
+      "relPath": ".kiro/skills/security-review",
+      "verified": true
     },
     {
       "name": "security-review",
@@ -1730,7 +1886,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/security-review",
-      "relPath": "skills/security-review"
+      "relPath": "skills/security-review",
+      "verified": true
     },
     {
       "name": "security-scan",
@@ -1741,7 +1898,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/security-scan",
-      "relPath": "skills/security-scan"
+      "relPath": "skills/security-scan",
+      "verified": true
     },
     {
       "name": "skill-comply",
@@ -1752,7 +1910,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/skill-comply",
-      "relPath": "skills/skill-comply"
+      "relPath": "skills/skill-comply",
+      "verified": true
     },
     {
       "name": "skill-stocktake",
@@ -1763,7 +1922,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/skill-stocktake",
-      "relPath": "skills/skill-stocktake"
+      "relPath": "skills/skill-stocktake",
+      "verified": true
     },
     {
       "name": "springboot-patterns",
@@ -1774,7 +1934,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-patterns",
-      "relPath": "skills/springboot-patterns"
+      "relPath": "skills/springboot-patterns",
+      "verified": true
     },
     {
       "name": "springboot-security",
@@ -1785,7 +1946,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-security",
-      "relPath": "skills/springboot-security"
+      "relPath": "skills/springboot-security",
+      "verified": true
     },
     {
       "name": "springboot-tdd",
@@ -1796,7 +1958,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-tdd",
-      "relPath": "skills/springboot-tdd"
+      "relPath": "skills/springboot-tdd",
+      "verified": true
     },
     {
       "name": "springboot-verification",
@@ -1807,7 +1970,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-verification",
-      "relPath": "skills/springboot-verification"
+      "relPath": "skills/springboot-verification",
+      "verified": true
     },
     {
       "name": "strategic-compact",
@@ -1818,7 +1982,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/strategic-compact",
-      "relPath": ".agents/skills/strategic-compact"
+      "relPath": ".agents/skills/strategic-compact",
+      "verified": true
     },
     {
       "name": "strategic-compact",
@@ -1829,7 +1994,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/strategic-compact",
-      "relPath": "skills/strategic-compact"
+      "relPath": "skills/strategic-compact",
+      "verified": true
     },
     {
       "name": "swift-actor-persistence",
@@ -1840,7 +2006,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/swift-actor-persistence",
-      "relPath": "skills/swift-actor-persistence"
+      "relPath": "skills/swift-actor-persistence",
+      "verified": true
     },
     {
       "name": "swift-concurrency-6-2",
@@ -1851,7 +2018,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/swift-concurrency-6-2",
-      "relPath": "skills/swift-concurrency-6-2"
+      "relPath": "skills/swift-concurrency-6-2",
+      "verified": true
     },
     {
       "name": "swift-protocol-di-testing",
@@ -1862,7 +2030,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/swift-protocol-di-testing",
-      "relPath": "skills/swift-protocol-di-testing"
+      "relPath": "skills/swift-protocol-di-testing",
+      "verified": true
     },
     {
       "name": "swiftui-patterns",
@@ -1873,7 +2042,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/swiftui-patterns",
-      "relPath": "skills/swiftui-patterns"
+      "relPath": "skills/swiftui-patterns",
+      "verified": true
     },
     {
       "name": "tdd-workflow",
@@ -1884,7 +2054,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/tdd-workflow",
-      "relPath": ".agents/skills/tdd-workflow"
+      "relPath": ".agents/skills/tdd-workflow",
+      "verified": true
     },
     {
       "name": "tdd-workflow",
@@ -1895,7 +2066,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/tdd-workflow",
-      "relPath": ".kiro/skills/tdd-workflow"
+      "relPath": ".kiro/skills/tdd-workflow",
+      "verified": true
     },
     {
       "name": "tdd-workflow",
@@ -1906,7 +2078,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/tdd-workflow",
-      "relPath": "skills/tdd-workflow"
+      "relPath": "skills/tdd-workflow",
+      "verified": true
     },
     {
       "name": "team-builder",
@@ -1917,7 +2090,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/team-builder",
-      "relPath": "skills/team-builder"
+      "relPath": "skills/team-builder",
+      "verified": true
     },
     {
       "name": "verification-loop",
@@ -1928,7 +2102,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/verification-loop",
-      "relPath": ".agents/skills/verification-loop"
+      "relPath": ".agents/skills/verification-loop",
+      "verified": true
     },
     {
       "name": "verification-loop",
@@ -1939,7 +2114,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/verification-loop",
-      "relPath": ".kiro/skills/verification-loop"
+      "relPath": ".kiro/skills/verification-loop",
+      "verified": true
     },
     {
       "name": "verification-loop",
@@ -1950,7 +2126,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/verification-loop",
-      "relPath": "skills/verification-loop"
+      "relPath": "skills/verification-loop",
+      "verified": true
     },
     {
       "name": "video-editing",
@@ -1961,7 +2138,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/video-editing",
-      "relPath": ".agents/skills/video-editing"
+      "relPath": ".agents/skills/video-editing",
+      "verified": true
     },
     {
       "name": "video-editing",
@@ -1972,7 +2150,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/video-editing",
-      "relPath": "skills/video-editing"
+      "relPath": "skills/video-editing",
+      "verified": true
     },
     {
       "name": "videodb",
@@ -1983,7 +2162,8 @@
       "compatibility": "",
       "allowedTools": ["Read", "Grep", "Glob", "Bash(python:*)"],
       "installUrl": "github:affaan-m/everything-claude-code:skills/videodb",
-      "relPath": "skills/videodb"
+      "relPath": "skills/videodb",
+      "verified": true
     },
     {
       "name": "visa-doc-translate",
@@ -1994,7 +2174,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/visa-doc-translate",
-      "relPath": "skills/visa-doc-translate"
+      "relPath": "skills/visa-doc-translate",
+      "verified": true
     },
     {
       "name": "x-api",
@@ -2005,7 +2186,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/x-api",
-      "relPath": ".agents/skills/x-api"
+      "relPath": ".agents/skills/x-api",
+      "verified": true
     },
     {
       "name": "x-api",
@@ -2016,7 +2198,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/x-api",
-      "relPath": "skills/x-api"
+      "relPath": "skills/x-api",
+      "verified": true
     }
   ]
 }

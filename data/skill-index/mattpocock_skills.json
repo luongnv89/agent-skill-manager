@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/mattpocock/skills.git",
   "owner": "mattpocock",
   "repo": "skills",
-  "updatedAt": "2026-03-24T09:54:07.373Z",
+  "updatedAt": "2026-03-24T16:22:59.773Z",
   "skillCount": 17,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:design-an-interface",
-      "relPath": "design-an-interface"
+      "relPath": "design-an-interface",
+      "verified": true
     },
     {
       "name": "edit-article",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:edit-article",
-      "relPath": "edit-article"
+      "relPath": "edit-article",
+      "verified": true
     },
     {
       "name": "git-guardrails-claude-code",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:git-guardrails-claude-code",
-      "relPath": "git-guardrails-claude-code"
+      "relPath": "git-guardrails-claude-code",
+      "verified": true
     },
     {
       "name": "grill-me",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:grill-me",
-      "relPath": "grill-me"
+      "relPath": "grill-me",
+      "verified": true
     },
     {
       "name": "improve-codebase-architecture",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:improve-codebase-architecture",
-      "relPath": "improve-codebase-architecture"
+      "relPath": "improve-codebase-architecture",
+      "verified": true
     },
     {
       "name": "migrate-to-shoehorn",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:migrate-to-shoehorn",
-      "relPath": "migrate-to-shoehorn"
+      "relPath": "migrate-to-shoehorn",
+      "verified": true
     },
     {
       "name": "obsidian-vault",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:obsidian-vault",
-      "relPath": "obsidian-vault"
+      "relPath": "obsidian-vault",
+      "verified": true
     },
     {
       "name": "prd-to-issues",
@@ -91,7 +98,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:prd-to-issues",
-      "relPath": "prd-to-issues"
+      "relPath": "prd-to-issues",
+      "verified": true
     },
     {
       "name": "prd-to-plan",
@@ -102,7 +110,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:prd-to-plan",
-      "relPath": "prd-to-plan"
+      "relPath": "prd-to-plan",
+      "verified": true
     },
     {
       "name": "request-refactor-plan",
@@ -113,7 +122,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:request-refactor-plan",
-      "relPath": "request-refactor-plan"
+      "relPath": "request-refactor-plan",
+      "verified": true
     },
     {
       "name": "scaffold-exercises",
@@ -124,7 +134,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:scaffold-exercises",
-      "relPath": "scaffold-exercises"
+      "relPath": "scaffold-exercises",
+      "verified": true
     },
     {
       "name": "setup-pre-commit",
@@ -135,7 +146,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:setup-pre-commit",
-      "relPath": "setup-pre-commit"
+      "relPath": "setup-pre-commit",
+      "verified": true
     },
     {
       "name": "tdd",
@@ -146,7 +158,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:tdd",
-      "relPath": "tdd"
+      "relPath": "tdd",
+      "verified": true
     },
     {
       "name": "triage-issue",
@@ -157,7 +170,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:triage-issue",
-      "relPath": "triage-issue"
+      "relPath": "triage-issue",
+      "verified": true
     },
     {
       "name": "ubiquitous-language",
@@ -168,7 +182,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:ubiquitous-language",
-      "relPath": "ubiquitous-language"
+      "relPath": "ubiquitous-language",
+      "verified": true
     },
     {
       "name": "write-a-prd",
@@ -179,7 +194,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:write-a-prd",
-      "relPath": "write-a-prd"
+      "relPath": "write-a-prd",
+      "verified": true
     },
     {
       "name": "write-a-skill",
@@ -190,7 +206,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:mattpocock/skills:write-a-skill",
-      "relPath": "write-a-skill"
+      "relPath": "write-a-skill",
+      "verified": true
     }
   ]
 }

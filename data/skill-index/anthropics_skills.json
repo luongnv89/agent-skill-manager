@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/anthropics/skills.git",
   "owner": "anthropics",
   "repo": "skills",
-  "updatedAt": "2026-03-24T09:53:53.499Z",
+  "updatedAt": "2026-03-24T16:22:43.657Z",
   "skillCount": 18,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/algorithmic-art",
-      "relPath": "skills/algorithmic-art"
+      "relPath": "skills/algorithmic-art",
+      "verified": true
     },
     {
       "name": "brand-guidelines",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/brand-guidelines",
-      "relPath": "skills/brand-guidelines"
+      "relPath": "skills/brand-guidelines",
+      "verified": true
     },
     {
       "name": "canvas-design",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/canvas-design",
-      "relPath": "skills/canvas-design"
+      "relPath": "skills/canvas-design",
+      "verified": true
     },
     {
       "name": "claude-api",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/claude-api",
-      "relPath": "skills/claude-api"
+      "relPath": "skills/claude-api",
+      "verified": true
     },
     {
       "name": "doc-coauthoring",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/doc-coauthoring",
-      "relPath": "skills/doc-coauthoring"
+      "relPath": "skills/doc-coauthoring",
+      "verified": true
     },
     {
       "name": "docx",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/docx",
-      "relPath": "skills/docx"
+      "relPath": "skills/docx",
+      "verified": true
     },
     {
       "name": "frontend-design",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/frontend-design",
-      "relPath": "skills/frontend-design"
+      "relPath": "skills/frontend-design",
+      "verified": true
     },
     {
       "name": "internal-comms",
@@ -91,7 +98,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/internal-comms",
-      "relPath": "skills/internal-comms"
+      "relPath": "skills/internal-comms",
+      "verified": true
     },
     {
       "name": "mcp-builder",
@@ -102,7 +110,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/mcp-builder",
-      "relPath": "skills/mcp-builder"
+      "relPath": "skills/mcp-builder",
+      "verified": true
     },
     {
       "name": "pdf",
@@ -113,7 +122,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/pdf",
-      "relPath": "skills/pdf"
+      "relPath": "skills/pdf",
+      "verified": true
     },
     {
       "name": "pptx",
@@ -124,7 +134,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/pptx",
-      "relPath": "skills/pptx"
+      "relPath": "skills/pptx",
+      "verified": true
     },
     {
       "name": "skill-creator",
@@ -135,7 +146,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/skill-creator",
-      "relPath": "skills/skill-creator"
+      "relPath": "skills/skill-creator",
+      "verified": true
     },
     {
       "name": "slack-gif-creator",
@@ -146,7 +158,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/slack-gif-creator",
-      "relPath": "skills/slack-gif-creator"
+      "relPath": "skills/slack-gif-creator",
+      "verified": true
     },
     {
       "name": "template-skill",
@@ -157,7 +170,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:template",
-      "relPath": "template"
+      "relPath": "template",
+      "verified": true
     },
     {
       "name": "theme-factory",
@@ -168,7 +182,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/theme-factory",
-      "relPath": "skills/theme-factory"
+      "relPath": "skills/theme-factory",
+      "verified": true
     },
     {
       "name": "web-artifacts-builder",
@@ -179,7 +194,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/web-artifacts-builder",
-      "relPath": "skills/web-artifacts-builder"
+      "relPath": "skills/web-artifacts-builder",
+      "verified": true
     },
     {
       "name": "webapp-testing",
@@ -190,7 +206,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/webapp-testing",
-      "relPath": "skills/webapp-testing"
+      "relPath": "skills/webapp-testing",
+      "verified": true
     },
     {
       "name": "xlsx",
@@ -201,7 +218,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:anthropics/skills:skills/xlsx",
-      "relPath": "skills/xlsx"
+      "relPath": "skills/xlsx",
+      "verified": true
     }
   ]
 }
