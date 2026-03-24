@@ -582,3 +582,104 @@
 .empty-state-container .btn-browse:hover {
   background: #b4befe;
 }
+
+.overlay-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlay-content {
+  background: #1e1e2e;
+  border: 1px solid #313244;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.overlay-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #cdd6f4;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.overlay-close:hover {
+  color: #f38ba8;
+}
+
+.overlay-content h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #cdd6f4;
+}
+
+.skill-category {
+  color: #89b4fa;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.skill-description {
+  color: #cdd6f4;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.skill-author,
+.skill-version,
+.skill-license {
+  color: #a6adc8;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.skill-repo a {
+  color: #89b4fa;
+  text-decoration: none;
+}
+
+.skill-repo a:hover {
+  text-decoration: underline;
+}
+
+.skill-tools {
+  margin-top: 16px;
+}
+
+.skill-tools h4 {
+  color: #cdd6f4;
+  margin-bottom: 8px;
+}
+
+.skill-tools ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-tools li {
+  color: #a6adc8;
+  background: #313244;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 2px;
+  font-size: 12px;
+}

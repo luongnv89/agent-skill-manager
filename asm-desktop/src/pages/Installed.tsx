@@ -19,6 +19,7 @@ export function Installed() {
   const [error, setError] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>("name");
   const [showConfirm, setShowConfirm] = useState(false);
+  const [isSymlinkConfirm, setIsSymlinkConfirm] = useState(false);
   const [skillToRemove, setSkillToRemove] = useState<string | null>(null);
   const [uninstallingSkill, setUninstallingSkill] = useState<string | null>(
     null,
@@ -66,25 +67,27 @@ export function Installed() {
 
   const handleUninstall = (name: string) => {
     setSkillToRemove(name);
+    setIsSymlinkConfirm(false);
     setShowConfirm(true);
   };
 
-  const confirmUninstall = async () => {
+  const confirmUninstall = async (forceRemove = false) => {
     if (!skillToRemove) return;
 
     setShowConfirm(false);
+    setIsSymlinkConfirm(false);
     setUninstallingSkill(skillToRemove);
     setError(null);
 
     try {
-      const isSymlink = await isSkillSymlink(skillToRemove);
-      if (isSymlink) {
-        setError(
-          "Cannot uninstall: this is a symlink. Please remove it manually.",
-        );
-        setUninstallingSkill(null);
-        setSkillToRemove(null);
-        return;
+      if (!forceRemove) {
+        const isSymlink = await isSkillSymlink(skillToRemove);
+        if (isSymlink) {
+          setIsSymlinkConfirm(true);
+          setShowConfirm(true);
+          setUninstallingSkill(null);
+          return;
+        }
       }
 
       const result = await uninstallSkill(skillToRemove);
@@ -112,6 +115,7 @@ export function Installed() {
 
   const cancelUninstall = () => {
     setShowConfirm(false);
+    setIsSymlinkConfirm(false);
     setSkillToRemove(null);
   };
 
@@ -160,11 +164,15 @@ export function Installed() {
 
       {showConfirm && (
         <ConfirmDialog
-          title="Remove Skill"
-          message={`Are you sure you want to remove "${skillToRemove}"? This will delete the skill files from ~/.claude/skills/.`}
-          confirmLabel="Remove"
+          title={isSymlinkConfirm ? "Remove Symlink" : "Remove Skill"}
+          message={
+            isSymlinkConfirm
+              ? `"${skillToRemove}" is a symlink. Are you sure you want to remove it? This will delete the symlink.`
+              : `Are you sure you want to remove "${skillToRemove}"? This will delete the skill files from ~/.claude/skills/.`
+          }
+          confirmLabel={isSymlinkConfirm ? "Remove Symlink" : "Remove"}
           cancelLabel="Cancel"
-          onConfirm={confirmUninstall}
+          onConfirm={() => confirmUninstall(true)}
           onCancel={cancelUninstall}
           isDanger={true}
         />

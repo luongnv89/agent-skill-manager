@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import { SearchBar } from "../components/SearchBar";
 import { SkillCard } from "../components/SkillCard";
 import { ConfirmDialog } from "../components/ConfirmDialog";
@@ -13,6 +12,51 @@ import {
   CATEGORIES,
   type Skill,
 } from "../lib/tauri-commands";
+
+function SkillDetailOverlay({
+  skill,
+  onClose,
+}: {
+  skill: Skill;
+  onClose: () => void;
+}) {
+  return (
+    <div className="overlay-backdrop" onClick={onClose}>
+      <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
+        <button className="overlay-close" onClick={onClose}>
+          &times;
+        </button>
+        <h3>{skill.name}</h3>
+        {skill.category && <p className="skill-category">{skill.category}</p>}
+        {skill.description && (
+          <p className="skill-description">{skill.description}</p>
+        )}
+        {skill.author && <p className="skill-author">Author: {skill.author}</p>}
+        {skill.version && (
+          <p className="skill-version">Version: {skill.version}</p>
+        )}
+        {skill.license && (
+          <p className="skill-license">License: {skill.license}</p>
+        )}
+        {skill.repository && (
+          <p className="skill-repo">
+            Repository: <a href={skill.repository}>{skill.repository}</a>
+          </p>
+        )}
+        {skill.tools && skill.tools.length > 0 && (
+          <div className="skill-tools">
+            <h4>Tools:</h4>
+            <ul>
+              {skill.tools.map((tool) => (
+                <li key={tool}>{tool}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 type SortOption = "name" | "category" | "relevance";
 
@@ -30,7 +74,7 @@ export function Catalog() {
     message: string;
     type: "success" | "error";
   } | null>(null);
-  const navigate = useNavigate();
+  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
 
   const loadSkillIndex = useCallback(async () => {
     setLoading(true);
@@ -179,7 +223,7 @@ export function Catalog() {
   };
 
   const handleSelect = (skill: Skill) => {
-    navigate(`/skill/${encodeURIComponent(skill.name)}`);
+    setSelectedSkill(skill);
   };
 
   return (
@@ -255,6 +299,13 @@ export function Catalog() {
           message={toast.message}
           type={toast.type}
           onClose={() => setToast(null)}
+        />
+      )}
+
+      {selectedSkill && (
+        <SkillDetailOverlay
+          skill={selectedSkill}
+          onClose={() => setSelectedSkill(null)}
         />
       )}
     </div>
