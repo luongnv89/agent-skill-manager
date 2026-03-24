@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/luongnv89/skills.git",
   "owner": "luongnv89",
   "repo": "skills",
-  "updatedAt": "2026-03-24T09:54:04.324Z",
+  "updatedAt": "2026-03-24T16:22:56.648Z",
   "skillCount": 35,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/agent-config",
-      "relPath": "skills/agent-config"
+      "relPath": "skills/agent-config",
+      "verified": true
     },
     {
       "name": "appstore-review-checker",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/appstore-review-checker",
-      "relPath": "skills/appstore-review-checker"
+      "relPath": "skills/appstore-review-checker",
+      "verified": true
     },
     {
       "name": "aso-marketing",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/aso-marketing",
-      "relPath": "skills/aso-marketing"
+      "relPath": "skills/aso-marketing",
+      "verified": true
     },
     {
       "name": "auto-push",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/auto-push",
-      "relPath": "skills/auto-push"
+      "relPath": "skills/auto-push",
+      "verified": true
     },
     {
       "name": "cli-builder",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/cli-builder",
-      "relPath": "skills/cli-builder"
+      "relPath": "skills/cli-builder",
+      "verified": true
     },
     {
       "name": "code-optimizer",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/code-optimizer",
-      "relPath": "skills/code-optimizer"
+      "relPath": "skills/code-optimizer",
+      "verified": true
     },
     {
       "name": "code-review",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/code-review",
-      "relPath": "skills/code-review"
+      "relPath": "skills/code-review",
+      "verified": true
     },
     {
       "name": "context-hub",
@@ -91,7 +98,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/context-hub",
-      "relPath": "skills/context-hub"
+      "relPath": "skills/context-hub",
+      "verified": true
     },
     {
       "name": "devops-pipeline",
@@ -102,7 +110,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/devops-pipeline",
-      "relPath": "skills/devops-pipeline"
+      "relPath": "skills/devops-pipeline",
+      "verified": true
     },
     {
       "name": "docs-generator",
@@ -113,7 +122,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/docs-generator",
-      "relPath": "skills/docs-generator"
+      "relPath": "skills/docs-generator",
+      "verified": true
     },
     {
       "name": "dont-make-me-think",
@@ -124,7 +134,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/dont-make-me-think",
-      "relPath": "skills/dont-make-me-think"
+      "relPath": "skills/dont-make-me-think",
+      "verified": true
     },
     {
       "name": "drawio-generator",
@@ -135,7 +146,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/drawio-generator",
-      "relPath": "skills/drawio-generator"
+      "relPath": "skills/drawio-generator",
+      "verified": true
     },
     {
       "name": "excalidraw-generator",
@@ -146,7 +158,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/excalidraw-generator",
-      "relPath": "skills/excalidraw-generator"
+      "relPath": "skills/excalidraw-generator",
+      "verified": true
     },
     {
       "name": "frontend-design",
@@ -157,7 +170,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/frontend-design",
-      "relPath": "skills/frontend-design"
+      "relPath": "skills/frontend-design",
+      "verified": true
     },
     {
       "name": "github-issue-creator",
@@ -168,7 +182,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/github-issue-creator",
-      "relPath": "skills/github-issue-creator"
+      "relPath": "skills/github-issue-creator",
+      "verified": true
     },
     {
       "name": "idea-validator",
@@ -179,7 +194,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/idea-validator",
-      "relPath": "skills/idea-validator"
+      "relPath": "skills/idea-validator",
+      "verified": true
     },
     {
       "name": "install-script-generator",
@@ -190,7 +206,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/install-script-generator",
-      "relPath": "skills/install-script-generator"
+      "relPath": "skills/install-script-generator",
+      "verified": true
     },
     {
       "name": "logo-designer",
@@ -201,7 +218,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/logo-designer",
-      "relPath": "skills/logo-designer"
+      "relPath": "skills/logo-designer",
+      "verified": true
     },
     {
       "name": "name-checker",
@@ -212,7 +230,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/name-checker",
-      "relPath": "skills/name-checker"
+      "relPath": "skills/name-checker",
+      "verified": true
     },
     {
       "name": "note-taker",
@@ -223,7 +242,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/note-taker",
-      "relPath": "skills/note-taker"
+      "relPath": "skills/note-taker",
+      "verified": true
     },
     {
       "name": "ollama-optimizer",
@@ -234,7 +254,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/ollama-optimizer",
-      "relPath": "skills/ollama-optimizer"
+      "relPath": "skills/ollama-optimizer",
+      "verified": true
     },
     {
       "name": "opencode-runner",
@@ -245,7 +266,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/opencode-runner",
-      "relPath": "skills/opencode-runner"
+      "relPath": "skills/opencode-runner",
+      "verified": true
     },
     {
       "name": "openspec-task-loop",
@@ -256,7 +278,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/openspec-task-loop",
-      "relPath": "skills/openspec-task-loop"
+      "relPath": "skills/openspec-task-loop",
+      "verified": true
     },
     {
       "name": "oss-ready",
@@ -267,7 +290,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/oss-ready",
-      "relPath": "skills/oss-ready"
+      "relPath": "skills/oss-ready",
+      "verified": true
     },
     {
       "name": "prd-generator",
@@ -278,7 +302,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/prd-generator",
-      "relPath": "skills/prd-generator"
+      "relPath": "skills/prd-generator",
+      "verified": true
     },
     {
       "name": "readme-to-landing-page",
@@ -289,18 +314,20 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/readme-to-landing-page",
-      "relPath": "skills/readme-to-landing-page"
+      "relPath": "skills/readme-to-landing-page",
+      "verified": true
     },
     {
       "name": "release-manager",
       "description": "Complete release automation — version bumping, changelog generation, README updates, documentation sync, builds, git tags, GitHub releases, and publishing to PyPI/npm. Use when asked to \"prepare a release\", \"bump the version\", \"cut a release\", \"publish to npm/pypi\", \"update the changelog\", \"generate release notes\", \"what changed since last release\", or anything related to shipping a new version. Even if they only mention one part (like \"update changelog\"), use this skill because releases have interdependent steps.",
-      "version": "2.2.0",
+      "version": "2.3.0",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/release-manager",
-      "relPath": "skills/release-manager"
+      "relPath": "skills/release-manager",
+      "verified": true
     },
     {
       "name": "seo-ai-optimizer",
@@ -311,18 +338,20 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/seo-ai-optimizer",
-      "relPath": "skills/seo-ai-optimizer"
+      "relPath": "skills/seo-ai-optimizer",
+      "verified": true
     },
     {
       "name": "skill-creator",
       "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/skill-creator",
-      "relPath": "skills/skill-creator"
+      "relPath": "skills/skill-creator",
+      "verified": true
     },
     {
       "name": "skill-inventory-auditor",
@@ -333,7 +362,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/skill-inventory-auditor",
-      "relPath": "skills/skill-inventory-auditor"
+      "relPath": "skills/skill-inventory-auditor",
+      "verified": true
     },
     {
       "name": "system-design",
@@ -344,7 +374,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/system-design",
-      "relPath": "skills/system-design"
+      "relPath": "skills/system-design",
+      "verified": true
     },
     {
       "name": "tasks-generator",
@@ -355,7 +386,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/tasks-generator",
-      "relPath": "skills/tasks-generator"
+      "relPath": "skills/tasks-generator",
+      "verified": true
     },
     {
       "name": "test-coverage",
@@ -366,7 +398,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/test-coverage",
-      "relPath": "skills/test-coverage"
+      "relPath": "skills/test-coverage",
+      "verified": true
     },
     {
       "name": "theme-transformer",
@@ -377,7 +410,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/theme-transformer",
-      "relPath": "skills/theme-transformer"
+      "relPath": "skills/theme-transformer",
+      "verified": true
     },
     {
       "name": "vscode-extension-publisher",
@@ -388,7 +422,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/vscode-extension-publisher",
-      "relPath": "skills/vscode-extension-publisher"
+      "relPath": "skills/vscode-extension-publisher",
+      "verified": true
     }
   ]
 }

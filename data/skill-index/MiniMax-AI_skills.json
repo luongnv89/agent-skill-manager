@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/MiniMax-AI/skills.git",
   "owner": "MiniMax-AI",
   "repo": "skills",
-  "updatedAt": "2026-03-24T09:54:05.133Z",
+  "updatedAt": "2026-03-24T16:22:57.475Z",
   "skillCount": 11,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/android-native-dev",
-      "relPath": "skills/android-native-dev"
+      "relPath": "skills/android-native-dev",
+      "verified": true
     },
     {
       "name": "frontend-dev",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/frontend-dev",
-      "relPath": "skills/frontend-dev"
+      "relPath": "skills/frontend-dev",
+      "verified": true
     },
     {
       "name": "fullstack-dev",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/fullstack-dev",
-      "relPath": "skills/fullstack-dev"
+      "relPath": "skills/fullstack-dev",
+      "verified": true
     },
     {
       "name": "gif-sticker-maker",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/gif-sticker-maker",
-      "relPath": "skills/gif-sticker-maker"
+      "relPath": "skills/gif-sticker-maker",
+      "verified": true
     },
     {
       "name": "ios-application-dev",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/ios-application-dev",
-      "relPath": "skills/ios-application-dev"
+      "relPath": "skills/ios-application-dev",
+      "verified": true
     },
     {
       "name": "minimax-docx",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-docx",
-      "relPath": "skills/minimax-docx"
+      "relPath": "skills/minimax-docx",
+      "verified": true
     },
     {
       "name": "minimax-pdf",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-pdf",
-      "relPath": "skills/minimax-pdf"
+      "relPath": "skills/minimax-pdf",
+      "verified": true
     },
     {
       "name": "minimax-xlsx",
@@ -91,7 +98,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-xlsx",
-      "relPath": "skills/minimax-xlsx"
+      "relPath": "skills/minimax-xlsx",
+      "verified": true
     },
     {
       "name": "pptx-generator",
@@ -102,7 +110,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/pptx-generator",
-      "relPath": "skills/pptx-generator"
+      "relPath": "skills/pptx-generator",
+      "verified": true
     },
     {
       "name": "pr-review",
@@ -113,7 +122,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:.claude/skills/pr-review",
-      "relPath": ".claude/skills/pr-review"
+      "relPath": ".claude/skills/pr-review",
+      "verified": true
     },
     {
       "name": "shader-dev",
@@ -124,7 +134,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/shader-dev",
-      "relPath": "skills/shader-dev"
+      "relPath": "skills/shader-dev",
+      "verified": true
     }
   ]
 }

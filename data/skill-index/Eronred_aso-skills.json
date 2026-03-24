@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Eronred/aso-skills.git",
   "owner": "Eronred",
   "repo": "aso-skills",
-  "updatedAt": "2026-03-24T09:54:06.843Z",
+  "updatedAt": "2026-03-24T16:22:59.223Z",
   "skillCount": 30,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/ab-test-store-listing",
-      "relPath": "skills/ab-test-store-listing"
+      "relPath": "skills/ab-test-store-listing",
+      "verified": true
     },
     {
       "name": "android-aso",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/android-aso",
-      "relPath": "skills/android-aso"
+      "relPath": "skills/android-aso",
+      "verified": true
     },
     {
       "name": "app-analytics",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/app-analytics",
-      "relPath": "skills/app-analytics"
+      "relPath": "skills/app-analytics",
+      "verified": true
     },
     {
       "name": "app-clips",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/app-clips",
-      "relPath": "skills/app-clips"
+      "relPath": "skills/app-clips",
+      "verified": true
     },
     {
       "name": "app-icon-optimization",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/app-icon-optimization",
-      "relPath": "skills/app-icon-optimization"
+      "relPath": "skills/app-icon-optimization",
+      "verified": true
     },
     {
       "name": "app-launch",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/app-launch",
-      "relPath": "skills/app-launch"
+      "relPath": "skills/app-launch",
+      "verified": true
     },
     {
       "name": "app-marketing-context",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/app-marketing-context",
-      "relPath": "skills/app-marketing-context"
+      "relPath": "skills/app-marketing-context",
+      "verified": true
     },
     {
       "name": "app-store-featured",
@@ -91,7 +98,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/app-store-featured",
-      "relPath": "skills/app-store-featured"
+      "relPath": "skills/app-store-featured",
+      "verified": true
     },
     {
       "name": "apple-search-ads",
@@ -102,7 +110,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/apple-search-ads",
-      "relPath": "skills/apple-search-ads"
+      "relPath": "skills/apple-search-ads",
+      "verified": true
     },
     {
       "name": "asc-metrics",
@@ -113,7 +122,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/asc-metrics",
-      "relPath": "skills/asc-metrics"
+      "relPath": "skills/asc-metrics",
+      "verified": true
     },
     {
       "name": "aso-audit",
@@ -124,7 +134,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/aso-audit",
-      "relPath": "skills/aso-audit"
+      "relPath": "skills/aso-audit",
+      "verified": true
     },
     {
       "name": "competitor-analysis",
@@ -135,7 +146,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/competitor-analysis",
-      "relPath": "skills/competitor-analysis"
+      "relPath": "skills/competitor-analysis",
+      "verified": true
     },
     {
       "name": "competitor-tracking",
@@ -146,7 +158,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/competitor-tracking",
-      "relPath": "skills/competitor-tracking"
+      "relPath": "skills/competitor-tracking",
+      "verified": true
     },
     {
       "name": "crash-analytics",
@@ -157,7 +170,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/crash-analytics",
-      "relPath": "skills/crash-analytics"
+      "relPath": "skills/crash-analytics",
+      "verified": true
     },
     {
       "name": "in-app-events",
@@ -168,7 +182,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/in-app-events",
-      "relPath": "skills/in-app-events"
+      "relPath": "skills/in-app-events",
+      "verified": true
     },
     {
       "name": "keyword-research",
@@ -179,7 +194,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/keyword-research",
-      "relPath": "skills/keyword-research"
+      "relPath": "skills/keyword-research",
+      "verified": true
     },
     {
       "name": "localization",
@@ -190,7 +206,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/localization",
-      "relPath": "skills/localization"
+      "relPath": "skills/localization",
+      "verified": true
     },
     {
       "name": "market-movers",
@@ -201,7 +218,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/market-movers",
-      "relPath": "skills/market-movers"
+      "relPath": "skills/market-movers",
+      "verified": true
     },
     {
       "name": "market-pulse",
@@ -212,7 +230,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/market-pulse",
-      "relPath": "skills/market-pulse"
+      "relPath": "skills/market-pulse",
+      "verified": true
     },
     {
       "name": "metadata-optimization",
@@ -223,7 +242,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/metadata-optimization",
-      "relPath": "skills/metadata-optimization"
+      "relPath": "skills/metadata-optimization",
+      "verified": true
     },
     {
       "name": "monetization-strategy",
@@ -234,7 +254,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/monetization-strategy",
-      "relPath": "skills/monetization-strategy"
+      "relPath": "skills/monetization-strategy",
+      "verified": true
     },
     {
       "name": "onboarding-optimization",
@@ -245,7 +266,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/onboarding-optimization",
-      "relPath": "skills/onboarding-optimization"
+      "relPath": "skills/onboarding-optimization",
+      "verified": true
     },
     {
       "name": "press-and-pr",
@@ -256,7 +278,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/press-and-pr",
-      "relPath": "skills/press-and-pr"
+      "relPath": "skills/press-and-pr",
+      "verified": true
     },
     {
       "name": "rating-prompt-strategy",
@@ -267,7 +290,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/rating-prompt-strategy",
-      "relPath": "skills/rating-prompt-strategy"
+      "relPath": "skills/rating-prompt-strategy",
+      "verified": true
     },
     {
       "name": "retention-optimization",
@@ -278,7 +302,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/retention-optimization",
-      "relPath": "skills/retention-optimization"
+      "relPath": "skills/retention-optimization",
+      "verified": true
     },
     {
       "name": "review-management",
@@ -289,7 +314,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/review-management",
-      "relPath": "skills/review-management"
+      "relPath": "skills/review-management",
+      "verified": true
     },
     {
       "name": "screenshot-optimization",
@@ -300,7 +326,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/screenshot-optimization",
-      "relPath": "skills/screenshot-optimization"
+      "relPath": "skills/screenshot-optimization",
+      "verified": true
     },
     {
       "name": "seasonal-aso",
@@ -311,7 +338,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/seasonal-aso",
-      "relPath": "skills/seasonal-aso"
+      "relPath": "skills/seasonal-aso",
+      "verified": true
     },
     {
       "name": "subscription-lifecycle",
@@ -322,7 +350,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/subscription-lifecycle",
-      "relPath": "skills/subscription-lifecycle"
+      "relPath": "skills/subscription-lifecycle",
+      "verified": true
     },
     {
       "name": "ua-campaign",
@@ -333,7 +362,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Eronred/aso-skills:skills/ua-campaign",
-      "relPath": "skills/ua-campaign"
+      "relPath": "skills/ua-campaign",
+      "verified": true
     }
   ]
 }

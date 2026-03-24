@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
   "owner": "nextlevelbuilder",
   "repo": "ui-ux-pro-max-skill",
-  "updatedAt": "2026-03-24T09:53:57.311Z",
+  "updatedAt": "2026-03-24T16:22:49.059Z",
   "skillCount": 7,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/banner-design",
-      "relPath": ".claude/skills/banner-design"
+      "relPath": ".claude/skills/banner-design",
+      "verified": true
     },
     {
       "name": "ckm:brand",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/brand",
-      "relPath": ".claude/skills/brand"
+      "relPath": ".claude/skills/brand",
+      "verified": true
     },
     {
       "name": "ckm:design",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design",
-      "relPath": ".claude/skills/design"
+      "relPath": ".claude/skills/design",
+      "verified": true
     },
     {
       "name": "ckm:design-system",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/design-system",
-      "relPath": ".claude/skills/design-system"
+      "relPath": ".claude/skills/design-system",
+      "verified": true
     },
     {
       "name": "ckm:slides",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/slides",
-      "relPath": ".claude/skills/slides"
+      "relPath": ".claude/skills/slides",
+      "verified": true
     },
     {
       "name": "ckm:ui-styling",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-styling",
-      "relPath": ".claude/skills/ui-styling"
+      "relPath": ".claude/skills/ui-styling",
+      "verified": true
     },
     {
       "name": "ui-ux-pro-max",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:nextlevelbuilder/ui-ux-pro-max-skill:.claude/skills/ui-ux-pro-max",
-      "relPath": ".claude/skills/ui-ux-pro-max"
+      "relPath": ".claude/skills/ui-ux-pro-max",
+      "verified": true
     }
   ]
 }

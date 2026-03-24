@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git",
   "owner": "Galaxy-Dawn",
   "repo": "claude-scholar",
-  "updatedAt": "2026-03-24T09:54:08.687Z",
+  "updatedAt": "2026-03-24T16:23:01.127Z",
   "skillCount": 47,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/agent-identifier",
-      "relPath": "skills/agent-identifier"
+      "relPath": "skills/agent-identifier",
+      "verified": true
     },
     {
       "name": "architecture-design",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/architecture-design",
-      "relPath": "skills/architecture-design"
+      "relPath": "skills/architecture-design",
+      "verified": true
     },
     {
       "name": "bug-detective",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/bug-detective",
-      "relPath": "skills/bug-detective"
+      "relPath": "skills/bug-detective",
+      "verified": true
     },
     {
       "name": "citation-verification",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/citation-verification",
-      "relPath": "skills/citation-verification"
+      "relPath": "skills/citation-verification",
+      "verified": true
     },
     {
       "name": "code-review-excellence",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/code-review-excellence",
-      "relPath": "skills/code-review-excellence"
+      "relPath": "skills/code-review-excellence",
+      "verified": true
     },
     {
       "name": "command-development",
@@ -69,7 +74,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/command-development",
-      "relPath": "skills/command-development"
+      "relPath": "skills/command-development",
+      "verified": true
     },
     {
       "name": "daily-coding",
@@ -80,7 +86,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-coding",
-      "relPath": "skills/daily-coding"
+      "relPath": "skills/daily-coding",
+      "verified": true
     },
     {
       "name": "daily-paper-generator",
@@ -91,7 +98,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/daily-paper-generator",
-      "relPath": "skills/daily-paper-generator"
+      "relPath": "skills/daily-paper-generator",
+      "verified": true
     },
     {
       "name": "defuddle",
@@ -102,7 +110,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/defuddle",
-      "relPath": "skills/defuddle"
+      "relPath": "skills/defuddle",
+      "verified": true
     },
     {
       "name": "doc-coauthoring",
@@ -113,7 +122,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/doc-coauthoring",
-      "relPath": "skills/doc-coauthoring"
+      "relPath": "skills/doc-coauthoring",
+      "verified": true
     },
     {
       "name": "frontend-design",
@@ -124,7 +134,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/frontend-design",
-      "relPath": "skills/frontend-design"
+      "relPath": "skills/frontend-design",
+      "verified": true
     },
     {
       "name": "git-workflow",
@@ -135,7 +146,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/git-workflow",
-      "relPath": "skills/git-workflow"
+      "relPath": "skills/git-workflow",
+      "verified": true
     },
     {
       "name": "hook-development",
@@ -146,7 +158,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/hook-development",
-      "relPath": "skills/hook-development"
+      "relPath": "skills/hook-development",
+      "verified": true
     },
     {
       "name": "json-canvas",
@@ -157,7 +170,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/json-canvas",
-      "relPath": "skills/json-canvas"
+      "relPath": "skills/json-canvas",
+      "verified": true
     },
     {
       "name": "kaggle-learner",
@@ -168,7 +182,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/kaggle-learner",
-      "relPath": "skills/kaggle-learner"
+      "relPath": "skills/kaggle-learner",
+      "verified": true
     },
     {
       "name": "latex-conference-template-organizer",
@@ -179,7 +194,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/latex-conference-template-organizer",
-      "relPath": "skills/latex-conference-template-organizer"
+      "relPath": "skills/latex-conference-template-organizer",
+      "verified": true
     },
     {
       "name": "mcp-integration",
@@ -190,7 +206,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/mcp-integration",
-      "relPath": "skills/mcp-integration"
+      "relPath": "skills/mcp-integration",
+      "verified": true
     },
     {
       "name": "ml-paper-writing",
@@ -201,7 +218,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ml-paper-writing",
-      "relPath": "skills/ml-paper-writing"
+      "relPath": "skills/ml-paper-writing",
+      "verified": true
     },
     {
       "name": "obsidian-bases",
@@ -212,7 +230,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-bases",
-      "relPath": "skills/obsidian-bases"
+      "relPath": "skills/obsidian-bases",
+      "verified": true
     },
     {
       "name": "obsidian-cli",
@@ -223,7 +242,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-cli",
-      "relPath": "skills/obsidian-cli"
+      "relPath": "skills/obsidian-cli",
+      "verified": true
     },
     {
       "name": "obsidian-experiment-log",
@@ -234,7 +254,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-experiment-log",
-      "relPath": "skills/obsidian-experiment-log"
+      "relPath": "skills/obsidian-experiment-log",
+      "verified": true
     },
     {
       "name": "obsidian-link-graph",
@@ -245,7 +266,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-link-graph",
-      "relPath": "skills/obsidian-link-graph"
+      "relPath": "skills/obsidian-link-graph",
+      "verified": true
     },
     {
       "name": "obsidian-literature-workflow",
@@ -256,7 +278,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-literature-workflow",
-      "relPath": "skills/obsidian-literature-workflow"
+      "relPath": "skills/obsidian-literature-workflow",
+      "verified": true
     },
     {
       "name": "obsidian-markdown",
@@ -267,7 +290,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-markdown",
-      "relPath": "skills/obsidian-markdown"
+      "relPath": "skills/obsidian-markdown",
+      "verified": true
     },
     {
       "name": "obsidian-project-bootstrap",
@@ -278,7 +302,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-project-bootstrap",
-      "relPath": "skills/obsidian-project-bootstrap"
+      "relPath": "skills/obsidian-project-bootstrap",
+      "verified": true
     },
     {
       "name": "obsidian-project-lifecycle",
@@ -289,7 +314,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-project-lifecycle",
-      "relPath": "skills/obsidian-project-lifecycle"
+      "relPath": "skills/obsidian-project-lifecycle",
+      "verified": true
     },
     {
       "name": "obsidian-project-memory",
@@ -300,7 +326,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-project-memory",
-      "relPath": "skills/obsidian-project-memory"
+      "relPath": "skills/obsidian-project-memory",
+      "verified": true
     },
     {
       "name": "obsidian-research-log",
@@ -311,7 +338,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-research-log",
-      "relPath": "skills/obsidian-research-log"
+      "relPath": "skills/obsidian-research-log",
+      "verified": true
     },
     {
       "name": "obsidian-synthesis-map",
@@ -322,7 +350,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/obsidian-synthesis-map",
-      "relPath": "skills/obsidian-synthesis-map"
+      "relPath": "skills/obsidian-synthesis-map",
+      "verified": true
     },
     {
       "name": "paper-self-review",
@@ -333,7 +362,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/paper-self-review",
-      "relPath": "skills/paper-self-review"
+      "relPath": "skills/paper-self-review",
+      "verified": true
     },
     {
       "name": "planning-with-files",
@@ -344,7 +374,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/planning-with-files",
-      "relPath": "skills/planning-with-files"
+      "relPath": "skills/planning-with-files",
+      "verified": true
     },
     {
       "name": "plugin-structure",
@@ -355,7 +386,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/plugin-structure",
-      "relPath": "skills/plugin-structure"
+      "relPath": "skills/plugin-structure",
+      "verified": true
     },
     {
       "name": "post-acceptance",
@@ -366,7 +398,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/post-acceptance",
-      "relPath": "skills/post-acceptance"
+      "relPath": "skills/post-acceptance",
+      "verified": true
     },
     {
       "name": "research-ideation",
@@ -377,7 +410,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/research-ideation",
-      "relPath": "skills/research-ideation"
+      "relPath": "skills/research-ideation",
+      "verified": true
     },
     {
       "name": "results-analysis",
@@ -388,7 +422,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-analysis",
-      "relPath": "skills/results-analysis"
+      "relPath": "skills/results-analysis",
+      "verified": true
     },
     {
       "name": "results-report",
@@ -399,7 +434,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/results-report",
-      "relPath": "skills/results-report"
+      "relPath": "skills/results-report",
+      "verified": true
     },
     {
       "name": "review-response",
@@ -410,7 +446,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/review-response",
-      "relPath": "skills/review-response"
+      "relPath": "skills/review-response",
+      "verified": true
     },
     {
       "name": "skill-development",
@@ -421,7 +458,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-development",
-      "relPath": "skills/skill-development"
+      "relPath": "skills/skill-development",
+      "verified": true
     },
     {
       "name": "skill-improver",
@@ -432,7 +470,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-improver",
-      "relPath": "skills/skill-improver"
+      "relPath": "skills/skill-improver",
+      "verified": true
     },
     {
       "name": "skill-quality-reviewer",
@@ -443,7 +482,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/skill-quality-reviewer",
-      "relPath": "skills/skill-quality-reviewer"
+      "relPath": "skills/skill-quality-reviewer",
+      "verified": true
     },
     {
       "name": "ui-ux-pro-max",
@@ -454,7 +494,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/ui-ux-pro-max",
-      "relPath": "skills/ui-ux-pro-max"
+      "relPath": "skills/ui-ux-pro-max",
+      "verified": true
     },
     {
       "name": "uv-package-manager",
@@ -465,7 +506,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/uv-package-manager",
-      "relPath": "skills/uv-package-manager"
+      "relPath": "skills/uv-package-manager",
+      "verified": true
     },
     {
       "name": "verification-loop",
@@ -476,7 +518,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/verification-loop",
-      "relPath": "skills/verification-loop"
+      "relPath": "skills/verification-loop",
+      "verified": true
     },
     {
       "name": "web-design-reviewer",
@@ -487,7 +530,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/web-design-reviewer",
-      "relPath": "skills/web-design-reviewer"
+      "relPath": "skills/web-design-reviewer",
+      "verified": true
     },
     {
       "name": "webapp-testing",
@@ -498,7 +542,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/webapp-testing",
-      "relPath": "skills/webapp-testing"
+      "relPath": "skills/webapp-testing",
+      "verified": true
     },
     {
       "name": "writing-anti-ai",
@@ -509,7 +554,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/writing-anti-ai",
-      "relPath": "skills/writing-anti-ai"
+      "relPath": "skills/writing-anti-ai",
+      "verified": true
     },
     {
       "name": "zotero-obsidian-bridge",
@@ -520,7 +566,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/zotero-obsidian-bridge",
-      "relPath": "skills/zotero-obsidian-bridge"
+      "relPath": "skills/zotero-obsidian-bridge",
+      "verified": true
     }
   ]
 }

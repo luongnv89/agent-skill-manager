@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/kepano/obsidian-skills.git",
   "owner": "kepano",
   "repo": "obsidian-skills",
-  "updatedAt": "2026-03-24T09:54:07.906Z",
+  "updatedAt": "2026-03-24T16:23:00.308Z",
   "skillCount": 5,
   "skills": [
     {
@@ -14,7 +14,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:kepano/obsidian-skills:skills/defuddle",
-      "relPath": "skills/defuddle"
+      "relPath": "skills/defuddle",
+      "verified": true
     },
     {
       "name": "json-canvas",
@@ -25,7 +26,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:kepano/obsidian-skills:skills/json-canvas",
-      "relPath": "skills/json-canvas"
+      "relPath": "skills/json-canvas",
+      "verified": true
     },
     {
       "name": "obsidian-bases",
@@ -36,7 +38,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:kepano/obsidian-skills:skills/obsidian-bases",
-      "relPath": "skills/obsidian-bases"
+      "relPath": "skills/obsidian-bases",
+      "verified": true
     },
     {
       "name": "obsidian-cli",
@@ -47,7 +50,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:kepano/obsidian-skills:skills/obsidian-cli",
-      "relPath": "skills/obsidian-cli"
+      "relPath": "skills/obsidian-cli",
+      "verified": true
     },
     {
       "name": "obsidian-markdown",
@@ -58,7 +62,8 @@
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:kepano/obsidian-skills:skills/obsidian-markdown",
-      "relPath": "skills/obsidian-markdown"
+      "relPath": "skills/obsidian-markdown",
+      "verified": true
     }
   ]
 }

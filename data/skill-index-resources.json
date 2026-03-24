@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-24T00:00:00Z",
+  "updatedAt": "2026-03-24T15:30:00Z",
   "repos": [
     {
       "source": "github:anthropics/skills",
@@ -179,6 +179,42 @@
       "repo": "Research-Paper-Writing-Skills",
       "description": "Skill package for ML/CV/NLP paper writing, curated from Prof. Peng Sida's open notes",
       "maintainer": "@Master-cai",
+      "enabled": true
+    },
+    {
+      "source": "github:bytedance/deer-flow",
+      "url": "https://github.com/bytedance/deer-flow",
+      "owner": "bytedance",
+      "repo": "deer-flow",
+      "description": "Multi-agent orchestration framework with skill generation and deployment",
+      "maintainer": "@bytedance",
+      "enabled": true
+    },
+    {
+      "source": "github:GPTomics/bioSkills",
+      "url": "https://github.com/GPTomics/bioSkills",
+      "owner": "GPTomics",
+      "repo": "bioSkills",
+      "description": "Bioinformatics and genomics analysis skills for Claude",
+      "maintainer": "@GPTomics",
+      "enabled": true
+    },
+    {
+      "source": "github:K-Dense-AI/claude-scientific-skills",
+      "url": "https://github.com/K-Dense-AI/claude-scientific-skills",
+      "owner": "K-Dense-AI",
+      "repo": "claude-scientific-skills",
+      "description": "Scientific computing and research skills for Claude agents",
+      "maintainer": "@K-Dense-AI",
+      "enabled": true
+    },
+    {
+      "source": "github:github/awesome-copilot",
+      "url": "https://github.com/github/awesome-copilot",
+      "owner": "github",
+      "repo": "awesome-copilot",
+      "description": "Curated collection of GitHub Copilot skills and patterns",
+      "maintainer": "@github",
       "enabled": true
     }
   ]
