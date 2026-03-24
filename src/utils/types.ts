@@ -212,6 +212,7 @@ export interface IndexedSkill {
   allowedTools: string[];
   installUrl: string;
   relPath: string;
+  verified?: boolean;
 }
 
 export interface RepoIndex {

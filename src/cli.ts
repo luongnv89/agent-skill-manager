@@ -555,8 +555,9 @@ async function cmdSearch(args: ParsedArgs) {
     if (hasInstalled) console.error(""); // separator
     console.error(ansi.bold(`Available skills matching "${query}":\n`));
     for (const result of indexResults) {
+      const verifiedTag = result.skill.verified ? ansi.blue(" [verified]") : "";
       console.error(
-        `${ansi.cyan(result.skill.name)} ${ansi.dim(`v${result.skill.version}`)} ${ansi.dim(`[${result.repo.owner}/${result.repo.repo}]`)}`,
+        `${ansi.cyan(result.skill.name)} ${ansi.dim(`v${result.skill.version}`)}${verifiedTag} ${ansi.dim(`[${result.repo.owner}/${result.repo.repo}]`)}`,
       );
       for (const dl of wordWrap(result.skill.description, 80)) {
         console.error(`  ${dl}`);
@@ -2175,6 +2176,7 @@ async function cmdIndex(args: ParsedArgs) {
               creator: r.skill.creator || "",
               compatibility: r.skill.compatibility || "",
               allowedTools: r.skill.allowedTools || [],
+              verified: r.skill.verified === true,
               installUrl: r.skill.installUrl,
               installCommand: `asm install ${r.skill.installUrl}`,
               repo: `${r.repo.owner}/${r.repo.repo}`,
@@ -2184,8 +2186,11 @@ async function cmdIndex(args: ParsedArgs) {
       } else {
         console.error(ansi.bold(`Found ${results.length} skills:\n`));
         for (const result of results) {
+          const verifiedTag = result.skill.verified
+            ? ansi.blue(" [verified]")
+            : "";
           console.error(
-            `${ansi.cyan(result.skill.name)} ${ansi.dim(`v${result.skill.version}`)} ${ansi.dim(`[${result.repo.owner}/${result.repo.repo}]`)}`,
+            `${ansi.cyan(result.skill.name)} ${ansi.dim(`v${result.skill.version}`)}${verifiedTag} ${ansi.dim(`[${result.repo.owner}/${result.repo.repo}]`)}`,
           );
           for (const dl of wordWrap(result.skill.description, 80)) {
             console.error(`  ${dl}`);
