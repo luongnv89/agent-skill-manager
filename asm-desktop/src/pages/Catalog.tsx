@@ -58,8 +58,17 @@ export function Catalog() {
   };
 
   const handleInstall = async (name: string) => {
+    if (!name || typeof name !== "string" || name.trim().length === 0) {
+      setError("Invalid skill name");
+      return;
+    }
+    const sanitized = name.trim().replace(/[^a-zA-Z0-9\-_]/g, "");
+    if (sanitized !== name.trim()) {
+      setError("Skill name contains invalid characters");
+      return;
+    }
     try {
-      const result = await installSkill(name);
+      const result = await installSkill(sanitized);
       if (result.success) {
         setSkills((prev) =>
           prev.map((s) => (s.name === name ? { ...s, installed: true } : s)),

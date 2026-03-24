@@ -47,7 +47,7 @@ async fn invoke_asm(args: Vec<String>) -> Result<CliResult, String> {
     let output = Command::new(&asm_path)
         .args(&args)
         .output()
-        .map_err(|e| format!("Failed to execute ASM: {}", e))?;
+        .map_err(|e| format!("Failed to execute ASM ({}): {}", asm_path, e))?;
 
     Ok(CliResult {
         success: output.status.success(),

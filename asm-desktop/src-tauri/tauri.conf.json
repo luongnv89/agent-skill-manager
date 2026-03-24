@@ -51,14 +51,14 @@
       "open": true,
       "scope": [
         {
-          "name": "asm",
+          "name": "asm-node",
           "cmd": "node",
-          "args": true
+          "args": [{ "validator": "\\S+" }]
         },
         {
-          "name": "bun",
+          "name": "asm-bun",
           "cmd": "bun",
-          "args": true
+          "args": [{ "validator": "\\S+" }]
         }
       ]
     },

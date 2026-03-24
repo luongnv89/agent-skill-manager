@@ -7,6 +7,30 @@ export interface CliResult {
   code: number | null;
 }
 
+export interface InstallSkillResponse extends CliResult {
+  skillName?: string;
+}
+
+export interface UninstallSkillResponse extends CliResult {
+  skillName?: string;
+}
+
+export interface SearchSkillsResponse extends CliResult {
+  results?: Skill[];
+}
+
+export interface ListSkillsResponse extends CliResult {
+  skills?: Skill[];
+}
+
+export interface GetConfigResponse extends CliResult {
+  config?: Record<string, unknown>;
+}
+
+export interface GetSkillIndexResponse extends CliResult {
+  skills?: Skill[];
+}
+
 export async function invokeAsm(args: string[]): Promise<CliResult> {
   return invoke<CliResult>("invoke_asm", { args });
 }
