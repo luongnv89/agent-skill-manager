@@ -1120,6 +1120,10 @@ describe("isCLIMode: newer commands", () => {
     expect(check("export")).toBe(true);
   });
 
+  test("import → CLI mode", () => {
+    expect(check("import")).toBe(true);
+  });
+
   test("init → CLI mode", () => {
     expect(check("init")).toBe(true);
   });
@@ -1145,6 +1149,15 @@ describe("CLI integration: per-command --help (new commands)", () => {
     expect(exitCode).toBe(0);
     expect(stdout).toContain("asm export");
     expect(stdout).toContain("--scope");
+  });
+
+  test("import --help shows import usage", async () => {
+    const { stdout, exitCode } = await runCLI("import", "--help");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("asm import");
+    expect(stdout).toContain("--scope");
+    expect(stdout).toContain("--force");
+    expect(stdout).toContain("--json");
   });
 
   test("init --help shows init usage", async () => {
@@ -1247,6 +1260,159 @@ describe("CLI integration: export", () => {
   test("main --help includes export command", async () => {
     const { stdout } = await runCLI("--help");
     expect(stdout).toContain("export");
+  });
+
+  test("main --help includes import command", async () => {
+    const { stdout } = await runCLI("--help");
+    expect(stdout).toContain("import");
+  });
+});
+
+// ─── CLI integration: import ────────────────────────────────────────────────
+
+describe("CLI integration: import", () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), "import-test-"));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test("import without argument shows error", async () => {
+    const { stderr, exitCode } = await runCLI("import");
+    expect(exitCode).toBe(2);
+    expect(stderr).toContain("Missing required argument");
+  });
+
+  test("import nonexistent file shows error", async () => {
+    const { stderr, exitCode } = await runCLI(
+      "import",
+      "/tmp/nonexistent-manifest-xyz.json",
+      "--yes",
+    );
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("Manifest file not found");
+  });
+
+  test("import invalid JSON shows error", async () => {
+    const badFile = join(tempDir, "bad.json");
+    await writeFile(badFile, "not json");
+    const { stderr, exitCode } = await runCLI("import", badFile, "--yes");
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("not valid JSON");
+  });
+
+  test("import invalid manifest schema shows error", async () => {
+    const badFile = join(tempDir, "bad-schema.json");
+    await writeFile(badFile, JSON.stringify({ version: 99, skills: "wrong" }));
+    const { stderr, exitCode } = await runCLI("import", badFile, "--yes");
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain("Invalid manifest");
+  });
+
+  test("import empty manifest shows nothing to import", async () => {
+    const emptyFile = join(tempDir, "empty.json");
+    await writeFile(
+      emptyFile,
+      JSON.stringify({
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        skills: [],
+      }),
+    );
+    const { stdout, exitCode } = await runCLI("import", emptyFile, "--yes");
+    expect(exitCode).toBe(0);
+    expect(stdout).toContain("no skills");
+  });
+
+  test("import with --json outputs valid JSON", async () => {
+    // First export, then import
+    const { stdout: exportOut } = await runCLI("export");
+    const exportFile = join(tempDir, "export.json");
+    await writeFile(exportFile, exportOut);
+
+    const { stdout, exitCode } = await runCLI(
+      "import",
+      exportFile,
+      "--yes",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const data = JSON.parse(stdout);
+    expect(data).toHaveProperty("total");
+    expect(data).toHaveProperty("installed");
+    expect(data).toHaveProperty("skipped");
+    expect(data).toHaveProperty("failed");
+    expect(data).toHaveProperty("results");
+    expect(Array.isArray(data.results)).toBe(true);
+  });
+
+  test("import existing skills are skipped", async () => {
+    const { stdout: exportOut } = await runCLI("export");
+    const data = JSON.parse(exportOut);
+    if (data.skills.length === 0) return; // no skills to test with
+
+    const exportFile = join(tempDir, "export.json");
+    await writeFile(exportFile, exportOut);
+
+    const { stdout, exitCode } = await runCLI(
+      "import",
+      exportFile,
+      "--yes",
+      "--json",
+    );
+    expect(exitCode).toBe(0);
+    const result = JSON.parse(stdout);
+    // All should be skipped since they already exist
+    expect(result.failed).toBe(0);
+    for (const r of result.results) {
+      expect(r.status).toBe("skipped");
+    }
+  });
+
+  test("import --scope global filters to global only", async () => {
+    const { stdout: exportOut } = await runCLI("export");
+    const data = JSON.parse(exportOut);
+    // Create a manifest with both global and project skills
+    const manifest = {
+      ...data,
+      skills: [
+        ...(data.skills.length > 0
+          ? [{ ...data.skills[0], scope: "global" }]
+          : []),
+        {
+          name: "fake-project-skill",
+          version: "1.0.0",
+          dirName: "fake-project-skill",
+          provider: "claude",
+          scope: "project",
+          path: "/fake/path",
+          isSymlink: false,
+          symlinkTarget: null,
+        },
+      ],
+    };
+
+    const exportFile = join(tempDir, "export.json");
+    await writeFile(exportFile, JSON.stringify(manifest));
+
+    const { stdout, exitCode } = await runCLI(
+      "import",
+      exportFile,
+      "--yes",
+      "--json",
+      "--scope",
+      "global",
+    );
+    expect(exitCode).toBe(0);
+    const result = JSON.parse(stdout);
+    // No project-scoped skills should appear in results
+    for (const r of result.results) {
+      expect(r.scope).toBe("global");
+    }
   });
 });
 

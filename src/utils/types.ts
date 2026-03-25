@@ -63,6 +63,25 @@ export interface ExportManifest {
   skills: ExportedSkill[];
 }
 
+// ─── Import Types ──────────────────────────────────────────────────────────
+
+export interface ImportResult {
+  skillName: string;
+  provider: string;
+  scope: "global" | "project";
+  status: "installed" | "skipped" | "failed";
+  reason?: string;
+  path?: string;
+}
+
+export interface ImportSummary {
+  total: number;
+  installed: number;
+  skipped: number;
+  failed: number;
+  results: ImportResult[];
+}
+
 // ─── Stats Types ────────────────────────────────────────────────────────────
 
 export interface StatsReport {
