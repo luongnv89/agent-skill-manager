@@ -1852,7 +1852,17 @@ async function cmdImport(args: ParsedArgs) {
 
   const skillCount = manifest.skills.length;
   if (skillCount === 0) {
-    console.log("Manifest contains no skills. Nothing to import.");
+    if (args.flags.json) {
+      console.log(
+        JSON.stringify(
+          { total: 0, installed: 0, skipped: 0, failed: 0, results: [] },
+          null,
+          2,
+        ),
+      );
+    } else {
+      console.log("Manifest contains no skills. Nothing to import.");
+    }
     return;
   }
 
@@ -1893,6 +1903,12 @@ async function cmdImport(args: ParsedArgs) {
   }
 
   // Human-readable output
+  if (summary.total === 0) {
+    console.error(
+      `\nNothing to import after scope filtering (--scope ${args.flags.scope}). All skills in the manifest were excluded.`,
+    );
+    return;
+  }
   console.error("");
   for (const result of summary.results) {
     const icon =
