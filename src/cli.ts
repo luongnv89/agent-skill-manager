@@ -54,6 +54,7 @@ import type {
 import { checkboxPicker } from "./utils/checkbox-picker";
 import { checkHealth } from "./health";
 import { buildManifest } from "./exporter";
+import { readManifestFile, importSkills } from "./importer";
 import { scaffoldSkill, directoryExists } from "./initializer";
 import { computeStats, formatStatsReport } from "./stats";
 import { validateLinkSource, createLink } from "./linker";
@@ -271,6 +272,7 @@ ${ansi.bold("Commands:")}
   audit                  Detect duplicate skills across tools
   audit security <name>  Run security audit on a skill (or GitHub source)
   export                 Export skill inventory as JSON manifest
+  import <file>          Import skills from a previously exported manifest
   init <name>            Scaffold a new skill with SKILL.md template
   stats                  Show aggregate skill metrics dashboard
   link <path>            Symlink a local skill directory into an agent
@@ -1794,6 +1796,149 @@ async function cmdExport(args: ParsedArgs) {
   console.log(JSON.stringify(manifest, null, 2));
 }
 
+// ─── Import ─────────────────────────────────────────────────────────────────
+
+function printImportHelp() {
+  console.log(`${ansi.bold("Usage:")} asm import <file> [options]
+
+Import skills from a previously exported JSON manifest. Recreates skill
+installations based on the manifest metadata.
+
+Skills that already exist at the target location are skipped unless --force
+is used. Skills whose source files cannot be found locally are reported as
+failed — install them first with "asm install".
+
+${ansi.bold("Options:")}
+  -s, --scope <s>    Filter: global, project, or both (default: both)
+  -f, --force        Overwrite existing skills
+  -y, --yes          Skip confirmation prompt
+  --json             Output results as JSON
+  --no-color         Disable ANSI colors
+  -V, --verbose      Show debug output
+
+${ansi.bold("Examples:")}
+  asm import skills.json              ${ansi.dim("Import from manifest")}
+  asm import skills.json --force      ${ansi.dim("Overwrite existing skills")}
+  asm import skills.json -s global    ${ansi.dim("Import only global skills")}
+  asm export > backup.json            ${ansi.dim("Export first, then import later")}
+  asm import backup.json              ${ansi.dim("Restore from backup")}`);
+}
+
+async function cmdImport(args: ParsedArgs) {
+  if (args.flags.help) {
+    printImportHelp();
+    return;
+  }
+
+  const filePath = args.subcommand;
+  if (!filePath) {
+    error("Missing required argument: <file>");
+    console.error(`Run "asm import --help" for usage.`);
+    process.exit(2);
+  }
+
+  // Resolve to absolute path
+  const { resolve: resolvePath } = await import("path");
+  const absPath = resolvePath(filePath);
+
+  // Read and validate manifest
+  let manifest;
+  try {
+    manifest = await readManifestFile(absPath);
+  } catch (err: any) {
+    error(err.message);
+    process.exit(1);
+  }
+
+  const skillCount = manifest.skills.length;
+  if (skillCount === 0) {
+    if (args.flags.json) {
+      console.log(
+        JSON.stringify(
+          { total: 0, installed: 0, skipped: 0, failed: 0, results: [] },
+          null,
+          2,
+        ),
+      );
+    } else {
+      console.log("Manifest contains no skills. Nothing to import.");
+    }
+    return;
+  }
+
+  // Show summary before importing
+  const scopeLabel =
+    args.flags.scope === "both" ? "all scopes" : args.flags.scope;
+  console.error(
+    `${ansi.bold("Importing")} ${skillCount} skill${skillCount > 1 ? "s" : ""} from ${ansi.dim(absPath)}`,
+  );
+  console.error(`  Scope filter: ${scopeLabel}`);
+  if (args.flags.force) {
+    console.error(
+      `  ${ansi.yellow("Force mode: existing skills will be overwritten")}`,
+    );
+  }
+
+  // Confirm unless --yes
+  if (!args.flags.yes && process.stdin.isTTY) {
+    process.stderr.write(`\n${ansi.bold("Proceed?")} [y/N] `);
+    const answer = await readLine();
+    if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+      console.error("Aborted.");
+      process.exit(0);
+    }
+  }
+
+  // Run import
+  const summary = await importSkills(manifest, {
+    force: args.flags.force,
+    dryRun: false,
+    scopeFilter: args.flags.scope,
+  });
+
+  // Output results
+  if (args.flags.json) {
+    console.log(JSON.stringify(summary, null, 2));
+    return;
+  }
+
+  // Human-readable output
+  if (summary.total === 0) {
+    console.error(
+      `\nNothing to import after scope filtering (--scope ${args.flags.scope}). All skills in the manifest were excluded.`,
+    );
+    return;
+  }
+  console.error("");
+  for (const result of summary.results) {
+    const icon =
+      result.status === "installed"
+        ? ansi.green("+++")
+        : result.status === "skipped"
+          ? ansi.yellow("---")
+          : result.status === "dry-run"
+            ? ansi.cyan("~~~")
+            : ansi.red("!!!");
+    const detail = result.reason ? ` ${ansi.dim(result.reason)}` : "";
+    const pathInfo = result.path ? ` ${ansi.dim(result.path)}` : "";
+    console.error(
+      `  ${icon} ${result.skillName} (${result.provider}/${result.scope})${detail}${pathInfo}`,
+    );
+  }
+
+  console.error("");
+  console.error(
+    `${ansi.bold("Summary:")} ${summary.total} total, ` +
+      `${ansi.green(String(summary.installed))} installed, ` +
+      `${ansi.yellow(String(summary.skipped))} skipped, ` +
+      `${ansi.red(String(summary.failed))} failed`,
+  );
+
+  if (summary.failed > 0) {
+    process.exitCode = 1;
+  }
+}
+
 // ─── Init ───────────────────────────────────────────────────────────────────
 
 function printInitHelp() {
@@ -2339,6 +2484,9 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "export":
       await cmdExport(args);
       break;
+    case "import":
+      await cmdImport(args);
+      break;
     case "init":
       await cmdInit(args);
       break;
@@ -2374,6 +2522,7 @@ export function isCLIMode(argv: string[]): boolean {
     "config",
     "install",
     "export",
+    "import",
     "init",
     "stats",
     "link",
