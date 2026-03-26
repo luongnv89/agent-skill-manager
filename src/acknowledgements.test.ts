@@ -73,36 +73,35 @@ describe("acknowledgements: README.md", () => {
 });
 
 // ─── website/index.html acknowledgements section ────────────────────────────
+// The website loads acknowledgements data from the JSON file at runtime via
+// fetch(), so we verify the fetch integration rather than inline data.
 
 describe("acknowledgements: website/index.html", () => {
   const html = readFileSync(WEBSITE, "utf-8");
-  const data = JSON.parse(readFileSync(ACK_JSON, "utf-8"));
 
-  test("website contains renderAcknowledgementsPage function", () => {
-    expect(html).toContain("function renderAcknowledgementsPage()");
+  test("website contains async renderAcknowledgementsPage function", () => {
+    expect(html).toContain("async function renderAcknowledgementsPage()");
   });
 
-  test("website contains all contributor logins", () => {
-    for (const c of data.contributors) {
-      expect(html).toContain(c.login);
-    }
+  test("website fetches acknowledgements.json at runtime", () => {
+    expect(html).toContain("fetch('data/acknowledgements.json')");
   });
 
-  test("website contains all dependency names", () => {
-    for (const d of data.dependencies) {
-      expect(html).toContain(d.name);
-    }
-  });
-
-  test("website PR arrays match JSON data", () => {
-    for (const c of data.contributors) {
-      // Check the JS array literal is present in the HTML
-      const arrayStr = "[" + c.prs.join(",") + "]";
-      expect(html).toContain(arrayStr);
-    }
+  test("website does not hardcode contributor data inline", () => {
+    // Ensure there are no JS array literals with PR numbers — data comes from JSON at runtime
+    expect(html).not.toMatch(/var\s+contributors\s*=\s*\[/);
+    expect(html).not.toMatch(/var\s+deps\s*=\s*\[\s*\{/);
   });
 
   test("website references acknowledgements.json as source of truth", () => {
     expect(html).toContain("acknowledgements.json");
+  });
+
+  test("website handles fetch errors gracefully", () => {
+    expect(html).toContain("Could not load acknowledgements data");
+  });
+
+  test("website escapes dynamic values including pr count", () => {
+    expect(html).toContain("esc(String(c.prs.length))");
   });
 });
