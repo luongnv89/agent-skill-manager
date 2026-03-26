@@ -1076,7 +1076,7 @@ async function inspectSkillForInstall(
   const metadata = await validateSkill(skillDir);
   const warnings = await scanForWarnings(skillDir);
 
-  const dirName = skillDir === tempDir ? null : skillDir.split("/").pop();
+  const dirName = skillDir === tempDir ? null : skillDir.split(/[/\\]/).pop();
   const rawName = skillNameOverride || dirName || source.repo;
   const skillName = sanitizeName(rawName);
 

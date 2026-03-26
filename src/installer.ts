@@ -261,7 +261,7 @@ export function sanitizeName(name: string): string {
 }
 
 export function getInstallNameFromPath(relPath: string): string {
-  const parts = relPath.split("/").filter(Boolean);
+  const parts = relPath.split(/[/\\]/).filter(Boolean);
   const rawName = parts.length > 0 ? parts[parts.length - 1] : relPath;
   return sanitizeName(rawName);
 }
@@ -395,7 +395,7 @@ export async function validateSkill(tempDir: string): Promise<{
   }
 
   const fm = parseFrontmatter(content);
-  const dirName = tempDir.split("/").pop() || "unknown";
+  const dirName = tempDir.split(/[/\\]/).pop() || "unknown";
 
   const name = fm.name || dirName;
   const version = resolveVersion(fm);
