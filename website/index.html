@@ -2471,6 +2471,8 @@ function renderChangelogEntry(version, date, sections) {
 }
 
 // ─── Acknowledgements Page Content ──────────────────────────────────────────
+// NOTE: Contributor and dependency data is also maintained in README.md (Acknowledgements section).
+// Keep both in sync when updating.
 function renderAcknowledgementsPage() {
   var contributors = [
     {
@@ -2513,7 +2515,7 @@ function renderAcknowledgementsPage() {
     var prLinks = '';
     for (var j = 0; j < c.prs.length; j++) {
       if (j > 0) prLinks += ' ';
-      prLinks += '<a href="https://github.com/luongnv89/agent-skill-manager/pull/' + c.prs[j] + '" target="_blank" rel="noopener">#' + c.prs[j] + '</a>';
+      prLinks += '<a href="https://github.com/luongnv89/agent-skill-manager/pull/' + esc(String(c.prs[j])) + '" target="_blank" rel="noopener">#' + esc(String(c.prs[j])) + '</a>';
     }
     html += '<div class="contributor-card">'
       + '<img class="contributor-avatar" src="' + esc(c.avatar) + '" alt="' + esc(c.login) + '" loading="lazy" />'
