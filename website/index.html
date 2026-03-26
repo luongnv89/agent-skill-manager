@@ -872,6 +872,104 @@ a:hover { text-decoration: underline; }
 .changelog-tag.changed { color: var(--yellow); background: var(--tag-changed-bg); }
 .changelog-tag.fixed { color: var(--tag-fixed); background: var(--tag-fixed-bg); }
 
+/* Acknowledgements-specific */
+.contributor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.contributor-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, background 0.15s;
+}
+.contributor-card:hover {
+  border-color: var(--brand);
+  background: var(--bg-card-hover);
+}
+.contributor-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+.contributor-info { flex: 1; min-width: 0; }
+.contributor-handle {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+}
+.contributor-handle:hover { text-decoration: underline; }
+.contributor-prs {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+.contributor-prs a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--bg-surface);
+  transition: color 0.15s, background 0.15s;
+}
+.contributor-prs a:hover { color: var(--brand); background: var(--brand-glow); text-decoration: none; }
+.contributor-stats {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.dep-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.dep-card {
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, background 0.15s;
+}
+.dep-card:hover {
+  border-color: var(--brand);
+  background: var(--bg-card-hover);
+}
+.dep-name {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+}
+.dep-name:hover { text-decoration: underline; }
+.dep-version {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+.dep-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
 /* ─── Theme Toggle ─────────────────────────────────────────────────────── */
 .theme-toggle {
   display: flex;
@@ -1022,6 +1120,8 @@ a:hover { text-decoration: underline; }
   .page-content h1 { font-size: 20px; }
   .page-content h2 { font-size: 16px; }
   .page-content pre { padding: 12px; }
+  .contributor-grid { grid-template-columns: 1fr; }
+  .dep-grid { grid-template-columns: 1fr; }
 }
 
 /* ─── Responsive: Small phones (375px) ─────────────────────────────────── */
@@ -1213,6 +1313,7 @@ a:hover { text-decoration: underline; }
       <a class="nav-link active" href="#" data-page="catalog" onclick="navigateTo('catalog');return false;">Skills</a>
       <a class="nav-link" href="#docs" data-page="docs" onclick="navigateTo('docs');return false;">Docs</a>
       <a class="nav-link" href="#changelog" data-page="changelog" onclick="navigateTo('changelog');return false;">Changelog</a>
+      <a class="nav-link" href="#acknowledgements" data-page="acknowledgements" onclick="navigateTo('acknowledgements');return false;">Thanks</a>
     </nav>
   </div>
   <div class="header-right">
@@ -1281,6 +1382,9 @@ a:hover { text-decoration: underline; }
 
 <!-- ─── Changelog Page ─────────────────────────────────────────────────── -->
 <div id="page-changelog" class="page-content"></div>
+
+<!-- ─── Acknowledgements Page ─────────────────────────────────────────── -->
+<div id="page-acknowledgements" class="page-content"></div>
 
 <!-- ─── Modal ───────────────────────────────────────────────────────────── -->
 <div class="modal-overlay" id="modal-overlay">
@@ -1811,23 +1915,26 @@ function navigateTo(page) {
   document.getElementById('page-catalog').classList.toggle('hidden', page !== 'catalog');
   var docsEl = document.getElementById('page-docs');
   var changelogEl = document.getElementById('page-changelog');
+  var acknowledgementsEl = document.getElementById('page-acknowledgements');
   docsEl.classList.toggle('active', page === 'docs');
   changelogEl.classList.toggle('active', page === 'changelog');
+  acknowledgementsEl.classList.toggle('active', page === 'acknowledgements');
   // Update hash
   if (page === 'catalog') {
-    if (location.hash === '#docs' || location.hash === '#changelog') history.replaceState(null, '', location.pathname + location.search);
+    if (location.hash === '#docs' || location.hash === '#changelog' || location.hash === '#acknowledgements') history.replaceState(null, '', location.pathname + location.search);
   } else {
     history.replaceState(null, '', '#' + page);
   }
   // Render page content on first visit
   if (page === 'docs' && !docsEl.innerHTML) { renderDocsPage(); addPreCopyButtons(docsEl); }
   if (page === 'changelog' && !changelogEl.innerHTML) { renderChangelogPage(); addPreCopyButtons(changelogEl); }
+  if (page === 'acknowledgements' && !acknowledgementsEl.innerHTML) { renderAcknowledgementsPage(); }
   window.scrollTo(0, 0);
 }
 
 function handleHashChange() {
   var hash = location.hash.replace('#', '');
-  if (hash === 'docs' || hash === 'changelog') {
+  if (hash === 'docs' || hash === 'changelog' || hash === 'acknowledgements') {
     navigateTo(hash);
   } else {
     navigateTo('catalog');
@@ -2361,6 +2468,74 @@ function renderChangelogEntry(version, date, sections) {
     html += '</ul>';
   }
   return html;
+}
+
+// ─── Acknowledgements Page Content ──────────────────────────────────────────
+// The single source of truth for acknowledgements data is website/data/acknowledgements.json.
+// This function fetches data from that JSON file at runtime — no hardcoded copies here.
+async function renderAcknowledgementsPage() {
+  var target = document.getElementById('page-acknowledgements');
+  // Set loading state immediately so the !innerHTML guard in navigateTo() prevents duplicate fetches.
+  target.innerHTML = '<h1>Acknowledgements</h1><p>Loading&hellip;</p>';
+
+  try {
+    var res = await fetch('data/acknowledgements.json');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var data = await res.json();
+  } catch (err) {
+    target.innerHTML = '<h1>Acknowledgements</h1>'
+      + '<div class="empty-state"><div class="empty-icon">&#x26a0;</div>'
+      + '<p>Could not load acknowledgements data: ' + esc(err.message) + '</p></div>';
+    return;
+  }
+
+  var contributors = data.contributors || [];
+  var deps = data.dependencies || [];
+
+  var html = '<h1>Acknowledgements</h1>'
+    + '<p>ASM is built with the help of amazing contributors and open-source libraries. This page gives credit where credit is due.</p>';
+
+  // Contributors section
+  html += '<h2>Contributors</h2>'
+    + '<p>Thank you to everyone who has contributed to agent-skill-manager.</p>'
+    + '<div class="contributor-grid">';
+
+  for (var i = 0; i < contributors.length; i++) {
+    var c = contributors[i];
+    var prLinks = '';
+    for (var j = 0; j < c.prs.length; j++) {
+      if (j > 0) prLinks += ' ';
+      prLinks += '<a href="https://github.com/luongnv89/agent-skill-manager/pull/' + esc(String(c.prs[j])) + '" target="_blank" rel="noopener">#' + esc(String(c.prs[j])) + '</a>';
+    }
+    html += '<div class="contributor-card">'
+      + '<img class="contributor-avatar" src="' + esc(c.avatar) + '" alt="' + esc(c.login) + '" loading="lazy" />'
+      + '<div class="contributor-info">'
+      + '<a class="contributor-handle" href="https://github.com/' + esc(c.login) + '" target="_blank" rel="noopener">@' + esc(c.login) + '</a>'
+      + '<div class="contributor-stats">' + esc(String(c.prs.length)) + ' merged PR' + (c.prs.length !== 1 ? 's' : '') + '</div>'
+      + '<div class="contributor-prs">' + prLinks + '</div>'
+      + '</div>'
+      + '</div>';
+  }
+
+  html += '</div>';
+
+  // Dependencies section
+  html += '<h2>Dependencies</h2>'
+    + '<p>The open-source libraries that ASM depends on in production.</p>'
+    + '<div class="dep-grid">';
+
+  for (var k = 0; k < deps.length; k++) {
+    var d = deps[k];
+    html += '<div class="dep-card">'
+      + '<a class="dep-name" href="' + esc(d.url) + '" target="_blank" rel="noopener">' + esc(d.name) + '</a>'
+      + '<span class="dep-version">' + esc(d.version) + '</span>'
+      + '<div class="dep-desc">' + esc(d.desc) + '</div>'
+      + '</div>';
+  }
+
+  html += '</div>';
+
+  target.innerHTML = html;
 }
 
 // ─── Boot ──────────────────────────────────────────────────────────────────

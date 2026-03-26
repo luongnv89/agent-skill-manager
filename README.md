@@ -974,6 +974,27 @@ agent-skill-manager/
 
 ---
 
+<!-- NOTE: The single source of truth for acknowledgements data is website/data/acknowledgements.json.
+     When updating contributors or dependencies, edit that JSON file first, then sync this section and website/index.html. -->
+
+## Acknowledgements
+
+### Contributors
+
+| Contributor                                | PRs                                                                                                              |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| [@luongnv89](https://github.com/luongnv89) | [38 merged PRs](https://github.com/luongnv89/agent-skill-manager/pulls?q=is%3Apr+is%3Amerged+author%3Aluongnv89) |
+| [@Mordris](https://github.com/Mordris)     | [#111](https://github.com/luongnv89/agent-skill-manager/pull/111)                                                |
+
+### Dependencies
+
+| Library                                               | Description                                                                                        |
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| [@opentui/core](https://github.com/anomalyco/opentui) | TypeScript library on a native Zig core for building terminal user interfaces — powers the asm TUI |
+| [yaml](https://github.com/eemeli/yaml)                | JavaScript parser and stringifier for YAML — used to parse SKILL.md frontmatter                    |
+
+---
+
 ## Roadmap
 
 Track our progress and upcoming features on the [project kanban board](https://github.com/users/luongnv89/projects/6). See [prd.md](prd.md) for the full product requirements and [tasks.md](tasks.md) for the sprint-based development plan.
