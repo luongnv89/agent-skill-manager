@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.18.0 — 2026-03-28
+
+### Features
+
+- Add `alirezarezvani/claude-skills` to curated skill index — 451 new skills across engineering, marketing, product, compliance, C-level advisory, project management, finance, and business growth ([#126](https://github.com/luongnv89/agent-skill-manager/pull/126)) — @luongnv89
+
+### Documentation
+
+- Update skill count from 2,600+ to 2,800+ across README, website meta tags, and OG image
+- Update Open-Source Skill Collections table with refreshed skill counts
+- Update OG image repo count from 17 to 23
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.17.0...v1.18.0
+
 ## v1.17.0 — 2026-03-26
 
 ### Features
