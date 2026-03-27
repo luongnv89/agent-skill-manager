@@ -25,7 +25,7 @@
 <p align="center">
   <a href="#get-started-in-30-seconds"><strong>Get Started in 30 Seconds &rarr;</strong></a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="https://luongnv.com/asm/"><strong>Browse 2,600+ Skills Online &rarr;</strong></a>
+  <a href="https://luongnv.com/asm/"><strong>Browse 2,800+ Skills Online &rarr;</strong></a>
 </p>
 
 ---
@@ -283,23 +283,24 @@ asm
 
 ## Open-Source Skill Collections
 
-A curated list of skill repositories you can install with a single command. Over **2,600 skills** available across these collections:
+A curated list of skill repositories you can install with a single command. Over **2,800 skills** available across these collections:
 
-> **Last updated:** 2026-03-18
+> **Last updated:** 2026-03-28
 
-| Repository                                                                          | Description                                                        |  Stars | Skills |
-| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------ | -----: | -----: |
-| [anthropic-skills](https://github.com/anthropics/skills)                            | Official Agent Skills from Anthropic                               | 95,957 |     18 |
-| [superpowers](https://github.com/obra/superpowers)                                  | Agentic skills framework & development methodology                 | 89,816 |     14 |
-| [everything-claude-code](https://github.com/affaan-m/everything-claude-code)        | Performance optimization system for Claude Code, Codex, and beyond | 81,392 |    147 |
-| [agency-agents](https://github.com/msitarzewski/agency-agents)                      | Specialized expert agents with personality and proven deliverables | 50,749 |      — |
-| [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)      | Design intelligence for building professional UI/UX                | 43,112 |      7 |
-| [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | 1,000+ battle-tested skills for Claude Code, Cursor, and more      | 25,047 |  1,258 |
-| [marketingskills](https://github.com/coreyhaines31/marketingskills)                 | Marketing skills — CRO, copywriting, SEO, analytics, growth        | 14,099 |     33 |
-| [agentskills](https://github.com/agentskills/agentskills)                           | Specification and documentation for Agent Skills                   | 13,342 |      — |
-| [taste-skill](https://github.com/Leonxlnx/taste-skill)                              | Gives your AI good taste — stops generic, boring output            |  3,389 |      5 |
-| [affiliate-skills](https://github.com/Affitor/affiliate-skills)                     | Full affiliate marketing funnel: research to deploy                |     99 |     47 |
-| [skills](https://github.com/luongnv89/skills)                                       | Reusable skills to supercharge your AI agents                      |      1 |     29 |
+| Repository                                                                          | Description                                                         |  Stars | Skills |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------- | -----: | -----: |
+| [anthropic-skills](https://github.com/anthropics/skills)                            | Official Agent Skills from Anthropic                                | 95,957 |     18 |
+| [superpowers](https://github.com/obra/superpowers)                                  | Agentic skills framework & development methodology                  | 89,816 |     14 |
+| [everything-claude-code](https://github.com/affaan-m/everything-claude-code)        | Performance optimization system for Claude Code, Codex, and beyond  | 81,392 |    183 |
+| [agency-agents](https://github.com/msitarzewski/agency-agents)                      | Specialized expert agents with personality and proven deliverables  | 50,749 |      — |
+| [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)      | Design intelligence for building professional UI/UX                 | 43,112 |      7 |
+| [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | 1,000+ battle-tested skills for Claude Code, Cursor, and more       | 25,047 |  1,322 |
+| [marketingskills](https://github.com/coreyhaines31/marketingskills)                 | Marketing skills — CRO, copywriting, SEO, analytics, growth         | 14,099 |     33 |
+| [agentskills](https://github.com/agentskills/agentskills)                           | Specification and documentation for Agent Skills                    | 13,342 |      — |
+| [claude-skills](https://github.com/alirezarezvani/claude-skills)                    | 192 skills for engineering, marketing, product, compliance, C-level |  7,434 |    451 |
+| [taste-skill](https://github.com/Leonxlnx/taste-skill)                              | Gives your AI good taste — stops generic, boring output             |  3,389 |      7 |
+| [affiliate-skills](https://github.com/Affitor/affiliate-skills)                     | Full affiliate marketing funnel: research to deploy                 |     99 |     48 |
+| [skills](https://github.com/luongnv89/skills)                                       | Reusable skills to supercharge your AI agents                       |      1 |     35 |
 
 Install any collection with an interactive picker:
 
@@ -360,7 +361,7 @@ Need a tool not listed? Add a custom provider entry to the config.
 Yes. `asm` is MIT licensed and free forever. No accounts, no telemetry, no paywalls.
 
 **Is it actively maintained?**
-v1.17.0 shipped on March 26, 2026. The project has had 26 releases. Check the [changelog](docs/CHANGELOG.md) for the full history.
+v1.18.0 shipped on March 28, 2026. The project has had 27 releases. Check the [changelog](docs/CHANGELOG.md) for the full history.
 
 **Which AI agents does it support?**
 17 providers built-in: Claude Code, Codex, OpenClaw, Cursor, Windsurf, Cline, Roo Code, Continue, GitHub Copilot, Aider, OpenCode, Zed, Augment, Amp, Gemini CLI, Google Antigravity, and a generic Agents provider. All 17 are enabled by default; disable any you don't need via `asm config edit`. You can also add any custom agent that stores skills as directories with a `SKILL.md` file.
