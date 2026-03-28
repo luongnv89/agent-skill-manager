@@ -12,6 +12,7 @@ import {
   listBundles,
   removeBundle,
   getBundleDir,
+  ensureBundleDir,
 } from "./bundler";
 import type { BundleManifest, BundleSkillRef, SkillInfo } from "./utils/types";
 
@@ -168,6 +169,15 @@ describe("validateBundle", () => {
     const result = validateBundle(bundle);
     expect(result.valid).toBe(false);
     expect(result.errors.some((e) => e.includes("tags"))).toBe(true);
+  });
+
+  it("rejects tags array with non-string elements", () => {
+    const bundle = { ...makeBundle(), tags: [123, null, {}] };
+    const result = validateBundle(bundle);
+    expect(result.valid).toBe(false);
+    expect(
+      result.errors.some((e) => e.includes("tags") && e.includes("strings")),
+    ).toBe(true);
   });
 
   it("accepts valid tags array", () => {
@@ -354,25 +364,115 @@ describe("saveBundle", () => {
     expect(loaded.name).toBe("save-test");
     expect(loaded.skills).toHaveLength(1);
   });
+
+  it("throws when bundle name sanitizes to empty string", async () => {
+    const bundle = makeBundle({ name: "" });
+    await expect(saveBundle(bundle)).rejects.toThrow("Invalid bundle name");
+  });
+
+  it("throws when bundle name contains only special characters", async () => {
+    const bundle = makeBundle({ name: "!!@@##$$" });
+    await expect(saveBundle(bundle)).rejects.toThrow("Invalid bundle name");
+  });
 });
 
 describe("removeBundle", () => {
-  let tmpDir: string;
-
-  beforeEach(async () => {
-    tmpDir = await mkdtemp(join(tmpdir(), "bundle-rm-test-"));
-  });
+  const testBundleName = "__test-removable-bundle__";
 
   afterEach(async () => {
-    await rm(tmpDir, { recursive: true, force: true });
+    // Clean up in case a test failed before removing
+    await removeBundle(testBundleName);
   });
 
   it("can write and read back a bundle file", async () => {
-    const bundle = makeBundle({ name: "removable" });
-    const filePath = join(tmpDir, "removable.json");
-    await writeFile(filePath, JSON.stringify(bundle, null, 2));
+    const tmpDir = await mkdtemp(join(tmpdir(), "bundle-rm-test-"));
+    try {
+      const bundle = makeBundle({ name: "removable" });
+      const filePath = join(tmpDir, "removable.json");
+      await writeFile(filePath, JSON.stringify(bundle, null, 2));
 
-    const loaded = await readBundleFile(filePath);
-    expect(loaded.name).toBe("removable");
+      const loaded = await readBundleFile(filePath);
+      expect(loaded.name).toBe("removable");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  it("removes a saved bundle and returns true", async () => {
+    const bundle = makeBundle({ name: testBundleName });
+    await saveBundle(bundle);
+
+    // Verify the file exists
+    const bundleDir = getBundleDir();
+    const files = await readdir(bundleDir);
+    expect(files.some((f) => f.includes("test-removable-bundle"))).toBe(true);
+
+    // Remove and verify
+    const removed = await removeBundle(testBundleName);
+    expect(removed).toBe(true);
+
+    // Verify the file is gone
+    const filesAfter = await readdir(bundleDir);
+    expect(filesAfter.some((f) => f.includes("test-removable-bundle"))).toBe(
+      false,
+    );
+  });
+
+  it("returns false when bundle does not exist", async () => {
+    const removed = await removeBundle("__nonexistent-bundle-xyz__");
+    expect(removed).toBe(false);
+  });
+});
+
+// ─── loadBundle ───────────────────────────────────────────────────────────
+
+describe("loadBundle", () => {
+  const testBundleName = "__test-loadable-bundle__";
+
+  afterEach(async () => {
+    await removeBundle(testBundleName);
+  });
+
+  it("loads a bundle by name from the bundles directory", async () => {
+    const bundle = makeBundle({ name: testBundleName });
+    await saveBundle(bundle);
+
+    const loaded = await loadBundle(testBundleName);
+    expect(loaded.name).toBe(testBundleName);
+    expect(loaded.skills).toHaveLength(1);
+  });
+
+  it("loads a bundle by file path", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "bundle-load-test-"));
+    try {
+      const bundle = makeBundle({ name: "path-loaded" });
+      const filePath = join(tmpDir, "path-loaded.json");
+      await writeFile(filePath, JSON.stringify(bundle, null, 2));
+
+      const loaded = await loadBundle(filePath);
+      expect(loaded.name).toBe("path-loaded");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  it("loads a bundle when name ends with .json", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "bundle-load-test-"));
+    try {
+      const bundle = makeBundle({ name: "json-ext" });
+      const filePath = join(tmpDir, "json-ext.json");
+      await writeFile(filePath, JSON.stringify(bundle, null, 2));
+
+      const loaded = await loadBundle(filePath);
+      expect(loaded.name).toBe("json-ext");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  it("throws when bundle name is not found", async () => {
+    await expect(loadBundle("__nonexistent-bundle-xyz__")).rejects.toThrow(
+      "Bundle file not found",
+    );
   });
 });

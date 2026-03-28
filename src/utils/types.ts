@@ -315,22 +315,6 @@ export interface BundleValidation {
   errors: string[];
 }
 
-export interface BundleInstallResult {
-  skillName: string;
-  installUrl: string;
-  status: "installed" | "skipped" | "failed";
-  reason?: string;
-}
-
-export interface BundleInstallSummary {
-  bundleName: string;
-  total: number;
-  installed: number;
-  skipped: number;
-  failed: number;
-  results: BundleInstallResult[];
-}
-
 // ─── UI Types ───────────────────────────────────────────────────────────────
 
 export type Scope = "global" | "project" | "both";

@@ -2792,6 +2792,18 @@ async function cmdBundle(args: ParsedArgs) {
         reason?: string;
       }> = [];
 
+      const config = await loadConfig();
+      const { provider } = await resolveProvider(
+        config,
+        args.flags.provider,
+        false, // non-interactive for batch
+      );
+
+      const installScope: "global" | "project" =
+        args.flags.scope === "global" || args.flags.scope === "project"
+          ? args.flags.scope
+          : "global";
+
       for (const skill of bundle.skills) {
         console.error(`\n  Installing ${ansi.bold(skill.name)}...`);
         try {
@@ -2806,87 +2818,33 @@ async function cmdBundle(args: ParsedArgs) {
 
           const source = parseSource(skill.installUrl);
           const isLocal = !!source.isLocal;
+          let tempDir: string | null = null;
 
-          if (!isLocal) {
-            // Clone and install
-            const tempDir = await cloneToTemp(source, args.flags.transport);
-            try {
-              const config = await loadConfig();
-              const { provider } = await resolveProvider(
-                config,
-                args.flags.provider,
-                false, // non-interactive for batch
-              );
+          try {
+            let rootDir: string;
+            let skillDir: string;
 
+            if (!isLocal) {
+              tempDir = await cloneToTemp(source, args.flags.transport);
+              rootDir = tempDir;
               const { join: joinPath } = await import("path");
-              const skillDir = source.subpath
+              skillDir = source.subpath
                 ? joinPath(tempDir, source.subpath)
                 : tempDir;
-
-              const metadata = await validateSkill(skillDir);
-              const skillName = sanitizeName(
-                skill.name || metadata.name || source.repo,
-              );
-
-              const installScope: "global" | "project" =
-                args.flags.scope === "global" || args.flags.scope === "project"
-                  ? args.flags.scope
-                  : "global";
-
-              const plan = buildInstallPlan(
-                source,
-                tempDir,
-                skillDir,
-                skillName,
-                provider,
-                args.flags.force,
-                installScope,
-              );
-
-              const installResult = await executeInstall(plan);
-
-              if (installResult.success) {
-                results.push({ name: skill.name, status: "installed" });
-                console.error(
-                  `    ${ansi.green("+++")} ${skill.name} installed`,
-                );
-              } else {
-                results.push({
-                  name: skill.name,
-                  status: "failed",
-                  reason: installResult.error || "Unknown error",
-                });
-                console.error(
-                  `    ${ansi.red("!!!")} ${skill.name}: ${installResult.error}`,
-                );
-              }
-            } finally {
-              await cleanupTemp(tempDir);
+            } else {
+              rootDir = source.localPath!;
+              skillDir = source.localPath!;
             }
-          } else {
-            // Local path install
-            const localPath = source.localPath!;
-            const config = await loadConfig();
-            const { provider } = await resolveProvider(
-              config,
-              args.flags.provider,
-              false,
-            );
 
-            const metadata = await validateSkill(localPath);
+            const metadata = await validateSkill(skillDir);
             const skillName = sanitizeName(
               skill.name || metadata.name || source.repo,
             );
 
-            const installScope: "global" | "project" =
-              args.flags.scope === "global" || args.flags.scope === "project"
-                ? args.flags.scope
-                : "global";
-
             const plan = buildInstallPlan(
               source,
-              localPath,
-              localPath,
+              rootDir,
+              skillDir,
               skillName,
               provider,
               args.flags.force,
@@ -2907,6 +2865,10 @@ async function cmdBundle(args: ParsedArgs) {
               console.error(
                 `    ${ansi.red("!!!")} ${skill.name}: ${installResult.error}`,
               );
+            }
+          } finally {
+            if (tempDir) {
+              await cleanupTemp(tempDir);
             }
           }
         } catch (err: any) {

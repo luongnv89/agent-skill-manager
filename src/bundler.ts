@@ -70,8 +70,12 @@ export function validateBundle(data: unknown): BundleValidation {
     }
   }
 
-  if (obj.tags !== undefined && !Array.isArray(obj.tags)) {
-    errors.push("'tags' must be an array of strings if provided.");
+  if (obj.tags !== undefined) {
+    if (!Array.isArray(obj.tags)) {
+      errors.push("'tags' must be an array of strings if provided.");
+    } else if (obj.tags.some((t: unknown) => typeof t !== "string")) {
+      errors.push("'tags' must contain only strings.");
+    }
   }
 
   return { valid: errors.length === 0, errors };
@@ -125,11 +129,17 @@ export async function ensureBundleDir(): Promise<void> {
 }
 
 function sanitizeBundleName(name: string): string {
-  return name
+  const sanitized = name
     .toLowerCase()
     .replace(/[^a-z0-9._-]/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
+  if (!sanitized) {
+    throw new Error(
+      "Invalid bundle name: results in an empty filename after sanitization.",
+    );
+  }
+  return sanitized;
 }
 
 export async function saveBundle(bundle: BundleManifest): Promise<string> {
