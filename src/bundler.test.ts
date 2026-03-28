@@ -340,28 +340,20 @@ describe("readBundleFile", () => {
 // ─── saveBundle and listBundles ────────────────────────────────────────────
 
 describe("saveBundle", () => {
-  let tmpDir: string;
-  let origBundleDir: string;
-
-  beforeEach(async () => {
-    tmpDir = await mkdtemp(join(tmpdir(), "bundle-save-test-"));
-    // We can't easily override the bundle dir constant, so we test readBundleFile directly
-  });
+  const testBundleName = "__test-save-bundle__";
 
   afterEach(async () => {
-    await rm(tmpDir, { recursive: true, force: true });
+    await removeBundle(testBundleName);
   });
 
-  it("saveBundle writes valid JSON", async () => {
-    // Directly test the file writing by saving then reading
-    const bundle = makeBundle({ name: "save-test" });
-    const bundleDir = join(tmpDir, "bundles");
-    await mkdir(bundleDir, { recursive: true });
-    const filePath = join(bundleDir, "save-test.json");
-    await writeFile(filePath, JSON.stringify(bundle, null, 2) + "\n", "utf-8");
+  it("saveBundle writes valid JSON and can be loaded back", async () => {
+    const bundle = makeBundle({ name: testBundleName });
+    const savedPath = await saveBundle(bundle);
 
-    const loaded = await readBundleFile(filePath);
-    expect(loaded.name).toBe("save-test");
+    expect(savedPath).toContain(".json");
+
+    const loaded = await readBundleFile(savedPath);
+    expect(loaded.name).toBe(testBundleName);
     expect(loaded.skills).toHaveLength(1);
   });
 
@@ -373,6 +365,61 @@ describe("saveBundle", () => {
   it("throws when bundle name contains only special characters", async () => {
     const bundle = makeBundle({ name: "!!@@##$$" });
     await expect(saveBundle(bundle)).rejects.toThrow("Invalid bundle name");
+  });
+
+  it("throws when bundle name is '..'", async () => {
+    const bundle = makeBundle({ name: ".." });
+    await expect(saveBundle(bundle)).rejects.toThrow("Invalid bundle name");
+  });
+});
+
+// ─── listBundles ──────────────────────────────────────────────────────────
+
+describe("listBundles", () => {
+  const testBundleNames = ["__test-list-bundle-a__", "__test-list-bundle-b__"];
+
+  afterEach(async () => {
+    for (const name of testBundleNames) {
+      await removeBundle(name);
+    }
+  });
+
+  it("returns an empty array when no bundles exist", async () => {
+    // Remove any test bundles that may exist
+    for (const name of testBundleNames) {
+      await removeBundle(name);
+    }
+    const bundles = await listBundles();
+    // Just verify it returns an array (may contain other bundles)
+    expect(Array.isArray(bundles)).toBe(true);
+  });
+
+  it("lists saved bundles sorted by name", async () => {
+    // Save two bundles
+    await saveBundle(makeBundle({ name: testBundleNames[0] }));
+    await saveBundle(makeBundle({ name: testBundleNames[1] }));
+
+    const bundles = await listBundles();
+    const testBundles = bundles.filter((b) => testBundleNames.includes(b.name));
+
+    expect(testBundles).toHaveLength(2);
+    // Verify sort order (a before b)
+    expect(testBundles[0].name).toBe(testBundleNames[0]);
+    expect(testBundles[1].name).toBe(testBundleNames[1]);
+  });
+
+  it("includes bundle data in listed entries", async () => {
+    const bundle = makeBundle({
+      name: testBundleNames[0],
+      description: "A listable bundle",
+    });
+    await saveBundle(bundle);
+
+    const bundles = await listBundles();
+    const found = bundles.find((b) => b.name === testBundleNames[0]);
+    expect(found).toBeDefined();
+    expect(found!.description).toBe("A listable bundle");
+    expect(found!.skills).toHaveLength(1);
   });
 });
 

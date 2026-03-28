@@ -63,14 +63,12 @@ import {
   discoverLinkableSkills,
 } from "./linker";
 import {
-  validateBundle,
   buildBundle,
   skillInfoToRef,
   saveBundle,
   loadBundle,
   listBundles,
   removeBundle,
-  readBundleFile,
 } from "./bundler";
 import type { BundleSkillRef } from "./utils/types";
 import {
@@ -2706,6 +2704,15 @@ async function cmdBundle(args: ParsedArgs) {
       // Prompt for description (or use default)
       let description = `Bundle of ${skillRefs.length} skills`;
       let author = "unknown";
+      try {
+        const { execSync } = await import("child_process");
+        const gitUser = execSync("git config user.name", {
+          encoding: "utf-8",
+        }).trim();
+        if (gitUser) author = gitUser;
+      } catch {
+        // git not available or user.name not set; keep "unknown"
+      }
 
       if (process.stdin.isTTY && !args.flags.yes) {
         process.stderr.write(

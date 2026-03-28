@@ -1,4 +1,4 @@
-import { readFile, writeFile, readdir, access, mkdir } from "fs/promises";
+import { readFile, writeFile, readdir, access, mkdir, rm } from "fs/promises";
 import { join, resolve } from "path";
 import { homedir } from "os";
 import { debug } from "./logger";
@@ -129,12 +129,16 @@ export async function ensureBundleDir(): Promise<void> {
 }
 
 function sanitizeBundleName(name: string): string {
-  const sanitized = name
+  let sanitized = name
     .toLowerCase()
     .replace(/[^a-z0-9._-]/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
-  if (!sanitized) {
+
+  // Strip leading and trailing dots to prevent names like ".." producing "...json"
+  sanitized = sanitized.replace(/^\.+|\.+$/g, "");
+
+  if (!sanitized || sanitized === "." || sanitized === "..") {
     throw new Error(
       "Invalid bundle name: results in an empty filename after sanitization.",
     );
@@ -237,12 +241,11 @@ export async function listBundles(): Promise<BundleManifest[]> {
  * Remove a saved bundle by name.
  */
 export async function removeBundle(name: string): Promise<boolean> {
-  const { rm: rmFile } = await import("fs/promises");
   const filename = `${sanitizeBundleName(name)}.json`;
   const filePath = join(BUNDLE_DIR, filename);
 
   try {
-    await rmFile(filePath);
+    await rm(filePath);
     debug(`bundle: removed ${filePath}`);
     return true;
   } catch (err: any) {
