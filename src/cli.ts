@@ -95,6 +95,7 @@ import type { SearchFilters } from "./skill-index";
 import { VERSION_STRING } from "./utils/version";
 import { parseEditorCommand } from "./utils/editor";
 import { setVerbose } from "./logger";
+import { join as joinPath } from "path";
 import type { Scope, SortBy, TransportMode } from "./utils/types";
 
 // ─── Arg Parser ─────────────────────────────────────────────────────────────
@@ -2704,7 +2705,7 @@ async function cmdBundle(args: ParsedArgs) {
 
       // Prompt for description (or use default)
       let description = `Bundle of ${skillRefs.length} skills`;
-      let author = "";
+      let author = "unknown";
 
       if (process.stdin.isTTY && !args.flags.yes) {
         process.stderr.write(
@@ -2827,7 +2828,6 @@ async function cmdBundle(args: ParsedArgs) {
             if (!isLocal) {
               tempDir = await cloneToTemp(source, args.flags.transport);
               rootDir = tempDir;
-              const { join: joinPath } = await import("path");
               skillDir = source.subpath
                 ? joinPath(tempDir, source.subpath)
                 : tempDir;

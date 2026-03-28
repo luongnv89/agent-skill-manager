@@ -1,5 +1,5 @@
 import { readFile, writeFile, readdir, access, mkdir } from "fs/promises";
-import { join, resolve, basename } from "path";
+import { join, resolve } from "path";
 import { homedir } from "os";
 import { debug } from "./logger";
 import type {
@@ -34,12 +34,12 @@ export function validateBundle(data: unknown): BundleValidation {
     errors.push("Missing or empty 'name' field.");
   }
 
-  if (typeof obj.description !== "string") {
-    errors.push("Missing 'description' field.");
+  if (typeof obj.description !== "string" || !obj.description) {
+    errors.push("Missing or empty 'description' field.");
   }
 
-  if (typeof obj.author !== "string") {
-    errors.push("Missing 'author' field.");
+  if (typeof obj.author !== "string" || !obj.author) {
+    errors.push("Missing or empty 'author' field.");
   }
 
   if (typeof obj.createdAt !== "string") {
@@ -242,11 +242,13 @@ export async function removeBundle(name: string): Promise<boolean> {
   const filePath = join(BUNDLE_DIR, filename);
 
   try {
-    await access(filePath);
     await rmFile(filePath);
     debug(`bundle: removed ${filePath}`);
     return true;
-  } catch {
-    return false;
+  } catch (err: any) {
+    if (err?.code === "ENOENT") {
+      return false;
+    }
+    throw err;
   }
 }
