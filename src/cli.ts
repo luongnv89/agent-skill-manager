@@ -2858,21 +2858,9 @@ async function cmdBundle(args: ParsedArgs) {
               installScope,
             );
 
-            const installResult = await executeInstall(plan);
-
-            if (installResult.success) {
-              results.push({ name: skill.name, status: "installed" });
-              console.error(`    ${ansi.green("+++")} ${skill.name} installed`);
-            } else {
-              results.push({
-                name: skill.name,
-                status: "failed",
-                reason: installResult.error || "Unknown error",
-              });
-              console.error(
-                `    ${ansi.red("!!!")} ${skill.name}: ${installResult.error}`,
-              );
-            }
+            await executeInstall(plan);
+            results.push({ name: skill.name, status: "installed" });
+            console.error(`    ${ansi.green("+++")} ${skill.name} installed`);
           } finally {
             if (tempDir) {
               await cleanupTemp(tempDir);
@@ -3021,7 +3009,13 @@ async function cmdBundle(args: ParsedArgs) {
         }
       }
 
-      const removed = await removeBundle(bundleName);
+      let removed: boolean;
+      try {
+        removed = await removeBundle(bundleName);
+      } catch (err: any) {
+        error(err.message);
+        process.exit(1);
+      }
 
       if (removed) {
         console.error(ansi.green(`Bundle "${bundleName}" removed.`));

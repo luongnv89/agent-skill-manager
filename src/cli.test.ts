@@ -2292,6 +2292,106 @@ describe("CLI integration: bundle", () => {
     }
   });
 
+  test("bundle create --yes creates bundle with all skills (non-interactive)", async () => {
+    // Install a temporary local skill so scanAllSkills finds at least one
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-create-"));
+    try {
+      const skillDir = join(tmpDir, "bundle-test-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: bundle-test-skill\nversion: 1.0.0\n---\n# Bundle Test Skill\nA test skill for bundle create.\n`,
+      );
+      // Install the local skill
+      const installResult = await runCLI(
+        "install",
+        skillDir,
+        "--force",
+        "--tool",
+        "claude",
+        "--yes",
+      );
+      expect(installResult.exitCode).toBe(0);
+
+      // Now create a bundle with --yes (non-interactive batch path)
+      const { stdout, exitCode } = await runCLI(
+        "bundle",
+        "create",
+        "create-yes-test-bundle",
+        "--yes",
+        "--json",
+      );
+      expect(exitCode).toBe(0);
+      const parsed = JSON.parse(stdout);
+      expect(parsed.name).toBe("create-yes-test-bundle");
+      expect(parsed.skills.length).toBeGreaterThanOrEqual(1);
+      // The test skill we installed should be in the bundle
+      const names = parsed.skills.map((s: any) => s.name);
+      expect(names).toContain("bundle-test-skill");
+
+      // Clean up: remove the bundle and uninstall the skill
+      await runCLI("bundle", "remove", "create-yes-test-bundle", "-y");
+      await runCLI("uninstall", "bundle-test-skill", "--yes");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  test("bundle install from valid bundle file succeeds", async () => {
+    const tmpDir = await mkdtemp(join(tmpdir(), "cli-bundle-install-"));
+    try {
+      // Create a valid local skill to reference in the bundle
+      const skillDir = join(tmpDir, "installable-skill");
+      await mkdir(skillDir, { recursive: true });
+      await writeFile(
+        join(skillDir, "SKILL.md"),
+        `---\nname: installable-skill\nversion: 1.0.0\n---\n# Installable Skill\nA test skill for bundle install.\n`,
+      );
+
+      // Create a bundle file that references the local skill
+      const bundleData = {
+        version: 1,
+        name: "install-test-bundle",
+        description: "Test bundle for install",
+        author: "tester",
+        createdAt: new Date().toISOString(),
+        skills: [
+          {
+            name: "installable-skill",
+            installUrl: skillDir,
+            description: "Installable Skill",
+            version: "1.0.0",
+          },
+        ],
+      };
+      const bundlePath = join(tmpDir, "install-test-bundle.json");
+      await writeFile(bundlePath, JSON.stringify(bundleData));
+
+      // Install the bundle
+      const { stdout, exitCode } = await runCLI(
+        "bundle",
+        "install",
+        bundlePath,
+        "--json",
+        "--force",
+        "--tool",
+        "claude",
+      );
+      expect(exitCode).toBe(0);
+      const parsed = JSON.parse(stdout);
+      expect(parsed.bundleName).toBe("install-test-bundle");
+      expect(parsed.installed).toBe(1);
+      expect(parsed.failed).toBe(0);
+      expect(parsed.results).toHaveLength(1);
+      expect(parsed.results[0].status).toBe("installed");
+
+      // Clean up: uninstall the skill
+      await runCLI("uninstall", "installable-skill", "--yes");
+    } finally {
+      await rm(tmpDir, { recursive: true, force: true });
+    }
+  });
+
   test("main --help includes bundle in command list", async () => {
     const { stdout, exitCode } = await runCLI("--help");
     expect(exitCode).toBe(0);
