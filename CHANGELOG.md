@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.19.0 — 2026-03-28
+
+### Features
+
+- Add `asm bundle` command with five subcommands (`create`, `install`, `list`, `show`, `remove`) for reusable skill collections across workflows, domain agents, and project setups ([#130](https://github.com/luongnv89/agent-skill-manager/pull/130), closes [#115](https://github.com/luongnv89/agent-skill-manager/issues/115)) — @luongnv89
+- Remember user tool selection across runs — `selectedTools` persisted to ASM config as pre-checked defaults on subsequent interactive prompts; explicit `--tool` / `-p` flag continues to override ([#129](https://github.com/luongnv89/agent-skill-manager/pull/129), closes [#123](https://github.com/luongnv89/agent-skill-manager/issues/123)) — @luongnv89
+- Support linking multiple skills from the same folder — `asm link <path>` now scans immediate subdirectories for `SKILL.md` files when no root `SKILL.md` exists, linking all discovered skills in a single invocation ([#127](https://github.com/luongnv89/agent-skill-manager/pull/127), closes [#122](https://github.com/luongnv89/agent-skill-manager/issues/122)) — @luongnv89
+- Add `Imbad0202/academic-research-skills` to curated skill index — 4 new skills (`academic-paper-reviewer`, `academic-paper`, `academic-pipeline`, `deep-research`) for academic and research workflows ([#128](https://github.com/luongnv89/agent-skill-manager/pull/128), closes [#112](https://github.com/luongnv89/agent-skill-manager/issues/112), [#117](https://github.com/luongnv89/agent-skill-manager/issues/117)) — @luongnv89
+
+### Documentation
+
+- Add **Best Practices** page to the ASM catalog website with curated official Anthropic resources and community guides for skill authors, accessible via `#best-practices` ([#128](https://github.com/luongnv89/agent-skill-manager/pull/128)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.18.0...v1.19.0
+
 ## v1.18.0 — 2026-03-28
 
 ### Features

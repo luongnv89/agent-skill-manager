@@ -2272,6 +2272,18 @@ function renderChangelogPage() {
     + 'adhering to <a href="https://semver.org/">Semantic Versioning</a>.</p>'
     + '<p><a href="https://github.com/luongnv89/agent-skill-manager/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">View full changelog on GitHub &rarr;</a></p>'
 
+    + renderChangelogEntry('1.19.0', '2026-03-28', [
+      { tag: 'added', items: [
+        'Add <code>asm bundle</code> command with five subcommands (<code>create</code>, <code>install</code>, <code>list</code>, <code>show</code>, <code>remove</code>) for reusable skill collections',
+        'Remember user tool selection across runs — pre-checked defaults on subsequent interactive prompts',
+        'Support linking multiple skills from the same folder via <code>asm link</code>',
+        'Add <code>Imbad0202/academic-research-skills</code> to curated skill index — 4 new academic workflow skills'
+      ]},
+      { tag: 'docs', items: [
+        'Add Best Practices page to website with curated resources for skill authors'
+      ]}
+    ])
+
     + renderChangelogEntry('1.18.0', '2026-03-28', [
       { tag: 'added', items: [
         'Add <code>alirezarezvani/claude-skills</code> to curated skill index — 451 new skills across engineering, marketing, product, compliance, C-level advisory, and more'
