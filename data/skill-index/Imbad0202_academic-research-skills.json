@@ -15,7 +15,7 @@
       "allowedTools": [],
       "installUrl": "github:Imbad0202/academic-research-skills:academic-paper-reviewer",
       "relPath": "academic-paper-reviewer",
-      "verified": true
+      "verified": false
     },
     {
       "name": "academic-paper",
@@ -27,7 +27,7 @@
       "allowedTools": [],
       "installUrl": "github:Imbad0202/academic-research-skills:academic-paper",
       "relPath": "academic-paper",
-      "verified": true
+      "verified": false
     },
     {
       "name": "academic-pipeline",
@@ -39,7 +39,7 @@
       "allowedTools": [],
       "installUrl": "github:Imbad0202/academic-research-skills:academic-pipeline",
       "relPath": "academic-pipeline",
-      "verified": true
+      "verified": false
     },
     {
       "name": "deep-research",
@@ -51,7 +51,7 @@
       "allowedTools": [],
       "installUrl": "github:Imbad0202/academic-research-skills:deep-research",
       "relPath": "deep-research",
-      "verified": true
+      "verified": false
     }
   ]
 }

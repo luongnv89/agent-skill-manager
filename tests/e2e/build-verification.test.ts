@@ -59,8 +59,6 @@ describe("build: data/skill-index shipped", () => {
   });
 });
 
-// ─── chunk files ────────────────────────────────────────────────────────────
-
 // ─── website: best practices page ──────────────────────────────────────────
 
 describe("website: best practices page", () => {
