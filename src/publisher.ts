@@ -1,0 +1,678 @@
+/**
+ * Publish pipeline for submitting skills to the asm-registry.
+ *
+ * Validates a skill, runs SecurityAuditor, generates a manifest, and
+ * optionally opens a PR against luongnv89/asm-registry via the gh CLI.
+ */
+
+import { readFile, stat } from "fs/promises";
+import { join, resolve } from "path";
+import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
+import { auditSkillSecurity } from "./security-auditor";
+import { validateManifest } from "./registry";
+import type { RegistryManifest } from "./registry";
+import type { SecurityVerdict, SecurityAuditReport } from "./utils/types";
+import type { PublishResult } from "./utils/types";
+import { debug } from "./logger";
+
+// ─── Constants ──────────────────────────────────────────────────────────────
+
+const REGISTRY_REPO = "luongnv89/asm-registry";
+
+// ─── Skill Metadata ─────────────────────────────────────────────────────────
+
+export interface SkillMetadata {
+  name: string;
+  description: string;
+  version: string;
+  license: string;
+  creator: string;
+  tags: string[];
+}
+
+/**
+ * Locate and parse SKILL.md in the target directory.
+ * Throws if SKILL.md is not found or is missing required fields.
+ */
+export async function parseSkillMetadata(
+  skillDir: string,
+): Promise<SkillMetadata> {
+  const skillMdPath = join(skillDir, "SKILL.md");
+
+  let content: string;
+  try {
+    content = await readFile(skillMdPath, "utf-8");
+  } catch {
+    throw new Error(
+      `No SKILL.md found in ${skillDir}. Run "asm init" to create one.`,
+    );
+  }
+
+  const fm = parseFrontmatter(content);
+
+  if (!fm.name) {
+    throw new Error("SKILL.md is missing required field: name");
+  }
+  if (!fm.description) {
+    throw new Error("SKILL.md is missing required field: description");
+  }
+
+  const version = resolveVersion(fm);
+  const tags = fm.tags
+    ? fm.tags
+        .split(/[\s,]+/)
+        .map((t) => t.trim().toLowerCase())
+        .filter(Boolean)
+    : [];
+
+  return {
+    name: fm.name,
+    description: fm.description.replace(/\s*\n\s*/g, " ").trim(),
+    version,
+    license: fm.license || "MIT",
+    creator: fm.creator || "",
+    tags,
+  };
+}
+
+// ─── Git Helpers ────────────────────────────────────────────────────────────
+
+/**
+ * Check that the target directory is inside a git repository.
+ */
+export async function checkIsGitRepo(dir: string): Promise<void> {
+  const proc = Bun.spawn(["git", "rev-parse", "--git-dir"], {
+    cwd: dir,
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const exitCode = await proc.exited;
+  if (exitCode !== 0) {
+    throw new Error(`${dir} is not inside a git repository.`);
+  }
+}
+
+/**
+ * Get the current HEAD commit SHA.
+ */
+export async function getHeadCommit(dir: string): Promise<string> {
+  const proc = Bun.spawn(["git", "rev-parse", "HEAD"], {
+    cwd: dir,
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const stdout = await new Response(proc.stdout).text();
+  const exitCode = await proc.exited;
+  if (exitCode !== 0) {
+    throw new Error("Failed to get HEAD commit. Is this a git repository?");
+  }
+  return stdout.trim();
+}
+
+/**
+ * Get the remote origin URL.
+ */
+export async function getRemoteOrigin(dir: string): Promise<string> {
+  const proc = Bun.spawn(["git", "remote", "get-url", "origin"], {
+    cwd: dir,
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const stdout = await new Response(proc.stdout).text();
+  const exitCode = await proc.exited;
+  if (exitCode !== 0) {
+    throw new Error(
+      "No remote origin found. Add one with: git remote add origin <url>",
+    );
+  }
+  const raw = stdout.trim();
+  // Normalize SSH URLs to HTTPS
+  const sshMatch = raw.match(
+    /^git@github\.com:([a-zA-Z0-9_-]+)\/([a-zA-Z0-9._-]+?)(?:\.git)?$/,
+  );
+  if (sshMatch) {
+    return `https://github.com/${sshMatch[1]}/${sshMatch[2]}`;
+  }
+  // Strip trailing .git from HTTPS URLs
+  return raw.replace(/\.git$/, "");
+}
+
+// ─── gh CLI Helpers ─────────────────────────────────────────────────────────
+
+/**
+ * Check if gh CLI is available and authenticated.
+ * Returns { available, authenticated, login }.
+ */
+export async function checkGhCli(): Promise<{
+  available: boolean;
+  authenticated: boolean;
+  login: string | null;
+}> {
+  // Check if gh is installed
+  const whichProc = Bun.spawn(["which", "gh"], {
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const whichExit = await whichProc.exited;
+  if (whichExit !== 0) {
+    return { available: false, authenticated: false, login: null };
+  }
+
+  // Check authentication
+  const authProc = Bun.spawn(["gh", "auth", "status"], {
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const authExit = await authProc.exited;
+  if (authExit !== 0) {
+    return { available: true, authenticated: false, login: null };
+  }
+
+  // Get login
+  const loginProc = Bun.spawn(["gh", "api", "user", "--jq", ".login"], {
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const loginOut = await new Response(loginProc.stdout).text();
+  const loginExit = await loginProc.exited;
+  const login = loginExit === 0 ? loginOut.trim() : null;
+
+  return { available: true, authenticated: true, login };
+}
+
+// ─── Verdict Mapping ────────────────────────────────────────────────────────
+
+/**
+ * Map SecurityAuditor verdict to registry-compatible verdict.
+ * SecurityAuditor produces: safe | caution | warning | dangerous
+ * Registry expects: pass | warning | dangerous
+ */
+export function mapVerdict(
+  verdict: SecurityVerdict,
+): "pass" | "warning" | "dangerous" {
+  switch (verdict) {
+    case "safe":
+    case "caution":
+      return "pass";
+    case "warning":
+      return "warning";
+    case "dangerous":
+      return "dangerous";
+  }
+}
+
+// ─── Manifest Generation ────────────────────────────────────────────────────
+
+export interface GenerateManifestOptions {
+  metadata: SkillMetadata;
+  author: string;
+  commit: string;
+  repository: string;
+  securityVerdict: "pass" | "warning" | "dangerous";
+}
+
+/**
+ * Generate a registry manifest from skill metadata and publish context.
+ * Pure function for testability.
+ */
+export function generateManifest(
+  opts: GenerateManifestOptions,
+): RegistryManifest {
+  const manifest: RegistryManifest = {
+    name: opts.metadata.name,
+    author: opts.author,
+    description: opts.metadata.description,
+    repository: opts.repository,
+    commit: opts.commit,
+    security_verdict: opts.securityVerdict,
+    published_at: new Date().toISOString(),
+  };
+
+  if (
+    opts.metadata.version &&
+    opts.metadata.version !== "0.0.0" &&
+    /^\d+\.\d+\.\d+/.test(opts.metadata.version)
+  ) {
+    manifest.version = opts.metadata.version;
+  }
+
+  if (opts.metadata.license) {
+    manifest.license = opts.metadata.license;
+  }
+
+  if (opts.metadata.tags && opts.metadata.tags.length > 0) {
+    manifest.tags = opts.metadata.tags.slice(0, 10);
+  }
+
+  return manifest;
+}
+
+// ─── Publish Pipeline ───────────────────────────────────────────────────────
+
+export interface PublishOptions {
+  path: string;
+  dryRun: boolean;
+  force: boolean;
+  yes: boolean;
+  json: boolean;
+  machine: boolean;
+}
+
+/**
+ * Run the full publish pipeline:
+ * 1. Locate and validate SKILL.md
+ * 2. Run SecurityAuditor
+ * 3. Detect author via gh
+ * 4. Generate manifest
+ * 5. Optionally fork registry, create branch, write manifest, open PR
+ */
+export async function publishSkill(
+  opts: PublishOptions,
+): Promise<PublishResult> {
+  const skillDir = resolve(opts.path);
+  debug(`publish: starting for ${skillDir}`);
+
+  // Step 1: Validate git repo
+  await checkIsGitRepo(skillDir);
+
+  // Step 2: Parse SKILL.md metadata
+  const metadata = await parseSkillMetadata(skillDir);
+  debug(`publish: parsed metadata for "${metadata.name}"`);
+
+  // Step 3: Run SecurityAuditor
+  const securityReport = await auditSkillSecurity(skillDir, metadata.name);
+  const registryVerdict = mapVerdict(securityReport.verdict);
+
+  // Step 4: Check security verdict
+  if (registryVerdict === "dangerous") {
+    return {
+      success: false,
+      manifest: null,
+      prUrl: null,
+      error: `Security audit verdict: dangerous. ${securityReport.verdictReason}`,
+      securityVerdict: registryVerdict,
+      securityReport,
+    };
+  }
+
+  if (registryVerdict === "warning" && !opts.force) {
+    return {
+      success: false,
+      manifest: null,
+      prUrl: null,
+      error:
+        "Security audit verdict: warning. Use --force to override warnings.",
+      securityVerdict: registryVerdict,
+      securityReport,
+    };
+  }
+
+  // Step 5: Get git info
+  const commit = await getHeadCommit(skillDir);
+  const repository = await getRemoteOrigin(skillDir);
+
+  // Step 6: Detect author via gh CLI
+  const ghStatus = await checkGhCli();
+
+  if (!ghStatus.available) {
+    // Fallback: generate manifest and print manual instructions
+    const manifest = generateManifest({
+      metadata,
+      author: metadata.creator || "unknown",
+      commit,
+      repository,
+      securityVerdict: registryVerdict,
+    });
+
+    return {
+      success: true,
+      manifest,
+      prUrl: null,
+      error: null,
+      securityVerdict: registryVerdict,
+      securityReport,
+      fallback: true,
+      fallbackReason: "gh CLI not found",
+    };
+  }
+
+  if (!ghStatus.authenticated) {
+    const manifest = generateManifest({
+      metadata,
+      author: metadata.creator || "unknown",
+      commit,
+      repository,
+      securityVerdict: registryVerdict,
+    });
+
+    return {
+      success: true,
+      manifest,
+      prUrl: null,
+      error: null,
+      securityVerdict: registryVerdict,
+      securityReport,
+      fallback: true,
+      fallbackReason: "gh CLI not authenticated",
+    };
+  }
+
+  const author = ghStatus.login!;
+
+  // Step 7: Generate manifest
+  const manifest = generateManifest({
+    metadata,
+    author,
+    commit,
+    repository,
+    securityVerdict: registryVerdict,
+  });
+
+  // Validate manifest against registry schema
+  const validationErrors = validateManifest(manifest);
+  if (validationErrors.length > 0) {
+    return {
+      success: false,
+      manifest,
+      prUrl: null,
+      error: `Manifest validation failed: ${validationErrors.map((e) => `${e.field}: ${e.message}`).join("; ")}`,
+      securityVerdict: registryVerdict,
+      securityReport,
+    };
+  }
+
+  // Step 8: Dry run check
+  if (opts.dryRun) {
+    return {
+      success: true,
+      manifest,
+      prUrl: null,
+      error: null,
+      securityVerdict: registryVerdict,
+      securityReport,
+    };
+  }
+
+  // Step 9: Fork registry
+  debug(`publish: forking ${REGISTRY_REPO}`);
+  const forkProc = Bun.spawn(
+    ["gh", "repo", "fork", REGISTRY_REPO, "--clone=false"],
+    { stdout: "pipe", stderr: "pipe" },
+  );
+  await forkProc.exited;
+  // Fork may already exist, that's fine
+
+  // Step 10: Create branch and write manifest via gh API
+  const branchName = `publish/${author}/${metadata.name}`;
+  const manifestPath = `manifests/${author}/${metadata.name}.json`;
+  const manifestContent = JSON.stringify(manifest, null, 2) + "\n";
+  const encodedContent = btoa(manifestContent);
+
+  // Get the default branch SHA from the fork
+  const refProc = Bun.spawn(
+    [
+      "gh",
+      "api",
+      `repos/${author}/asm-registry/git/refs/heads/main`,
+      "--jq",
+      ".object.sha",
+    ],
+    { stdout: "pipe", stderr: "pipe" },
+  );
+  const refOut = await new Response(refProc.stdout).text();
+  const refExit = await refProc.exited;
+
+  if (refExit !== 0) {
+    return {
+      success: false,
+      manifest,
+      prUrl: null,
+      error:
+        "Failed to read fork's main branch. Ensure the fork exists at " +
+        `${author}/asm-registry.`,
+      securityVerdict: registryVerdict,
+      securityReport,
+    };
+  }
+
+  const baseSha = refOut.trim();
+
+  // Create branch in the fork
+  const createRefProc = Bun.spawn(
+    [
+      "gh",
+      "api",
+      `repos/${author}/asm-registry/git/refs`,
+      "-X",
+      "POST",
+      "-f",
+      `ref=refs/heads/${branchName}`,
+      "-f",
+      `sha=${baseSha}`,
+    ],
+    { stdout: "pipe", stderr: "pipe" },
+  );
+  const createRefExit = await createRefProc.exited;
+
+  if (createRefExit !== 0) {
+    // Branch may already exist — try to update it
+    const updateRefProc = Bun.spawn(
+      [
+        "gh",
+        "api",
+        `repos/${author}/asm-registry/git/refs/heads/${branchName}`,
+        "-X",
+        "PATCH",
+        "-f",
+        `sha=${baseSha}`,
+        "-f",
+        "force=true",
+      ],
+      { stdout: "pipe", stderr: "pipe" },
+    );
+    await updateRefProc.exited;
+  }
+
+  // Write manifest file to the branch
+  const putFileProc = Bun.spawn(
+    [
+      "gh",
+      "api",
+      `repos/${author}/asm-registry/contents/${manifestPath}`,
+      "-X",
+      "PUT",
+      "-f",
+      `message=Publish ${author}/${metadata.name}`,
+      "-f",
+      `content=${encodedContent}`,
+      "-f",
+      `branch=${branchName}`,
+    ],
+    { stdout: "pipe", stderr: "pipe" },
+  );
+  const putFileStderr = await new Response(putFileProc.stderr).text();
+  const putFileExit = await putFileProc.exited;
+
+  if (putFileExit !== 0) {
+    // File may already exist — try updating with SHA
+    const getFileProc = Bun.spawn(
+      [
+        "gh",
+        "api",
+        `repos/${author}/asm-registry/contents/${manifestPath}`,
+        "-q",
+        ".sha",
+        "--header",
+        `ref: ${branchName}`,
+      ],
+      { stdout: "pipe", stderr: "pipe" },
+    );
+    const fileSha = (await new Response(getFileProc.stdout).text()).trim();
+    const getFileExit = await getFileProc.exited;
+
+    if (getFileExit === 0 && fileSha) {
+      const updateFileProc = Bun.spawn(
+        [
+          "gh",
+          "api",
+          `repos/${author}/asm-registry/contents/${manifestPath}`,
+          "-X",
+          "PUT",
+          "-f",
+          `message=Update ${author}/${metadata.name}`,
+          "-f",
+          `content=${encodedContent}`,
+          "-f",
+          `branch=${branchName}`,
+          "-f",
+          `sha=${fileSha}`,
+        ],
+        { stdout: "pipe", stderr: "pipe" },
+      );
+      const updateExit = await updateFileProc.exited;
+      if (updateExit !== 0) {
+        return {
+          success: false,
+          manifest,
+          prUrl: null,
+          error: "Failed to write manifest to registry fork.",
+          securityVerdict: registryVerdict,
+          securityReport,
+        };
+      }
+    } else {
+      return {
+        success: false,
+        manifest,
+        prUrl: null,
+        error: `Failed to write manifest to registry fork. ${putFileStderr}`,
+        securityVerdict: registryVerdict,
+        securityReport,
+      };
+    }
+  }
+
+  // Step 11: Open PR
+  const prTitle = `Publish ${author}/${metadata.name}`;
+  const prBody = [
+    `## Skill: ${metadata.name}`,
+    "",
+    `**Author:** ${author}`,
+    `**Version:** ${metadata.version}`,
+    `**Description:** ${metadata.description}`,
+    `**License:** ${metadata.license}`,
+    `**Repository:** ${repository}`,
+    `**Commit:** \`${commit}\``,
+    `**Security verdict:** ${registryVerdict}`,
+    "",
+    "---",
+    "",
+    "*This PR was generated by `asm publish`.*",
+  ].join("\n");
+
+  const prProc = Bun.spawn(
+    [
+      "gh",
+      "pr",
+      "create",
+      "--repo",
+      REGISTRY_REPO,
+      "--head",
+      `${author}:${branchName}`,
+      "--title",
+      prTitle,
+      "--body",
+      prBody,
+    ],
+    { stdout: "pipe", stderr: "pipe" },
+  );
+  const prOut = await new Response(prProc.stdout).text();
+  const prStderr = await new Response(prProc.stderr).text();
+  const prExit = await prProc.exited;
+
+  let prUrl: string | null = null;
+  if (prExit === 0) {
+    prUrl = prOut.trim();
+  } else {
+    // PR may already exist
+    const existingMatch = prStderr.match(
+      /https:\/\/github\.com\/[^\s]+\/pull\/\d+/,
+    );
+    if (existingMatch) {
+      prUrl = existingMatch[0];
+    }
+  }
+
+  if (!prUrl) {
+    return {
+      success: false,
+      manifest,
+      prUrl: null,
+      error: `Failed to create PR against ${REGISTRY_REPO}. ${prStderr}`,
+      securityVerdict: registryVerdict,
+      securityReport,
+    };
+  }
+
+  return {
+    success: true,
+    manifest,
+    prUrl,
+    error: null,
+    securityVerdict: registryVerdict,
+    securityReport,
+  };
+}
+
+// ─── Formatting ─────────────────────────────────────────────────────────────
+
+/**
+ * Format a publish result for machine-readable output (v1 envelope).
+ */
+export function formatPublishMachine(result: PublishResult): string {
+  return JSON.stringify(
+    {
+      version: 1,
+      type: "publish",
+      success: result.success,
+      manifest: result.manifest,
+      pr_url: result.prUrl,
+      error: result.error,
+      security_verdict: result.securityVerdict,
+      fallback: result.fallback ?? false,
+      fallback_reason: result.fallbackReason ?? null,
+    },
+    null,
+    2,
+  );
+}
+
+/**
+ * Format fallback instructions when gh is unavailable.
+ */
+export function formatFallbackInstructions(result: PublishResult): string {
+  const manifest = result.manifest;
+  if (!manifest) return "";
+
+  const lines = [
+    "",
+    `  gh CLI is unavailable (${result.fallbackReason}).`,
+    "  To publish manually:",
+    "",
+    `  1. Fork ${REGISTRY_REPO} on GitHub`,
+    `  2. Create branch: publish/${manifest.author}/${manifest.name}`,
+    `  3. Add file: manifests/${manifest.author}/${manifest.name}.json`,
+    "  4. Paste the manifest below into that file",
+    `  5. Open a PR against ${REGISTRY_REPO}`,
+    "",
+    `  Run "asm doctor" to fix your environment.`,
+    "",
+    "  Generated manifest:",
+    JSON.stringify(manifest, null, 2)
+      .split("\n")
+      .map((l) => `    ${l}`)
+      .join("\n"),
+  ];
+
+  return lines.join("\n");
+}
