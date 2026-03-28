@@ -1,0 +1,71 @@
+name: Rebuild Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "manifests/**"
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Rebuild index.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+
+            function walkManifests(dir) {
+              const results = [];
+              if (!fs.existsSync(dir)) return results;
+              for (const author of fs.readdirSync(dir)) {
+                const authorDir = path.join(dir, author);
+                if (!fs.statSync(authorDir).isDirectory()) continue;
+                for (const file of fs.readdirSync(authorDir)) {
+                  if (!file.endsWith('.json')) continue;
+                  const filePath = path.join(authorDir, file);
+                  try {
+                    const manifest = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+                    results.push(manifest);
+                  } catch (e) {
+                    console.error('Skipping invalid manifest:', filePath, e.message);
+                  }
+                }
+              }
+              return results;
+            }
+
+            const manifests = walkManifests('manifests');
+            manifests.sort((a, b) => a.name.localeCompare(b.name));
+
+            const index = {
+              generated_at: new Date().toISOString(),
+              manifests,
+            };
+
+            fs.writeFileSync('index.json', JSON.stringify(index, null, 2) + '\n');
+            console.log('Rebuilt index.json with', manifests.length, 'manifests');
+          "
+
+      - name: Commit and push index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.json
+          if git diff --cached --quiet; then
+            echo "No changes to index.json"
+          else
+            git commit -m "chore: rebuild index.json [skip ci]"
+            git push
+          fi

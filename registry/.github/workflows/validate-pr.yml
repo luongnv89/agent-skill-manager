@@ -1,0 +1,120 @@
+name: Validate PR
+
+on:
+  pull_request:
+    paths:
+      - "manifests/**"
+
+jobs:
+  validate-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install ajv-cli
+        run: npm install -g ajv-cli ajv-formats
+
+      - name: Find changed manifests
+        id: changed
+        run: |
+          files=$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- 'manifests/**/*.json')
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$files" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Validate schema
+        if: steps.changed.outputs.files != ''
+        run: |
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            echo "Validating $file..."
+            ajv validate -s schema/manifest.v1.json -d "$file" --spec=draft7
+          done <<< "${{ steps.changed.outputs.files }}"
+
+      - name: Author identity check
+        if: steps.changed.outputs.files != ''
+        env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            dir_author=$(echo "$file" | sed 's|manifests/\([^/]*\)/.*|\1|')
+            if [ "$dir_author" != "$PR_AUTHOR" ]; then
+              echo "::error::Author mismatch: manifest in manifests/$dir_author/ but PR opened by $PR_AUTHOR"
+              exit 1
+            fi
+          done <<< "${{ steps.changed.outputs.files }}"
+
+      - name: Duplicate check
+        if: steps.changed.outputs.files != ''
+        run: |
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            author=$(cat "$file" | jq -r '.author')
+            name=$(cat "$file" | jq -r '.name')
+            commit=$(cat "$file" | jq -r '.commit')
+            # Check if identical author/name/commit exists on main
+            main_file="manifests/$author/$name.json"
+            if git show "origin/main:$main_file" 2>/dev/null | jq -r '.commit' | grep -q "^${commit}$"; then
+              echo "::error::Duplicate: $author/$name already exists with commit $commit"
+              exit 1
+            fi
+          done <<< "${{ steps.changed.outputs.files }}"
+
+      - name: Typosquat detection
+        if: steps.changed.outputs.files != ''
+        run: |
+          # Build list of existing skill names from index.json
+          existing=$(jq -r '.manifests[].name' index.json 2>/dev/null || echo "")
+
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            new_name=$(jq -r '.name' "$file")
+
+            # Check Levenshtein distance against all existing names
+            while IFS= read -r existing_name; do
+              [ -z "$existing_name" ] && continue
+              [ "$new_name" = "$existing_name" ] && continue
+
+              # Inline Levenshtein via node
+              distance=$(node -e "
+                const a = '$new_name', b = '$existing_name';
+                const m = a.length, n = b.length;
+                const d = Array.from({length: m+1}, (_,i) => {
+                  const row = new Array(n+1);
+                  row[0] = i;
+                  return row;
+                });
+                for (let j = 0; j <= n; j++) d[0][j] = j;
+                for (let i = 1; i <= m; i++)
+                  for (let j = 1; j <= n; j++)
+                    d[i][j] = Math.min(
+                      d[i-1][j] + 1,
+                      d[i][j-1] + 1,
+                      d[i-1][j-1] + (a[i-1] !== b[j-1] ? 1 : 0)
+                    );
+                console.log(d[m][n]);
+              ")
+
+              if [ "$distance" -le 2 ]; then
+                echo "::warning::Typosquat risk: '$new_name' is within Levenshtein distance $distance of existing skill '$existing_name'"
+              fi
+            done <<< "$existing"
+          done <<< "${{ steps.changed.outputs.files }}"
+
+      - name: Security verdict check
+        if: steps.changed.outputs.files != ''
+        run: |
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            verdict=$(jq -r '.security_verdict' "$file")
+            if [ "$verdict" = "dangerous" ]; then
+              echo "::error::Skill in $file has security_verdict=dangerous — blocked"
+              exit 1
+            fi
+          done <<< "${{ steps.changed.outputs.files }}"

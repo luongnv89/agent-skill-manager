@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-03-28T00:00:00Z",
+  "manifests": [
+    {
+      "name": "skill-auditor",
+      "author": "luongnv89",
+      "description": "Analyze agent skills for security risks, malicious patterns, and potential dangers before installation",
+      "repository": "https://github.com/luongnv89/skills",
+      "commit": "0000000000000000000000000000000000000000",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": ["security", "audit", "trust"],
+      "security_verdict": "pass",
+      "published_at": "2026-03-28T00:00:00Z"
+    }
+  ]
+}
