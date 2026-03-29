@@ -135,7 +135,12 @@ export function resolveSourceType(
  */
 export function sourceToCloneUrl(source: string): string | null {
   if (source.startsWith("github:")) {
-    const ownerRepo = source.slice("github:".length);
+    let ownerRepo = source.slice("github:".length);
+    // Strip #ref or #ref:subpath fragments (lock entries may contain them)
+    const hashIdx = ownerRepo.indexOf("#");
+    if (hashIdx !== -1) {
+      ownerRepo = ownerRepo.slice(0, hashIdx);
+    }
     return `https://github.com/${ownerRepo}.git`;
   }
   // Support file:// URLs for testing and local bare-repo sources
@@ -143,6 +148,25 @@ export function sourceToCloneUrl(source: string): string | null {
     return source;
   }
   return null;
+}
+
+/**
+ * Extract owner and repo from a source string like "github:owner/repo"
+ * or "github:owner/repo#ref". Returns null if the source is not a GitHub source.
+ */
+export function extractOwnerRepo(
+  source: string,
+): { owner: string; repo: string } | null {
+  if (!source.startsWith("github:")) return null;
+  let ownerRepo = source.slice("github:".length);
+  // Strip #ref or #ref:subpath fragments
+  const hashIdx = ownerRepo.indexOf("#");
+  if (hashIdx !== -1) {
+    ownerRepo = ownerRepo.slice(0, hashIdx);
+  }
+  const parts = ownerRepo.split("/");
+  if (parts.length < 2 || !parts[0] || !parts[1]) return null;
+  return { owner: parts[0], repo: parts[1] };
 }
 
 // ─── Outdated Check ─────────────────────────────────────────────────────────
@@ -158,6 +182,8 @@ export function sourceToCloneUrl(source: string): string | null {
 export interface _CheckOutdatedTestOverrides {
   readLockFn?: typeof readLock;
   fetchRegistryIndexFn?: typeof fetchRegistryIndex;
+  /** Pre-read lock file — avoids a redundant readLock() call when the caller already has it. */
+  lock?: import("./utils/types").LockFile;
 }
 
 export async function checkOutdated(
@@ -166,7 +192,7 @@ export async function checkOutdated(
   const readLockFn = _overrides?.readLockFn ?? readLock;
   const fetchRegistryFn =
     _overrides?.fetchRegistryIndexFn ?? fetchRegistryIndex;
-  const lock = await readLockFn();
+  const lock = _overrides?.lock ?? (await readLockFn());
   const entries = Object.entries(lock.skills);
 
   if (entries.length === 0) {
@@ -302,6 +328,8 @@ export interface _UpdateTestOverrides {
   auditFn?: (
     skillPath: string,
     skillName: string,
+    sourceOwner?: string,
+    sourceRepo?: string,
   ) => Promise<{ verdict: SecurityVerdict }>;
   loadConfigFn?: typeof loadConfig;
   resolveProviderPathFn?: typeof resolveProviderPath;
@@ -385,7 +413,13 @@ export async function updateSkill(
     let securityVerdict: SecurityVerdict = "safe";
     try {
       const auditFn = _overrides?.auditFn ?? auditSkillSecurity;
-      const auditReport = await auditFn(tempDir, name);
+      const ownerRepo = extractOwnerRepo(entry.source);
+      const auditReport = await auditFn(
+        tempDir,
+        name,
+        ownerRepo?.owner,
+        ownerRepo?.repo,
+      );
       securityVerdict = auditReport.verdict;
 
       if (securityVerdict === "dangerous") {
@@ -397,19 +431,19 @@ export async function updateSkill(
         };
       }
 
-      if (securityVerdict === "warning") {
+      if (securityVerdict === "warning" || securityVerdict === "caution") {
         if (!skipConfirm) {
-          // Without --yes, skip warned skills and tell the user how to override
+          // Without --yes, skip warned/cautioned skills and tell the user how to override
           return {
             name,
             status: "skipped",
-            reason: "Security audit: warning — use --yes to override",
+            reason: `Security audit: ${securityVerdict} — use --yes to override`,
             securityVerdict,
           };
         }
         // With --yes, warn but proceed with the update
         debug(
-          `updater: security audit warning for ${name} — proceeding (--yes)`,
+          `updater: security audit ${securityVerdict} for ${name} — proceeding (--yes)`,
         );
       }
     } catch (auditErr: any) {
@@ -515,15 +549,30 @@ export async function updateSkill(
   }
 }
 
+/** @internal — injectable overrides for testing updateSkills. */
+export interface _UpdateSkillsTestOverrides {
+  readLockFn?: typeof readLock;
+  checkOutdatedFn?: (
+    overrides?: _CheckOutdatedTestOverrides,
+  ) => Promise<OutdatedSummary>;
+  updateSkillFn?: typeof updateSkill;
+}
+
 /**
  * Update multiple skills sequentially (for safety).
  */
 export async function updateSkills(
   names: string[] | null,
   skipConfirm: boolean,
+  _overrides?: _UpdateSkillsTestOverrides,
 ): Promise<UpdateSummary> {
-  const lock = await readLock();
-  const outdated = await checkOutdated();
+  const readLockFn = _overrides?.readLockFn ?? readLock;
+  const checkOutdatedFn = _overrides?.checkOutdatedFn ?? checkOutdated;
+  const updateSkillFn = _overrides?.updateSkillFn ?? updateSkill;
+
+  // Read lock once and share with checkOutdated to avoid redundant reads
+  const lock = await readLockFn();
+  const outdated = await checkOutdatedFn({ lock });
 
   // TODO: Optimization opportunity — checkOutdated already queries every remote
   // via git ls-remote to obtain the latest commit hash. updateSkill then queries
@@ -575,7 +624,7 @@ export async function updateSkills(
     const lockEntry = lock.skills[entry.name];
     if (!lockEntry) continue;
 
-    const result = await updateSkill(entry.name, lockEntry, skipConfirm);
+    const result = await updateSkillFn(entry.name, lockEntry, skipConfirm);
     results.push(result);
   }
 

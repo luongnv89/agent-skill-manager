@@ -6,12 +6,14 @@ import {
   shortHash,
   resolveSourceType,
   sourceToCloneUrl,
+  extractOwnerRepo,
   getLatestRemoteCommit,
   formatOutdatedTable,
   formatOutdatedJSON,
   formatOutdatedMachine,
   formatUpdateJSON,
   formatUpdateMachine,
+  updateSkills,
 } from "./updater";
 import type { OutdatedSummary, UpdateSummary } from "./updater";
 import type { LockEntry } from "./utils/types";
@@ -107,6 +109,47 @@ describe("sourceToCloneUrl", () => {
     expect(sourceToCloneUrl("file:///tmp/my-repo.git")).toBe(
       "file:///tmp/my-repo.git",
     );
+  });
+
+  test("strips #ref fragment from github source", () => {
+    expect(sourceToCloneUrl("github:alice/my-skill#main")).toBe(
+      "https://github.com/alice/my-skill.git",
+    );
+  });
+
+  test("strips #ref:subpath fragment from github source", () => {
+    expect(sourceToCloneUrl("github:alice/my-skill#v2:src/skill")).toBe(
+      "https://github.com/alice/my-skill.git",
+    );
+  });
+});
+
+// ─── extractOwnerRepo ─────────────────────────────────────────────────────
+
+describe("extractOwnerRepo", () => {
+  test("extracts owner and repo from github:owner/repo", () => {
+    const result = extractOwnerRepo("github:alice/my-skill");
+    expect(result).toEqual({ owner: "alice", repo: "my-skill" });
+  });
+
+  test("strips #ref fragment before extracting", () => {
+    const result = extractOwnerRepo("github:alice/my-skill#main");
+    expect(result).toEqual({ owner: "alice", repo: "my-skill" });
+  });
+
+  test("strips #ref:subpath fragment before extracting", () => {
+    const result = extractOwnerRepo("github:alice/my-skill#v2:src/skill");
+    expect(result).toEqual({ owner: "alice", repo: "my-skill" });
+  });
+
+  test("returns null for non-github sources", () => {
+    expect(extractOwnerRepo("local:/path/to/skill")).toBeNull();
+    expect(extractOwnerRepo("file:///tmp/repo")).toBeNull();
+  });
+
+  test("returns null for malformed github sources", () => {
+    expect(extractOwnerRepo("github:")).toBeNull();
+    expect(extractOwnerRepo("github:onlyowner")).toBeNull();
   });
 });
 
@@ -797,5 +840,284 @@ describe("updateSkill happy path", () => {
     const resultYes = await updateSkill("warn-skill", entry, true, overrides);
     expect(resultYes.status).toBe("updated");
     expect(resultYes.securityVerdict).toBe("warning");
+  });
+
+  test("updateSkill with caution verdict: skips without --yes, proceeds with --yes", async () => {
+    const { bareRepoPath } = await createBareGitRepo(
+      tempDir,
+      "caution-skill",
+      "# Caution skill content",
+    );
+
+    const skillsDir = join(tempDir, "caution-skills");
+    const installedDir = join(skillsDir, "caution-skill");
+    await mkdir(installedDir, { recursive: true });
+    await writeFile(join(installedDir, "skill.md"), "# Old");
+
+    const oldCommit = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
+    const overrides = {
+      auditFn: async () => ({ verdict: "caution" as const }),
+      loadConfigFn: async () =>
+        ({ providers: [{ name: "claude", global: skillsDir }] }) as any,
+      resolveProviderPathFn: (p: string) => p,
+      writeLockEntryFn: async () => {},
+    };
+
+    const { updateSkill } = await import("./updater");
+    const entry: LockEntry = {
+      source: `file://${bareRepoPath}`,
+      commitHash: oldCommit,
+      ref: null,
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+      sourceType: "github",
+    };
+
+    // Without --yes (skipConfirm=false) — should skip
+    const resultNoYes = await updateSkill(
+      "caution-skill",
+      entry,
+      false,
+      overrides,
+    );
+    expect(resultNoYes.status).toBe("skipped");
+    expect(resultNoYes.securityVerdict).toBe("caution");
+    expect(resultNoYes.reason).toContain("caution");
+    expect(resultNoYes.reason).toContain("--yes");
+
+    // With --yes (skipConfirm=true) — should proceed
+    const resultYes = await updateSkill(
+      "caution-skill",
+      entry,
+      true,
+      overrides,
+    );
+    expect(resultYes.status).toBe("updated");
+    expect(resultYes.securityVerdict).toBe("caution");
+  });
+});
+
+// ─── updateSkills orchestrator ──────────────────────────────────────────────
+
+describe("updateSkills orchestrator", () => {
+  test("filters only outdated entries for update", async () => {
+    const updatedNames: string[] = [];
+    const summary = await updateSkills(null, false, {
+      readLockFn: async () => ({
+        version: 1,
+        skills: {
+          "skill-a": {
+            source: "github:user/skill-a",
+            commitHash: "aaa",
+            ref: "main",
+            installedAt: "2026-01-01T00:00:00.000Z",
+            provider: "claude",
+            sourceType: "github",
+          },
+          "skill-b": {
+            source: "github:user/skill-b",
+            commitHash: "bbb",
+            ref: "main",
+            installedAt: "2026-01-01T00:00:00.000Z",
+            provider: "claude",
+            sourceType: "github",
+          },
+        },
+      }),
+      checkOutdatedFn: async () => ({
+        entries: [
+          {
+            name: "skill-a",
+            installedCommit: "aaa",
+            latestCommit: "aaa2",
+            source: "github:user/skill-a",
+            sourceType: "github" as const,
+            status: "outdated" as const,
+          },
+          {
+            name: "skill-b",
+            installedCommit: "bbb",
+            latestCommit: "bbb",
+            source: "github:user/skill-b",
+            sourceType: "github" as const,
+            status: "up-to-date" as const,
+          },
+        ],
+        outdatedCount: 1,
+        upToDateCount: 1,
+        untrackedCount: 0,
+        errorCount: 0,
+      }),
+      updateSkillFn: async (name, _entry, _skip) => {
+        updatedNames.push(name);
+        return { name, status: "updated", oldCommit: "aaa", newCommit: "aaa2" };
+      },
+    });
+
+    // Only skill-a should have been updated (it was outdated)
+    expect(updatedNames).toEqual(["skill-a"]);
+    expect(summary.updatedCount).toBe(1);
+    expect(summary.skippedCount).toBe(0);
+    expect(summary.failedCount).toBe(0);
+    expect(summary.results).toHaveLength(1);
+    expect(summary.results[0].name).toBe("skill-a");
+  });
+
+  test("warns about missing skill names", async () => {
+    const summary = await updateSkills(["nonexistent-skill"], false, {
+      readLockFn: async () => ({
+        version: 1,
+        skills: {
+          "skill-a": {
+            source: "github:user/skill-a",
+            commitHash: "aaa",
+            ref: "main",
+            installedAt: "2026-01-01T00:00:00.000Z",
+            provider: "claude",
+            sourceType: "github",
+          },
+        },
+      }),
+      checkOutdatedFn: async () => ({
+        entries: [
+          {
+            name: "skill-a",
+            installedCommit: "aaa",
+            latestCommit: "aaa2",
+            source: "github:user/skill-a",
+            sourceType: "github" as const,
+            status: "outdated" as const,
+          },
+        ],
+        outdatedCount: 1,
+        upToDateCount: 0,
+        untrackedCount: 0,
+        errorCount: 0,
+      }),
+      updateSkillFn: async (name) => {
+        return { name, status: "updated" };
+      },
+    });
+
+    // The requested skill doesn't exist so it should generate a warning
+    expect(summary.warnings).toBeDefined();
+    expect(summary.warnings).toContain("nonexistent-skill");
+    expect(summary.results).toHaveLength(0);
+  });
+
+  test("returns results array with correct counts", async () => {
+    const summary = await updateSkills(null, false, {
+      readLockFn: async () => ({
+        version: 1,
+        skills: {
+          "skill-a": {
+            source: "github:user/skill-a",
+            commitHash: "aaa",
+            ref: "main",
+            installedAt: "2026-01-01T00:00:00.000Z",
+            provider: "claude",
+            sourceType: "github",
+          },
+          "skill-b": {
+            source: "github:user/skill-b",
+            commitHash: "bbb",
+            ref: "main",
+            installedAt: "2026-01-01T00:00:00.000Z",
+            provider: "claude",
+            sourceType: "github",
+          },
+          "skill-c": {
+            source: "github:user/skill-c",
+            commitHash: "ccc",
+            ref: "main",
+            installedAt: "2026-01-01T00:00:00.000Z",
+            provider: "claude",
+            sourceType: "github",
+          },
+        },
+      }),
+      checkOutdatedFn: async () => ({
+        entries: [
+          {
+            name: "skill-a",
+            installedCommit: "aaa",
+            latestCommit: "aaa2",
+            source: "github:user/skill-a",
+            sourceType: "github" as const,
+            status: "outdated" as const,
+          },
+          {
+            name: "skill-b",
+            installedCommit: "bbb",
+            latestCommit: "bbb2",
+            source: "github:user/skill-b",
+            sourceType: "github" as const,
+            status: "outdated" as const,
+          },
+          {
+            name: "skill-c",
+            installedCommit: "ccc",
+            latestCommit: "ccc2",
+            source: "github:user/skill-c",
+            sourceType: "github" as const,
+            status: "outdated" as const,
+          },
+        ],
+        outdatedCount: 3,
+        upToDateCount: 0,
+        untrackedCount: 0,
+        errorCount: 0,
+      }),
+      updateSkillFn: async (name) => {
+        if (name === "skill-a")
+          return {
+            name,
+            status: "updated",
+            oldCommit: "aaa",
+            newCommit: "aaa2",
+          };
+        if (name === "skill-b")
+          return { name, status: "skipped", reason: "Security warning" };
+        return { name, status: "failed", reason: "Clone failed" };
+      },
+    });
+
+    expect(summary.results).toHaveLength(3);
+    expect(summary.updatedCount).toBe(1);
+    expect(summary.skippedCount).toBe(1);
+    expect(summary.failedCount).toBe(1);
+  });
+
+  test("passes pre-read lock to checkOutdated (no redundant reads)", async () => {
+    let readLockCallCount = 0;
+    let checkOutdatedReceivedLock = false;
+
+    await updateSkills(null, false, {
+      readLockFn: async () => {
+        readLockCallCount++;
+        return {
+          version: 1,
+          skills: {},
+        };
+      },
+      checkOutdatedFn: async (overrides) => {
+        // Verify checkOutdated received the pre-read lock
+        checkOutdatedReceivedLock = overrides?.lock !== undefined;
+        return {
+          entries: [],
+          outdatedCount: 0,
+          upToDateCount: 0,
+          untrackedCount: 0,
+          errorCount: 0,
+        };
+      },
+      updateSkillFn: async (name) => ({ name, status: "updated" }),
+    });
+
+    // readLock should only be called once (not twice)
+    expect(readLockCallCount).toBe(1);
+    // checkOutdated should have received the pre-read lock
+    expect(checkOutdatedReceivedLock).toBe(true);
   });
 });
