@@ -90,11 +90,12 @@ export async function checkGitVersion(): Promise<CheckResult> {
       fix: "Upgrade git: https://git-scm.com/downloads",
     };
   } catch {
+    // Gracefully skip when git is not available — checkGitAvailable
+    // already reports a failure for missing git, so avoid a duplicate.
     return {
       name: "Git version",
-      status: "fail",
-      message: "git not found",
-      fix: "Install git: https://git-scm.com/downloads",
+      status: "pass",
+      message: "Skipped — git not available",
     };
   }
 }
@@ -247,8 +248,8 @@ export async function checkConfigValid(): Promise<CheckResult> {
     if (missingFields.length > 0) {
       return {
         name: "Config file valid",
-        status: "warn",
-        message: `Missing optional fields (${missingFields.join(", ")})`,
+        status: "fail",
+        message: `Missing required fields: ${missingFields.join(", ")}`,
         fix: "Run: asm init",
       };
     }
@@ -468,7 +469,11 @@ export async function checkNoOrphanedSkills(
 
 export async function checkDiskSpace(): Promise<CheckResult> {
   try {
-    const { stdout } = await execFileAsync("df", ["-k", homedir()], {
+    // Use df -Pk (POSIX mode) to standardize output across Linux distros.
+    // -P forces single-line-per-filesystem and a consistent column layout:
+    //   Filesystem 1024-blocks Used Available Capacity Mounted-on
+    // This avoids issues with varying column indices or wrapped lines.
+    const { stdout } = await execFileAsync("df", ["-Pk", homedir()], {
       timeout: 5_000,
     });
     const lines = stdout.trim().split("\n");
@@ -479,7 +484,7 @@ export async function checkDiskSpace(): Promise<CheckResult> {
         message: "Could not parse df output",
       };
     }
-    // df -k outputs KB; available is typically the 4th column
+    // POSIX df -Pk: available is always the 4th column (index 3)
     const parts = lines[1].split(/\s+/);
     const availableKB = parseInt(parts[3], 10);
 
