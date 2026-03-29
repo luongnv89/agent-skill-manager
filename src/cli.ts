@@ -635,6 +635,17 @@ async function cmdSearch(args: ParsedArgs) {
   const startTime = performance.now();
   const query = args.subcommand;
   if (!query) {
+    if (args.flags.machine) {
+      console.log(
+        formatMachineError(
+          "search",
+          ErrorCodes.UNKNOWN_ERROR,
+          "Missing required argument: <query>",
+          startTime,
+        ),
+      );
+      process.exit(2);
+    }
     error("Missing required argument: <query>");
     console.error(`Run "asm search --help" for usage.`);
     process.exit(2);
@@ -961,6 +972,17 @@ async function cmdAuditSecurity(args: ParsedArgs, startTime?: number) {
   if (args.flags.all) {
     await cmdAuditSecurityAll(args, startTime);
   } else if (!target) {
+    if (args.flags.machine && startTime !== undefined) {
+      console.log(
+        formatMachineError(
+          "audit security",
+          ErrorCodes.UNKNOWN_ERROR,
+          "Missing target. Provide a skill name, GitHub source, or use --all.",
+          startTime,
+        ),
+      );
+      process.exit(2);
+    }
     error(
       "Missing target. Provide a skill name, GitHub source, or use --all.\nUsage: asm audit security <name|github:owner/repo> [--all]",
     );
@@ -2126,7 +2148,7 @@ async function cmdInstall(args: ParsedArgs) {
         version: r.version,
         provider: r.provider,
         source: r.source,
-        resolutionSource: resolutionSource,
+        resolution_source: resolutionSource,
       }));
       console.log(
         formatMachineOutput(
@@ -3755,9 +3777,9 @@ async function cmdUpdate(args: ParsedArgs) {
         name: r.name,
         status: r.status,
         reason: r.reason || null,
-        oldCommit: r.oldCommit || null,
-        newCommit: r.newCommit || null,
-        securityVerdict: r.securityVerdict || null,
+        old_commit: r.oldCommit || null,
+        new_commit: r.newCommit || null,
+        security_verdict: r.securityVerdict || null,
       }));
       console.log(formatMachineOutput("update", data, startTime));
       return;

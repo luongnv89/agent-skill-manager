@@ -73,7 +73,7 @@ export function formatMachineOutput<T>(
  */
 export function formatMachineError(
   command: string,
-  code: string,
+  code: ErrorCode,
   message: string,
   startTime: number,
   details?: unknown,

@@ -550,6 +550,54 @@ describe("CLI integration: --machine output", () => {
     expect(typeof parsed.data.total_duplicates).toBe("number");
     expect(Array.isArray(parsed.data.duplicate_groups)).toBe(true);
   });
+
+  test("install --machine produces valid v1 envelope with snake_case fields", async () => {
+    // Install a known skill from the index to test machine output
+    const { stdout, exitCode } = await runCLI(
+      "install",
+      "code-review",
+      "--machine",
+    );
+    if (exitCode === 0) {
+      const parsed = JSON.parse(stdout);
+      expect(parsed.version).toBe(1);
+      expect(parsed.command).toBe("install");
+      expect(parsed.status).toBe("ok");
+      expect(parsed.meta).toBeDefined();
+      // Verify snake_case field names in data
+      const data = Array.isArray(parsed.data) ? parsed.data[0] : parsed.data;
+      if (data) {
+        expect(data).toHaveProperty("resolution_source");
+        expect(data).not.toHaveProperty("resolutionSource");
+      }
+    }
+  });
+
+  test("audit security --machine produces error envelope when no target", async () => {
+    const { stdout, exitCode } = await runCLI("audit", "security", "--machine");
+    expect(exitCode).toBe(2);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("audit security");
+    expect(parsed.status).toBe("error");
+    expect(parsed.error).toBeDefined();
+    expect(parsed.error.code).toBeDefined();
+    expect(typeof parsed.error.message).toBe("string");
+    expect(parsed.meta).toBeDefined();
+  });
+
+  test("search --machine produces error envelope when no query", async () => {
+    const { stdout, exitCode } = await runCLI("search", "--machine");
+    expect(exitCode).toBe(2);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("search");
+    expect(parsed.status).toBe("error");
+    expect(parsed.error).toBeDefined();
+    expect(parsed.error.code).toBeDefined();
+    expect(typeof parsed.error.message).toBe("string");
+    expect(parsed.meta).toBeDefined();
+  });
 });
 
 describe("CLI integration: list", () => {
