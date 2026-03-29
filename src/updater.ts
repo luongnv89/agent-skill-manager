@@ -18,7 +18,8 @@ import type { RegistryManifest } from "./registry";
 import type { LockEntry } from "./utils/types";
 import { auditSkillSecurity } from "./security-auditor";
 import type { SecurityVerdict } from "./utils/types";
-import { resolveProviderPath } from "./config";
+import { resolveProviderPath, loadConfig } from "./config";
+import { ansi } from "./formatter";
 
 const execFileAsync = promisify(execFile);
 
@@ -58,6 +59,8 @@ export interface UpdateSummary {
   updatedCount: number;
   skippedCount: number;
   failedCount: number;
+  /** Warnings for skills requested by name but not found in the lock file. */
+  warnings?: string[];
 }
 
 // ─── Concurrency Pool ───────────────────────────────────────────────────────
@@ -367,14 +370,27 @@ export async function updateSkill(
       }
     } catch (auditErr: any) {
       debug(`updater: security audit failed for ${name}: ${auditErr.message}`);
-      // Continue with update even if audit fails (non-fatal)
+      return {
+        name,
+        status: "failed",
+        reason: `Security audit failed — skipping update: ${auditErr.message}`,
+      };
     }
 
     // Step 3: Atomic swap
-    // Determine the installed path from the provider config
-    const installedPath = resolveProviderPath(
-      `~/.${entry.provider === "agents" ? "agents" : entry.provider}/skills`,
+    // Determine the installed path from the provider config.
+    // NOTE: The lock entry does not currently record scope (global vs project).
+    // updateSkill always assumes global path. Scope tracking would be a
+    // separate issue — for now we look up the provider's configured global path
+    // from AppConfig rather than hard-coding it.
+    const config = await loadConfig();
+    const providerConfig = config.providers.find(
+      (p) => p.name === entry.provider,
     );
+    const globalPath = providerConfig
+      ? providerConfig.global
+      : `~/.${entry.provider}/skills`;
+    const installedPath = resolveProviderPath(globalPath);
     const targetDir = join(installedPath, name);
 
     // Remove .git from cloned repo
@@ -463,12 +479,16 @@ export async function updateSkills(
   // Filter to outdated skills only
   let toUpdate = outdated.entries.filter((e) => e.status === "outdated");
 
+  // Track warnings for skills requested by name but not found in lock file
+  const notFoundWarnings: string[] = [];
+
   // If specific names given, filter further
   if (names && names.length > 0) {
     const nameSet = new Set(names.map((n) => n.toLowerCase()));
     toUpdate = toUpdate.filter((e) => nameSet.has(e.name.toLowerCase()));
 
-    // Check for names that don't exist or aren't outdated
+    // Check for names that don't exist or aren't outdated, and collect
+    // not-found warnings so the caller can surface them to the user.
     for (const name of names) {
       if (!toUpdate.find((e) => e.name.toLowerCase() === name.toLowerCase())) {
         const exists = outdated.entries.find(
@@ -476,6 +496,7 @@ export async function updateSkills(
         );
         if (!exists) {
           debug(`updater: skill "${name}" not found in lock file`);
+          notFoundWarnings.push(name);
         } else {
           debug(`updater: skill "${name}" is already up to date`);
         }
@@ -484,7 +505,13 @@ export async function updateSkills(
   }
 
   if (toUpdate.length === 0) {
-    return { results: [], updatedCount: 0, skippedCount: 0, failedCount: 0 };
+    return {
+      results: [],
+      updatedCount: 0,
+      skippedCount: 0,
+      failedCount: 0,
+      ...(notFoundWarnings.length > 0 ? { warnings: notFoundWarnings } : {}),
+    };
   }
 
   // Update sequentially for safety
@@ -502,6 +529,7 @@ export async function updateSkills(
     updatedCount: results.filter((r) => r.status === "updated").length,
     skippedCount: results.filter((r) => r.status === "skipped").length,
     failedCount: results.filter((r) => r.status === "failed").length,
+    ...(notFoundWarnings.length > 0 ? { warnings: notFoundWarnings } : {}),
   };
 }
 
@@ -520,16 +548,11 @@ export function formatOutdatedTable(
     return "No skills installed.";
   }
 
-  const red = useColor
-    ? (s: string) => `\x1b[31m${s}\x1b[0m`
-    : (s: string) => s;
-  const green = useColor
-    ? (s: string) => `\x1b[32m${s}\x1b[0m`
-    : (s: string) => s;
-  const yellow = useColor
-    ? (s: string) => `\x1b[33m${s}\x1b[0m`
-    : (s: string) => s;
-  const dim = useColor ? (s: string) => `\x1b[2m${s}\x1b[0m` : (s: string) => s;
+  const id = (s: string) => s;
+  const red = useColor ? ansi.red : id;
+  const green = useColor ? ansi.green : id;
+  const yellow = useColor ? ansi.yellow : id;
+  const dim = useColor ? ansi.dim : id;
 
   const header = `${"Skill".padEnd(22)}${"Installed".padEnd(14)}${"Latest".padEnd(14)}Source`;
   const separator = "─".repeat(60);
@@ -650,6 +673,9 @@ export function formatUpdateMachine(summary: UpdateSummary): string {
         name: r.name,
         status: r.status,
         reason: r.reason || null,
+        oldCommit: r.oldCommit || null,
+        newCommit: r.newCommit || null,
+        securityVerdict: r.securityVerdict || null,
       })),
       updated: summary.updatedCount,
       skipped: summary.skippedCount,

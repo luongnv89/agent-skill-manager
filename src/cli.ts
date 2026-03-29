@@ -3464,40 +3464,36 @@ async function cmdUpdate(args: ParsedArgs) {
     }
 
     // Human-readable output
+
+    // Warn about skills not found in the lock file
+    if (summary.warnings && summary.warnings.length > 0) {
+      for (const w of summary.warnings) {
+        console.error(
+          ansi.yellow(`Warning: skill "${w}" not found in lock file — skipped`),
+        );
+      }
+    }
+
     if (summary.results.length === 0) {
       console.log("All skills are up to date.");
       return;
     }
 
-    const useColor = !args.flags.noColor && process.stdout.isTTY !== false;
-    const green = useColor
-      ? (s: string) => `\x1b[32m${s}\x1b[0m`
-      : (s: string) => s;
-    const red = useColor
-      ? (s: string) => `\x1b[31m${s}\x1b[0m`
-      : (s: string) => s;
-    const yellow = useColor
-      ? (s: string) => `\x1b[33m${s}\x1b[0m`
-      : (s: string) => s;
-    const dim = useColor
-      ? (s: string) => `\x1b[2m${s}\x1b[0m`
-      : (s: string) => s;
-
     for (const result of summary.results) {
       switch (result.status) {
         case "updated":
           console.log(
-            `${green("✓")} ${result.name} ${dim(result.oldCommit || "")} → ${result.newCommit || ""}`,
+            `${ansi.green("✓")} ${result.name} ${ansi.dim(result.oldCommit || "")} → ${result.newCommit || ""}`,
           );
           break;
         case "skipped":
           console.log(
-            `${yellow("○")} ${result.name} ${dim(result.reason || "skipped")}`,
+            `${ansi.yellow("○")} ${result.name} ${ansi.dim(result.reason || "skipped")}`,
           );
           break;
         case "failed":
           console.log(
-            `${red("✗")} ${result.name} ${dim(result.reason || "failed")}`,
+            `${ansi.red("✗")} ${result.name} ${ansi.dim(result.reason || "failed")}`,
           );
           break;
       }
@@ -3506,11 +3502,11 @@ async function cmdUpdate(args: ParsedArgs) {
     console.log("");
     const parts: string[] = [];
     if (summary.updatedCount > 0)
-      parts.push(green(`${summary.updatedCount} updated`));
+      parts.push(ansi.green(`${summary.updatedCount} updated`));
     if (summary.skippedCount > 0)
-      parts.push(yellow(`${summary.skippedCount} skipped`));
+      parts.push(ansi.yellow(`${summary.skippedCount} skipped`));
     if (summary.failedCount > 0)
-      parts.push(red(`${summary.failedCount} failed`));
+      parts.push(ansi.red(`${summary.failedCount} failed`));
     console.log(parts.join(", "));
 
     if (summary.failedCount > 0) {

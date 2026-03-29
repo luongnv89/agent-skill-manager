@@ -1,7 +1,5 @@
-import { describe, test, expect, mock, beforeEach, afterEach } from "bun:test";
-import { mkdtemp, writeFile, mkdir, rm, readFile } from "fs/promises";
+import { describe, test, expect } from "bun:test";
 import { join } from "path";
-import { tmpdir } from "os";
 import {
   shortHash,
   resolveSourceType,
@@ -284,4 +282,80 @@ describe("formatUpdateMachine", () => {
     expect(parsed.data).toBeDefined();
     expect(parsed.data.results).toBeArray();
   });
+
+  test("includes oldCommit, newCommit, and securityVerdict in results", () => {
+    const summary: UpdateSummary = {
+      results: [
+        {
+          name: "my-skill",
+          status: "updated",
+          oldCommit: "a1b2c3d",
+          newCommit: "e5f6g7h",
+          securityVerdict: "safe",
+        },
+        {
+          name: "skipped-skill",
+          status: "skipped",
+          reason: "Already up to date",
+        },
+      ],
+      updatedCount: 1,
+      skippedCount: 1,
+      failedCount: 0,
+    };
+
+    const parsed = JSON.parse(formatUpdateMachine(summary));
+    const updatedResult = parsed.data.results[0];
+    expect(updatedResult.oldCommit).toBe("a1b2c3d");
+    expect(updatedResult.newCommit).toBe("e5f6g7h");
+    expect(updatedResult.securityVerdict).toBe("safe");
+
+    // Results without optional fields should have null values
+    const skippedResult = parsed.data.results[1];
+    expect(skippedResult.oldCommit).toBeNull();
+    expect(skippedResult.newCommit).toBeNull();
+    expect(skippedResult.securityVerdict).toBeNull();
+  });
+});
+
+// ─── updateSkill (pure/early-return paths) ─────────────────────────────────
+
+describe("updateSkill", () => {
+  test("skips local skills", async () => {
+    const { updateSkill } = await import("./updater");
+    const entry: LockEntry = {
+      source: "local:/path/to/skill",
+      commitHash: "abc1234",
+      ref: null,
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+    };
+
+    const result = await updateSkill("local-skill", entry, false);
+    expect(result.status).toBe("skipped");
+    expect(result.reason).toContain("Local skill");
+  });
+
+  test("fails when clone URL cannot be determined", async () => {
+    const { updateSkill } = await import("./updater");
+    const entry: LockEntry = {
+      source: "invalid-source",
+      commitHash: "abc1234",
+      ref: "main",
+      installedAt: "2026-01-01T00:00:00.000Z",
+      provider: "claude",
+    };
+
+    const result = await updateSkill("bad-source-skill", entry, false);
+    expect(result.status).toBe("failed");
+    expect(result.reason).toContain("Cannot determine remote URL");
+  });
+
+  // Note: Testing "security audit throws -> blocks update" requires
+  // end-to-end git clone which cannot be easily mocked in Bun without
+  // cross-file mock leaks (mock.module is global). The behavior is
+  // verified by code inspection: the catch block in updateSkill now
+  // returns { status: "failed", reason: "Security audit failed ..." }
+  // instead of continuing the update.
+  // See src/updater.ts ~line 371-378.
 });
