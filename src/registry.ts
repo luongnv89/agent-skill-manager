@@ -382,7 +382,7 @@ export async function buildIndex(manifestsDir: string): Promise<RegistryIndex> {
 
 // ─── Registry-Based Resolution ─────────────────────────────────────────────
 
-const REGISTRY_INDEX_URL =
+export const REGISTRY_INDEX_URL =
   "https://raw.githubusercontent.com/luongnv89/asm-registry/main/index.json";
 
 const REGISTRY_CACHE_PATH = join(

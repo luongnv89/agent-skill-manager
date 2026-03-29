@@ -103,6 +103,12 @@ import {
   formatUpdateJSON,
   formatUpdateMachine,
 } from "./updater";
+import {
+  runAllChecks,
+  formatDoctorReport,
+  formatDoctorJSON,
+  formatDoctorMachine,
+} from "./doctor";
 import { ingestRepo, listIndexedRepos, removeRepoIndex } from "./ingester";
 import {
   searchSkills as searchIndexSkills,
@@ -327,6 +333,7 @@ ${ansi.bold("Commands:")}
   publish [path]         Validate, audit, and submit a skill to the registry
   bundle                 Manage skill bundles (create, install, list, show, remove)
   index                  Manage skill index (ingest, search, list)
+  doctor                 Run environment health checks and diagnostics
   config show            Print current config
   config path            Print config file path
   config reset           Reset config to defaults
@@ -2308,6 +2315,48 @@ async function cmdStats(args: ParsedArgs) {
   }
 }
 
+// ─── Doctor ─────────────────────────────────────────────────────────────────
+
+function printDoctorHelp() {
+  console.log(`${ansi.bold("Usage:")} asm doctor [options]
+
+Run environment health checks and diagnostics. Validates all
+prerequisites for using asm — git, GitHub CLI, Node.js, config,
+lock file, registry, installed skills, and disk space.
+
+${ansi.bold("Options:")}
+  --json               Output as JSON
+  --machine            Output in stable machine-readable v1 envelope format
+  --no-color           Disable ANSI colors
+  -V, --verbose        Show debug output
+
+${ansi.bold("Examples:")}
+  asm doctor                        ${ansi.dim("Run all health checks")}
+  asm doctor --json                 ${ansi.dim("Output as JSON")}
+  asm doctor --machine              ${ansi.dim("Machine-readable v1 envelope output")}`);
+}
+
+async function cmdDoctor(args: ParsedArgs) {
+  if (args.flags.help) {
+    printDoctorHelp();
+    return;
+  }
+
+  const report = await runAllChecks();
+
+  if (args.flags.machine) {
+    console.log(formatDoctorMachine(report));
+  } else if (args.flags.json) {
+    console.log(formatDoctorJSON(report));
+  } else {
+    console.log(formatDoctorReport(report));
+  }
+
+  if (report.failures > 0) {
+    process.exit(1);
+  }
+}
+
 // ─── Link ───────────────────────────────────────────────────────────────────
 
 function printLinkHelp() {
@@ -3617,6 +3666,9 @@ export async function runCLI(argv: string[]): Promise<void> {
       break;
     case "update":
       await cmdUpdate(args);
+      break;
+    case "doctor":
+      await cmdDoctor(args);
       break;
     default:
       error(`Unknown command: "${args.command}"`);
