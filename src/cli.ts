@@ -70,6 +70,11 @@ import {
   listBundles,
   removeBundle,
 } from "./bundler";
+import {
+  publishSkill,
+  formatPublishMachine,
+  formatFallbackInstructions,
+} from "./publisher";
 import type { BundleSkillRef } from "./utils/types";
 import {
   detectDuplicates,
@@ -123,6 +128,8 @@ interface ParsedArgs {
     available: boolean;
     has: string[];
     missing: string[];
+    dryRun: boolean;
+    machine: boolean;
   };
 }
 
@@ -154,6 +161,8 @@ export function parseArgs(argv: string[]): ParsedArgs {
       available: false,
       has: [],
       missing: [],
+      dryRun: false,
+      machine: false,
     },
   };
 
@@ -233,6 +242,10 @@ export function parseArgs(argv: string[]): ParsedArgs {
       // Vercel-style --skill flag: capture as --path for compatibility
       i++;
       result.flags.path = args[i] || null;
+    } else if (arg === "--dry-run") {
+      result.flags.dryRun = true;
+    } else if (arg === "--machine") {
+      result.flags.machine = true;
     } else if (arg === "--has") {
       i++;
       if (args[i]) result.flags.has.push(args[i]);
@@ -290,6 +303,7 @@ ${ansi.bold("Commands:")}
   init <name>            Scaffold a new skill with SKILL.md template
   stats                  Show aggregate skill metrics dashboard
   link <path>            Symlink a local skill directory into an agent
+  publish [path]         Validate, audit, and submit a skill to the registry
   bundle                 Manage skill bundles (create, install, list, show, remove)
   index                  Manage skill index (ingest, search, list)
   config show            Print current config
@@ -421,6 +435,33 @@ ${ansi.bold("Examples:")}
   asm audit security code-review --json        ${ansi.dim("Output audit as JSON")}
   asm audit security https://github.com/user/skills/tree/main/skills/agent-config
                                                ${ansi.dim("Audit a skill from a subfolder URL")}`);
+}
+
+function printPublishHelp() {
+  console.log(`${ansi.bold("Usage:")} asm publish [path] [options]
+
+Validate a skill, run a security audit, generate a registry manifest,
+and open a PR against the asm-registry.
+
+${ansi.bold("Arguments:")}
+  path                 Path to skill directory (default: current directory)
+
+${ansi.bold("Options:")}
+  --dry-run            Print generated manifest without opening a PR
+  --force              Override 'warning' security verdict (blocks 'dangerous')
+  -y, --yes            Skip confirmation prompts
+  --json               Output result as JSON
+  --machine            Output in stable machine-readable v1 envelope format
+  --no-color           Disable ANSI colors
+  -V, --verbose        Show debug output
+
+${ansi.bold("Examples:")}
+  asm publish                       ${ansi.dim("Publish skill in current directory")}
+  asm publish ./my-skill            ${ansi.dim("Publish skill at the given path")}
+  asm publish --dry-run             ${ansi.dim("Preview manifest without side effects")}
+  asm publish --force               ${ansi.dim("Override warning-level security findings")}
+  asm publish --json                ${ansi.dim("Output as JSON")}
+  asm publish --machine             ${ansi.dim("Machine-readable v1 envelope output")}`);
 }
 
 function printConfigHelp() {
@@ -3060,6 +3101,129 @@ async function cmdBundle(args: ParsedArgs) {
   }
 }
 
+// ─── Publish ────────────────────────────────────────────────────────────────
+
+async function cmdPublish(args: ParsedArgs) {
+  if (args.flags.help) {
+    printPublishHelp();
+    return;
+  }
+
+  const skillPath = args.subcommand || ".";
+
+  try {
+    const result = await publishSkill({
+      path: skillPath,
+      dryRun: args.flags.dryRun,
+      force: args.flags.force,
+      yes: args.flags.yes,
+    });
+
+    // Machine-readable output
+    if (args.flags.machine) {
+      console.log(formatPublishMachine(result));
+      if (!result.success) process.exit(1);
+      return;
+    }
+
+    // JSON output
+    if (args.flags.json) {
+      console.log(
+        JSON.stringify(
+          {
+            success: result.success,
+            manifest: result.manifest,
+            pr_url: result.prUrl,
+            error: result.error,
+            security_verdict: result.securityVerdict,
+          },
+          null,
+          2,
+        ),
+      );
+      if (!result.success) process.exit(1);
+      return;
+    }
+
+    // Human-readable output
+    if (!result.success) {
+      error(result.error || "Publish failed.");
+      process.exit(1);
+    }
+
+    // Fallback path: no gh CLI
+    if (result.fallback) {
+      console.log(ansi.yellow("Manifest generated (gh CLI unavailable):"));
+      console.log(formatFallbackInstructions(result));
+      return;
+    }
+
+    // Dry run
+    if (args.flags.dryRun) {
+      console.error(ansi.dim("Dry run — no PR created.\n"));
+      console.log(JSON.stringify(result.manifest, null, 2));
+      return;
+    }
+
+    // Success with PR
+    if (result.prUrl) {
+      console.error(ansi.green("Published successfully!"));
+      console.error("");
+      console.error(`  PR: ${result.prUrl}`);
+      console.error(
+        `  Manifest: manifests/${result.manifest?.author}/${result.manifest?.name}.json`,
+      );
+      console.error(`  Security: ${result.securityVerdict}`);
+      console.error("");
+      console.error(
+        ansi.dim("The registry maintainers will review your submission."),
+      );
+    }
+  } catch (err: any) {
+    const errorResult: import("./utils/types").PublishResult = {
+      success: false,
+      manifest: null,
+      prUrl: null,
+      error: err.message,
+      securityVerdict: "pass",
+      securityReport: {
+        scannedAt: new Date().toISOString(),
+        skillName: "",
+        skillPath: "",
+        source: null,
+        codeScans: [],
+        permissions: [],
+        totalFiles: 0,
+        totalLines: 0,
+        verdict: "safe",
+        verdictReason: "",
+      },
+    };
+    if (args.flags.machine) {
+      console.log(formatPublishMachine(errorResult));
+      process.exit(1);
+    }
+    if (args.flags.json) {
+      console.log(
+        JSON.stringify(
+          {
+            success: false,
+            manifest: null,
+            pr_url: null,
+            error: err.message,
+            security_verdict: null,
+          },
+          null,
+          2,
+        ),
+      );
+      process.exit(1);
+    }
+    error(err.message);
+    process.exit(1);
+  }
+}
+
 // ─── Main CLI dispatcher ────────────────────────────────────────────────────
 
 export async function runCLI(argv: string[]): Promise<void> {
@@ -3135,6 +3299,9 @@ export async function runCLI(argv: string[]): Promise<void> {
     case "bundle":
       await cmdBundle(args);
       break;
+    case "publish":
+      await cmdPublish(args);
+      break;
     default:
       error(`Unknown command: "${args.command}"`);
       console.error(`Run "asm --help" for usage.`);
@@ -3164,6 +3331,7 @@ export function isCLIMode(argv: string[]): boolean {
     "link",
     "index",
     "bundle",
+    "publish",
   ];
   const first = args[0];
 

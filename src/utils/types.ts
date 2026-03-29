@@ -315,6 +315,19 @@ export interface BundleValidation {
   errors: string[];
 }
 
+// ─── Publish Types ───────────────────────────────────────────────────────────
+
+export interface PublishResult {
+  success: boolean;
+  manifest: import("../registry").RegistryManifest | null;
+  prUrl: string | null;
+  error: string | null;
+  securityVerdict: "pass" | "warning" | "dangerous";
+  securityReport: SecurityAuditReport;
+  fallback?: boolean;
+  fallbackReason?: string;
+}
+
 // ─── UI Types ───────────────────────────────────────────────────────────────
 
 export type Scope = "global" | "project" | "both";
