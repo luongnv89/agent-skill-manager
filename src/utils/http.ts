@@ -31,7 +31,8 @@ async function readCache<T>(cachePath: string): Promise<CacheEntry<T> | null> {
   try {
     const raw = await readFile(cachePath, "utf-8");
     const entry = JSON.parse(raw) as CacheEntry<T>;
-    if (!entry.fetched_at || !entry.data) return null;
+    if (!entry.fetched_at || entry.data === undefined || entry.data === null)
+      return null;
     return entry;
   } catch {
     return null;

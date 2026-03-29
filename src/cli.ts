@@ -1402,11 +1402,25 @@ async function cmdInstall(args: ParsedArgs) {
         process.stderr.write(prompt);
         const response = await new Promise<string>((resolve) => {
           let data = "";
-          process.stdin.setEncoding("utf-8");
-          process.stdin.once("data", (chunk) => {
+          let done = false;
+          const timer = setTimeout(() => {
+            if (!done) {
+              done = true;
+              process.stdin.removeListener("data", onData);
+              resolve(data.trim());
+            }
+          }, 30_000);
+          function onData(chunk: string | Buffer) {
             data = chunk.toString().trim();
-            resolve(data);
-          });
+            if (!done) {
+              done = true;
+              clearTimeout(timer);
+              process.stdin.removeListener("data", onData);
+              resolve(data);
+            }
+          }
+          process.stdin.setEncoding("utf-8");
+          process.stdin.on("data", onData);
         });
 
         const choice = parseInt(response, 10);
