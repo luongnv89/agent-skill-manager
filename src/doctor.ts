@@ -7,7 +7,7 @@
 
 import { execFile } from "child_process";
 import { promisify } from "util";
-import { access, readFile, writeFile, rm, stat } from "fs/promises";
+import { access, readFile, readdir, writeFile, rm, stat } from "fs/promises";
 import { join } from "path";
 import { homedir } from "os";
 import { constants as fsConstants } from "fs";
@@ -18,6 +18,7 @@ import {
   resolveProviderPath,
 } from "./config";
 import { readLock } from "./utils/lock";
+import { REGISTRY_INDEX_URL } from "./registry";
 import type { AppConfig, LockFile } from "./utils/types";
 
 const execFileAsync = promisify(execFile);
@@ -39,11 +40,6 @@ export interface DoctorReport {
   warnings: number;
   failures: number;
 }
-
-// ─── Registry URL (same as registry.ts) ─────────────────────────────────────
-
-const REGISTRY_INDEX_URL =
-  "https://raw.githubusercontent.com/luongnv89/asm-registry/main/index.json";
 
 // ─── Individual Checks ──────────────────────────────────────────────────────
 
@@ -437,7 +433,6 @@ export async function checkNoOrphanedSkills(
   for (const provider of config.providers.filter((p) => p.enabled)) {
     const dir = resolveProviderPath(provider.global);
     try {
-      const { readdir } = await import("fs/promises");
       const entries = await readdir(dir);
       for (const entry of entries) {
         // Only count directories (skills)
@@ -595,7 +590,10 @@ export function formatDoctorReport(report: DoctorReport): string {
     const line = `  ${icon} ${check.name}${check.message ? ` (${check.message})` : ""}`;
     lines.push(line);
     if (check.fix && check.status !== "pass") {
-      lines.push(`      \u2192 Run: ${check.fix}`);
+      const fixText = check.fix.startsWith("Run: ")
+        ? check.fix
+        : `Run: ${check.fix}`;
+      lines.push(`      \u2192 ${fixText}`);
     }
   }
 

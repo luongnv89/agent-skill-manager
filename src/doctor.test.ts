@@ -1,12 +1,10 @@
-import { describe, expect, test, beforeEach, afterEach } from "bun:test";
-import { mkdtemp, writeFile, mkdir, rm } from "fs/promises";
-import { join } from "path";
-import { tmpdir } from "os";
+import { describe, expect, test } from "bun:test";
 
 import {
   checkGitAvailable,
   checkGitVersion,
   checkGhAvailable,
+  checkGhAuthenticated,
   checkNodeVersion,
   checkConfigValid,
   checkLockFileIntegrity,
@@ -71,6 +69,28 @@ describe("checkGhAvailable", () => {
     const result = await checkGhAvailable();
     expect(result.status).toBe("pass");
     expect(result.name).toBe("GitHub CLI available");
+  });
+});
+
+describe("checkGhAuthenticated", () => {
+  test("returns pass or fail (environment-dependent)", async () => {
+    const result = await checkGhAuthenticated();
+    expect(["pass", "fail"]).toContain(result.status);
+    expect(result.name).toBe("GitHub CLI authenticated");
+  });
+
+  test("includes fix suggestion on failure", async () => {
+    const result = await checkGhAuthenticated();
+    if (result.status === "fail") {
+      expect(result.fix).toBeDefined();
+      expect(result.fix).toContain("gh auth login");
+    }
+  });
+
+  test("returns a non-empty message", async () => {
+    const result = await checkGhAuthenticated();
+    expect(typeof result.message).toBe("string");
+    expect(result.message.length).toBeGreaterThan(0);
   });
 });
 
@@ -205,6 +225,43 @@ describe("formatDoctorReport", () => {
     const output = formatDoctorReport(report);
     expect(output).toContain("Run: asm init");
     expect(output).toContain("Check network");
+  });
+
+  test("does not double-prefix 'Run: ' when fix already starts with it", () => {
+    const report = makeReport({
+      checks: [
+        {
+          name: "Config file valid",
+          status: "warn",
+          message: "missing fields",
+          fix: "Run: asm init",
+        },
+      ],
+      passed: 0,
+      warnings: 1,
+      failures: 0,
+    });
+    const output = formatDoctorReport(report);
+    expect(output).toContain("Run: asm init");
+    expect(output).not.toContain("Run: Run:");
+  });
+
+  test("prepends 'Run: ' when fix does not start with it", () => {
+    const report = makeReport({
+      checks: [
+        {
+          name: "Registry reachable",
+          status: "fail",
+          message: "Network error",
+          fix: "Check network",
+        },
+      ],
+      passed: 0,
+      warnings: 0,
+      failures: 1,
+    });
+    const output = formatDoctorReport(report);
+    expect(output).toContain("Run: Check network");
   });
 
   test("does not include fix for passing checks", () => {
