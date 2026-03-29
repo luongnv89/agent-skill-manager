@@ -116,6 +116,25 @@ import { setVerbose } from "./logger";
 import { join as joinPath } from "path";
 import type { Scope, SortBy, TransportMode } from "./utils/types";
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/**
+ * Map a security audit verdict string to a numeric risk score.
+ *   dangerous → 3, warning → 2, caution → 1, safe/other → 0
+ */
+function verdictToRiskScore(verdict: string): number {
+  switch (verdict) {
+    case "dangerous":
+      return 3;
+    case "warning":
+      return 2;
+    case "caution":
+      return 1;
+    default:
+      return 0;
+  }
+}
+
 // ─── Arg Parser ─────────────────────────────────────────────────────────────
 
 interface ParsedArgs {
@@ -892,6 +911,23 @@ async function cmdAudit(args: ParsedArgs) {
   const allSkills = await scanAllSkills(config, "both");
   const report = detectDuplicates(allSkills);
 
+  if (args.flags.machine) {
+    const data = {
+      duplicate_groups: report.duplicateGroups.map((g) => ({
+        name: g.name,
+        count: g.instances.length,
+        instances: g.instances.map((i) => ({
+          path: i.path,
+          scope: i.scope,
+          provider: i.provider,
+        })),
+      })),
+      total_duplicates: report.duplicateGroups.length,
+    };
+    console.log(formatMachineOutput("audit duplicates", data, startTime));
+    return;
+  }
+
   if (args.flags.json) {
     console.log(formatAuditReportJSON(report));
     return;
@@ -988,15 +1024,7 @@ async function cmdAuditSecurityAll(args: ParsedArgs, startTime?: number) {
         total_lines: r.totalLines,
       })),
       risk_score: reports.reduce(
-        (sum, r) =>
-          sum +
-          (r.verdict === "dangerous"
-            ? 3
-            : r.verdict === "warning"
-              ? 2
-              : r.verdict === "caution"
-                ? 1
-                : 0),
+        (sum, r) => sum + verdictToRiskScore(r.verdict),
         0,
       ),
     };
@@ -1074,14 +1102,7 @@ async function cmdAuditSecuritySource(
             total_lines: report.totalLines,
           },
         ],
-        risk_score:
-          report.verdict === "dangerous"
-            ? 3
-            : report.verdict === "warning"
-              ? 2
-              : report.verdict === "caution"
-                ? 1
-                : 0,
+        risk_score: verdictToRiskScore(report.verdict),
       };
       console.log(formatMachineOutput("audit security", data, startTime));
     } else if (args.flags.json) {
@@ -1155,14 +1176,7 @@ async function cmdAuditSecurityInstalled(
           total_lines: report.totalLines,
         },
       ],
-      risk_score:
-        report.verdict === "dangerous"
-          ? 3
-          : report.verdict === "warning"
-            ? 2
-            : report.verdict === "caution"
-              ? 1
-              : 0,
+      risk_score: verdictToRiskScore(report.verdict),
     };
     console.log(formatMachineOutput("audit security", data, startTime));
   } else if (args.flags.json) {
@@ -3702,6 +3716,17 @@ async function cmdOutdated(args: ParsedArgs) {
       process.exitCode = 1;
     }
   } catch (err: any) {
+    if (args.flags.machine) {
+      console.log(
+        formatMachineError(
+          "outdated",
+          ErrorCodes.UNKNOWN_ERROR,
+          err.message,
+          startTime,
+        ),
+      );
+      process.exit(1);
+    }
     error(err.message);
     process.exit(1);
   }
@@ -3809,6 +3834,17 @@ async function cmdUpdate(args: ParsedArgs) {
       process.exitCode = 1;
     }
   } catch (err: any) {
+    if (args.flags.machine) {
+      console.log(
+        formatMachineError(
+          "update",
+          ErrorCodes.UNKNOWN_ERROR,
+          err.message,
+          startTime,
+        ),
+      );
+      process.exit(1);
+    }
     error(err.message);
     process.exit(1);
   }
@@ -3823,6 +3859,11 @@ export async function runCLI(argv: string[]): Promise<void> {
   if (args.flags.json && args.flags.machine) {
     error("--json and --machine are mutually exclusive. Use one or the other.");
     process.exit(2);
+  }
+
+  // --machine implies --yes so non-interactive agents don't get stuck on prompts
+  if (args.flags.machine) {
+    args.flags.yes = true;
   }
 
   // Apply --no-color

@@ -519,6 +519,37 @@ describe("CLI integration: --machine output", () => {
     expect(parsed.meta).toBeDefined();
     expect(Array.isArray(parsed.data)).toBe(true);
   });
+
+  test("search --machine produces valid v1 envelope", async () => {
+    const { stdout, exitCode } = await runCLI("search", "test", "--machine");
+    expect(exitCode).toBe(0);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("search");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(parsed.meta.timestamp).toBeDefined();
+    expect(parsed.meta.asm_version).toBeDefined();
+    expect(typeof parsed.meta.duration_ms).toBe("number");
+    expect(Array.isArray(parsed.data)).toBe(true);
+  });
+
+  test("audit duplicates --machine produces valid v1 envelope", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "audit",
+      "duplicates",
+      "--machine",
+    );
+    expect(exitCode).toBe(0);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("audit duplicates");
+    expect(parsed.status).toBe("ok");
+    expect(parsed.meta).toBeDefined();
+    expect(parsed.data).toBeDefined();
+    expect(typeof parsed.data.total_duplicates).toBe("number");
+    expect(Array.isArray(parsed.data.duplicate_groups)).toBe(true);
+  });
 });
 
 describe("CLI integration: list", () => {
