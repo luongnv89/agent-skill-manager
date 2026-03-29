@@ -3117,8 +3117,6 @@ async function cmdPublish(args: ParsedArgs) {
       dryRun: args.flags.dryRun,
       force: args.flags.force,
       yes: args.flags.yes,
-      json: args.flags.json,
-      machine: args.flags.machine,
     });
 
     // Machine-readable output

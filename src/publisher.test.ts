@@ -8,6 +8,10 @@ import {
   mapVerdict,
   formatPublishMachine,
   formatFallbackInstructions,
+  checkIsGitRepo,
+  getHeadCommit,
+  getRemoteOrigin,
+  checkGhCli,
 } from "./publisher";
 import type { GenerateManifestOptions } from "./publisher";
 import type { PublishResult } from "./utils/types";
@@ -390,5 +394,93 @@ describe("isCLIMode recognizes publish", () => {
 
   test("publish with flags is CLI mode", () => {
     expect(isCLIMode(["bun", "script.ts", "publish", "--dry-run"])).toBe(true);
+  });
+});
+
+// ─── checkIsGitRepo ────────────────────────────────────────────────────────
+
+describe("checkIsGitRepo", () => {
+  test("resolves for a valid git repo", async () => {
+    // The project root is a git repo
+    await expect(checkIsGitRepo(process.cwd())).resolves.toBeUndefined();
+  });
+
+  test("rejects for a non-git directory", async () => {
+    const nonGitDir = await mkdtemp(join(tmpdir(), "publisher-nogit-"));
+    try {
+      await expect(checkIsGitRepo(nonGitDir)).rejects.toThrow(
+        "not inside a git repository",
+      );
+    } finally {
+      await rm(nonGitDir, { recursive: true, force: true });
+    }
+  });
+});
+
+// ─── getHeadCommit ─────────────────────────────────────────────────────────
+
+describe("getHeadCommit", () => {
+  test("returns a 40-character hex SHA", async () => {
+    const sha = await getHeadCommit(process.cwd());
+    expect(sha).toMatch(/^[0-9a-f]{40}$/);
+  });
+
+  test("rejects for a non-git directory", async () => {
+    const nonGitDir = await mkdtemp(join(tmpdir(), "publisher-nohead-"));
+    try {
+      await expect(getHeadCommit(nonGitDir)).rejects.toThrow(
+        "Failed to get HEAD commit",
+      );
+    } finally {
+      await rm(nonGitDir, { recursive: true, force: true });
+    }
+  });
+});
+
+// ─── getRemoteOrigin ───────────────────────────────────────────────────────
+
+describe("getRemoteOrigin", () => {
+  test("returns an HTTPS URL for the project root", async () => {
+    const url = await getRemoteOrigin(process.cwd());
+    expect(url).toMatch(/^https:\/\/github\.com\//);
+    // Should not end with .git
+    expect(url).not.toMatch(/\.git$/);
+  });
+
+  test("rejects for a repo without a remote", async () => {
+    const noRemoteDir = await mkdtemp(join(tmpdir(), "publisher-noremote-"));
+    try {
+      // Init a bare git repo with no remote
+      Bun.spawnSync(["git", "init"], { cwd: noRemoteDir });
+      await expect(getRemoteOrigin(noRemoteDir)).rejects.toThrow(
+        "No remote origin found",
+      );
+    } finally {
+      await rm(noRemoteDir, { recursive: true, force: true });
+    }
+  });
+});
+
+// ─── checkGhCli ────────────────────────────────────────────────────────────
+
+describe("checkGhCli", () => {
+  test("returns an object with available, authenticated, and login fields", async () => {
+    const result = await checkGhCli();
+    expect(typeof result.available).toBe("boolean");
+    expect(typeof result.authenticated).toBe("boolean");
+    // login is string | null
+    if (result.login !== null) {
+      expect(typeof result.login).toBe("string");
+    }
+  });
+
+  test("if available, authenticated is also a boolean", async () => {
+    const result = await checkGhCli();
+    if (result.available) {
+      expect(typeof result.authenticated).toBe("boolean");
+    } else {
+      expect(result.authenticated).toBe(false);
+      expect(result.login).toBeNull();
+    }
   });
 });

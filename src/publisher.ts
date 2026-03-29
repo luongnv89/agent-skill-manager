@@ -254,8 +254,6 @@ export interface PublishOptions {
   dryRun: boolean;
   force: boolean;
   yes: boolean;
-  json: boolean;
-  machine: boolean;
 }
 
 /**
@@ -393,6 +391,49 @@ export async function publishSkill(
     };
   }
 
+  // Step 8b: Confirmation prompt (unless --yes)
+  if (!opts.yes) {
+    if (!process.stdin.isTTY) {
+      return {
+        success: false,
+        manifest,
+        prUrl: null,
+        error:
+          "Cannot prompt for confirmation in non-interactive mode. Use --yes to skip.",
+        securityVerdict: registryVerdict,
+        securityReport,
+      };
+    }
+    process.stderr.write(
+      `\nAbout to publish "${metadata.name}" by ${author} to ${REGISTRY_REPO}.\n` +
+        `Security verdict: ${registryVerdict}\n\n` +
+        `Proceed? [y/N] `,
+    );
+    const answer = await new Promise<string>((resolve) => {
+      let data = "";
+      const onData = (chunk: Buffer) => {
+        data += chunk.toString();
+        if (data.includes("\n")) {
+          process.stdin.removeListener("data", onData);
+          process.stdin.pause();
+          resolve(data.trim());
+        }
+      };
+      process.stdin.resume();
+      process.stdin.on("data", onData);
+    });
+    if (answer.toLowerCase() !== "y" && answer.toLowerCase() !== "yes") {
+      return {
+        success: false,
+        manifest,
+        prUrl: null,
+        error: "Publish aborted by user.",
+        securityVerdict: registryVerdict,
+        securityReport,
+      };
+    }
+  }
+
   // Step 9: Fork registry
   debug(`publish: forking ${REGISTRY_REPO}`);
   const forkProc = Bun.spawn(
@@ -406,7 +447,9 @@ export async function publishSkill(
   const branchName = `publish/${author}/${metadata.name}`;
   const manifestPath = `manifests/${author}/${metadata.name}.json`;
   const manifestContent = JSON.stringify(manifest, null, 2) + "\n";
-  const encodedContent = btoa(manifestContent);
+  const encodedContent = Buffer.from(manifestContent, "utf-8").toString(
+    "base64",
+  );
 
   // Get the default branch SHA from the fork
   const refProc = Bun.spawn(
@@ -499,11 +542,9 @@ export async function publishSkill(
       [
         "gh",
         "api",
-        `repos/${author}/asm-registry/contents/${manifestPath}`,
+        `repos/${author}/asm-registry/contents/${manifestPath}?ref=${branchName}`,
         "-q",
         ".sha",
-        "--header",
-        `ref: ${branchName}`,
       ],
       { stdout: "pipe", stderr: "pipe" },
     );
