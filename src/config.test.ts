@@ -1,12 +1,4 @@
-import {
-  describe,
-  expect,
-  it,
-  beforeAll,
-  beforeEach,
-  afterEach,
-  spyOn,
-} from "bun:test";
+import { describe, expect, it, beforeEach, afterEach, spyOn } from "bun:test";
 import {
   getDefaultConfig,
   resolveProviderPath,
@@ -274,43 +266,11 @@ describe("config verbose output", () => {
 });
 
 describe("selectedTools preference", () => {
-  const configPath = getConfigPath();
-  let originalContent: string | null = null;
-
-  beforeAll(async () => {
-    // Ensure the config file exists before any test runs. Without this,
-    // concurrent test files (e.g. cli.test.ts subprocesses) can race to
-    // handle the ENOENT path in loadConfig and overwrite the file with
-    // defaults, clobbering the selectedTools that saveSelectedTools just wrote.
-    await mkdir(dirname(configPath), { recursive: true });
-    try {
-      await readFile(configPath, "utf-8");
-    } catch {
-      await writeFile(
-        configPath,
-        JSON.stringify(getDefaultConfig(), null, 2) + "\n",
-        "utf-8",
-      );
-    }
-  });
-
-  beforeEach(async () => {
-    try {
-      originalContent = await readFile(configPath, "utf-8");
-    } catch {
-      originalContent = null;
-    }
-  });
-
-  afterEach(async () => {
-    if (originalContent !== null) {
-      await mkdir(dirname(configPath), { recursive: true });
-      await writeFile(configPath, originalContent, "utf-8");
-    } else {
-      try {
-        await rm(configPath);
-      } catch {}
-    }
+  // Each test gets its own fresh temp dir via a synchronous beforeEach so
+  // there is no shared mutable file state between tests and no async afterEach
+  // that could race against the next test's writes.
+  beforeEach(() => {
+    setConfigDirForTesting(mkdtempSync(join(tmpdir(), "asm-test-pref-")));
   });
 
   it("default config has no selectedTools", () => {
@@ -342,6 +302,7 @@ describe("selectedTools preference", () => {
 
   it("mergeWithDefaults preserves selectedTools from saved config", async () => {
     // Write a partial config with selectedTools
+    const configPath = getConfigPath();
     await mkdir(dirname(configPath), { recursive: true });
     const partial = {
       version: 1,
