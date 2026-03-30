@@ -42,14 +42,19 @@ export type ErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes];
 // pollute the JSON envelope on stdout.
 
 /**
- * Redirect `console.info` to stderr. Returns a restore function.
- * Call at the top of any command that supports --machine.
+ * Redirect `console.log` and `console.info` to stderr. Returns a restore function.
+ * Call at the top of any command that supports --machine so human-readable
+ * chatter does not pollute the JSON envelope on stdout.
  */
-export function redirectConsoleInfoToStderr(): () => void {
+export function redirectConsoleToStderr(): () => void {
+  const origLog = console.log;
   const origInfo = console.info;
-  console.info = (...args: unknown[]) =>
+  const toStderr = (...args: unknown[]) =>
     process.stderr.write(args.map(String).join(" ") + "\n");
+  console.log = toStderr;
+  console.info = toStderr;
   return () => {
+    console.log = origLog;
     console.info = origInfo;
   };
 }

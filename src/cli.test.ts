@@ -598,6 +598,45 @@ describe("CLI integration: --machine output", () => {
     expect(typeof parsed.error.message).toBe("string");
     expect(parsed.meta).toBeDefined();
   });
+
+  test("publish --machine produces error envelope for invalid path", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "publish",
+      "/tmp/nonexistent-skill-path-12345",
+      "--machine",
+      "--yes",
+    );
+    expect(exitCode).not.toBe(0);
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("publish");
+    expect(parsed.status).toBe("error");
+    expect(parsed.error).toBeDefined();
+    expect(parsed.error.code).toBeDefined();
+    expect(typeof parsed.error.message).toBe("string");
+    expect(parsed.meta).toBeDefined();
+    expect(typeof parsed.meta.timestamp).toBe("string");
+    expect(typeof parsed.meta.asm_version).toBe("string");
+    expect(typeof parsed.meta.duration_ms).toBe("number");
+  });
+
+  test("update --machine produces valid v1 envelope", async () => {
+    const { stdout, exitCode } = await runCLI(
+      "update",
+      "nonexistent-skill-12345",
+      "--machine",
+      "--yes",
+    );
+    // May succeed (with empty results) or error — either way must be valid JSON envelope
+    const parsed = JSON.parse(stdout);
+    expect(parsed.version).toBe(1);
+    expect(parsed.command).toBe("update");
+    expect(["ok", "error"]).toContain(parsed.status);
+    expect(parsed.meta).toBeDefined();
+    expect(typeof parsed.meta.timestamp).toBe("string");
+    expect(typeof parsed.meta.asm_version).toBe("string");
+    expect(typeof parsed.meta.duration_ms).toBe("number");
+  });
 });
 
 describe("CLI integration: list", () => {

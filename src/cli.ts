@@ -102,7 +102,7 @@ import {
   formatMachineOutput,
   formatMachineError,
   ErrorCodes,
-  redirectConsoleInfoToStderr,
+  redirectConsoleToStderr,
 } from "./utils/machine";
 import { ingestRepo, listIndexedRepos, removeRepoIndex } from "./ingester";
 import {
@@ -115,7 +115,12 @@ import { VERSION_STRING } from "./utils/version";
 import { parseEditorCommand } from "./utils/editor";
 import { setVerbose } from "./logger";
 import { join as joinPath } from "path";
-import type { Scope, SortBy, TransportMode } from "./utils/types";
+import type {
+  Scope,
+  SortBy,
+  TransportMode,
+  SecurityAuditReport,
+} from "./utils/types";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -134,6 +139,31 @@ function verdictToRiskScore(verdict: string): number {
     default:
       return 0;
   }
+}
+
+/**
+ * Build the common machine-output data shape for security audit commands.
+ * Accepts one or more SecurityAuditReports and returns { verdict, findings, risk_score }.
+ */
+function formatAuditMachineData(reports: SecurityAuditReport[]) {
+  return {
+    verdict: reports.every((r) => r.verdict === "safe")
+      ? "safe"
+      : reports.some((r) => r.verdict === "dangerous")
+        ? "dangerous"
+        : "warning",
+    findings: reports.map((r) => ({
+      skill: r.skillName,
+      verdict: r.verdict,
+      verdict_reason: r.verdictReason,
+      total_files: r.totalFiles,
+      total_lines: r.totalLines,
+    })),
+    risk_score: reports.reduce(
+      (sum, r) => sum + verdictToRiskScore(r.verdict),
+      0,
+    ),
+  };
 }
 
 // ─── Arg Parser ─────────────────────────────────────────────────────────────
@@ -633,10 +663,15 @@ async function cmdSearch(args: ParsedArgs) {
     return;
   }
 
+  const restoreConsole = args.flags.machine
+    ? redirectConsoleToStderr()
+    : undefined;
+
   const startTime = performance.now();
   const query = args.subcommand;
   if (!query) {
     if (args.flags.machine) {
+      restoreConsole?.();
       console.log(
         formatMachineError(
           "search",
@@ -684,6 +719,7 @@ async function cmdSearch(args: ParsedArgs) {
 
   // --- Output ---
   if (args.flags.machine) {
+    restoreConsole?.();
     const installed = installedResults.map((s) => ({
       name: s.name,
       description: s.description,
@@ -1033,25 +1069,13 @@ async function cmdAuditSecurityAll(args: ParsedArgs, startTime: number) {
   }
 
   if (args.flags.machine) {
-    const data = {
-      verdict: reports.every((r) => r.verdict === "safe")
-        ? "safe"
-        : reports.some((r) => r.verdict === "dangerous")
-          ? "dangerous"
-          : "warning",
-      findings: reports.map((r) => ({
-        skill: r.skillName,
-        verdict: r.verdict,
-        verdict_reason: r.verdictReason,
-        total_files: r.totalFiles,
-        total_lines: r.totalLines,
-      })),
-      risk_score: reports.reduce(
-        (sum, r) => sum + verdictToRiskScore(r.verdict),
-        0,
+    console.log(
+      formatMachineOutput(
+        "audit security",
+        formatAuditMachineData(reports),
+        startTime,
       ),
-    };
-    console.log(formatMachineOutput("audit security", data, startTime));
+    );
   } else if (args.flags.json) {
     console.log(JSON.stringify(reports, null, 2));
   } else {
@@ -1114,20 +1138,13 @@ async function cmdAuditSecuritySource(
     );
 
     if (args.flags.machine) {
-      const data = {
-        verdict: report.verdict,
-        findings: [
-          {
-            skill: report.skillName,
-            verdict: report.verdict,
-            verdict_reason: report.verdictReason,
-            total_files: report.totalFiles,
-            total_lines: report.totalLines,
-          },
-        ],
-        risk_score: verdictToRiskScore(report.verdict),
-      };
-      console.log(formatMachineOutput("audit security", data, startTime));
+      console.log(
+        formatMachineOutput(
+          "audit security",
+          formatAuditMachineData([report]),
+          startTime,
+        ),
+      );
     } else if (args.flags.json) {
       console.log(formatSecurityReportJSON(report));
     } else {
@@ -1188,20 +1205,13 @@ async function cmdAuditSecurityInstalled(
   const report = await auditSkillSecurity(skill.realPath, skill.name);
 
   if (args.flags.machine) {
-    const data = {
-      verdict: report.verdict,
-      findings: [
-        {
-          skill: report.skillName,
-          verdict: report.verdict,
-          verdict_reason: report.verdictReason,
-          total_files: report.totalFiles,
-          total_lines: report.totalLines,
-        },
-      ],
-      risk_score: verdictToRiskScore(report.verdict),
-    };
-    console.log(formatMachineOutput("audit security", data, startTime));
+    console.log(
+      formatMachineOutput(
+        "audit security",
+        formatAuditMachineData([report]),
+        startTime,
+      ),
+    );
   } else if (args.flags.json) {
     console.log(formatSecurityReportJSON(report));
   } else {
@@ -1567,7 +1577,7 @@ async function cmdInstall(args: ParsedArgs) {
   }
 
   const restoreConsole = args.flags.machine
-    ? redirectConsoleInfoToStderr()
+    ? redirectConsoleToStderr()
     : undefined;
 
   const startTime = performance.now();
@@ -2147,6 +2157,7 @@ async function cmdInstall(args: ParsedArgs) {
     }
 
     if (args.flags.machine) {
+      restoreConsole?.();
       const enriched = results.map((r) => ({
         name: r.name,
         path: r.path,
@@ -2187,6 +2198,7 @@ async function cmdInstall(args: ParsedArgs) {
     process.removeListener("SIGTERM", cleanup);
 
     if (args.flags.machine) {
+      restoreConsole?.();
       console.log(
         formatMachineError(
           "install",
@@ -3559,6 +3571,10 @@ async function cmdPublish(args: ParsedArgs) {
     return;
   }
 
+  const restoreConsole = args.flags.machine
+    ? redirectConsoleToStderr()
+    : undefined;
+
   const startTime = performance.now();
   const skillPath = args.subcommand || ".";
 
@@ -3572,6 +3588,7 @@ async function cmdPublish(args: ParsedArgs) {
 
     // Machine-readable output
     if (args.flags.machine) {
+      restoreConsole?.();
       if (!result.success) {
         console.log(
           formatMachineError(
@@ -3676,6 +3693,7 @@ async function cmdPublish(args: ParsedArgs) {
       },
     };
     if (args.flags.machine) {
+      restoreConsole?.();
       console.log(
         formatMachineError(
           "publish",
@@ -3715,11 +3733,16 @@ async function cmdOutdated(args: ParsedArgs) {
     return;
   }
 
+  const restoreConsole = args.flags.machine
+    ? redirectConsoleToStderr()
+    : undefined;
+
   const startTime = performance.now();
   try {
     const summary = await checkOutdated();
 
     if (args.flags.machine) {
+      restoreConsole?.();
       const data = summary.entries.map((e) => ({
         name: e.name,
         installed_commit: e.installedCommit,
@@ -3745,6 +3768,7 @@ async function cmdOutdated(args: ParsedArgs) {
     }
   } catch (err: any) {
     if (args.flags.machine) {
+      restoreConsole?.();
       console.log(
         formatMachineError(
           "outdated",
@@ -3766,6 +3790,10 @@ async function cmdUpdate(args: ParsedArgs) {
     return;
   }
 
+  const restoreConsole = args.flags.machine
+    ? redirectConsoleToStderr()
+    : undefined;
+
   const startTime = performance.now();
   // Collect skill names from subcommand and positional args
   const names: string[] = [];
@@ -3779,6 +3807,7 @@ async function cmdUpdate(args: ParsedArgs) {
     );
 
     if (args.flags.machine) {
+      restoreConsole?.();
       const data = summary.results.map((r) => ({
         name: r.name,
         status: r.status,
@@ -3863,6 +3892,7 @@ async function cmdUpdate(args: ParsedArgs) {
     }
   } catch (err: any) {
     if (args.flags.machine) {
+      restoreConsole?.();
       console.log(
         formatMachineError(
           "update",
