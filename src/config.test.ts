@@ -279,8 +279,15 @@ describe("selectedTools preference", () => {
   });
 
   it("saveSelectedTools persists tool names to config", async () => {
+    const pathBefore = getConfigPath();
     await saveSelectedTools(["claude", "codex"]);
+    const pathAfter = getConfigPath();
     const config = await loadConfig();
+    if (config.preferences.selectedTools === undefined) {
+      console.error(
+        `[DEBUG] pathBefore=${pathBefore} pathAfter=${pathAfter} selectedTools=${JSON.stringify(config.preferences.selectedTools)}`,
+      );
+    }
     expect(config.preferences.selectedTools).toEqual(["claude", "codex"]);
   });
 
