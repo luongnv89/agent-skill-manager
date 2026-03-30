@@ -1,4 +1,12 @@
-import { access, lstat, readdir, readFile, rm, symlink } from "fs/promises";
+import {
+  access,
+  lstat,
+  mkdir,
+  readdir,
+  readFile,
+  rm,
+  symlink,
+} from "fs/promises";
 import { join } from "path";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 
@@ -77,6 +85,9 @@ export async function createLink(
     // Remove existing
     await rm(targetPath, { recursive: true, force: true });
   }
+
+  // Ensure target directory exists
+  await mkdir(targetDir, { recursive: true });
 
   // Create symlink
   await symlink(sourcePath, targetPath, "dir");
