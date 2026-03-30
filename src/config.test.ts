@@ -1,4 +1,12 @@
-import { describe, expect, it, beforeEach, afterEach, spyOn } from "bun:test";
+import {
+  describe,
+  expect,
+  it,
+  beforeAll,
+  beforeEach,
+  afterEach,
+  spyOn,
+} from "bun:test";
 import {
   getDefaultConfig,
   resolveProviderPath,
@@ -262,6 +270,23 @@ describe("config verbose output", () => {
 describe("selectedTools preference", () => {
   const configPath = getConfigPath();
   let originalContent: string | null = null;
+
+  beforeAll(async () => {
+    // Ensure the config file exists before any test runs. Without this,
+    // concurrent test files (e.g. cli.test.ts subprocesses) can race to
+    // handle the ENOENT path in loadConfig and overwrite the file with
+    // defaults, clobbering the selectedTools that saveSelectedTools just wrote.
+    await mkdir(dirname(configPath), { recursive: true });
+    try {
+      await readFile(configPath, "utf-8");
+    } catch {
+      await writeFile(
+        configPath,
+        JSON.stringify(getDefaultConfig(), null, 2) + "\n",
+        "utf-8",
+      );
+    }
+  });
 
   beforeEach(async () => {
     try {
