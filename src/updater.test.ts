@@ -470,15 +470,15 @@ describe("checkOutdated logic paths", () => {
 
   test("registry skills with matching commit are up-to-date", () => {
     // Verify the comparison logic: same commit = up-to-date
-    const installedCommit = "a1b2c3d4e5f6789012345678901234567890abcd";
-    const manifestCommit = "a1b2c3d4e5f6789012345678901234567890abcd";
+    const installedCommit: string = "a1b2c3d4e5f6789012345678901234567890abcd";
+    const manifestCommit: string = "a1b2c3d4e5f6789012345678901234567890abcd";
     expect(manifestCommit === installedCommit).toBe(true);
   });
 
   test("registry skills with different commit are outdated", () => {
     // Verify the comparison logic: different commit = outdated
-    const installedCommit = "a1b2c3d4e5f6789012345678901234567890abcd";
-    const manifestCommit = "f9e8d7c6b5a4321098765432109876543210fedc";
+    const installedCommit: string = "a1b2c3d4e5f6789012345678901234567890abcd";
+    const manifestCommit: string = "f9e8d7c6b5a4321098765432109876543210fedc";
     expect(manifestCommit !== installedCommit).toBe(true);
   });
 });
