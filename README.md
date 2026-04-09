@@ -116,19 +116,63 @@ This creates a `my-skill/SKILL.md` with valid YAML frontmatter and a markdown te
 
 ### 2. Develop with live reload via symlink
 
-Symlink into Claude Code's skill directory:
+`asm link` creates a symlink from your local skill directory into an agent's skill folder. Because it's a symlink, every edit you make to the source is immediately visible to the agent — no reinstall needed.
+
+#### Global vs project-scoped linking
+
+By default, `asm link` installs the skill **globally** (e.g. `~/.claude/skills/`), so it is available in every project.
+
+To install it **only for the current project**, use `-s project`. This writes the symlink into `.claude/skills/` inside your working directory — the skill is active only when you open that project:
 
 ```bash
+# Link globally (available in all projects)
 asm link ./my-skill -p claude
+
+# Link for the current project only (.claude/skills/)
+asm link ./my-skill -p claude -s project
 ```
 
-Or into Codex, or any other tool:
+#### Target a specific tool
 
 ```bash
+# Link into Claude Code
+asm link ./my-skill -p claude
+
+# Link into Codex
 asm link ./my-skill -p codex
+
+# Interactive — pick the tool from a prompt
+asm link ./my-skill
 ```
 
-Edit the source files — changes are reflected immediately in the agent. No reinstall needed. This is the fastest iteration loop for skill development.
+#### Link multiple skills at once
+
+Pass several paths in a single command to link them all in one step:
+
+```bash
+asm link ./skill-a ./skill-b ./skill-c -p claude
+```
+
+You can also point at a folder that contains multiple skills (each in its own subdirectory with a `SKILL.md`):
+
+```bash
+# Link every skill found inside ./my-skills-folder
+asm link ./my-skills-folder -p claude
+```
+
+#### Override the symlink name
+
+```bash
+asm link ./my-skill --name my-alias -p claude
+```
+
+#### Force-overwrite an existing symlink
+
+```bash
+asm link ./my-skill -p claude --force
+```
+
+Edit the source files — changes are reflected immediately in the agent. This is the fastest iteration loop for skill development.
 
 ### 3. Audit your skill for security issues
 
@@ -206,7 +250,7 @@ This catches issues that local development misses — broken repo structure, mis
 
 1. **Scaffold** — `asm init awesome-skill -p claude`
 2. Edit your `SKILL.md`
-3. **Link for live testing** — `asm link ./awesome-skill -p claude`
+3. **Link for live testing** — `asm link ./awesome-skill -p claude` (global) or `asm link ./awesome-skill -p claude -s project` (current project only)
 4. Test with your AI agent
 5. **Security audit** — `asm audit security awesome-skill`
 6. **Verify metadata** — `asm inspect awesome-skill`
@@ -421,7 +465,7 @@ asm
 | `asm install <source>`          | Install a skill from GitHub                 |
 | `asm uninstall <skill-name>`    | Remove a skill (with confirmation)          |
 | `asm init <name>`               | Scaffold a new skill with SKILL.md template |
-| `asm link <path>`               | Symlink a local skill for live development  |
+| `asm link <path> [<path2> ...]` | Symlink one or more local skills for live development |
 | `asm audit`                     | Detect duplicate skills                     |
 | `asm audit security <name>`     | Run security audit on a skill               |
 | `asm stats`                     | Show aggregate skill metrics dashboard      |
@@ -492,7 +536,14 @@ asm init my-skill -p claude
 ```
 
 ```bash
+# Link globally (available in all projects)
 asm link ./my-skill -p claude
+
+# Link for the current project only
+asm link ./my-skill -p claude -s project
+
+# Link multiple skills at once
+asm link ./skill-a ./skill-b -p claude
 ```
 
 ```bash
