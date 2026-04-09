@@ -323,6 +323,22 @@ async function cloneWithUrl(
   ref: string | null,
   tempDir: string,
 ): Promise<string> {
+  // Commit SHAs (40-char hex) cannot be used with --branch; clone default
+  // branch then checkout the specific commit.
+  const isCommitSha = ref !== null && /^[0-9a-f]{40}$/i.test(ref);
+
+  if (isCommitSha) {
+    // Clone without --depth so we can checkout an arbitrary commit
+    await execFileAsync("git", ["clone", "--no-checkout", url, tempDir], {
+      timeout: 60_000,
+    });
+    await execFileAsync("git", ["checkout", ref], {
+      cwd: tempDir,
+      timeout: 30_000,
+    });
+    return tempDir;
+  }
+
   const args = ["clone", "--depth", "1"];
   if (ref) {
     args.push("--branch", ref);
