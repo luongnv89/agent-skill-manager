@@ -409,14 +409,17 @@ export async function buildIndex(manifestsDir: string): Promise<RegistryIndex> {
 // ─── Registry-Based Resolution ─────────────────────────────────────────────
 
 export const REGISTRY_INDEX_URL =
+  process.env.ASM_REGISTRY_URL ??
   "https://raw.githubusercontent.com/luongnv89/asm-registry/main/index.json";
 
-const REGISTRY_CACHE_PATH = join(
-  homedir(),
-  ".config",
-  "agent-skill-manager",
-  "registry-cache.json",
-);
+const REGISTRY_CACHE_PATH =
+  process.env.ASM_REGISTRY_CACHE ??
+  join(
+    homedir(),
+    ".config",
+    "agent-skill-manager",
+    "registry-cache.json",
+  );
 
 const REGISTRY_TTL_SECONDS = 3600; // 1 hour
 
