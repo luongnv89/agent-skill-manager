@@ -198,10 +198,13 @@ async function findSkillDirs(dir: string): Promise<string[]> {
 
     let entryStat;
     try {
-      entryStat = await stat(entryPath);
+      entryStat = await lstat(entryPath);
     } catch {
       continue;
     }
+
+    // Skip symlinks to avoid cycles from malformed or malicious marketplaces
+    if (entryStat.isSymbolicLink()) continue;
 
     if (entryStat.isDirectory()) {
       const skillMdPath = join(entryPath, "SKILL.md");
