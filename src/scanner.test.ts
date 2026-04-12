@@ -1066,6 +1066,39 @@ describe("scanCodexPluginCache", () => {
     expect(skills[0].codexPlugin?.enabled).toBe(false);
   });
 
+  it("reads enabled status from config.toml with quoted plugin names", async () => {
+    await makeCodexPlugin(tempDir, "official", "quoted-plugin", "1.0.0", {
+      name: "quoted-plugin",
+    });
+
+    const configPath = join(tempDir, "config.toml");
+    await writeFile(
+      configPath,
+      [
+        '[plugins."quoted-plugin"]',
+        "enabled = false",
+      ].join("\n"),
+    );
+
+    const skills = await scanCodexPluginCache(tempDir, configPath);
+    expect(skills[0].codexPlugin?.enabled).toBe(false);
+  });
+
+  it("reads enabled status from config.toml with single-quoted plugin names", async () => {
+    await makeCodexPlugin(tempDir, "official", "sq-plugin", "1.0.0", {
+      name: "sq-plugin",
+    });
+
+    const configPath = join(tempDir, "config.toml");
+    await writeFile(
+      configPath,
+      "[plugins.'sq-plugin']\nenabled = false\n",
+    );
+
+    const skills = await scanCodexPluginCache(tempDir, configPath);
+    expect(skills[0].codexPlugin?.enabled).toBe(false);
+  });
+
   it("defaults to enabled=true when plugin not in config.toml", async () => {
     await makeCodexPlugin(tempDir, "official", "unknown-plugin", "1.0.0", {
       name: "unknown-plugin",

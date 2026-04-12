@@ -343,7 +343,9 @@ function parseTomlEnabledMap(toml: string): Map<string, boolean> {
     // Section header: [plugins.plugin-name] or [[plugins]]
     const sectionMatch = line.match(/^\[plugins\.([^\]]+)\]$/);
     if (sectionMatch) {
-      currentPlugin = sectionMatch[1].trim();
+      currentPlugin = sectionMatch[1]
+        .trim()
+        .replace(/^["']|["']$/g, "");
       continue;
     }
     // Any other section header resets the current plugin context
@@ -549,6 +551,10 @@ interface CodexMarketplaceFile {
  * `.agents/plugins/` paths. These files list available (not necessarily
  * installed) plugins. This function returns the union of entries from all
  * discovered files, deduplicating by name.
+ *
+ * Note: This is a catalog utility for commands like `asm search` or
+ * `asm install` — it is not wired into `scanAllSkills()` because
+ * marketplace entries lack filesystem paths required by `SkillInfo`.
  *
  * Paths checked:
  *   - `~/.agents/plugins/marketplace.json`
