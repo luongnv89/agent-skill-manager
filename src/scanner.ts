@@ -6,7 +6,8 @@ import {
   readFile,
   realpath,
 } from "fs/promises";
-import { join, resolve } from "path";
+import { join, resolve, basename } from "path";
+import { homedir } from "os";
 import {
   parseFrontmatter,
   resolveVersion,
@@ -15,6 +16,13 @@ import {
 import { resolveProviderPath } from "./config";
 import { debug } from "./logger";
 import type { SkillInfo, Scope, SortBy, AppConfig } from "./utils/types";
+
+const PLUGIN_MARKETPLACES_DIR = join(
+  homedir(),
+  ".claude",
+  "plugins",
+  "marketplaces",
+);
 
 interface ScanLocation {
   dir: string;
@@ -170,13 +178,163 @@ async function scanDirectory(loc: ScanLocation): Promise<SkillInfo[]> {
   return skills;
 }
 
+/**
+ * Recursively find all SKILL.md files under a directory, returning their
+ * parent directory paths. Handles variable nesting depths used by different
+ * plugin marketplaces.
+ */
+async function findSkillDirs(dir: string): Promise<string[]> {
+  const skillDirs: string[] = [];
+
+  let entries: string[];
+  try {
+    entries = await readdir(dir);
+  } catch {
+    return skillDirs;
+  }
+
+  for (const entry of entries) {
+    const entryPath = join(dir, entry);
+
+    let entryStat;
+    try {
+      entryStat = await stat(entryPath);
+    } catch {
+      continue;
+    }
+
+    if (entryStat.isDirectory()) {
+      const skillMdPath = join(entryPath, "SKILL.md");
+      try {
+        await stat(skillMdPath);
+        skillDirs.push(entryPath);
+      } catch {
+        // No SKILL.md here — recurse deeper
+        const nested = await findSkillDirs(entryPath);
+        skillDirs.push(...nested);
+      }
+    }
+  }
+
+  return skillDirs;
+}
+
+/**
+ * Scan Claude plugin marketplaces under ~/.claude/plugins/marketplaces/.
+ *
+ * Marketplaces use variable-depth layouts:
+ *   - User-installed: {marketplace}/skills/{skill}/SKILL.md
+ *   - Official bundled: {marketplace}/plugins/{plugin}/skills/{skill}/SKILL.md
+ *
+ * Skills are attributed to their marketplace name (the directory directly
+ * under ~/.claude/plugins/marketplaces/).
+ */
+export async function scanPluginMarketplaces(
+  baseDir?: string,
+): Promise<SkillInfo[]> {
+  const marketplacesDir = baseDir ?? PLUGIN_MARKETPLACES_DIR;
+  const skills: SkillInfo[] = [];
+
+  debug(`scan: checking plugin marketplaces at ${marketplacesDir}`);
+
+  let marketplaces: string[];
+  try {
+    marketplaces = await readdir(marketplacesDir);
+  } catch {
+    debug(`scan: plugin marketplaces dir not found, skipping`);
+    return skills;
+  }
+
+  for (const marketplace of marketplaces) {
+    const marketplacePath = join(marketplacesDir, marketplace);
+
+    let mStat;
+    try {
+      mStat = await stat(marketplacePath);
+    } catch {
+      continue;
+    }
+    if (!mStat.isDirectory()) continue;
+
+    debug(`scan: scanning marketplace "${marketplace}"`);
+
+    const skillDirs = await findSkillDirs(marketplacePath);
+
+    for (const skillDir of skillDirs) {
+      const skillMdPath = join(skillDir, "SKILL.md");
+      let content: string;
+      try {
+        content = await readFile(skillMdPath, "utf-8");
+      } catch {
+        continue;
+      }
+
+      const fm = parseFrontmatter(content);
+      const entry = basename(skillDir);
+
+      let isSymlink = false;
+      let symlinkTarget: string | null = null;
+      try {
+        const lstats = await lstat(skillDir);
+        if (lstats.isSymbolicLink()) {
+          isSymlink = true;
+          symlinkTarget = await readlink(skillDir);
+        }
+      } catch {
+        // not a symlink
+      }
+
+      const resolvedPath = resolve(skillDir);
+      let resolvedRealPath: string;
+      try {
+        resolvedRealPath = await realpath(skillDir);
+      } catch {
+        resolvedRealPath = resolvedPath;
+      }
+
+      skills.push({
+        name: fm.name || entry,
+        version: resolveVersion(fm),
+        description: (fm.description || "").replace(/\s*\n\s*/g, " ").trim(),
+        creator: fm["metadata.creator"] || "",
+        license: (fm.license || "").trim(),
+        compatibility: (fm.compatibility || "").trim(),
+        allowedTools: resolveAllowedTools(fm),
+        effort: fm.effort || fm["metadata.effort"] || undefined,
+        dirName: entry,
+        path: resolvedPath,
+        originalPath: skillDir,
+        location: `global-plugin-${marketplace}`,
+        scope: "global",
+        provider: "plugin",
+        providerLabel: `Plugin (${marketplace})`,
+        isSymlink,
+        symlinkTarget,
+        realPath: resolvedRealPath,
+        marketplace,
+      });
+    }
+  }
+
+  debug(`scan: found ${skills.length} plugin marketplace skill(s)`);
+  return skills;
+}
+
 export async function scanAllSkills(
   config: AppConfig,
   scope: Scope,
 ): Promise<SkillInfo[]> {
   const locations = buildScanLocations(config, scope);
   const results = await Promise.all(locations.map(scanDirectory));
-  return results.flat();
+  const skills = results.flat();
+
+  // Include plugin marketplace skills for global and both scopes
+  if (scope === "global" || scope === "both") {
+    const pluginSkills = await scanPluginMarketplaces();
+    skills.push(...pluginSkills);
+  }
+
+  return skills;
 }
 
 export function searchSkills(skills: SkillInfo[], query: string): SkillInfo[] {
