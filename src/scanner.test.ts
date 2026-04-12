@@ -639,32 +639,39 @@ describe("scanPluginMarketplaces", () => {
   });
 
   it("scanAllSkills deduplicates skills that appear in both provider and plugin paths", async () => {
-    // Skill installed in both a regular provider path and the plugin marketplace
-    // Only one copy should appear in the result
-    const skillDir = join(tempDir, "mkt", "skills", "shared-skill");
-    await mkdir(skillDir, { recursive: true });
+    // Layout: pluginDir/mkt/skills/shared-skill/SKILL.md
+    // - scanPluginMarketplaces(pluginDir) finds it as marketplace "mkt"
+    // - a customPath pointing at pluginDir/mkt/skills also scans into
+    //   shared-skill/ and resolves the same realPath
+    // Both should resolve to the same realPath, so scanAllSkills must emit only one entry.
+    const pluginDir = join(tempDir, "plugin-base");
+    const skillsParent = join(pluginDir, "mkt", "skills");
+    const sharedSkillDir = join(skillsParent, "shared-skill");
+    await mkdir(sharedSkillDir, { recursive: true });
     await writeFile(
-      join(skillDir, "SKILL.md"),
+      join(sharedSkillDir, "SKILL.md"),
       "---\nname: Shared Skill\nversion: 1.0.0\n---\n",
     );
 
-    // scanPluginMarketplaces sees it via tempDir
-    const pluginSkills = await scanPluginMarketplaces(tempDir);
-    expect(pluginSkills).toHaveLength(1);
+    // customPaths entry that scans skillsParent — scanDirectory finds shared-skill inside it
+    const config = {
+      ...getDefaultConfig(),
+      providers: [],
+      customPaths: [
+        {
+          path: skillsParent,
+          label: "Custom",
+          scope: "global" as const,
+        },
+      ],
+    };
 
-    // Simulate a provider result with the same realPath
-    const duplicate = { ...pluginSkills[0], provider: "claude" };
-    const providerSkills = [duplicate];
+    const skills = await scanAllSkills(config, "global", pluginDir);
 
-    // Manually check dedup logic: realPath from providerSkills should block plugin entry
-    const seenRealPaths = new Set(providerSkills.map((s) => s.realPath));
-    const merged = [...providerSkills];
-    for (const ps of pluginSkills) {
-      if (!seenRealPaths.has(ps.realPath)) {
-        merged.push(ps);
-      }
-    }
-    expect(merged).toHaveLength(1);
-    expect(merged[0].provider).toBe("claude"); // provider entry wins
+    // Exactly one entry for the shared skill — no duplicates
+    const shared = skills.filter((s) => s.name === "Shared Skill");
+    expect(shared).toHaveLength(1);
+    // Provider (customPaths) entry wins — processed before plugin results
+    expect(shared[0].provider).not.toBe("plugin");
   });
 });

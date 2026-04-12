@@ -275,18 +275,8 @@ export async function scanPluginMarketplaces(
       const fm = parseFrontmatter(content);
       const entry = basename(skillDir);
 
-      let isSymlink = false;
-      let symlinkTarget: string | null = null;
-      try {
-        const lstats = await lstat(skillDir);
-        if (lstats.isSymbolicLink()) {
-          isSymlink = true;
-          symlinkTarget = await readlink(skillDir);
-        }
-      } catch {
-        // not a symlink
-      }
-
+      // findSkillDirs() skips symlinks, so marketplace skill dirs are always
+      // real directories — isSymlink is always false here.
       const resolvedPath = resolve(skillDir);
       let resolvedRealPath: string;
       try {
@@ -311,8 +301,8 @@ export async function scanPluginMarketplaces(
         scope: "global",
         provider: "plugin",
         providerLabel: `Plugin (${marketplace})`,
-        isSymlink,
-        symlinkTarget,
+        isSymlink: false,
+        symlinkTarget: null,
         realPath: resolvedRealPath,
         marketplace,
       });
