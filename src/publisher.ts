@@ -5,7 +5,7 @@
  * optionally opens a PR against luongnv89/asm-registry via the gh CLI.
  */
 
-import { readFile, stat } from "fs/promises";
+import { readFile, stat, realpath } from "fs/promises";
 import { join, resolve, relative } from "path";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 import { auditSkillSecurity } from "./security-auditor";
@@ -158,10 +158,11 @@ export async function getHeadCommit(dir: string): Promise<string> {
  * Get the root directory of the git repository containing dir.
  */
 export async function getGitRoot(dir: string): Promise<string> {
-  const proc = Bun.spawn(
-    ["git", "rev-parse", "--show-toplevel"],
-    { cwd: dir, stdout: "pipe", stderr: "pipe" },
-  );
+  const proc = Bun.spawn(["git", "rev-parse", "--show-toplevel"], {
+    cwd: dir,
+    stdout: "pipe",
+    stderr: "pipe",
+  });
   const stdout = await new Response(proc.stdout).text();
   const exitCode = await proc.exited;
   if (exitCode !== 0) {
@@ -435,9 +436,15 @@ export async function publishSkill(
   const commit = await getHeadCommit(skillDir);
   const repository = await getRemoteOrigin(skillDir);
   const gitRoot = await getGitRoot(skillDir);
-  const relativeSkillPath = relative(gitRoot, skillDir);
+  // git rev-parse --show-toplevel resolves symlinks (e.g. /var → /private/var on macOS),
+  // so resolve skillDir the same way before computing the relative path.
+  const realSkillDir = await realpath(skillDir);
+  const relativeSkillPath = relative(gitRoot, realSkillDir);
   // Only set skill_path when the skill is in a subdirectory (not the repo root)
-  const skillPath = relativeSkillPath && relativeSkillPath !== "." ? relativeSkillPath : undefined;
+  const skillPath =
+    relativeSkillPath && relativeSkillPath !== "."
+      ? relativeSkillPath
+      : undefined;
 
   // Step 6: Detect author via gh CLI
   const checkGhCliFn = opts._checkGhCliFn ?? checkGhCli;
