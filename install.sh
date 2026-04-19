@@ -188,11 +188,7 @@ detect_path_shadowing() {
         [ -z "$dir" ] && continue
         candidate="$dir/asm"
         [ -x "$candidate" ] || continue
-        if command -v readlink &>/dev/null; then
-            real="$(readlink -f "$candidate" 2>/dev/null || echo "$candidate")"
-        else
-            real="$candidate"
-        fi
+        real="$(realpath "$candidate" 2>/dev/null || readlink -f "$candidate" 2>/dev/null || echo "$candidate")"
         already=false
         for r in "${seen_real[@]}"; do
             if [ "$r" = "$real" ]; then
