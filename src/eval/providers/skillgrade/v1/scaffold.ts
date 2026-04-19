@@ -13,6 +13,7 @@
 
 import type { Spawner, SpawnResult } from "./spawn";
 import { bunSpawn } from "./spawn";
+import { formatSkillgradeMissingMessage } from "./missing-binary-message";
 
 /** Outcome of a scaffold attempt — consumed directly by the CLI. */
 export interface ScaffoldResult {
@@ -77,9 +78,18 @@ export async function scaffoldEvalYaml(
     });
   } catch (err: any) {
     // ENOENT / spawn failure — most commonly the binary is not on PATH.
+    // For ENOENT we emit a multi-option fix message (issue #173) so that
+    // users whose bundled install failed (offline, corrupted node_modules,
+    // custom deployment) have a manual fallback and know about the
+    // `ASM_SKILLGRADE_BIN` escape hatch. The re-run hint reuses the user's
+    // skill path so copy-paste re-runs the exact command they invoked.
     const message =
       err?.code === "ENOENT"
-        ? `${binary} not installed — reinstall agent-skill-manager to restore the bundled skillgrade: npm install -g agent-skill-manager`
+        ? formatSkillgradeMissingMessage({
+            headline: `${binary} not installed`,
+            skillPath: opts.skillPath,
+            rerunArgs: "--runtime init",
+          })
         : `failed to spawn ${binary}: ${err?.message ?? String(err)}`;
     return {
       ok: false,

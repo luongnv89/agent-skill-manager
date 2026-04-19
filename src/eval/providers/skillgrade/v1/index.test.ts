@@ -220,7 +220,7 @@ describe("classifyStderr", () => {
 // ─── applicable() ───────────────────────────────────────────────────────────
 
 describe("applicable() — binary", () => {
-  it("returns ok:false when skillgrade is not on PATH", async () => {
+  it("returns ok:false with a multi-option install hint when skillgrade is not on PATH", async () => {
     const p = createSkillgradeProvider({
       spawn: async () => {
         const e: any = new Error("ENOENT");
@@ -231,7 +231,19 @@ describe("applicable() — binary", () => {
     });
     const r = await p.applicable(CTX_WITH, {});
     expect(r.ok).toBe(false);
+    // Option 1 — reinstall agent-skill-manager (bundled path).
     expect(r.reason).toContain("npm install -g agent-skill-manager");
+    // Option 2 — manually install skillgrade (issue #173: second fix path).
+    expect(r.reason).toContain("npm install -g skillgrade");
+    // Option 3 — power-user escape hatch.
+    expect(r.reason).toContain("ASM_SKILLGRADE_BIN");
+    // Docs link (issue #173 acceptance criterion).
+    expect(r.reason).toContain(
+      "docs/skillgrade-integration.md#troubleshooting",
+    );
+    // Re-run hint preserves the user's skill path (CTX_WITH.skillPath)
+    // so copy-paste works verbatim (issue #173).
+    expect(r.reason).toContain(`asm eval ${CTX_WITH.skillPath} --runtime`);
   });
 
   it("returns ok:false when `skillgrade --version` exits non-zero", async () => {
@@ -249,7 +261,12 @@ describe("applicable() — binary", () => {
     });
     const r = await p.applicable(CTX_WITH, {});
     expect(r.ok).toBe(false);
+    // Headline keyword used by CLI-level regex assertions
+    // (`cli.test.ts::/skillgrade.*not installed or unreachable/i`).
     expect(r.reason).toMatch(/not installed or unreachable/i);
+    // Multi-option fix format (issue #173) — same format as the ENOENT
+    // path; both share `formatSkillgradeMissingMessage`.
+    expect(r.reason).toContain("npm install -g skillgrade");
   });
 });
 

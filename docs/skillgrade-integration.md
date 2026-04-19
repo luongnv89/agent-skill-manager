@@ -169,15 +169,29 @@ The rendered diff shows score delta, verdict flips, category deltas, and added/r
 
 ## Troubleshooting
 
-### `skillgrade not installed or unreachable`
+### `skillgrade not installed` / `skillgrade not installed or unreachable`
 
-Skillgrade ships with `agent-skill-manager` — this message usually means the bundled copy inside `node_modules/skillgrade/` got corrupted or partially removed. Reinstall `asm` to restore it:
+Skillgrade ships with `agent-skill-manager` as a bundled dependency, so `asm eval --runtime` should work out of the box after a normal `npm install -g agent-skill-manager`. If you still see this error, the bundled copy inside `node_modules/skillgrade/` got corrupted, partially removed, or never shipped (offline install, registry proxy stripping `bundledDependencies`, custom deployment). The error now lists three fix paths — use whichever matches your situation:
+
+**Option 1 — Reinstall `agent-skill-manager` (bundled install).** Fastest for most users:
 
 ```bash
 npm install -g agent-skill-manager
 ```
 
-If you're using `ASM_SKILLGRADE_BIN` to point at a custom path, double-check the file exists and is executable (`ls -la "$ASM_SKILLGRADE_BIN"`).
+**Option 2 — Install `skillgrade` manually.** Use this if option 1 didn't restore the bundled binary (offline environment, corporate registry, bundling bug). The provider's binary-resolution chain falls back to `PATH`, so a globally-installed `skillgrade` is picked up automatically:
+
+```bash
+npm install -g skillgrade
+```
+
+**Option 3 — Point `ASM_SKILLGRADE_BIN` at a specific binary.** Use this for local development builds, custom deployments, or when you want to pin a specific skillgrade version without touching globals:
+
+```bash
+export ASM_SKILLGRADE_BIN=/path/to/skillgrade
+```
+
+If you're already using `ASM_SKILLGRADE_BIN` and hitting this error, double-check the file exists and is executable (`ls -la "$ASM_SKILLGRADE_BIN"`). Unset the env var to fall back to the bundled copy (option 1) or a global install (option 2).
 
 ### `skillgrade 0.0.x is outside the required range ^0.1.3`
 
