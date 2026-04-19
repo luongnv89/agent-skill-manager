@@ -3,9 +3,8 @@
  *
  * Reads the `eval` section from `~/.asm/config.yml` and returns a typed
  * `EvalConfig` populated with defaults. This is a separate file from the
- * main app config (`~/.config/agent-skill-manager/config.json`) because
- * it tracks the Skillgrade integration plan's YAML-first layout — they
- * may unify later, but this PR is about scaffolding only.
+ * main app config (`~/.config/agent-skill-manager/config.json`) — they
+ * may unify later.
  *
  * The file is optional. A missing file, empty file, or missing `eval`
  * section all return the same defaults. Malformed YAML is surfaced via
@@ -30,14 +29,10 @@ import { parse as parseYaml } from "yaml";
 export interface ProviderEvalConfig {
   /** Preferred version range for this provider (e.g. `"^1.0.0"`). */
   version?: string;
-  /** External binary requirement override (e.g. `"^0.1.0"` for skillgrade). */
+  /** External binary requirement override (semver range). */
   externalRequires?: string;
-  /** Skillgrade-style preset. */
-  preset?: "smoke" | "reliable" | "regression";
   /** Pass/fail threshold in 0..100. */
   threshold?: number;
-  /** Execution provider for runtime evaluators. */
-  provider?: "docker" | "local";
   /** Free-form overrides — providers pick out what they understand. */
   [key: string]: unknown;
 }
