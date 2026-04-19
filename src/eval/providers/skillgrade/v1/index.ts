@@ -47,6 +47,7 @@ import { bunSpawn } from "./spawn";
 import { adaptSkillgradeReport, type SkillgradeReport } from "./adapter";
 import { satisfiesExternalRange } from "./semver-range";
 import { resolveBundledSkillgradeBinary } from "./resolve-binary";
+import { formatSkillgradeMissingMessage } from "./missing-binary-message";
 
 // ─── Identity constants ─────────────────────────────────────────────────────
 
@@ -309,8 +310,13 @@ export function createSkillgradeProvider(
     externalRequires: {
       binary,
       semverRange: externalRequires,
+      // Short hint surfaced by registry-level tooling. The full
+      // multi-option error (issue #173) is emitted at call time by
+      // `applicable()` / `scaffoldEvalYaml()` via
+      // `formatSkillgradeMissingMessage`; this string is a condensed
+      // recap pointing at the two primary fixes.
       installHint:
-        "skillgrade ships with agent-skill-manager — try reinstalling: npm install -g agent-skill-manager",
+        "skillgrade ships with agent-skill-manager — reinstall (npm install -g agent-skill-manager) or install skillgrade manually (npm install -g skillgrade)",
     },
 
     /**
@@ -323,11 +329,23 @@ export function createSkillgradeProvider(
       opts: EvalOpts,
     ): Promise<ApplicableResult> {
       // Stage 1: binary on PATH (and responsive to --version).
+      //
+      // The failure message lists three fix paths (reinstall, manual
+      // install, ASM_SKILLGRADE_BIN override) plus a docs link — see
+      // issue #173. We emit the shared multi-option format via
+      // `formatSkillgradeMissingMessage` so the scaffold path and the
+      // applicable() path stay in sync. The re-run hint preserves the
+      // user's skill path (`ctx.skillPath`) so copy-paste re-runs the
+      // exact `asm eval <skill> --runtime` command they just invoked.
       const detected = await detectVersion(spawn, binary, opts.signal);
       if (detected === null) {
         return {
           ok: false,
-          reason: `${binary} not installed or unreachable — reinstall agent-skill-manager to restore the bundled skillgrade: npm install -g agent-skill-manager`,
+          reason: formatSkillgradeMissingMessage({
+            headline: `${binary} not installed or unreachable`,
+            skillPath: ctx.skillPath,
+            rerunArgs: "--runtime",
+          }),
         };
       }
 

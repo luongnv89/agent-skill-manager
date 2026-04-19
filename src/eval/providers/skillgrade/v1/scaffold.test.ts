@@ -73,7 +73,7 @@ describe("scaffoldEvalYaml", () => {
     expect(res.message).toMatch(/aborted/);
   });
 
-  it("surfaces ENOENT with an npm install hint", async () => {
+  it("surfaces ENOENT with a multi-option install hint", async () => {
     const res = await scaffoldEvalYaml({
       skillPath: "/tmp/skill",
       spawn: async () => {
@@ -83,8 +83,24 @@ describe("scaffoldEvalYaml", () => {
       },
     });
     expect(res.ok).toBe(false);
+    // Headline preserves the "not installed" keyword used by downstream
+    // regex matchers (cli.test.ts, operator dashboards, etc.).
     expect(res.message).toContain("not installed");
+    // Option 1 — reinstall agent-skill-manager (bundled path).
     expect(res.message).toContain("npm install -g agent-skill-manager");
+    // Option 2 — manually install skillgrade (issue #173 acceptance
+    // criterion: at least two fix paths, exact copy-paste command).
+    expect(res.message).toContain("npm install -g skillgrade");
+    // Option 3 — power-user escape hatch.
+    expect(res.message).toContain("ASM_SKILLGRADE_BIN");
+    // Docs link (issue #173 acceptance: reference docs explaining what
+    // skillgrade is and why it's needed).
+    expect(res.message).toContain(
+      "docs/skillgrade-integration.md#troubleshooting",
+    );
+    // Re-run hint preserves the user's skill path + the `init` subcommand
+    // so copy-paste re-runs the exact invocation (issue #173).
+    expect(res.message).toContain("asm eval /tmp/skill --runtime init");
   });
 
   it("surfaces non-ENOENT spawn failures verbatim", async () => {
