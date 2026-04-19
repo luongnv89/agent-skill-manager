@@ -2457,7 +2457,7 @@ function renderChangelogPage() {
     + 'adhering to <a href="https://semver.org/">Semantic Versioning</a>.</p>'
     + '<p><a href="https://github.com/luongnv89/agent-skill-manager/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">View full changelog on GitHub &rarr;</a></p>'
 
-    + renderChangelogEntry('Unreleased', '2026-04-18', [
+    + renderChangelogEntry('1.21.0', '2026-04-19', [
       { tag: 'added', items: [
         '<code>asm eval &lt;skill&gt;</code> scored-rubric static quality lint through a new pluggable provider framework (<code>quality@1.0.0</code>)',
         '<code>asm eval --runtime</code> runtime evaluation via <a href="https://github.com/mgechev/skillgrade" target="_blank" rel="noopener">skillgrade</a> — LLM-judge + deterministic graders in a Docker sandbox (<strong>skillgrade now ships bundled with asm — zero extra install</strong>)',
@@ -2467,7 +2467,11 @@ function renderChangelogPage() {
         '<code>asm eval --compare &lt;id&gt;@&lt;v1&gt;,&lt;id&gt;@&lt;v2&gt;</code> diffs two provider versions on the same skill before promoting an upgrade',
         '<code>asm eval-providers list</code> shows registered providers, versions, schema version, and required externals',
         'Pluggable <code>EvalProvider</code> contract with semver-range resolution and versioned <code>EvalResult</code> schema (new <code>src/eval/</code> module)',
-        'Config section <code>eval.providers.*</code> in <code>~/.asm/config.yml</code> for pinning provider versions and runtime options'
+        'Config section <code>eval.providers.*</code> in <code>~/.asm/config.yml</code> for pinning provider versions and runtime options',
+        'Add <strong>Hermes</strong> as a built-in provider (18 providers total) — supports <code>~/.hermes/skills/</code> and <code>.hermes/skills/</code>'
+      ]},
+      { tag: 'fixed', items: [
+        'Recognize Windows drive paths (e.g. <code>C:\\</code>) as local sources in <code>asm install</code>'
       ]},
       { tag: 'docs', items: [
         'Add <a href="https://github.com/luongnv89/agent-skill-manager/blob/main/docs/eval-providers.md" target="_blank" rel="noopener"><code>docs/eval-providers.md</code></a> — provider model, version pinning, <code>--compare</code> workflow, 5-step guide to add a new provider',

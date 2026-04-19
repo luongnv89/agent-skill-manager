@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+## [1.21.0] - 2026-04-19
+
 ### Added
 
 - `asm eval <skill>` static quality lint through a new pluggable evaluator framework (`quality@1.0.0` provider wraps the existing SKILL.md linter)
@@ -18,6 +20,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - `asm eval-providers list` subcommand — prints a table of registered providers with version, schema version, description, and external requirements
 - Pluggable `EvalProvider` contract with semver-range resolution and a versioned `EvalResult` schema (new `src/eval/` module: `types.ts`, `registry.ts`, `runner.ts`, `config.ts`, `compare.ts`)
 - Config section `eval.providers.*` in `~/.asm/config.yml` for pinning provider versions and configuring runtime options (preset, threshold, Docker vs local, external version range)
+- Hermes agent as a built-in provider (18 providers total) — supports `~/.hermes/skills/` and `.hermes/skills/`, listed in `asm tools` and on the website's supported-tools section
+
+### Fixed
+
+- Recognize Windows drive paths (e.g. `C:\…`) as local sources in `asm install` (#138)
 
 ### Docs
 

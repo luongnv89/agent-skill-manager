@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.21.0 — 2026-04-19
+
+### Features
+
+- Add `asm eval` skill quality evaluator — score installed skills against a structured rubric ([#154](https://github.com/luongnv89/agent-skill-manager/pull/154), closes [#119](https://github.com/luongnv89/agent-skill-manager/issues/119)) — @luongnv89
+- Add eval provider contract, registry, and runner skeleton — pluggable architecture for skill quality evaluation ([#160](https://github.com/luongnv89/agent-skill-manager/pull/160), closes [#155](https://github.com/luongnv89/agent-skill-manager/issues/155)) — @luongnv89
+- Add quality provider adapter that wraps the built-in evaluator behind the new provider interface ([#161](https://github.com/luongnv89/agent-skill-manager/pull/161), closes [#156](https://github.com/luongnv89/agent-skill-manager/issues/156)) — @luongnv89
+- Wire `asm eval` through the provider framework and add `asm eval-providers` list command ([#162](https://github.com/luongnv89/agent-skill-manager/pull/162), closes [#157](https://github.com/luongnv89/agent-skill-manager/issues/157)) — @luongnv89
+- Add Skillgrade runtime provider for `asm eval` ([#163](https://github.com/luongnv89/agent-skill-manager/pull/163), closes [#158](https://github.com/luongnv89/agent-skill-manager/issues/158)) — @luongnv89
+- Add `--compare` mode to `asm eval` for side-by-side multi-provider scoring, plus integration docs ([#164](https://github.com/luongnv89/agent-skill-manager/pull/164), closes [#159](https://github.com/luongnv89/agent-skill-manager/issues/159)) — @luongnv89
+- Bundle Skillgrade for transparent runtime-eval install — no separate setup required ([#165](https://github.com/luongnv89/agent-skill-manager/pull/165)) — @luongnv89
+- Add Hermes agent as a built-in provider, including supported-tools listing on README and website ([#166](https://github.com/luongnv89/agent-skill-manager/pull/166), [#168](https://github.com/luongnv89/agent-skill-manager/pull/168)) — @luongnv89
+
+### Bug Fixes
+
+- Recognize Windows drive paths (e.g. `C:\…`) as local sources in the installer ([#153](https://github.com/luongnv89/agent-skill-manager/pull/153), closes [#138](https://github.com/luongnv89/agent-skill-manager/issues/138)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/agent-skill-manager/compare/v1.20.0...v1.21.0
+
 ## v1.20.0 — 2026-04-12
 
 ### Features
