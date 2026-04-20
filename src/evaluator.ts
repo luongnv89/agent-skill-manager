@@ -37,6 +37,7 @@ import {
   readdir,
 } from "fs/promises";
 import { join, resolve, basename, isAbsolute } from "path";
+import type { ProviderEvalReport } from "./eval/summary";
 import { parseFrontmatter, resolveVersion } from "./utils/frontmatter";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -1415,7 +1416,9 @@ function bar(score: number, max: number, width = 20): string {
 /**
  * Render a human-readable evaluation report (no ANSI — the CLI adds colour).
  */
-export function formatReport(report: EvaluationReport): string {
+export function formatReport(
+  report: EvaluationReport & { providers?: ProviderEvalReport[] },
+): string {
   const lines: string[] = [];
   lines.push(`Skill evaluation: ${report.skillPath}`);
   lines.push(`SKILL.md:         ${report.skillMdPath}`);
@@ -1439,6 +1442,24 @@ export function formatReport(report: EvaluationReport): string {
     }
   } else {
     lines.push("No suggestions — skill looks great.");
+  }
+  if (report.providers && report.providers.length > 0) {
+    lines.push("");
+    lines.push("Providers:");
+    for (const provider of report.providers) {
+      const verdict = provider.passed ? "pass" : "fail";
+      lines.push(
+        `  ${provider.id}@${provider.version}  ${provider.score}/100  ${verdict}`,
+      );
+      for (const category of provider.categories) {
+        lines.push(
+          `    ${category.name.padEnd(26)} ${category.score}/${category.max}`,
+        );
+      }
+      for (const finding of provider.findings) {
+        lines.push(`    [${finding.severity}] ${finding.message}`);
+      }
+    }
   }
   return lines.join("\n");
 }
@@ -1913,7 +1934,7 @@ export function buildBatchMachineData(batch: EvalBatchResult) {
  * Machine-envelope friendly shape for `asm eval`.
  */
 export function buildEvalMachineData(
-  report: EvaluationReport,
+  report: EvaluationReport & { providers?: ProviderEvalReport[] },
   fix: FixResult | null = null,
 ) {
   return {
@@ -1930,6 +1951,22 @@ export function buildEvalMachineData(
       suggestions: c.suggestions,
     })),
     top_suggestions: report.topSuggestions,
+    providers:
+      report.providers?.map((provider) => ({
+        id: provider.id,
+        version: provider.version,
+        schemaVersion: provider.schemaVersion,
+        score: provider.score,
+        passed: provider.passed,
+        categories: provider.categories.map((category) => ({
+          id: category.id,
+          name: category.name,
+          score: category.score,
+          max: category.max,
+          findings: category.findings ?? [],
+        })),
+        findings: provider.findings,
+      })) ?? [],
     fix: fix
       ? {
           dry_run: fix.dryRun,
