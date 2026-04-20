@@ -2,12 +2,12 @@
   "repoUrl": "https://github.com/kepano/obsidian-skills.git",
   "owner": "kepano",
   "repo": "obsidian-skills",
-  "updatedAt": "2026-03-27T23:21:32.212Z",
+  "updatedAt": "2026-04-20T06:33:18.931Z",
   "skillCount": 5,
   "skills": [
     {
       "name": "defuddle",
-      "description": "Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page.",
+      "description": "Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.",
       "version": "0.0.0",
       "license": "",
       "creator": "",

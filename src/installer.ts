@@ -430,7 +430,7 @@ export async function validateSkill(tempDir: string): Promise<{
 
 export async function discoverSkills(
   tempDir: string,
-  maxDepth: number = 3,
+  maxDepth: number = 5,
 ): Promise<DiscoveredSkill[]> {
   const skills: DiscoveredSkill[] = [];
 

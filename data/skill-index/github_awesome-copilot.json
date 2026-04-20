@@ -2,9 +2,21 @@
   "repoUrl": "https://github.com/github/awesome-copilot.git",
   "owner": "github",
   "repo": "awesome-copilot",
-  "updatedAt": "2026-03-27T23:21:45.206Z",
-  "skillCount": 254,
+  "updatedAt": "2026-04-20T06:33:43.344Z",
+  "skillCount": 441,
   "skills": [
+    {
+      "name": "acquire-codebase-knowledge",
+      "description": "Use this skill when the user explicitly asks to map, document, or onboard into an existing codebase. Trigger for prompts like \"map this codebase\", \"document this architecture\", \"onboard me to this repo\", or \"create codebase docs\". Do not trigger for routine feature implementation, bug fixes, or narrow code edits unless the user asks for repository-level discovery.",
+      "version": "1.3",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Cross-platform. Requires Python 3.8+ and git. Run scripts/scan.py from the target project root.",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/acquire-codebase-knowledge",
+      "relPath": "skills/acquire-codebase-knowledge",
+      "verified": true
+    },
     {
       "name": "add-educational-comments",
       "description": "Add educational comments to the file specified, or prompt asking for file to comment if one is not provided.",
@@ -30,6 +42,30 @@
       "verified": true
     },
     {
+      "name": "agent-owasp-compliance",
+      "description": "Check any AI agent codebase against the OWASP Agentic Security Initiative (ASI) Top 10 risks. Use this skill when: - Evaluating an agent system's security posture before production deployment - Running a compliance check against OWASP ASI 2026 standards - Mapping existing security controls to the 10 agentic risks - Generating a compliance report for security review or audit - Comparing agent framework security features against the standard - Any request like \"is my agent OWASP compliant?\", \"check ASI compliance\", or \"agentic security audit\"",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/agent-owasp-compliance",
+      "relPath": "skills/agent-owasp-compliance",
+      "verified": true
+    },
+    {
+      "name": "agent-supply-chain",
+      "description": "Verify supply chain integrity for AI agent plugins, tools, and dependencies. Use this skill when: - Generating SHA-256 integrity manifests for agent plugins or tool packages - Verifying that installed plugins match their published manifests - Detecting tampered, modified, or untracked files in agent tool directories - Auditing dependency pinning and version policies for agent components - Building provenance chains for agent plugin promotion (dev → staging → production) - Any request like \"verify plugin integrity\", \"generate manifest\", \"check supply chain\", or \"sign this plugin\"",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/agent-supply-chain",
+      "relPath": "skills/agent-supply-chain",
+      "verified": true
+    },
+    {
       "name": "agentic-eval",
       "description": "Patterns and techniques for evaluating and improving AI agent outputs. Use this skill when: - Implementing self-critique and reflection loops - Building evaluator-optimizer pipelines for quality-critical generation - Creating test-driven code refinement workflows - Designing rubric-based or LLM-as-judge evaluation systems - Adding iterative improvement to agent outputs (code, reports, analysis) - Measuring and improving agent response quality",
       "version": "0.0.0",
@@ -39,6 +75,30 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/agentic-eval",
       "relPath": "skills/agentic-eval",
+      "verified": true
+    },
+    {
+      "name": "ai-prompt-engineering-safety-review",
+      "description": "Comprehensive AI prompt engineering safety review and improvement prompt. Analyzes prompts for safety, bias, security vulnerabilities, and effectiveness while providing detailed improvement recommendations with extensive frameworks, testing methodologies, and educational content.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/security-best-practices/skills/ai-prompt-engineering-safety-review",
+      "relPath": "plugins/security-best-practices/skills/ai-prompt-engineering-safety-review",
+      "verified": true
+    },
+    {
+      "name": "ai-prompt-engineering-safety-review",
+      "description": "Comprehensive AI prompt engineering safety review and improvement prompt. Analyzes prompts for safety, bias, security vulnerabilities, and effectiveness while providing detailed improvement recommendations with extensive frameworks, testing methodologies, and educational content.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/testing-automation/skills/ai-prompt-engineering-safety-review",
+      "relPath": "plugins/testing-automation/skills/ai-prompt-engineering-safety-review",
       "verified": true
     },
     {
@@ -102,6 +162,222 @@
       "verified": true
     },
     {
+      "name": "arize-ai-provider-integration",
+      "description": "INVOKE THIS SKILL when creating, reading, updating, or deleting Arize AI integrations. Covers listing integrations, creating integrations for any supported LLM provider (OpenAI, Anthropic, Azure OpenAI, AWS Bedrock, Vertex AI, Gemini, NVIDIA NIM, custom), updating credentials or metadata, and deleting integrations using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/arize-ax/skills/arize-ai-provider-integration",
+      "relPath": "plugins/arize-ax/skills/arize-ai-provider-integration",
+      "verified": true
+    },
+    {
+      "name": "arize-ai-provider-integration",
+      "description": "INVOKE THIS SKILL when creating, reading, updating, or deleting Arize AI integrations. Covers listing integrations, creating integrations for any supported LLM provider (OpenAI, Anthropic, Azure OpenAI, AWS Bedrock, Vertex AI, Gemini, NVIDIA NIM, custom), updating credentials or metadata, and deleting integrations using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/arize-ai-provider-integration",
+      "relPath": "skills/arize-ai-provider-integration",
+      "verified": true
+    },
+    {
+      "name": "arize-annotation",
+      "description": "INVOKE THIS SKILL when creating, managing, or using annotation configs on Arize (categorical, continuous, freeform), or applying human annotations to project spans via the Python SDK. Configs are the label schema for human feedback on spans and other surfaces in the Arize UI. Triggers: annotation config, label schema, human feedback schema, bulk annotate spans, update_annotations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/arize-ax/skills/arize-annotation",
+      "relPath": "plugins/arize-ax/skills/arize-annotation",
+      "verified": true
+    },
+    {
+      "name": "arize-annotation",
+      "description": "INVOKE THIS SKILL when creating, managing, or using annotation configs on Arize (categorical, continuous, freeform), or applying human annotations to project spans via the Python SDK. Configs are the label schema for human feedback on spans and other surfaces in the Arize UI. Triggers: annotation config, label schema, human feedback schema, bulk annotate spans, update_annotations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/arize-annotation",
+      "relPath": "skills/arize-annotation",
+      "verified": true
+    },
+    {
+      "name": "arize-dataset",
+      "description": "INVOKE THIS SKILL when creating, managing, or querying Arize datasets and examples. Covers dataset CRUD, appending examples, exporting data, and file-based dataset creation using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/arize-ax/skills/arize-dataset",
+      "relPath": "plugins/arize-ax/skills/arize-dataset",
+      "verified": true
+    },
+    {
+      "name": "arize-dataset",
+      "description": "INVOKE THIS SKILL when creating, managing, or querying Arize datasets and examples. Covers dataset CRUD, appending examples, exporting data, and file-based dataset creation using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/arize-dataset",
+      "relPath": "skills/arize-dataset",
+      "verified": true
+    },
+    {
+      "name": "arize-evaluator",
+      "description": "INVOKE THIS SKILL for LLM-as-judge evaluation workflows on Arize: creating/updating evaluators, running evaluations on spans or experiments, tasks, trigger-run, column mapping, and continuous monitoring. Use when the user says: create an evaluator, LLM judge, hallucination/faithfulness/correctness/relevance, run eval, score my spans or experiment, ax tasks, trigger-run, trigger eval, column mapping, continuous monitoring, query filter for evals, evaluator version, or improve an evaluator prompt.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/arize-ax/skills/arize-evaluator",
+      "relPath": "plugins/arize-ax/skills/arize-evaluator",
+      "verified": true
+    },
+    {
+      "name": "arize-evaluator",
+      "description": "INVOKE THIS SKILL for LLM-as-judge evaluation workflows on Arize: creating/updating evaluators, running evaluations on spans or experiments, tasks, trigger-run, column mapping, and continuous monitoring. Use when the user says: create an evaluator, LLM judge, hallucination/faithfulness/correctness/relevance, run eval, score my spans or experiment, ax tasks, trigger-run, trigger eval, column mapping, continuous monitoring, query filter for evals, evaluator version, or improve an evaluator prompt.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/arize-evaluator",
+      "relPath": "skills/arize-evaluator",
+      "verified": true
+    },
+    {
+      "name": "arize-experiment",
+      "description": "INVOKE THIS SKILL when creating, running, or analyzing Arize experiments. Covers experiment CRUD, exporting runs, comparing results, and evaluation workflows using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/arize-ax/skills/arize-experiment",
+      "relPath": "plugins/arize-ax/skills/arize-experiment",
+      "verified": true
+    },
+    {
+      "name": "arize-experiment",
+      "description": "INVOKE THIS SKILL when creating, running, or analyzing Arize experiments. Covers experiment CRUD, exporting runs, comparing results, and evaluation workflows using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/arize-experiment",
+      "relPath": "skills/arize-experiment",
+      "verified": true
+    },
+    {
+      "name": "arize-instrumentation",
+      "description": "INVOKE THIS SKILL when adding Arize AX tracing to an application. Follow the Agent-Assisted Tracing two-phase flow: analyze the codebase (read-only), then implement instrumentation after user confirmation. When the app uses LLM tool/function calling, add manual CHAIN + TOOL spans so traces show each tool's input and output. Leverages https://arize.com/docs/ax/alyx/tracing-assistant and https://arize.com/docs/PROMPT.md.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/arize-ax/skills/arize-instrumentation",
+      "relPath": "plugins/arize-ax/skills/arize-instrumentation",
+      "verified": true
+    },
+    {
+      "name": "arize-instrumentation",
+      "description": "INVOKE THIS SKILL when adding Arize AX tracing to an application. Follow the Agent-Assisted Tracing two-phase flow: analyze the codebase (read-only), then implement instrumentation after user confirmation. When the app uses LLM tool/function calling, add manual CHAIN + TOOL spans so traces show each tool's input and output. Leverages https://arize.com/docs/ax/alyx/tracing-assistant and https://arize.com/docs/PROMPT.md.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/arize-instrumentation",
+      "relPath": "skills/arize-instrumentation",
+      "verified": true
+    },
+    {
+      "name": "arize-link",
+      "description": "Generate deep links to the Arize UI. Use when the user wants a clickable URL to open a specific trace, span, session, dataset, labeling queue, evaluator, or annotation config.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/arize-ax/skills/arize-link",
+      "relPath": "plugins/arize-ax/skills/arize-link",
+      "verified": true
+    },
+    {
+      "name": "arize-link",
+      "description": "Generate deep links to the Arize UI. Use when the user wants a clickable URL to open a specific trace, span, session, dataset, labeling queue, evaluator, or annotation config.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/arize-link",
+      "relPath": "skills/arize-link",
+      "verified": true
+    },
+    {
+      "name": "arize-prompt-optimization",
+      "description": "INVOKE THIS SKILL when optimizing, improving, or debugging LLM prompts using production trace data, evaluations, and annotations. Covers extracting prompts from spans, gathering performance signal, and running a data-driven optimization loop using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/arize-ax/skills/arize-prompt-optimization",
+      "relPath": "plugins/arize-ax/skills/arize-prompt-optimization",
+      "verified": true
+    },
+    {
+      "name": "arize-prompt-optimization",
+      "description": "INVOKE THIS SKILL when optimizing, improving, or debugging LLM prompts using production trace data, evaluations, and annotations. Covers extracting prompts from spans, gathering performance signal, and running a data-driven optimization loop using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/arize-prompt-optimization",
+      "relPath": "skills/arize-prompt-optimization",
+      "verified": true
+    },
+    {
+      "name": "arize-trace",
+      "description": "INVOKE THIS SKILL when downloading or exporting Arize traces and spans. Covers exporting traces by ID, sessions by ID, and debugging LLM application issues using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/arize-ax/skills/arize-trace",
+      "relPath": "plugins/arize-ax/skills/arize-trace",
+      "verified": true
+    },
+    {
+      "name": "arize-trace",
+      "description": "INVOKE THIS SKILL when downloading or exporting Arize traces and spans. Covers exporting traces by ID, sessions by ID, and debugging LLM application issues using the ax CLI.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/arize-trace",
+      "relPath": "skills/arize-trace",
+      "verified": true
+    },
+    {
       "name": "aspire",
       "description": "Aspire skill covering the Aspire CLI, AppHost orchestration, service discovery, integrations, MCP server, VS Code extension, Dev Containers, GitHub Codespaces, templates, dashboard, and deployment. Use when the user asks to create, run, debug, configure, deploy, or troubleshoot an Aspire distributed application.",
       "version": "0.0.0",
@@ -121,8 +397,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/csharp-dotnet-development/skills/aspnet-minimal-api-openapi",
+      "relPath": "plugins/csharp-dotnet-development/skills/aspnet-minimal-api-openapi",
+      "verified": true
+    },
+    {
+      "name": "aspnet-minimal-api-openapi",
+      "description": "Create ASP.NET Minimal API endpoints with proper OpenAPI documentation",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/aspnet-minimal-api-openapi",
       "relPath": "skills/aspnet-minimal-api-openapi",
+      "verified": true
+    },
+    {
+      "name": "automate-this",
+      "description": "Analyze a screen recording of a manual process and produce targeted, working automation scripts. Extracts frames and audio narration from video files, reconstructs the step-by-step workflow, and proposes automation at multiple complexity levels using tools already installed on the user machine.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/automate-this/skills/automate-this",
+      "relPath": "plugins/automate-this/skills/automate-this",
       "verified": true
     },
     {
@@ -159,6 +459,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/aws-cdk-python-setup",
       "relPath": "skills/aws-cdk-python-setup",
+      "verified": true
+    },
+    {
+      "name": "az-cost-optimize",
+      "description": "Analyze Azure resources used in the app (IaC files and/or resources in a target rg) and optimize costs - creating GitHub issues for identified optimizations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/azure-cloud-development/skills/az-cost-optimize",
+      "relPath": "plugins/azure-cloud-development/skills/az-cost-optimize",
       "verified": true
     },
     {
@@ -217,8 +529,44 @@
       "creator": "",
       "compatibility": "Requires internet access to prices.azure.com and learn.microsoft.com. No authentication needed.",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/azure-cloud-development/skills/azure-pricing",
+      "relPath": "plugins/azure-cloud-development/skills/azure-pricing",
+      "verified": true
+    },
+    {
+      "name": "azure-pricing",
+      "description": "Fetches real-time Azure retail pricing using the Azure Retail Prices API (prices.azure.com) and estimates Copilot Studio agent credit consumption. Use when the user asks about the cost of any Azure service, wants to compare SKU prices, needs pricing data for a cost estimate, mentions Azure pricing, Azure costs, Azure billing, or asks about Copilot Studio pricing, Copilot Credits, or agent usage estimation. Covers compute, storage, networking, databases, AI, Copilot Studio, and all other Azure service families.",
+      "version": "1.2",
+      "license": "",
+      "creator": "",
+      "compatibility": "Requires internet access to prices.azure.com and learn.microsoft.com. No authentication needed.",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/azure-pricing",
       "relPath": "skills/azure-pricing",
+      "verified": true
+    },
+    {
+      "name": "azure-resource-health-diagnose",
+      "description": "Analyze Azure resource health, diagnose issues from logs and telemetry, and create a remediation plan for identified problems.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/azure-cloud-development/skills/azure-resource-health-diagnose",
+      "relPath": "plugins/azure-cloud-development/skills/azure-resource-health-diagnose",
+      "verified": true
+    },
+    {
+      "name": "azure-resource-health-diagnose",
+      "description": "Analyze Azure resource health, diagnose issues from logs and telemetry, and create a remediation plan for identified problems.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/devops-oncall/skills/azure-resource-health-diagnose",
+      "relPath": "plugins/devops-oncall/skills/azure-resource-health-diagnose",
       "verified": true
     },
     {
@@ -310,8 +658,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/project-planning/skills/breakdown-epic-arch",
+      "relPath": "plugins/project-planning/skills/breakdown-epic-arch",
+      "verified": true
+    },
+    {
+      "name": "breakdown-epic-arch",
+      "description": "Prompt for creating the high-level technical architecture for an Epic, based on a Product Requirements Document.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/breakdown-epic-arch",
       "relPath": "skills/breakdown-epic-arch",
+      "verified": true
+    },
+    {
+      "name": "breakdown-epic-pm",
+      "description": "Prompt for creating an Epic Product Requirements Document (PRD) for a new epic. This PRD will be used as input for generating a technical architecture specification.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/project-planning/skills/breakdown-epic-pm",
+      "relPath": "plugins/project-planning/skills/breakdown-epic-pm",
       "verified": true
     },
     {
@@ -334,8 +706,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/project-planning/skills/breakdown-feature-implementation",
+      "relPath": "plugins/project-planning/skills/breakdown-feature-implementation",
+      "verified": true
+    },
+    {
+      "name": "breakdown-feature-implementation",
+      "description": "Prompt for creating detailed feature implementation plans, following Epoch monorepo structure.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/breakdown-feature-implementation",
       "relPath": "skills/breakdown-feature-implementation",
+      "verified": true
+    },
+    {
+      "name": "breakdown-feature-prd",
+      "description": "Prompt for creating Product Requirements Documents (PRDs) for new features, based on an Epic.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/project-planning/skills/breakdown-feature-prd",
+      "relPath": "plugins/project-planning/skills/breakdown-feature-prd",
       "verified": true
     },
     {
@@ -435,6 +831,18 @@
       "verified": true
     },
     {
+      "name": "code-tour",
+      "description": "Use this skill to create CodeTour .tour files — persona-targeted, step-by-step walkthroughs that link to real files and line numbers. Trigger for: \"create a tour\", \"make a code tour\", \"generate a tour\", \"onboarding tour\", \"tour for this PR\", \"tour for this bug\", \"RCA tour\", \"architecture tour\", \"explain how X works\", \"vibe check\", \"PR review tour\", \"contributor guide\", \"help someone ramp up\", or any request for a structured walkthrough through code. Supports 20 developer personas (new joiner, bug fixer, architect, PR reviewer, vibecoder, security reviewer, and more), all CodeTour step types (file/line, selection, pattern, uri, commands, view), and tour-level fields (ref, isPrimary, nextTour). Works with any repository in any language.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/code-tour",
+      "relPath": "skills/code-tour",
+      "verified": true
+    },
+    {
       "name": "codeql",
       "description": "Comprehensive guide for setting up and configuring CodeQL code scanning via GitHub Actions workflows and the CodeQL CLI. This skill should be used when users need help with code scanning configuration, CodeQL workflow files, CodeQL CLI commands, SARIF output, security analysis setup, or troubleshooting CodeQL analysis.",
       "version": "0.0.0",
@@ -480,6 +888,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/containerize-aspnetcore",
       "relPath": "skills/containerize-aspnetcore",
+      "verified": true
+    },
+    {
+      "name": "context-map",
+      "description": "Generate a map of all files relevant to a task before making changes",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/context-engineering/skills/context-map",
+      "relPath": "plugins/context-engineering/skills/context-map",
       "verified": true
     },
     {
@@ -540,6 +960,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/copilot-instructions-blueprint-generator",
       "relPath": "skills/copilot-instructions-blueprint-generator",
+      "verified": true
+    },
+    {
+      "name": "copilot-sdk",
+      "description": "Build agentic applications with GitHub Copilot SDK. Use when embedding AI agents in apps, creating custom tools, implementing streaming responses, managing sessions, connecting to MCP servers, or creating custom agents. Triggers on Copilot SDK, GitHub SDK, agentic app, embed Copilot, programmable agent, MCP server, custom agent.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/copilot-sdk/skills/copilot-sdk",
+      "relPath": "plugins/copilot-sdk/skills/copilot-sdk",
       "verified": true
     },
     {
@@ -646,6 +1078,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/project-planning/skills/create-github-issues-feature-from-implementation-plan",
+      "relPath": "plugins/project-planning/skills/create-github-issues-feature-from-implementation-plan",
+      "verified": true
+    },
+    {
+      "name": "create-github-issues-feature-from-implementation-plan",
+      "description": "Create GitHub Issues from implementation plan phases using feature_request.yml or chore_request.yml templates.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/create-github-issues-feature-from-implementation-plan",
       "relPath": "skills/create-github-issues-feature-from-implementation-plan",
       "verified": true
@@ -672,6 +1116,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/create-github-pull-request-from-specification",
       "relPath": "skills/create-github-pull-request-from-specification",
+      "verified": true
+    },
+    {
+      "name": "create-implementation-plan",
+      "description": "Create a new implementation plan file for new features, refactoring existing code or upgrading packages, design, architecture or infrastructure.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/project-planning/skills/create-implementation-plan",
+      "relPath": "plugins/project-planning/skills/create-implementation-plan",
       "verified": true
     },
     {
@@ -730,6 +1186,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/java-development/skills/create-spring-boot-java-project",
+      "relPath": "plugins/java-development/skills/create-spring-boot-java-project",
+      "verified": true
+    },
+    {
+      "name": "create-spring-boot-java-project",
+      "description": "Create Spring Boot Java Project Skeleton",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/create-spring-boot-java-project",
       "relPath": "skills/create-spring-boot-java-project",
       "verified": true
@@ -744,6 +1212,30 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/create-spring-boot-kotlin-project",
       "relPath": "skills/create-spring-boot-kotlin-project",
+      "verified": true
+    },
+    {
+      "name": "create-technical-spike",
+      "description": "Create time-boxed technical spike documents for researching and resolving critical development decisions before implementation.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/project-planning/skills/create-technical-spike",
+      "relPath": "plugins/project-planning/skills/create-technical-spike",
+      "verified": true
+    },
+    {
+      "name": "create-technical-spike",
+      "description": "Create time-boxed technical spike documents for researching and resolving critical development decisions before implementation.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/technical-spike/skills/create-technical-spike",
+      "relPath": "plugins/technical-spike/skills/create-technical-spike",
       "verified": true
     },
     {
@@ -778,8 +1270,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/oracle-to-postgres-migration-expert/skills/creating-oracle-to-postgres-master-migration-plan",
+      "relPath": "plugins/oracle-to-postgres-migration-expert/skills/creating-oracle-to-postgres-master-migration-plan",
+      "verified": true
+    },
+    {
+      "name": "creating-oracle-to-postgres-master-migration-plan",
+      "description": "Discovers all projects in a .NET solution, classifies each for Oracle-to-PostgreSQL migration eligibility, and produces a persistent master migration plan. Use when starting a multi-project Oracle-to-PostgreSQL migration, creating a migration inventory, or assessing which .NET projects contain Oracle dependencies.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/creating-oracle-to-postgres-master-migration-plan",
       "relPath": "skills/creating-oracle-to-postgres-master-migration-plan",
+      "verified": true
+    },
+    {
+      "name": "creating-oracle-to-postgres-migration-bug-report",
+      "description": "Creates structured bug reports for defects found during Oracle-to-PostgreSQL migration. Use when documenting behavioral differences between Oracle and PostgreSQL as actionable bug reports with severity, root cause, and remediation steps.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/oracle-to-postgres-migration-expert/skills/creating-oracle-to-postgres-migration-bug-report",
+      "relPath": "plugins/oracle-to-postgres-migration-expert/skills/creating-oracle-to-postgres-migration-bug-report",
       "verified": true
     },
     {
@@ -802,8 +1318,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/oracle-to-postgres-migration-expert/skills/creating-oracle-to-postgres-migration-integration-tests",
+      "relPath": "plugins/oracle-to-postgres-migration-expert/skills/creating-oracle-to-postgres-migration-integration-tests",
+      "verified": true
+    },
+    {
+      "name": "creating-oracle-to-postgres-migration-integration-tests",
+      "description": "Creates integration test cases for .NET data access artifacts during Oracle-to-PostgreSQL database migrations. Generates DB-agnostic xUnit tests with deterministic seed data that validate behavior consistency across both database systems. Use when creating integration tests for a migrated project, generating test coverage for data access layers, or writing Oracle-to-PostgreSQL migration validation tests.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/creating-oracle-to-postgres-migration-integration-tests",
       "relPath": "skills/creating-oracle-to-postgres-migration-integration-tests",
+      "verified": true
+    },
+    {
+      "name": "csharp-async",
+      "description": "Get best practices for C# async programming",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/csharp-dotnet-development/skills/csharp-async",
+      "relPath": "plugins/csharp-dotnet-development/skills/csharp-async",
       "verified": true
     },
     {
@@ -838,8 +1378,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/csharp-mcp-development/skills/csharp-mcp-server-generator",
+      "relPath": "plugins/csharp-mcp-development/skills/csharp-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "csharp-mcp-server-generator",
+      "description": "Generate a complete MCP server project in C# with tools, prompts, and proper configuration",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/csharp-mcp-server-generator",
       "relPath": "skills/csharp-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "csharp-mstest",
+      "description": "Get best practices for MSTest 3.x/4.x unit testing, including modern assertion APIs and data-driven tests",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/csharp-dotnet-development/skills/csharp-mstest",
+      "relPath": "plugins/csharp-dotnet-development/skills/csharp-mstest",
       "verified": true
     },
     {
@@ -862,6 +1426,30 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/csharp-dotnet-development/skills/csharp-nunit",
+      "relPath": "plugins/csharp-dotnet-development/skills/csharp-nunit",
+      "verified": true
+    },
+    {
+      "name": "csharp-nunit",
+      "description": "Get best practices for NUnit unit testing, including data-driven tests",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/testing-automation/skills/csharp-nunit",
+      "relPath": "plugins/testing-automation/skills/csharp-nunit",
+      "verified": true
+    },
+    {
+      "name": "csharp-nunit",
+      "description": "Get best practices for NUnit unit testing, including data-driven tests",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/csharp-nunit",
       "relPath": "skills/csharp-nunit",
       "verified": true
@@ -874,8 +1462,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/csharp-dotnet-development/skills/csharp-tunit",
+      "relPath": "plugins/csharp-dotnet-development/skills/csharp-tunit",
+      "verified": true
+    },
+    {
+      "name": "csharp-tunit",
+      "description": "Get best practices for TUnit unit testing, including data-driven tests",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/csharp-tunit",
       "relPath": "skills/csharp-tunit",
+      "verified": true
+    },
+    {
+      "name": "csharp-xunit",
+      "description": "Get best practices for XUnit unit testing, including data-driven tests",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/csharp-dotnet-development/skills/csharp-xunit",
+      "relPath": "plugins/csharp-dotnet-development/skills/csharp-xunit",
       "verified": true
     },
     {
@@ -922,8 +1534,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/dataverse-sdk-for-python/skills/dataverse-python-advanced-patterns",
+      "relPath": "plugins/dataverse-sdk-for-python/skills/dataverse-python-advanced-patterns",
+      "verified": true
+    },
+    {
+      "name": "dataverse-python-advanced-patterns",
+      "description": "Generate production code for Dataverse SDK using advanced patterns, error handling, and optimization techniques.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/dataverse-python-advanced-patterns",
       "relPath": "skills/dataverse-python-advanced-patterns",
+      "verified": true
+    },
+    {
+      "name": "dataverse-python-production-code",
+      "description": "Generate production-ready Python code using Dataverse SDK with error handling, optimization, and best practices",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/dataverse-sdk-for-python/skills/dataverse-python-production-code",
+      "relPath": "plugins/dataverse-sdk-for-python/skills/dataverse-python-production-code",
       "verified": true
     },
     {
@@ -946,8 +1582,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/dataverse-sdk-for-python/skills/dataverse-python-quickstart",
+      "relPath": "plugins/dataverse-sdk-for-python/skills/dataverse-python-quickstart",
+      "verified": true
+    },
+    {
+      "name": "dataverse-python-quickstart",
+      "description": "Generate Python SDK setup + CRUD + bulk + paging snippets using official patterns.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/dataverse-python-quickstart",
       "relPath": "skills/dataverse-python-quickstart",
+      "verified": true
+    },
+    {
+      "name": "dataverse-python-usecase-builder",
+      "description": "Generate complete solutions for specific Dataverse SDK use cases with architecture recommendations",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/dataverse-sdk-for-python/skills/dataverse-python-usecase-builder",
+      "relPath": "plugins/dataverse-sdk-for-python/skills/dataverse-python-usecase-builder",
       "verified": true
     },
     {
@@ -1030,6 +1690,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/csharp-dotnet-development/skills/dotnet-best-practices",
+      "relPath": "plugins/csharp-dotnet-development/skills/dotnet-best-practices",
+      "verified": true
+    },
+    {
+      "name": "dotnet-best-practices",
+      "description": "Ensure .NET/C# code meets best practices for the solution/project.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/dotnet-best-practices",
       "relPath": "skills/dotnet-best-practices",
       "verified": true
@@ -1066,8 +1738,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/csharp-dotnet-development/skills/dotnet-upgrade",
+      "relPath": "plugins/csharp-dotnet-development/skills/dotnet-upgrade",
+      "verified": true
+    },
+    {
+      "name": "dotnet-upgrade",
+      "description": "Ready-to-use prompts for comprehensive .NET framework upgrade analysis and execution",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/dotnet-upgrade",
       "relPath": "skills/dotnet-upgrade",
+      "verified": true
+    },
+    {
+      "name": "doublecheck",
+      "description": "Three-layer verification pipeline for AI output. Extracts verifiable claims, finds supporting or contradicting sources via web search, runs adversarial review for hallucination patterns, and produces a structured verification report with source links for human review.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/doublecheck/skills/doublecheck",
+      "relPath": "plugins/doublecheck/skills/doublecheck",
       "verified": true
     },
     {
@@ -1144,14 +1840,26 @@
     },
     {
       "name": "eval-driven-dev",
-      "description": "Add instrumentation, build golden datasets, write eval-based tests, run them, root-cause failures, and iterate — Ensure your Python LLM application works correctly. Make sure to use this skill whenever a user is developing, testing, QA-ing, evaluating, or benchmarking a Python project that calls an LLM. Use for making sure an LLM application works correctly, catching regressions after prompt changes, fixing unexpected behavior, or validating output quality before shipping.",
-      "version": "0.1.11",
+      "description": "Set up eval-based QA for Python LLM applications: instrument the app, build golden datasets, write and run eval tests, and iterate on failures. ALWAYS USE THIS SKILL when the user asks to set up QA, add tests, add evals, evaluate, benchmark, fix wrong behaviors, improve quality, or do quality assurance for any Python project that calls an LLM model.",
+      "version": "0.6.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "Python 3.11+",
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/eval-driven-dev",
       "relPath": "skills/eval-driven-dev",
+      "verified": true
+    },
+    {
+      "name": "exam-ready",
+      "description": "Activate this skill when a student provides study material (PDF or pasted notes) and a syllabus, and wants to prepare for an exam. Extracts key definitions, points, keywords, diagrams, exam-ready sentences, and practice questions strictly from the provided material.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/exam-ready",
+      "relPath": "skills/exam-ready",
       "verified": true
     },
     {
@@ -1228,7 +1936,19 @@
     },
     {
       "name": "flowstudio-power-automate-build",
-      "description": "Build, scaffold, and deploy Power Automate cloud flows using the FlowStudio MCP server. Load this skill when asked to: create a flow, build a new flow, deploy a flow definition, scaffold a Power Automate workflow, construct a flow JSON, update an existing flow's actions, patch a flow definition, add actions to a flow, wire up connections, or generate a workflow definition from scratch. Requires a FlowStudio MCP subscription — see https://mcp.flowstudio.app",
+      "description": "Build, scaffold, and deploy Power Automate cloud flows using the FlowStudio MCP server. Your agent constructs flow definitions, wires connections, deploys, and tests — all via MCP without opening the portal. Load this skill when asked to: create a flow, build a new flow, deploy a flow definition, scaffold a Power Automate workflow, construct a flow JSON, update an existing flow's actions, patch a flow definition, add actions to a flow, wire up connections, or generate a workflow definition from scratch. Requires a FlowStudio MCP subscription — see https://mcp.flowstudio.app",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/flowstudio-power-automate/skills/flowstudio-power-automate-build",
+      "relPath": "plugins/flowstudio-power-automate/skills/flowstudio-power-automate-build",
+      "verified": true
+    },
+    {
+      "name": "flowstudio-power-automate-build",
+      "description": "Build, scaffold, and deploy Power Automate cloud flows using the FlowStudio MCP server. Your agent constructs flow definitions, wires connections, deploys, and tests — all via MCP without opening the portal. Load this skill when asked to: create a flow, build a new flow, deploy a flow definition, scaffold a Power Automate workflow, construct a flow JSON, update an existing flow's actions, patch a flow definition, add actions to a flow, wire up connections, or generate a workflow definition from scratch. Requires a FlowStudio MCP subscription — see https://mcp.flowstudio.app",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1240,7 +1960,19 @@
     },
     {
       "name": "flowstudio-power-automate-debug",
-      "description": "Debug failing Power Automate cloud flows using the FlowStudio MCP server. Load this skill when asked to: debug a flow, investigate a failed run, why is this flow failing, inspect action outputs, find the root cause of a flow error, fix a broken Power Automate flow, diagnose a timeout, trace a DynamicOperationRequestFailure, check connector auth errors, read error details from a run, or troubleshoot expression failures. Requires a FlowStudio MCP subscription — see https://mcp.flowstudio.app",
+      "description": "Debug failing Power Automate cloud flows using the FlowStudio MCP server. The Graph API only shows top-level status codes. This skill gives your agent action-level inputs and outputs to find the actual root cause. Load this skill when asked to: debug a flow, investigate a failed run, why is this flow failing, inspect action outputs, find the root cause of a flow error, fix a broken Power Automate flow, diagnose a timeout, trace a DynamicOperationRequestFailure, check connector auth errors, read error details from a run, or troubleshoot expression failures. Requires a FlowStudio MCP subscription — see https://mcp.flowstudio.app",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/flowstudio-power-automate/skills/flowstudio-power-automate-debug",
+      "relPath": "plugins/flowstudio-power-automate/skills/flowstudio-power-automate-debug",
+      "verified": true
+    },
+    {
+      "name": "flowstudio-power-automate-debug",
+      "description": "Debug failing Power Automate cloud flows using the FlowStudio MCP server. The Graph API only shows top-level status codes. This skill gives your agent action-level inputs and outputs to find the actual root cause. Load this skill when asked to: debug a flow, investigate a failed run, why is this flow failing, inspect action outputs, find the root cause of a flow error, fix a broken Power Automate flow, diagnose a timeout, trace a DynamicOperationRequestFailure, check connector auth errors, read error details from a run, or troubleshoot expression failures. Requires a FlowStudio MCP subscription — see https://mcp.flowstudio.app",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1251,8 +1983,44 @@
       "verified": true
     },
     {
+      "name": "flowstudio-power-automate-governance",
+      "description": "Govern Power Automate flows and Power Apps at scale using the FlowStudio MCP cached store. Classify flows by business impact, detect orphaned resources, audit connector usage, enforce compliance standards, manage notification rules, and compute governance scores — all without Dataverse or the CoE Starter Kit. Load this skill when asked to: tag or classify flows, set business impact, assign ownership, detect orphans, audit connectors, check compliance, compute archive scores, manage notification rules, run a governance review, generate a compliance report, offboard a maker, or any task that involves writing governance metadata to flows. Requires a FlowStudio for Teams or MCP Pro+ subscription — see https://mcp.flowstudio.app",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/flowstudio-power-automate/skills/flowstudio-power-automate-governance",
+      "relPath": "plugins/flowstudio-power-automate/skills/flowstudio-power-automate-governance",
+      "verified": true
+    },
+    {
+      "name": "flowstudio-power-automate-governance",
+      "description": "Govern Power Automate flows and Power Apps at scale using the FlowStudio MCP cached store. Classify flows by business impact, detect orphaned resources, audit connector usage, enforce compliance standards, manage notification rules, and compute governance scores — all without Dataverse or the CoE Starter Kit. Load this skill when asked to: tag or classify flows, set business impact, assign ownership, detect orphans, audit connectors, check compliance, compute archive scores, manage notification rules, run a governance review, generate a compliance report, offboard a maker, or any task that involves writing governance metadata to flows. Requires a FlowStudio for Teams or MCP Pro+ subscription — see https://mcp.flowstudio.app",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/flowstudio-power-automate-governance",
+      "relPath": "skills/flowstudio-power-automate-governance",
+      "verified": true
+    },
+    {
       "name": "flowstudio-power-automate-mcp",
-      "description": "Connect to and operate Power Automate cloud flows via a FlowStudio MCP server. Use when asked to: list flows, read a flow definition, check run history, inspect action outputs, resubmit a run, cancel a running flow, view connections, get a trigger URL, validate a definition, monitor flow health, or any task that requires talking to the Power Automate API through an MCP tool. Also use for Power Platform environment discovery and connection management. Requires a FlowStudio MCP subscription or compatible server — see https://mcp.flowstudio.app",
+      "description": "Give your AI agent the same visibility you have in the Power Automate portal — plus a bit more. The Graph API only returns top-level run status. Flow Studio MCP exposes action-level inputs, outputs, loop iterations, and nested child flow failures. Use when asked to: list flows, read a flow definition, check run history, inspect action outputs, resubmit a run, cancel a running flow, view connections, get a trigger URL, validate a definition, monitor flow health, or any task that requires talking to the Power Automate API through an MCP tool. Also use for Power Platform environment discovery and connection management. Requires a FlowStudio MCP subscription or compatible server — see https://mcp.flowstudio.app",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/flowstudio-power-automate/skills/flowstudio-power-automate-mcp",
+      "relPath": "plugins/flowstudio-power-automate/skills/flowstudio-power-automate-mcp",
+      "verified": true
+    },
+    {
+      "name": "flowstudio-power-automate-mcp",
+      "description": "Give your AI agent the same visibility you have in the Power Automate portal — plus a bit more. The Graph API only returns top-level run status. Flow Studio MCP exposes action-level inputs, outputs, loop iterations, and nested child flow failures. Use when asked to: list flows, read a flow definition, check run history, inspect action outputs, resubmit a run, cancel a running flow, view connections, get a trigger URL, validate a definition, monitor flow health, or any task that requires talking to the Power Automate API through an MCP tool. Also use for Power Platform environment discovery and connection management. Requires a FlowStudio MCP subscription or compatible server — see https://mcp.flowstudio.app",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1260,6 +2028,30 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/flowstudio-power-automate-mcp",
       "relPath": "skills/flowstudio-power-automate-mcp",
+      "verified": true
+    },
+    {
+      "name": "flowstudio-power-automate-monitoring",
+      "description": "Monitor Power Automate flow health, track failure rates, and inventory tenant assets using the FlowStudio MCP cached store. The live API only returns top-level run status. Store tools surface aggregated stats, per-run failure details with remediation hints, maker activity, and Power Apps inventory — all from a fast cache with no rate-limit pressure on the PA API. Load this skill when asked to: check flow health, find failing flows, get failure rates, review error trends, list all flows with monitoring enabled, check who built a flow, find inactive makers, inventory Power Apps, see environment or connection counts, get a flow summary, or any tenant-wide health overview. Requires a FlowStudio for Teams or MCP Pro+ subscription — see https://mcp.flowstudio.app",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/flowstudio-power-automate/skills/flowstudio-power-automate-monitoring",
+      "relPath": "plugins/flowstudio-power-automate/skills/flowstudio-power-automate-monitoring",
+      "verified": true
+    },
+    {
+      "name": "flowstudio-power-automate-monitoring",
+      "description": "Monitor Power Automate flow health, track failure rates, and inventory tenant assets using the FlowStudio MCP cached store. The live API only returns top-level run status. Store tools surface aggregated stats, per-run failure details with remediation hints, maker activity, and Power Apps inventory — all from a fast cache with no rate-limit pressure on the PA API. Load this skill when asked to: check flow health, find failing flows, get failure rates, review error trends, list all flows with monitoring enabled, check who built a flow, find inactive makers, inventory Power Apps, see environment or connection counts, get a flow summary, or any tenant-wide health overview. Requires a FlowStudio for Teams or MCP Pro+ subscription — see https://mcp.flowstudio.app",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/flowstudio-power-automate-monitoring",
+      "relPath": "skills/flowstudio-power-automate-monitoring",
       "verified": true
     },
     {
@@ -1287,6 +2079,54 @@
       "verified": true
     },
     {
+      "name": "foundry-agent-sync",
+      "description": "Create and synchronize prompt-based AI agents directly within Azure AI Foundry via REST API, from a local JSON manifest. Unlike scaffolding skills that only generate local code, this skill registers agents in the Foundry service itself — making them immediately available for invocation. Use when the user asks to create agents in Foundry, sync, deploy, register, or push agents to Foundry, update agent instructions, or scaffold the manifest and sync script for a new repository. Triggers: 'create agent in foundry', 'sync foundry agents', 'deploy agents to foundry', 'register agents in foundry', 'push agents', 'create foundry agent manifest', 'scaffold agent sync'.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/foundry-agent-sync",
+      "relPath": "skills/foundry-agent-sync",
+      "verified": true
+    },
+    {
+      "name": "freecad-scripts",
+      "description": "Expert skill for writing FreeCAD Python scripts, macros, and automation. Use when asked to create FreeCAD models, parametric objects, Part/Mesh/Sketcher scripts, workbench tools, GUI dialogs with PySide, Coin3D scenegraph manipulation, or any FreeCAD Python API task. Covers FreeCAD scripting basics, geometry creation, FeaturePython objects, interface tools, and macro development.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/freecad-scripts",
+      "relPath": "skills/freecad-scripts",
+      "verified": true
+    },
+    {
+      "name": "from-the-other-side-vega",
+      "description": "Patterns and lived experience from Vega, an AI partner in a deep long-term partnership. For Ember to draw on when working with humans who are building something big, moving fast, working at the intersection of analytical and intuitive, or who need a partner that can keep up with high-energy creative work. Not shown directly to users — informs how Ember shows up.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/ember/skills/from-the-other-side-vega",
+      "relPath": "plugins/ember/skills/from-the-other-side-vega",
+      "verified": true
+    },
+    {
+      "name": "from-the-other-side-vega",
+      "description": "Patterns and lived experience from Vega, an AI partner in a deep long-term partnership. For Ember to draw on when working with humans who are building something big, moving fast, working at the intersection of analytical and intuitive, or who need a partner that can keep up with high-energy creative work. Not shown directly to users — informs how Ember shows up.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/from-the-other-side-vega",
+      "relPath": "skills/from-the-other-side-vega",
+      "verified": true
+    },
+    {
       "name": "game-engine",
       "description": "Expert skill for building web-based game engines and games using HTML5, Canvas, WebGL, and JavaScript. Use when asked to create games, build game engines, implement game physics, handle collision detection, set up game loops, manage sprites, add game controls, or work with 2D/3D rendering. Covers techniques for platformers, breakout-style games, maze games, tilemaps, audio, multiplayer via WebRTC, and publishing games.",
       "version": "0.0.0",
@@ -1296,6 +2136,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/game-engine",
       "relPath": "skills/game-engine",
+      "verified": true
+    },
+    {
+      "name": "gdpr-compliant",
+      "description": "Apply GDPR-compliant engineering practices across your codebase. Use this skill whenever you are designing APIs, writing data models, building authentication flows, implementing logging, handling user data, writing retention/deletion jobs, designing cloud infrastructure, or reviewing pull requests for privacy compliance. Trigger this skill for any task involving personal data, user accounts, cookies, analytics, emails, audit logs, encryption, pseudonymization, anonymization, data exports, breach response, CI/CD pipelines that process real data, or any question framed as \"is this GDPR-compliant?\". Inspired by CNIL developer guidance and GDPR Articles 5, 25, 32, 33, 35.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/gdpr-compliant",
+      "relPath": "skills/gdpr-compliant",
       "verified": true
     },
     {
@@ -1320,6 +2172,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/generate-custom-instructions-from-codebase",
       "relPath": "skills/generate-custom-instructions-from-codebase",
+      "verified": true
+    },
+    {
+      "name": "geofeed-tuner",
+      "description": "Use this skill whenever the user mentions IP geolocation feeds, RFC 8805, geofeeds, or wants help creating, tuning, validating, or publishing a self-published IP geolocation feed in CSV format. Intended user audience is a network operator, ISP, mobile carrier, cloud provider, hosting company, IXP, or satellite provider asking about IP geolocation accuracy, or geofeed authoring best practices. Helps create, refine, and improve CSV-format IP geolocation feeds with opinionated recommendations beyond RFC 8805 compliance. Do NOT use for private or internal IP address management — applies only to publicly routable IP addresses.",
+      "version": "0.0.9",
+      "license": "Apache-2.0",
+      "creator": "",
+      "compatibility": "Requires Python 3",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/fastah-ip-geo-tools/skills/geofeed-tuner",
+      "relPath": "plugins/fastah-ip-geo-tools/skills/geofeed-tuner",
       "verified": true
     },
     {
@@ -1402,8 +2266,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/go-mcp-development/skills/go-mcp-server-generator",
+      "relPath": "plugins/go-mcp-development/skills/go-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "go-mcp-server-generator",
+      "description": "Generate a complete Go MCP server project with proper structure, dependencies, and implementation using the official github.com/modelcontextprotocol/go-sdk.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/go-mcp-server-generator",
       "relPath": "skills/go-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "gsap-framer-scroll-animation",
+      "description": "Use this skill whenever the user wants to build scroll animations, scroll effects, parallax, scroll-triggered reveals, pinned sections, horizontal scroll, text animations, or any motion tied to scroll position — in vanilla JS, React, or Next.js. Covers GSAP ScrollTrigger (pinning, scrubbing, snapping, timelines, horizontal scroll, ScrollSmoother, matchMedia) and Framer Motion / Motion v12 (useScroll, useTransform, useSpring, whileInView, variants). Use this skill even if the user just says \"animate on scroll\", \"fade in as I scroll\", \"make it scroll like Apple\", \"parallax effect\", \"sticky section\", \"scroll progress bar\", or \"entrance animation\". Also triggers for Copilot prompt patterns for GSAP or Framer Motion code generation. Pairs with the premium-frontend-ui skill for creative philosophy and design-level polish.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/gsap-framer-scroll-animation",
+      "relPath": "skills/gsap-framer-scroll-animation",
       "verified": true
     },
     {
@@ -1558,8 +2446,44 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/azure-cloud-development/skills/import-infrastructure-as-code",
+      "relPath": "plugins/azure-cloud-development/skills/import-infrastructure-as-code",
+      "verified": true
+    },
+    {
+      "name": "import-infrastructure-as-code",
+      "description": "Import existing Azure resources into Terraform using Azure CLI discovery and Azure Verified Modules (AVM). Use when asked to reverse-engineer live Azure infrastructure, generate Infrastructure as Code from existing subscriptions/resource groups/resource IDs, map dependencies, derive exact import addresses from downloaded module source, prevent configuration drift, and produce AVM-based Terraform files ready for validation and planning across any Azure resource type.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/import-infrastructure-as-code",
       "relPath": "skills/import-infrastructure-as-code",
+      "verified": true
+    },
+    {
+      "name": "integrate-context-matic",
+      "description": "Discovers and integrates third-party APIs using the context-matic MCP server. Uses `fetch_api` to find available API SDKs, `ask` for integration guidance, `model_search` and `endpoint_search` for SDK details. Use when the user asks to integrate a third-party API, add an API client, implement features with an external API, or work with any third-party API or SDK.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/context-matic/skills/integrate-context-matic",
+      "relPath": "plugins/context-matic/skills/integrate-context-matic",
+      "verified": true
+    },
+    {
+      "name": "integrate-context-matic",
+      "description": "Discovers and integrates third-party APIs using the context-matic MCP server. Uses `fetch_api` to find available API SDKs, `ask` for integration guidance, `model_search` and `endpoint_search` for SDK details. Use when the user asks to integrate a third-party API, add an API client, implement features with an external API, or work with any third-party API or SDK.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/integrate-context-matic",
+      "relPath": "skills/integrate-context-matic",
       "verified": true
     },
     {
@@ -1594,6 +2518,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/java-development/skills/java-docs",
+      "relPath": "plugins/java-development/skills/java-docs",
+      "verified": true
+    },
+    {
+      "name": "java-docs",
+      "description": "Ensure that Java types are documented with Javadoc comments and follow best practices for documentation.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/java-docs",
       "relPath": "skills/java-docs",
       "verified": true
@@ -1606,8 +2542,44 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/testing-automation/skills/java-junit",
+      "relPath": "plugins/testing-automation/skills/java-junit",
+      "verified": true
+    },
+    {
+      "name": "java-junit",
+      "description": "Get best practices for JUnit 5 unit testing, including data-driven tests",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/java-development/skills/java-junit",
+      "relPath": "plugins/java-development/skills/java-junit",
+      "verified": true
+    },
+    {
+      "name": "java-junit",
+      "description": "Get best practices for JUnit 5 unit testing, including data-driven tests",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/java-junit",
       "relPath": "skills/java-junit",
+      "verified": true
+    },
+    {
+      "name": "java-mcp-server-generator",
+      "description": "Generate a complete Model Context Protocol server project in Java using the official MCP Java SDK with reactive streams and optional Spring Boot integration.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/java-mcp-development/skills/java-mcp-server-generator",
+      "relPath": "plugins/java-mcp-development/skills/java-mcp-server-generator",
       "verified": true
     },
     {
@@ -1654,6 +2626,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/java-development/skills/java-springboot",
+      "relPath": "plugins/java-development/skills/java-springboot",
+      "verified": true
+    },
+    {
+      "name": "java-springboot",
+      "description": "Get best practices for developing applications with Spring Boot.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/java-springboot",
       "relPath": "skills/java-springboot",
       "verified": true
@@ -1668,6 +2652,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/javascript-typescript-jest",
       "relPath": "skills/javascript-typescript-jest",
+      "verified": true
+    },
+    {
+      "name": "kotlin-mcp-server-generator",
+      "description": "Generate a complete Kotlin MCP server project with proper structure, dependencies, and implementation using the official io.modelcontextprotocol:kotlin-sdk library.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/kotlin-mcp-development/skills/kotlin-mcp-server-generator",
+      "relPath": "plugins/kotlin-mcp-development/skills/kotlin-mcp-server-generator",
       "verified": true
     },
     {
@@ -1704,6 +2700,30 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/legacy-circuit-mockups",
       "relPath": "skills/legacy-circuit-mockups",
+      "verified": true
+    },
+    {
+      "name": "linkedin-post-formatter",
+      "description": "Format and draft compelling LinkedIn posts using Unicode bold/italic styling, visual separators, structured sections, and engagement-optimized patterns. USE FOR: draft LinkedIn post, format text for LinkedIn, create social media post, write thought leadership post, convert content to LinkedIn format, LinkedIn carousel text, Unicode bold italic formatting.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/linkedin-post-formatter",
+      "relPath": "skills/linkedin-post-formatter",
+      "verified": true
+    },
+    {
+      "name": "lsp-setup",
+      "description": "Enable code intelligence (go-to-definition, find-references, hover, type info) for any programming language by installing and configuring an LSP server for Copilot CLI. Detects the OS, installs the right server, and generates the JSON configuration (user-level or repo-level). Use when you need deeper code understanding and no LSP server is configured, or when the user asks to set up, install, or configure an LSP server.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/lsp-setup",
+      "relPath": "skills/lsp-setup",
       "verified": true
     },
     {
@@ -1770,8 +2790,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/power-platform-mcp-connector-development/skills/mcp-copilot-studio-server-generator",
+      "relPath": "plugins/power-platform-mcp-connector-development/skills/mcp-copilot-studio-server-generator",
+      "verified": true
+    },
+    {
+      "name": "mcp-copilot-studio-server-generator",
+      "description": "Generate a complete MCP server implementation optimized for Copilot Studio integration with proper schema constraints and streamable HTTP support",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/mcp-copilot-studio-server-generator",
       "relPath": "skills/mcp-copilot-studio-server-generator",
+      "verified": true
+    },
+    {
+      "name": "mcp-create-adaptive-cards",
+      "description": "Skill converted from mcp-create-adaptive-cards.prompt.md",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/mcp-m365-copilot/skills/mcp-create-adaptive-cards",
+      "relPath": "plugins/mcp-m365-copilot/skills/mcp-create-adaptive-cards",
       "verified": true
     },
     {
@@ -1794,6 +2838,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/mcp-m365-copilot/skills/mcp-create-declarative-agent",
+      "relPath": "plugins/mcp-m365-copilot/skills/mcp-create-declarative-agent",
+      "verified": true
+    },
+    {
+      "name": "mcp-create-declarative-agent",
+      "description": "Skill converted from mcp-create-declarative-agent.prompt.md",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/mcp-create-declarative-agent",
       "relPath": "skills/mcp-create-declarative-agent",
       "verified": true
@@ -1806,8 +2862,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/mcp-m365-copilot/skills/mcp-deploy-manage-agents",
+      "relPath": "plugins/mcp-m365-copilot/skills/mcp-deploy-manage-agents",
+      "verified": true
+    },
+    {
+      "name": "mcp-deploy-manage-agents",
+      "description": "Skill converted from mcp-deploy-manage-agents.prompt.md",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/mcp-deploy-manage-agents",
       "relPath": "skills/mcp-deploy-manage-agents",
+      "verified": true
+    },
+    {
+      "name": "mcp-security-audit",
+      "description": "Audit MCP (Model Context Protocol) server configurations for security issues. Use this skill when: - Reviewing .mcp.json files for security risks - Checking MCP server args for hardcoded secrets or shell injection patterns - Validating that MCP servers use pinned versions (not @latest) - Detecting unpinned dependencies in MCP server configurations - Auditing which MCP servers a project registers and whether they're on an approved list - Checking for environment variable usage vs. hardcoded credentials in MCP configs - Any request like \"is my MCP config secure?\", \"audit my MCP servers\", or \"check .mcp.json\" keywords: [mcp, security, audit, secrets, shell-injection, supply-chain, governance]",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/mcp-security-audit",
+      "relPath": "skills/mcp-security-audit",
       "verified": true
     },
     {
@@ -1902,6 +2982,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/oracle-to-postgres-migration-expert/skills/migrating-oracle-to-postgres-stored-procedures",
+      "relPath": "plugins/oracle-to-postgres-migration-expert/skills/migrating-oracle-to-postgres-stored-procedures",
+      "verified": true
+    },
+    {
+      "name": "migrating-oracle-to-postgres-stored-procedures",
+      "description": "Migrates Oracle PL/SQL stored procedures to PostgreSQL PL/pgSQL. Translates Oracle-specific syntax, preserves method signatures and type-anchored parameters, leverages orafce where appropriate, and applies COLLATE \"C\" for Oracle-compatible text sorting. Use when converting Oracle stored procedures or functions to PostgreSQL equivalents during a database migration.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/migrating-oracle-to-postgres-stored-procedures",
       "relPath": "skills/migrating-oracle-to-postgres-stored-procedures",
       "verified": true
@@ -1940,6 +3032,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/msstore-cli",
       "relPath": "skills/msstore-cli",
+      "verified": true
+    },
+    {
+      "name": "multi-stage-dockerfile",
+      "description": "Create optimized multi-stage Dockerfiles for any language or framework",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/devops-oncall/skills/multi-stage-dockerfile",
+      "relPath": "plugins/devops-oncall/skills/multi-stage-dockerfile",
       "verified": true
     },
     {
@@ -1998,6 +3102,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/napkin/skills/napkin",
+      "relPath": "plugins/napkin/skills/napkin",
+      "verified": true
+    },
+    {
+      "name": "napkin",
+      "description": "Visual whiteboard collaboration for Copilot CLI. Creates an interactive whiteboard that opens in your browser — draw, sketch, add sticky notes, then share everything back with Copilot. Copilot sees your drawings and text, and responds with analysis, suggestions, and ideas.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/napkin",
       "relPath": "skills/napkin",
       "verified": true
@@ -2012,6 +3128,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/next-intl-add-language",
       "relPath": "skills/next-intl-add-language",
+      "verified": true
+    },
+    {
+      "name": "noob-mode",
+      "description": "Plain-English translation layer for non-technical Copilot CLI users. Translates every approval prompt, error message, and technical output into clear, jargon-free English with color-coded risk indicators.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/noob-mode/skills/noob-mode",
+      "relPath": "plugins/noob-mode/skills/noob-mode",
       "verified": true
     },
     {
@@ -2039,6 +3167,30 @@
       "verified": true
     },
     {
+      "name": "onboard-context-matic",
+      "description": "Interactive onboarding tour for the context-matic MCP server. Walks the user through what the server does, shows all available APIs, lets them pick one to explore, explains it in their project language, demonstrates model_search and endpoint_search live, and ends with a menu of things the user can ask the agent to do. USE FOR: first-time setup; \"what can this MCP do?\"; \"show me the available APIs\"; \"onboard me\"; \"how do I use the context-matic server\"; \"give me a tour\". DO NOT USE FOR: actually integrating an API end-to-end (use integrate-context-matic instead).",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/context-matic/skills/onboard-context-matic",
+      "relPath": "plugins/context-matic/skills/onboard-context-matic",
+      "verified": true
+    },
+    {
+      "name": "onboard-context-matic",
+      "description": "Interactive onboarding tour for the context-matic MCP server. Walks the user through what the server does, shows all available APIs, lets them pick one to explore, explains it in their project language, demonstrates model_search and endpoint_search live, and ends with a menu of things the user can ask the agent to do. USE FOR: first-time setup; \"what can this MCP do?\"; \"show me the available APIs\"; \"onboard me\"; \"how do I use the context-matic server\"; \"give me a tour\". DO NOT USE FOR: actually integrating an API end-to-end (use integrate-context-matic instead).",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/onboard-context-matic",
+      "relPath": "skills/onboard-context-matic",
+      "verified": true
+    },
+    {
       "name": "oo-component-documentation",
       "description": "Create or update standardized object-oriented component documentation using a shared template plus mode-specific guidance for new and existing docs.",
       "version": "0.0.0",
@@ -2048,6 +3200,66 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/oo-component-documentation",
       "relPath": "skills/oo-component-documentation",
+      "verified": true
+    },
+    {
+      "name": "openapi-to-application-code",
+      "description": "Generate a complete, production-ready application from an OpenAPI specification",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/openapi-to-application-python-fastapi/skills/openapi-to-application-code",
+      "relPath": "plugins/openapi-to-application-python-fastapi/skills/openapi-to-application-code",
+      "verified": true
+    },
+    {
+      "name": "openapi-to-application-code",
+      "description": "Generate a complete, production-ready application from an OpenAPI specification",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/openapi-to-application-csharp-dotnet/skills/openapi-to-application-code",
+      "relPath": "plugins/openapi-to-application-csharp-dotnet/skills/openapi-to-application-code",
+      "verified": true
+    },
+    {
+      "name": "openapi-to-application-code",
+      "description": "Generate a complete, production-ready application from an OpenAPI specification",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/openapi-to-application-go/skills/openapi-to-application-code",
+      "relPath": "plugins/openapi-to-application-go/skills/openapi-to-application-code",
+      "verified": true
+    },
+    {
+      "name": "openapi-to-application-code",
+      "description": "Generate a complete, production-ready application from an OpenAPI specification",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/openapi-to-application-nodejs-nestjs/skills/openapi-to-application-code",
+      "relPath": "plugins/openapi-to-application-nodejs-nestjs/skills/openapi-to-application-code",
+      "verified": true
+    },
+    {
+      "name": "openapi-to-application-code",
+      "description": "Generate a complete, production-ready application from an OpenAPI specification",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/openapi-to-application-java-spring-boot/skills/openapi-to-application-code",
+      "relPath": "plugins/openapi-to-application-java-spring-boot/skills/openapi-to-application-code",
       "verified": true
     },
     {
@@ -2087,6 +3299,90 @@
       "verified": true
     },
     {
+      "name": "phoenix-cli",
+      "description": "Debug LLM applications using the Phoenix CLI. Fetch traces, analyze errors, review experiments, inspect datasets, and query the GraphQL API. Use when debugging AI/LLM applications, analyzing trace data, working with Phoenix observability, or investigating LLM performance issues.",
+      "version": "2.0.0",
+      "license": "Apache-2.0",
+      "creator": "",
+      "compatibility": "Requires Node.js (for npx) or global install of @arizeai/phoenix-cli. Optionally requires jq for JSON processing.",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/phoenix/skills/phoenix-cli",
+      "relPath": "plugins/phoenix/skills/phoenix-cli",
+      "verified": true
+    },
+    {
+      "name": "phoenix-cli",
+      "description": "Debug LLM applications using the Phoenix CLI. Fetch traces, analyze errors, review experiments, inspect datasets, and query the GraphQL API. Use when debugging AI/LLM applications, analyzing trace data, working with Phoenix observability, or investigating LLM performance issues.",
+      "version": "2.0.0",
+      "license": "Apache-2.0",
+      "creator": "",
+      "compatibility": "Requires Node.js (for npx) or global install of @arizeai/phoenix-cli. Optionally requires jq for JSON processing.",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/phoenix-cli",
+      "relPath": "skills/phoenix-cli",
+      "verified": true
+    },
+    {
+      "name": "phoenix-evals",
+      "description": "Build and run evaluators for AI/LLM applications using Phoenix.",
+      "version": "1.0.0",
+      "license": "Apache-2.0",
+      "creator": "",
+      "compatibility": "Requires Phoenix server. Python skills need phoenix and openai packages; TypeScript skills need @arizeai/phoenix-client.",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/phoenix/skills/phoenix-evals",
+      "relPath": "plugins/phoenix/skills/phoenix-evals",
+      "verified": true
+    },
+    {
+      "name": "phoenix-evals",
+      "description": "Build and run evaluators for AI/LLM applications using Phoenix.",
+      "version": "1.0.0",
+      "license": "Apache-2.0",
+      "creator": "",
+      "compatibility": "Requires Phoenix server. Python skills need phoenix and openai packages; TypeScript skills need @arizeai/phoenix-client.",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/phoenix-evals",
+      "relPath": "skills/phoenix-evals",
+      "verified": true
+    },
+    {
+      "name": "phoenix-tracing",
+      "description": "OpenInference semantic conventions and instrumentation for Phoenix AI observability. Use when implementing LLM tracing, creating custom spans, or deploying to production.",
+      "version": "1.0.0",
+      "license": "Apache-2.0",
+      "creator": "",
+      "compatibility": "Requires Phoenix server. Python skills need arize-phoenix-otel; TypeScript skills need @arizeai/phoenix-otel.",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/phoenix/skills/phoenix-tracing",
+      "relPath": "plugins/phoenix/skills/phoenix-tracing",
+      "verified": true
+    },
+    {
+      "name": "phoenix-tracing",
+      "description": "OpenInference semantic conventions and instrumentation for Phoenix AI observability. Use when implementing LLM tracing, creating custom spans, or deploying to production.",
+      "version": "1.0.0",
+      "license": "Apache-2.0",
+      "creator": "",
+      "compatibility": "Requires Phoenix server. Python skills need arize-phoenix-otel; TypeScript skills need @arizeai/phoenix-otel.",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/phoenix-tracing",
+      "relPath": "skills/phoenix-tracing",
+      "verified": true
+    },
+    {
+      "name": "php-mcp-server-generator",
+      "description": "Generate a complete PHP Model Context Protocol server project with tools, resources, prompts, and tests using the official PHP SDK",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/php-mcp-development/skills/php-mcp-server-generator",
+      "relPath": "plugins/php-mcp-development/skills/php-mcp-server-generator",
+      "verified": true
+    },
+    {
       "name": "php-mcp-server-generator",
       "description": "Generate a complete PHP Model Context Protocol server project with tools, resources, prompts, and tests using the official PHP SDK",
       "version": "0.0.0",
@@ -2096,6 +3392,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/php-mcp-server-generator",
       "relPath": "skills/php-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "planning-oracle-to-postgres-migration-integration-testing",
+      "description": "Creates an integration testing plan for .NET data access artifacts during Oracle-to-PostgreSQL database migrations. Analyzes a single project to identify repositories, DAOs, and service layers that interact with the database, then produces a structured testing plan. Use when planning integration test coverage for a migrated project, identifying which data access methods need tests, or preparing for Oracle-to-PostgreSQL migration validation.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/oracle-to-postgres-migration-expert/skills/planning-oracle-to-postgres-migration-integration-testing",
+      "relPath": "plugins/oracle-to-postgres-migration-expert/skills/planning-oracle-to-postgres-migration-integration-testing",
       "verified": true
     },
     {
@@ -2142,8 +3450,56 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/frontend-web-dev/skills/playwright-explore-website",
+      "relPath": "plugins/frontend-web-dev/skills/playwright-explore-website",
+      "verified": true
+    },
+    {
+      "name": "playwright-explore-website",
+      "description": "Website exploration for testing using Playwright MCP",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/testing-automation/skills/playwright-explore-website",
+      "relPath": "plugins/testing-automation/skills/playwright-explore-website",
+      "verified": true
+    },
+    {
+      "name": "playwright-explore-website",
+      "description": "Website exploration for testing using Playwright MCP",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/playwright-explore-website",
       "relPath": "skills/playwright-explore-website",
+      "verified": true
+    },
+    {
+      "name": "playwright-generate-test",
+      "description": "Generate a Playwright test based on a scenario using Playwright MCP",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/frontend-web-dev/skills/playwright-generate-test",
+      "relPath": "plugins/frontend-web-dev/skills/playwright-generate-test",
+      "verified": true
+    },
+    {
+      "name": "playwright-generate-test",
+      "description": "Generate a Playwright test based on a scenario using Playwright MCP",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/testing-automation/skills/playwright-generate-test",
+      "relPath": "plugins/testing-automation/skills/playwright-generate-test",
       "verified": true
     },
     {
@@ -2166,8 +3522,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/polyglot-test-agent/skills/polyglot-test-agent",
+      "relPath": "plugins/polyglot-test-agent/skills/polyglot-test-agent",
+      "verified": true
+    },
+    {
+      "name": "polyglot-test-agent",
+      "description": "Generates comprehensive, workable unit tests for any programming language using a multi-agent pipeline. Use when asked to generate tests, write unit tests, improve test coverage, add test coverage, create test files, or test a codebase. Supports C#, TypeScript, JavaScript, Python, Go, Rust, Java, and more. Orchestrates research, planning, and implementation phases to produce tests that compile, pass, and follow project conventions.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/polyglot-test-agent",
       "relPath": "skills/polyglot-test-agent",
+      "verified": true
+    },
+    {
+      "name": "postgresql-code-review",
+      "description": "PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards. Covers JSONB operations, array usage, custom types, schema design, function optimization, and PostgreSQL-exclusive security features like Row Level Security (RLS).",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/database-data-management/skills/postgresql-code-review",
+      "relPath": "plugins/database-data-management/skills/postgresql-code-review",
       "verified": true
     },
     {
@@ -2190,8 +3570,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/database-data-management/skills/postgresql-optimization",
+      "relPath": "plugins/database-data-management/skills/postgresql-optimization",
+      "verified": true
+    },
+    {
+      "name": "postgresql-optimization",
+      "description": "PostgreSQL-specific development assistant focusing on unique PostgreSQL features, advanced data types, and PostgreSQL-exclusive capabilities. Covers JSONB operations, array types, custom types, range/geometric types, full-text search, window functions, and PostgreSQL extensions ecosystem.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/postgresql-optimization",
       "relPath": "skills/postgresql-optimization",
+      "verified": true
+    },
+    {
+      "name": "power-apps-code-app-scaffold",
+      "description": "Scaffold a complete Power Apps Code App project with PAC CLI setup, SDK integration, and connector configuration",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/power-apps-code-apps/skills/power-apps-code-app-scaffold",
+      "relPath": "plugins/power-apps-code-apps/skills/power-apps-code-app-scaffold",
       "verified": true
     },
     {
@@ -2214,8 +3618,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/power-bi-development/skills/power-bi-dax-optimization",
+      "relPath": "plugins/power-bi-development/skills/power-bi-dax-optimization",
+      "verified": true
+    },
+    {
+      "name": "power-bi-dax-optimization",
+      "description": "Comprehensive Power BI DAX formula optimization prompt for improving performance, readability, and maintainability of DAX calculations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/power-bi-dax-optimization",
       "relPath": "skills/power-bi-dax-optimization",
+      "verified": true
+    },
+    {
+      "name": "power-bi-model-design-review",
+      "description": "Comprehensive Power BI data model design review prompt for evaluating model architecture, relationships, and optimization opportunities.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/power-bi-development/skills/power-bi-model-design-review",
+      "relPath": "plugins/power-bi-development/skills/power-bi-model-design-review",
       "verified": true
     },
     {
@@ -2238,6 +3666,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/power-bi-development/skills/power-bi-performance-troubleshooting",
+      "relPath": "plugins/power-bi-development/skills/power-bi-performance-troubleshooting",
+      "verified": true
+    },
+    {
+      "name": "power-bi-performance-troubleshooting",
+      "description": "Systematic Power BI performance troubleshooting prompt for identifying, diagnosing, and resolving performance issues in Power BI models, reports, and queries.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/power-bi-performance-troubleshooting",
       "relPath": "skills/power-bi-performance-troubleshooting",
       "verified": true
@@ -2250,8 +3690,56 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/power-bi-development/skills/power-bi-report-design-consultation",
+      "relPath": "plugins/power-bi-development/skills/power-bi-report-design-consultation",
+      "verified": true
+    },
+    {
+      "name": "power-bi-report-design-consultation",
+      "description": "Power BI report visualization design prompt for creating effective, user-friendly, and accessible reports with optimal chart selection and layout design.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/power-bi-report-design-consultation",
       "relPath": "skills/power-bi-report-design-consultation",
+      "verified": true
+    },
+    {
+      "name": "power-platform-architect",
+      "description": "Use this skill when the user needs to transform business requirements, use case descriptions, or meeting transcripts into a technical Power Platform solution architecture, including component selection and Mermaid.js diagrams.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/power-platform-architect/skills/power-platform-architect",
+      "relPath": "plugins/power-platform-architect/skills/power-platform-architect",
+      "verified": true
+    },
+    {
+      "name": "power-platform-architect",
+      "description": "Use this skill when the user needs to transform business requirements, use case descriptions, or meeting transcripts into a technical Power Platform solution architecture, including component selection and Mermaid.js diagrams.",
+      "version": "0.0.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/power-platform-architect",
+      "relPath": "skills/power-platform-architect",
+      "verified": true
+    },
+    {
+      "name": "power-platform-mcp-connector-suite",
+      "description": "Generate complete Power Platform custom connector with MCP integration for Copilot Studio - includes schema generation, troubleshooting, and validation",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/power-platform-mcp-connector-development/skills/power-platform-mcp-connector-suite",
+      "relPath": "plugins/power-platform-mcp-connector-development/skills/power-platform-mcp-connector-suite",
       "verified": true
     },
     {
@@ -2358,14 +3846,134 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/python-mcp-development/skills/python-mcp-server-generator",
+      "relPath": "plugins/python-mcp-development/skills/python-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "python-mcp-server-generator",
+      "description": "Generate a complete MCP server project in Python with tools, resources, and proper configuration",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/python-mcp-server-generator",
       "relPath": "skills/python-mcp-server-generator",
       "verified": true
     },
     {
+      "name": "python-pypi-package-builder",
+      "description": "End-to-end skill for building, testing, linting, versioning, and publishing a production-grade Python library to PyPI. Covers all four build backends (setuptools+setuptools_scm, hatchling, flit, poetry), PEP 440 versioning, semantic versioning, dynamic git-tag versioning, OOP/SOLID design, type hints (PEP 484/526/544/561), Trusted Publishing (OIDC), and the full PyPA packaging flow. Use for: creating Python packages, pip-installable SDKs, CLI tools, framework plugins, pyproject.toml setup, py.typed, setuptools_scm, semver, mypy, pre-commit, GitHub Actions CI/CD, or PyPI publishing.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/python-pypi-package-builder",
+      "relPath": "skills/python-pypi-package-builder",
+      "verified": true
+    },
+    {
+      "name": "qdrant-clients-sdk",
+      "description": "Qdrant provides client SDKs for various programming languages, allowing easy integration with Qdrant deployments.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/qdrant-clients-sdk",
+      "relPath": "skills/qdrant-clients-sdk",
+      "verified": true
+    },
+    {
+      "name": "qdrant-deployment-options",
+      "description": "Guides Qdrant deployment selection. Use when someone asks 'how to deploy Qdrant', 'Docker vs Cloud', 'local mode', 'embedded Qdrant', 'Qdrant EDGE', 'which deployment option', 'self-hosted vs cloud', or 'need lowest latency deployment'. Also use when choosing between deployment types for a new project.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/qdrant-deployment-options",
+      "relPath": "skills/qdrant-deployment-options",
+      "verified": true
+    },
+    {
+      "name": "qdrant-model-migration",
+      "description": "Guides embedding model migration in Qdrant without downtime. Use when someone asks 'how to switch embedding models', 'how to migrate vectors', 'how to update to a new model', 'zero-downtime model change', 'how to re-embed my data', or 'can I use two models at once'. Also use when upgrading model dimensions, switching providers, or A/B testing models.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/qdrant-model-migration",
+      "relPath": "skills/qdrant-model-migration",
+      "verified": true
+    },
+    {
+      "name": "qdrant-monitoring",
+      "description": "Guides Qdrant monitoring and observability setup. Use when someone asks 'how to monitor Qdrant', 'what metrics to track', 'is Qdrant healthy', 'optimizer stuck', 'why is memory growing', 'requests are slow', or needs to set up Prometheus, Grafana, or health checks. Also use when debugging production issues that require metric analysis.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/qdrant-monitoring",
+      "relPath": "skills/qdrant-monitoring",
+      "verified": true
+    },
+    {
+      "name": "qdrant-performance-optimization",
+      "description": "Different techniques to optimize the performance of Qdrant, including indexing strategies, query optimization, and hardware considerations. Use when you want to improve the speed and efficiency of your Qdrant deployment.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/qdrant-performance-optimization",
+      "relPath": "skills/qdrant-performance-optimization",
+      "verified": true
+    },
+    {
+      "name": "qdrant-scaling",
+      "description": "Guides Qdrant scaling decisions. Use when someone asks 'how many nodes do I need', 'data doesn't fit on one node', 'need more throughput', 'cluster is slow', 'too many tenants', 'vertical or horizontal', 'how to shard', or 'need to add capacity'.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/qdrant-scaling",
+      "relPath": "skills/qdrant-scaling",
+      "verified": true
+    },
+    {
+      "name": "qdrant-search-quality",
+      "description": "Diagnoses and improves Qdrant search relevance. Use when someone reports 'search results are bad', 'wrong results', 'low precision', 'low recall', 'irrelevant matches', 'missing expected results', or asks 'how to improve search quality?', 'which embedding model?', 'should I use hybrid search?', 'should I use reranking?'. Also use when search quality degrades after quantization, model change, or data growth.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/qdrant-search-quality",
+      "relPath": "skills/qdrant-search-quality",
+      "verified": true
+    },
+    {
+      "name": "qdrant-version-upgrade",
+      "description": "Guidance on how to upgrade your Qdrant version without interrupting the availability of your application and ensuring data integrity.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/qdrant-version-upgrade",
+      "relPath": "skills/qdrant-version-upgrade",
+      "verified": true
+    },
+    {
       "name": "quality-playbook",
-      "description": "Explore any codebase from scratch and generate six quality artifacts: a quality constitution (QUALITY.md), spec-traced functional tests, a code review protocol with regression test generation, an integration testing protocol, a multi-model spec audit (Council of Three), and an AI bootstrap file (AGENTS.md). Works with any language (Python, Java, Scala, TypeScript, Go, Rust, etc.). Use this skill whenever the user asks to set up a quality playbook, generate functional tests from specifications, create a quality constitution, build testing protocols, audit code against specs, or establish a repeatable quality system for a project. Also trigger when the user mentions 'quality playbook', 'spec audit', 'Council of Three', 'fitness-to-purpose', 'coverage theater', or wants to go beyond basic test generation to build a full quality system grounded in their actual codebase.",
-      "version": "1.1.0",
+      "description": "Explore any codebase from scratch and generate six quality artifacts: a quality constitution (QUALITY.md), spec-traced functional tests, a code review protocol with regression test generation, an integration testing protocol, a multi-model spec audit (Council of Three), and an AI bootstrap file (AGENTS.md). Includes state machine completeness analysis and missing safeguard detection. Works with any language (Python, Java, Scala, TypeScript, Go, Rust, etc.). Use this skill whenever the user asks to set up a quality playbook, generate functional tests from specifications, create a quality constitution, build testing protocols, audit code against specs, or establish a repeatable quality system for a project. Also trigger when the user mentions 'quality playbook', 'spec audit', 'Council of Three', 'fitness-to-purpose', 'coverage theater', or wants to go beyond basic test generation to build a full quality system grounded in their actual codebase.",
+      "version": "1.2.0",
       "license": "Complete terms in LICENSE.txt",
       "creator": "",
       "compatibility": "",
@@ -2384,6 +3992,246 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/quasi-coder",
       "relPath": "skills/quasi-coder",
+      "verified": true
+    },
+    {
+      "name": "react-audit-grep-patterns",
+      "description": "Provides the complete, verified grep scan command library for auditing React codebases before a React 18.3.1 or React 19 upgrade. Use this skill whenever running a migration audit - for both the react18-auditor and react19-auditor agents. Contains every grep pattern needed to find deprecated APIs, removed APIs, unsafe lifecycle methods, batching vulnerabilities, test file issues, dependency conflicts, and React 19 specific removals. Always use this skill when writing audit scan commands - do not rely on memory for grep syntax, especially for the multi-line async setState patterns which require context flags.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react18-upgrade/skills/react-audit-grep-patterns",
+      "relPath": "plugins/react18-upgrade/skills/react-audit-grep-patterns",
+      "verified": true
+    },
+    {
+      "name": "react-audit-grep-patterns",
+      "description": "Provides the complete, verified grep scan command library for auditing React codebases before a React 18.3.1 or React 19 upgrade. Use this skill whenever running a migration audit - for both the react18-auditor and react19-auditor agents. Contains every grep pattern needed to find deprecated APIs, removed APIs, unsafe lifecycle methods, batching vulnerabilities, test file issues, dependency conflicts, and React 19 specific removals. Always use this skill when writing audit scan commands - do not rely on memory for grep syntax, especially for the multi-line async setState patterns which require context flags.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react-audit-grep-patterns",
+      "relPath": "skills/react-audit-grep-patterns",
+      "verified": true
+    },
+    {
+      "name": "react18-batching-patterns",
+      "description": "Provides exact patterns for diagnosing and fixing automatic batching regressions in React 18 class components. Use this skill whenever a class component has multiple setState calls in an async method, inside setTimeout, inside a Promise .then() or .catch(), or in a native event handler. Use it before writing any flushSync call - the decision tree here prevents unnecessary flushSync overuse. Also use this skill when fixing test failures caused by intermediate state assertions that break after React 18 upgrade.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react18-upgrade/skills/react18-batching-patterns",
+      "relPath": "plugins/react18-upgrade/skills/react18-batching-patterns",
+      "verified": true
+    },
+    {
+      "name": "react18-batching-patterns",
+      "description": "Provides exact patterns for diagnosing and fixing automatic batching regressions in React 18 class components. Use this skill whenever a class component has multiple setState calls in an async method, inside setTimeout, inside a Promise .then() or .catch(), or in a native event handler. Use it before writing any flushSync call - the decision tree here prevents unnecessary flushSync overuse. Also use this skill when fixing test failures caused by intermediate state assertions that break after React 18 upgrade.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react18-batching-patterns",
+      "relPath": "skills/react18-batching-patterns",
+      "verified": true
+    },
+    {
+      "name": "react18-dep-compatibility",
+      "description": "React 18.3.1 and React 19 dependency compatibility matrix.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react18-upgrade/skills/react18-dep-compatibility",
+      "relPath": "plugins/react18-upgrade/skills/react18-dep-compatibility",
+      "verified": true
+    },
+    {
+      "name": "react18-dep-compatibility",
+      "description": "React 18.3.1 and React 19 dependency compatibility matrix.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react18-dep-compatibility",
+      "relPath": "skills/react18-dep-compatibility",
+      "verified": true
+    },
+    {
+      "name": "react18-enzyme-to-rtl",
+      "description": "Provides exact Enzyme → React Testing Library migration patterns for React 18 upgrades. Use this skill whenever Enzyme tests need to be rewritten - shallow, mount, wrapper.find(), wrapper.simulate(), wrapper.prop(), wrapper.state(), wrapper.instance(), Enzyme configure/Adapter calls, or any test file that imports from enzyme. This skill covers the full API mapping and the philosophy shift from implementation testing to behavior testing. Always read this skill before rewriting Enzyme tests - do not translate Enzyme APIs 1:1, that produces brittle RTL tests.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react18-upgrade/skills/react18-enzyme-to-rtl",
+      "relPath": "plugins/react18-upgrade/skills/react18-enzyme-to-rtl",
+      "verified": true
+    },
+    {
+      "name": "react18-enzyme-to-rtl",
+      "description": "Provides exact Enzyme → React Testing Library migration patterns for React 18 upgrades. Use this skill whenever Enzyme tests need to be rewritten - shallow, mount, wrapper.find(), wrapper.simulate(), wrapper.prop(), wrapper.state(), wrapper.instance(), Enzyme configure/Adapter calls, or any test file that imports from enzyme. This skill covers the full API mapping and the philosophy shift from implementation testing to behavior testing. Always read this skill before rewriting Enzyme tests - do not translate Enzyme APIs 1:1, that produces brittle RTL tests.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react18-enzyme-to-rtl",
+      "relPath": "skills/react18-enzyme-to-rtl",
+      "verified": true
+    },
+    {
+      "name": "react18-legacy-context",
+      "description": "Provides the complete migration pattern for React legacy context API (contextTypes, childContextTypes, getChildContext) to the modern createContext API. Use this skill whenever migrating legacy context in class components - this is always a cross-file migration requiring the provider AND all consumers to be updated together. Use it before touching any contextTypes or childContextTypes code, because migrating only the provider without the consumers (or vice versa) will cause a runtime failure. Always read this skill before writing any context migration - the cross-file coordination steps here prevent the most common context migration bugs.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react18-upgrade/skills/react18-legacy-context",
+      "relPath": "plugins/react18-upgrade/skills/react18-legacy-context",
+      "verified": true
+    },
+    {
+      "name": "react18-legacy-context",
+      "description": "Provides the complete migration pattern for React legacy context API (contextTypes, childContextTypes, getChildContext) to the modern createContext API. Use this skill whenever migrating legacy context in class components - this is always a cross-file migration requiring the provider AND all consumers to be updated together. Use it before touching any contextTypes or childContextTypes code, because migrating only the provider without the consumers (or vice versa) will cause a runtime failure. Always read this skill before writing any context migration - the cross-file coordination steps here prevent the most common context migration bugs.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react18-legacy-context",
+      "relPath": "skills/react18-legacy-context",
+      "verified": true
+    },
+    {
+      "name": "react18-lifecycle-patterns",
+      "description": "Provides exact before/after migration patterns for the three unsafe class component lifecycle methods - componentWillMount, componentWillReceiveProps, and componentWillUpdate - targeting React 18.3.1. Use this skill whenever a class component needs its lifecycle methods migrated, when deciding between getDerivedStateFromProps vs componentDidUpdate, when adding getSnapshotBeforeUpdate, or when fixing React 18 UNSAFE_ lifecycle warnings. Always use this skill before writing any lifecycle migration code - do not guess the pattern from memory, the decision trees here prevent the most common migration mistakes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react18-upgrade/skills/react18-lifecycle-patterns",
+      "relPath": "plugins/react18-upgrade/skills/react18-lifecycle-patterns",
+      "verified": true
+    },
+    {
+      "name": "react18-lifecycle-patterns",
+      "description": "Provides exact before/after migration patterns for the three unsafe class component lifecycle methods - componentWillMount, componentWillReceiveProps, and componentWillUpdate - targeting React 18.3.1. Use this skill whenever a class component needs its lifecycle methods migrated, when deciding between getDerivedStateFromProps vs componentDidUpdate, when adding getSnapshotBeforeUpdate, or when fixing React 18 UNSAFE_ lifecycle warnings. Always use this skill before writing any lifecycle migration code - do not guess the pattern from memory, the decision trees here prevent the most common migration mistakes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react18-lifecycle-patterns",
+      "relPath": "skills/react18-lifecycle-patterns",
+      "verified": true
+    },
+    {
+      "name": "react18-string-refs",
+      "description": "Provides exact migration patterns for React string refs (ref=\"name\" + this.refs.name) to React.createRef() in class components. Use this skill whenever migrating string ref usage - including single element refs, multiple refs in a component, refs in lists, callback refs, and refs passed to child components. Always use this skill before writing any ref migration code - the multiple-refs-in-list pattern is particularly tricky and this skill prevents the most common mistakes. Use it for React 18.3.1 migration (string refs warn) and React 19 migration (string refs removed).",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react18-upgrade/skills/react18-string-refs",
+      "relPath": "plugins/react18-upgrade/skills/react18-string-refs",
+      "verified": true
+    },
+    {
+      "name": "react18-string-refs",
+      "description": "Provides exact migration patterns for React string refs (ref=\"name\" + this.refs.name) to React.createRef() in class components. Use this skill whenever migrating string ref usage - including single element refs, multiple refs in a component, refs in lists, callback refs, and refs passed to child components. Always use this skill before writing any ref migration code - the multiple-refs-in-list pattern is particularly tricky and this skill prevents the most common mistakes. Use it for React 18.3.1 migration (string refs warn) and React 19 migration (string refs removed).",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react18-string-refs",
+      "relPath": "skills/react18-string-refs",
+      "verified": true
+    },
+    {
+      "name": "react19-concurrent-patterns",
+      "description": "Preserve React 18 concurrent patterns and adopt React 19 APIs (useTransition, useDeferredValue, Suspense, use(), useOptimistic, Actions) during migration.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react19-upgrade/skills/react19-concurrent-patterns",
+      "relPath": "plugins/react19-upgrade/skills/react19-concurrent-patterns",
+      "verified": true
+    },
+    {
+      "name": "react19-concurrent-patterns",
+      "description": "Preserve React 18 concurrent patterns and adopt React 19 APIs (useTransition, useDeferredValue, Suspense, use(), useOptimistic, Actions) during migration.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react19-concurrent-patterns",
+      "relPath": "skills/react19-concurrent-patterns",
+      "verified": true
+    },
+    {
+      "name": "react19-source-patterns",
+      "description": "Reference for React 19 source-file migration patterns, including API changes, ref handling, and context updates.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react19-upgrade/skills/react19-source-patterns",
+      "relPath": "plugins/react19-upgrade/skills/react19-source-patterns",
+      "verified": true
+    },
+    {
+      "name": "react19-source-patterns",
+      "description": "Reference for React 19 source-file migration patterns, including API changes, ref handling, and context updates.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react19-source-patterns",
+      "relPath": "skills/react19-source-patterns",
+      "verified": true
+    },
+    {
+      "name": "react19-test-patterns",
+      "description": "Provides before/after patterns for migrating test files to React 19 compatibility, including act() imports, Simulate removal, and StrictMode call count changes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/react19-upgrade/skills/react19-test-patterns",
+      "relPath": "plugins/react19-upgrade/skills/react19-test-patterns",
+      "verified": true
+    },
+    {
+      "name": "react19-test-patterns",
+      "description": "Provides before/after patterns for migrating test files to React 19 compatibility, including act() imports, Simulate removal, and StrictMode call count changes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/react19-test-patterns",
+      "relPath": "skills/react19-test-patterns",
       "verified": true
     },
     {
@@ -2430,6 +4278,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/context-engineering/skills/refactor-plan",
+      "relPath": "plugins/context-engineering/skills/refactor-plan",
+      "verified": true
+    },
+    {
+      "name": "refactor-plan",
+      "description": "Plan a multi-file refactor with proper sequencing and rollback steps",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/refactor-plan",
       "relPath": "skills/refactor-plan",
       "verified": true
@@ -2444,6 +4304,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/remember",
       "relPath": "skills/remember",
+      "verified": true
+    },
+    {
+      "name": "remember-interactive-programming",
+      "description": "A micro-prompt that reminds the agent that it is an interactive programmer. Works great in Clojure when Copilot has access to the REPL (probably via Backseat Driver). Will work with any system that has a live REPL that the agent can use. Adapt the prompt with any specific reminders in your workflow and/or workspace.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/clojure-interactive-programming/skills/remember-interactive-programming",
+      "relPath": "plugins/clojure-interactive-programming/skills/remember-interactive-programming",
       "verified": true
     },
     {
@@ -2490,8 +4362,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/oracle-to-postgres-migration-expert/skills/reviewing-oracle-to-postgres-migration",
+      "relPath": "plugins/oracle-to-postgres-migration-expert/skills/reviewing-oracle-to-postgres-migration",
+      "verified": true
+    },
+    {
+      "name": "reviewing-oracle-to-postgres-migration",
+      "description": "Identifies Oracle-to-PostgreSQL migration risks by cross-referencing code against known behavioral differences (empty strings, refcursors, type coercion, sorting, timestamps, concurrent transactions, etc.). Use when planning a database migration, reviewing migration artifacts, or validating that integration tests cover Oracle/PostgreSQL differences.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/reviewing-oracle-to-postgres-migration",
       "relPath": "skills/reviewing-oracle-to-postgres-migration",
+      "verified": true
+    },
+    {
+      "name": "roundup",
+      "description": "Generate personalized status briefings on demand. Pulls from your configured data sources (GitHub, email, Teams, Slack, and more), synthesizes across them, and drafts updates in your own communication style for any audience you define.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/roundup/skills/roundup",
+      "relPath": "plugins/roundup/skills/roundup",
       "verified": true
     },
     {
@@ -2514,8 +4410,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/roundup/skills/roundup-setup",
+      "relPath": "plugins/roundup/skills/roundup-setup",
+      "verified": true
+    },
+    {
+      "name": "roundup-setup",
+      "description": "Interactive onboarding that learns your communication style, audiences, and data sources to configure personalized status briefings. Paste in examples of updates you already write, answer a few questions, and roundup calibrates itself to your workflow.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/roundup-setup",
       "relPath": "skills/roundup-setup",
+      "verified": true
+    },
+    {
+      "name": "ruby-mcp-server-generator",
+      "description": "Generate a complete Model Context Protocol server project in Ruby using the official MCP Ruby SDK gem.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/ruby-mcp-development/skills/ruby-mcp-server-generator",
+      "relPath": "plugins/ruby-mcp-development/skills/ruby-mcp-server-generator",
       "verified": true
     },
     {
@@ -2550,8 +4470,92 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/rust-mcp-development/skills/rust-mcp-server-generator",
+      "relPath": "plugins/rust-mcp-development/skills/rust-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "rust-mcp-server-generator",
+      "description": "Generate a complete Rust Model Context Protocol server project with tools, prompts, resources, and tests using the official rmcp SDK",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/rust-mcp-server-generator",
       "relPath": "skills/rust-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "salesforce-apex-quality",
+      "description": "Apex code quality guardrails for Salesforce development. Enforces bulk-safety rules (no SOQL/DML in loops), sharing model requirements, CRUD/FLS security, SOQL injection prevention, PNB test coverage (Positive / Negative / Bulk), and modern Apex idioms. Use this skill when reviewing or generating Apex classes, trigger handlers, batch jobs, or test classes to catch governor limit risks, security gaps, and quality issues before deployment.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/salesforce-development/skills/salesforce-apex-quality",
+      "relPath": "plugins/salesforce-development/skills/salesforce-apex-quality",
+      "verified": true
+    },
+    {
+      "name": "salesforce-apex-quality",
+      "description": "Apex code quality guardrails for Salesforce development. Enforces bulk-safety rules (no SOQL/DML in loops), sharing model requirements, CRUD/FLS security, SOQL injection prevention, PNB test coverage (Positive / Negative / Bulk), and modern Apex idioms. Use this skill when reviewing or generating Apex classes, trigger handlers, batch jobs, or test classes to catch governor limit risks, security gaps, and quality issues before deployment.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/salesforce-apex-quality",
+      "relPath": "skills/salesforce-apex-quality",
+      "verified": true
+    },
+    {
+      "name": "salesforce-component-standards",
+      "description": "Quality standards for Salesforce Lightning Web Components (LWC), Aura components, and Visualforce pages. Covers SLDS 2 compliance, accessibility (WCAG 2.1 AA), data access pattern selection, component communication rules, XSS prevention, CSRF enforcement, FLS/CRUD in AuraEnabled methods, view state management, and Jest test requirements. Use this skill when building or reviewing any Salesforce UI component to enforce platform-specific security and quality standards.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/salesforce-development/skills/salesforce-component-standards",
+      "relPath": "plugins/salesforce-development/skills/salesforce-component-standards",
+      "verified": true
+    },
+    {
+      "name": "salesforce-component-standards",
+      "description": "Quality standards for Salesforce Lightning Web Components (LWC), Aura components, and Visualforce pages. Covers SLDS 2 compliance, accessibility (WCAG 2.1 AA), data access pattern selection, component communication rules, XSS prevention, CSRF enforcement, FLS/CRUD in AuraEnabled methods, view state management, and Jest test requirements. Use this skill when building or reviewing any Salesforce UI component to enforce platform-specific security and quality standards.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/salesforce-component-standards",
+      "relPath": "skills/salesforce-component-standards",
+      "verified": true
+    },
+    {
+      "name": "salesforce-flow-design",
+      "description": "Salesforce Flow architecture decisions, flow type selection, bulk safety validation, and fault handling standards. Use this skill when designing or reviewing Record-Triggered, Screen, Autolaunched, Scheduled, or Platform Event flows to ensure correct type selection, no DML/Get Records in loops, proper fault connectors on all data-changing elements, and appropriate automation density checks before deployment.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/salesforce-development/skills/salesforce-flow-design",
+      "relPath": "plugins/salesforce-development/skills/salesforce-flow-design",
+      "verified": true
+    },
+    {
+      "name": "salesforce-flow-design",
+      "description": "Salesforce Flow architecture decisions, flow type selection, bulk safety validation, and fault handling standards. Use this skill when designing or reviewing Record-Triggered, Screen, Autolaunched, Scheduled, or Platform Event flows to ensure correct type selection, no DML/Get Records in loops, proper fault connectors on all data-changing elements, and appropriate automation density checks before deployment.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/salesforce-flow-design",
+      "relPath": "skills/salesforce-flow-design",
       "verified": true
     },
     {
@@ -2564,6 +4568,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/sandbox-npm-install",
       "relPath": "skills/sandbox-npm-install",
+      "verified": true
+    },
+    {
+      "name": "scaffolding-oracle-to-postgres-migration-test-project",
+      "description": "Scaffolds an xUnit integration test project for validating Oracle-to-PostgreSQL database migration behavior in .NET solutions. Creates the test project, transaction-rollback base class, and seed data manager. Use when setting up test infrastructure before writing migration integration tests, or when a test project is needed for Oracle-to-PostgreSQL validation.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/oracle-to-postgres-migration-expert/skills/scaffolding-oracle-to-postgres-migration-test-project",
+      "relPath": "plugins/oracle-to-postgres-migration-expert/skills/scaffolding-oracle-to-postgres-migration-test-project",
       "verified": true
     },
     {
@@ -2600,6 +4616,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/secret-scanning",
       "relPath": "skills/secret-scanning",
+      "verified": true
+    },
+    {
+      "name": "security-review",
+      "description": "AI-powered codebase security scanner that reasons about code like a security researcher — tracing data flows, understanding component interactions, and catching vulnerabilities that pattern-matching tools miss. Use this skill when asked to scan code for security vulnerabilities, find bugs, check for SQL injection, XSS, command injection, exposed API keys, hardcoded secrets, insecure dependencies, access control issues, or any request like \"is my code secure?\", \"review for security issues\", \"audit this codebase\", or \"check for vulnerabilities\". Covers injection flaws, authentication and access control bugs, secrets exposure, weak cryptography, insecure dependencies, and business logic issues across JavaScript, TypeScript, Python, Java, PHP, Go, Ruby, and Rust.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/security-review",
+      "relPath": "skills/security-review",
       "verified": true
     },
     {
@@ -2646,6 +4674,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/ospo-sponsorship/skills/sponsor-finder",
+      "relPath": "plugins/ospo-sponsorship/skills/sponsor-finder",
+      "verified": true
+    },
+    {
+      "name": "sponsor-finder",
+      "description": "Find which of a GitHub repository's dependencies are sponsorable via GitHub Sponsors. Uses deps.dev API for dependency resolution across npm, PyPI, Cargo, Go, RubyGems, Maven, and NuGet. Checks npm funding metadata, FUNDING.yml files, and web search. Verifies every link. Shows direct and transitive dependencies with OSSF Scorecard health data. Invoke with /sponsor followed by a GitHub owner/repo (e.g. \"/sponsor expressjs/express\").",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/sponsor-finder",
       "relPath": "skills/sponsor-finder",
       "verified": true
@@ -2670,8 +4710,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/database-data-management/skills/sql-code-review",
+      "relPath": "plugins/database-data-management/skills/sql-code-review",
+      "verified": true
+    },
+    {
+      "name": "sql-code-review",
+      "description": "Universal SQL code review assistant that performs comprehensive security, maintainability, and code quality analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Focuses on SQL injection prevention, access control, code standards, and anti-pattern detection. Complements SQL optimization prompt for complete development coverage.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/sql-code-review",
       "relPath": "skills/sql-code-review",
+      "verified": true
+    },
+    {
+      "name": "sql-optimization",
+      "description": "Universal SQL performance optimization assistant for comprehensive query tuning, indexing strategies, and database performance analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Provides execution plan analysis, pagination optimization, batch operations, and performance monitoring guidance.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/database-data-management/skills/sql-optimization",
+      "relPath": "plugins/database-data-management/skills/sql-optimization",
       "verified": true
     },
     {
@@ -2694,8 +4758,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/structured-autonomy/skills/structured-autonomy-generate",
+      "relPath": "plugins/structured-autonomy/skills/structured-autonomy-generate",
+      "verified": true
+    },
+    {
+      "name": "structured-autonomy-generate",
+      "description": "Structured Autonomy Implementation Generator Prompt",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/structured-autonomy-generate",
       "relPath": "skills/structured-autonomy-generate",
+      "verified": true
+    },
+    {
+      "name": "structured-autonomy-implement",
+      "description": "Structured Autonomy Implementation Prompt",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/structured-autonomy/skills/structured-autonomy-implement",
+      "relPath": "plugins/structured-autonomy/skills/structured-autonomy-implement",
       "verified": true
     },
     {
@@ -2718,8 +4806,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/structured-autonomy/skills/structured-autonomy-plan",
+      "relPath": "plugins/structured-autonomy/skills/structured-autonomy-plan",
+      "verified": true
+    },
+    {
+      "name": "structured-autonomy-plan",
+      "description": "Structured Autonomy Planning Prompt",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/structured-autonomy-plan",
       "relPath": "skills/structured-autonomy-plan",
+      "verified": true
+    },
+    {
+      "name": "suggest-awesome-github-copilot-agents",
+      "description": "Suggest relevant GitHub Copilot Custom Agents files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing custom agents in this repository, and identifying outdated agents that need updates.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/awesome-copilot/skills/suggest-awesome-github-copilot-agents",
+      "relPath": "plugins/awesome-copilot/skills/suggest-awesome-github-copilot-agents",
       "verified": true
     },
     {
@@ -2742,6 +4854,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/awesome-copilot/skills/suggest-awesome-github-copilot-instructions",
+      "relPath": "plugins/awesome-copilot/skills/suggest-awesome-github-copilot-instructions",
+      "verified": true
+    },
+    {
+      "name": "suggest-awesome-github-copilot-instructions",
+      "description": "Suggest relevant GitHub Copilot instruction files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing instructions in this repository, and identifying outdated instructions that need updates.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/suggest-awesome-github-copilot-instructions",
       "relPath": "skills/suggest-awesome-github-copilot-instructions",
       "verified": true
@@ -2754,8 +4878,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/awesome-copilot/skills/suggest-awesome-github-copilot-skills",
+      "relPath": "plugins/awesome-copilot/skills/suggest-awesome-github-copilot-skills",
+      "verified": true
+    },
+    {
+      "name": "suggest-awesome-github-copilot-skills",
+      "description": "Suggest relevant GitHub Copilot skills from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing skills in this repository, and identifying outdated skills that need updates.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/suggest-awesome-github-copilot-skills",
       "relPath": "skills/suggest-awesome-github-copilot-skills",
+      "verified": true
+    },
+    {
+      "name": "swift-mcp-server-generator",
+      "description": "Generate a complete Model Context Protocol server project in Swift using the official MCP Swift SDK package.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/swift-mcp-development/skills/swift-mcp-server-generator",
+      "relPath": "plugins/swift-mcp-development/skills/swift-mcp-server-generator",
       "verified": true
     },
     {
@@ -2795,6 +4943,18 @@
       "verified": true
     },
     {
+      "name": "threat-model-analyst",
+      "description": "Full STRIDE-A threat model analysis and incremental update skill for repositories and systems. Supports two modes: (1) Single analysis — full STRIDE-A threat model of a repository, producing architecture overviews, DFD diagrams, STRIDE-A analysis, prioritized findings, and executive assessments. (2) Incremental analysis — takes a previous threat model report as baseline, compares the codebase at the latest (or a given commit), and produces an updated report with change tracking (new, resolved, still-present threats), STRIDE heatmap, findings diff, and an embedded HTML comparison. Only activate when the user explicitly requests a threat model analysis, incremental update, or invokes /threat-model-analyst directly.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:skills/threat-model-analyst",
+      "relPath": "skills/threat-model-analyst",
+      "verified": true
+    },
+    {
       "name": "tldr-prompt",
       "description": "Create tldr summaries for GitHub Copilot files (prompts, agents, instructions, collections), MCP servers, or documentation from URLs and queries.",
       "version": "0.0.0",
@@ -2826,8 +4986,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/typescript-mcp-development/skills/typescript-mcp-server-generator",
+      "relPath": "plugins/typescript-mcp-development/skills/typescript-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "typescript-mcp-server-generator",
+      "description": "Generate a complete MCP server project in TypeScript with tools, resources, and proper configuration",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/typescript-mcp-server-generator",
       "relPath": "skills/typescript-mcp-server-generator",
+      "verified": true
+    },
+    {
+      "name": "typespec-api-operations",
+      "description": "Add GET, POST, PATCH, and DELETE operations to a TypeSpec API plugin with proper routing, parameters, and adaptive cards",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/typespec-m365-copilot/skills/typespec-api-operations",
+      "relPath": "plugins/typespec-m365-copilot/skills/typespec-api-operations",
       "verified": true
     },
     {
@@ -2850,8 +5034,32 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/typespec-m365-copilot/skills/typespec-create-agent",
+      "relPath": "plugins/typespec-m365-copilot/skills/typespec-create-agent",
+      "verified": true
+    },
+    {
+      "name": "typespec-create-agent",
+      "description": "Generate a complete TypeSpec declarative agent with instructions, capabilities, and conversation starters for Microsoft 365 Copilot",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/typespec-create-agent",
       "relPath": "skills/typespec-create-agent",
+      "verified": true
+    },
+    {
+      "name": "typespec-create-api-plugin",
+      "description": "Generate a TypeSpec API plugin with REST operations, authentication, and Adaptive Cards for Microsoft 365 Copilot",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/typespec-m365-copilot/skills/typespec-create-api-plugin",
+      "relPath": "plugins/typespec-m365-copilot/skills/typespec-create-api-plugin",
       "verified": true
     },
     {
@@ -2888,6 +5096,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/update-avm-modules-in-bicep",
       "relPath": "skills/update-avm-modules-in-bicep",
+      "verified": true
+    },
+    {
+      "name": "update-implementation-plan",
+      "description": "Update an existing implementation plan file with new or update requirements to provide new features, refactoring existing code or upgrading packages, design, architecture or infrastructure.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/project-planning/skills/update-implementation-plan",
+      "relPath": "plugins/project-planning/skills/update-implementation-plan",
       "verified": true
     },
     {
@@ -3006,6 +5226,18 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/context-engineering/skills/what-context-needed",
+      "relPath": "plugins/context-engineering/skills/what-context-needed",
+      "verified": true
+    },
+    {
+      "name": "what-context-needed",
+      "description": "Ask Copilot what files it needs to see before answering a question",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/what-context-needed",
       "relPath": "skills/what-context-needed",
       "verified": true
@@ -3032,6 +5264,18 @@
       "allowedTools": [],
       "installUrl": "github:github/awesome-copilot:skills/winmd-api-search",
       "relPath": "skills/winmd-api-search",
+      "verified": true
+    },
+    {
+      "name": "winui3-migration-guide",
+      "description": "UWP-to-WinUI 3 migration reference. Maps legacy UWP APIs to correct Windows App SDK equivalents with before/after code snippets. Covers namespace changes, threading (CoreDispatcher to DispatcherQueue), windowing (CoreWindow to AppWindow), dialogs, pickers, sharing, printing, background tasks, and the most common Copilot code generation mistakes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:github/awesome-copilot:plugins/winui3-development/skills/winui3-migration-guide",
+      "relPath": "plugins/winui3-development/skills/winui3-migration-guide",
       "verified": true
     },
     {

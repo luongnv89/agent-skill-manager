@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/GPTomics/bioSkills.git",
   "owner": "GPTomics",
   "repo": "bioSkills",
-  "updatedAt": "2026-03-27T23:21:36.781Z",
-  "skillCount": 426,
+  "updatedAt": "2026-04-20T06:33:29.401Z",
+  "skillCount": 439,
   "skills": [
     {
       "name": "bio-admet-prediction",
@@ -87,6 +87,18 @@
       "allowedTools": [],
       "installUrl": "github:GPTomics/bioSkills:alignment/msa-statistics",
       "relPath": "alignment/msa-statistics",
+      "verified": true
+    },
+    {
+      "name": "bio-alignment-multiple",
+      "description": "Perform multiple sequence alignment using MAFFT, MUSCLE5, ClustalOmega, or T-Coffee. Guides tool and algorithm selection based on dataset size, sequence divergence, and downstream application. Use when aligning three or more homologous sequences for phylogenetics, conservation analysis, or evolutionary studies.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:alignment/multiple-alignment",
+      "relPath": "alignment/multiple-alignment",
       "verified": true
     },
     {
@@ -331,7 +343,7 @@
     },
     {
       "name": "bio-chipseq-differential-binding",
-      "description": "Differential binding analysis using DiffBind. Compare ChIP-seq peaks between conditions with statistical rigor. Requires replicate samples. Outputs differentially bound regions with fold changes and p-values. Use when comparing ChIP-seq binding between conditions.",
+      "description": "Identifies differentially bound ChIP-seq regions between conditions using DiffBind (from BAMs), DESeq2, or PyDESeq2 (from count matrices). Handles normalization, statistical testing, and fold-change estimation with ChIP-seq-specific considerations. Use when comparing ChIP-seq binding between experimental conditions.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -355,7 +367,7 @@
     },
     {
       "name": "bio-chipseq-peak-annotation",
-      "description": "Annotate ChIP-seq peaks to genomic features and genes using ChIPseeker. Assign peaks to promoters, exons, introns, and intergenic regions. Find nearest genes and calculate distance to TSS. Generate annotation plots and statistics. Use when annotating ChIP-seq peaks to genomic features.",
+      "description": "Annotate ChIP-seq peaks to genomic features and nearest genes. Classify peaks as promoter, exon, intron, or intergenic using ChIPseeker (R), HOMER annotatePeaks.pl (CLI), or Python (pandas/pyranges). Supports pre-built annotation databases and custom GTF files. Handles promoter definition, feature priority, category collapsing, and signed distance-to-TSS. Use when assigning genomic context to ChIP-seq peaks or linking peaks to target genes.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -367,7 +379,7 @@
     },
     {
       "name": "bio-chipseq-peak-calling",
-      "description": "ChIP-seq peak calling using MACS3 (or MACS2). Call narrow peaks for transcription factors or broad peaks for histone modifications. Supports input control, fragment size modeling, and various output formats including narrowPeak and broadPeak BED files. Use when calling peaks from ChIP-seq alignments.",
+      "description": "ChIP-seq peak calling using MACS3 and HOMER findPeaks. Call narrow peaks for transcription factors or broad peaks for histone modifications. Supports single-caller and multi-caller consensus approaches, input control, fragment size modeling, and various output formats. Use when calling peaks from ChIP-seq alignments.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -411,6 +423,78 @@
       "allowedTools": [],
       "installUrl": "github:GPTomics/bioSkills:chip-seq/chipseq-visualization",
       "relPath": "chip-seq/chipseq-visualization",
+      "verified": true
+    },
+    {
+      "name": "bio-clinical-biostatistics-categorical-tests",
+      "description": "Tests associations between categorical variables in clinical data using chi-square, Fisher's exact, and Cochran-Mantel-Haenszel tests. Computes effect sizes and post-hoc pairwise comparisons. Use when analyzing categorical outcomes or testing treatment-outcome independence in clinical trials.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:clinical-biostatistics/categorical-tests",
+      "relPath": "clinical-biostatistics/categorical-tests",
+      "verified": true
+    },
+    {
+      "name": "bio-clinical-biostatistics-cdisc-data",
+      "description": "Reads and prepares CDISC SDTM clinical trial data for analysis. Handles domain tables (DM, AE, EX, VS, LB), USUBJID-based joins, event-to-subject aggregation, and SUPPQUAL pivoting. Use when working with clinical trial datasets in CDISC/SDTM format or .xpt files.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:clinical-biostatistics/cdisc-data-handling",
+      "relPath": "clinical-biostatistics/cdisc-data-handling",
+      "verified": true
+    },
+    {
+      "name": "bio-clinical-biostatistics-effect-measures",
+      "description": "Computes and interprets treatment effect measures including odds ratios, risk ratios, number needed to treat, and confidence intervals from clinical trial data. Covers crude and adjusted measures, non-collapsibility of odds ratios, and forest plot visualization. Use when reporting treatment effects or comparing effect sizes across clinical studies.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:clinical-biostatistics/effect-measures",
+      "relPath": "clinical-biostatistics/effect-measures",
+      "verified": true
+    },
+    {
+      "name": "bio-clinical-biostatistics-logistic-regression",
+      "description": "Performs logistic regression for clinical trial outcomes including binary, ordinal, and multinomial models. Extracts odds ratios with confidence intervals, handles covariate adjustment, and provides Firth penalized regression for rare events or separation. Use when modeling binary or ordinal endpoints from clinical data.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:clinical-biostatistics/logistic-regression",
+      "relPath": "clinical-biostatistics/logistic-regression",
+      "verified": true
+    },
+    {
+      "name": "bio-clinical-biostatistics-subgroup-analysis",
+      "description": "Performs stratified and subgroup analyses for clinical trial data. Covers Mantel-Haenszel pooling, Breslow-Day homogeneity testing, interaction terms in regression, multiple comparisons correction, and forest plot visualization. Use when analyzing treatment effects across patient subgroups or controlling for stratification variables.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:clinical-biostatistics/subgroup-analysis",
+      "relPath": "clinical-biostatistics/subgroup-analysis",
+      "verified": true
+    },
+    {
+      "name": "bio-clinical-biostatistics-trial-reporting",
+      "description": "Prepares statistical tables and reports for clinical trials following regulatory standards. Generates Table 1 baseline characteristics, defines analysis populations (ITT, per-protocol, safety), performs multiple imputation for missing data, and follows CONSORT and ICH E9 guidelines. Use when creating analysis reports, handling missing data, or preparing regulatory submissions from clinical trials.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:clinical-biostatistics/trial-reporting",
+      "relPath": "clinical-biostatistics/trial-reporting",
       "verified": true
     },
     {
@@ -1395,6 +1479,18 @@
       "allowedTools": [],
       "installUrl": "github:GPTomics/bioSkills:expression-matrix/metadata-joins",
       "relPath": "expression-matrix/metadata-joins",
+      "verified": true
+    },
+    {
+      "name": "bio-expression-matrix-normalization",
+      "description": "Normalize and transform RNA-seq count matrices for differential expression, visualization, and clustering. Covers between-sample (TMM, RLE, upper quartile), within-sample (TPM, FPKM), variance-stabilizing (VST, rlog), and single-cell (scran) methods. Use when choosing or applying normalization to expression data.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:expression-matrix/normalization",
+      "relPath": "expression-matrix/normalization",
       "verified": true
     },
     {
@@ -2443,7 +2539,7 @@
     },
     {
       "name": "bio-metabolomics-statistical-analysis",
-      "description": "Statistical analysis for metabolomics data. Covers univariate testing, multivariate methods (PCA, PLS-DA), and biomarker discovery. Use when identifying differentially abundant metabolites or building classification models.",
+      "description": "Statistical analysis for metabolomics data. Covers preprocessing (log2 transformation, normalization), limma moderated testing with empirical Bayes, Welch's t-tests with BH correction, fold change estimation, and multivariate methods (PCA, PLS-DA, OPLS-DA). Use when identifying differentially abundant metabolites or building classification models.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2595,6 +2691,18 @@
       "allowedTools": [],
       "installUrl": "github:GPTomics/bioSkills:methylation-analysis/methylation-calling",
       "relPath": "methylation-analysis/methylation-calling",
+      "verified": true
+    },
+    {
+      "name": "bio-methylation-differential-cpg",
+      "description": "Per-CpG differential methylation testing from bisulfite sequencing count data or beta-value matrices. Covers beta and M-value computation, coverage filtering, statistical tests (Welch t-test, Mann-Whitney, limma, DSS beta-binomial), multiple testing correction, and effect size calculation. Use when comparing methylation at individual CpG sites between experimental groups from WGBS, RRBS, or targeted bisulfite sequencing.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:methylation-analysis/differential-cpg-testing",
+      "relPath": "methylation-analysis/differential-cpg-testing",
       "verified": true
     },
     {
@@ -2958,8 +3066,20 @@
       "verified": true
     },
     {
+      "name": "bio-phylo-bayesian-inference",
+      "description": "Run Bayesian phylogenetic analysis with MrBayes, BEAST2, RevBayes, and PhyloBayes including MCMC convergence diagnostics and model comparison. Use when needing posterior probability support, Bayesian model averaging, site-heterogeneous models for deep phylogenies, or formal model comparison via stepping-stone sampling.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:phylogenetics/bayesian-inference",
+      "relPath": "phylogenetics/bayesian-inference",
+      "verified": true
+    },
+    {
       "name": "bio-phylo-distance-calculations",
-      "description": "Compute evolutionary distances and build phylogenetic trees using Biopython Bio.Phylo.TreeConstruction. Use when creating distance matrices from alignments, building NJ/UPGMA trees, or generating bootstrap consensus trees.",
+      "description": "Compute evolutionary distances and build phylogenetic trees using Biopython Bio.Phylo.TreeConstruction. Use when creating distance matrices from alignments, building NJ/UPGMA trees, generating bootstrap consensus, or needing quick exploratory phylogenies before running full ML analysis.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2970,8 +3090,20 @@
       "verified": true
     },
     {
+      "name": "bio-phylo-divergence-dating",
+      "description": "Estimate divergence times using molecular clock models with BEAST2, MCMCTree, and TreePL. Use when dating speciation events, calibrating phylogenies with fossils, choosing between strict and relaxed clock models, or estimating evolutionary rates across lineages.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:phylogenetics/divergence-dating",
+      "relPath": "phylogenetics/divergence-dating",
+      "verified": true
+    },
+    {
       "name": "bio-phylo-modern-tree-inference",
-      "description": "Build maximum likelihood phylogenetic trees using IQ-TREE2 and RAxML-ng. Use when inferring publication-quality trees with model selection, ultrafast bootstrap, or partitioned analyses from sequence alignments.",
+      "description": "Build maximum likelihood phylogenetic trees using IQ-TREE2 and RAxML-NG with expert model selection, branch support assessment, and topology testing. Use when inferring publication-quality ML trees, selecting substitution models, interpreting bootstrap and concordance factor support, or running partitioned phylogenomic analyses.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -2979,6 +3111,18 @@
       "allowedTools": [],
       "installUrl": "github:GPTomics/bioSkills:phylogenetics/modern-tree-inference",
       "relPath": "phylogenetics/modern-tree-inference",
+      "verified": true
+    },
+    {
+      "name": "bio-phylo-species-trees",
+      "description": "Estimate species trees using coalescent methods including ASTRAL-III, wASTRAL, ASTRAL-Pro, SVDQuartets, and BPP. Use when multi-locus data shows gene tree discordance from incomplete lineage sorting, when in the anomaly zone where concatenation is misleading, or when computing concordance factors to assess topological support.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:phylogenetics/species-trees",
+      "relPath": "phylogenetics/species-trees",
       "verified": true
     },
     {
@@ -2995,7 +3139,7 @@
     },
     {
       "name": "bio-phylo-tree-manipulation",
-      "description": "Modify phylogenetic tree structure using Biopython Bio.Phylo. Use when rooting trees with outgroups or midpoint, pruning taxa, collapsing clades, ladderizing branches, or extracting subtrees.",
+      "description": "Modify phylogenetic tree structure using Biopython Bio.Phylo. Use when rooting trees with outgroups, midpoint, or MAD methods, pruning taxa, collapsing clades, ladderizing branches, or extracting subtrees. Includes rooting method decision guidance.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3007,7 +3151,7 @@
     },
     {
       "name": "bio-phylo-tree-visualization",
-      "description": "Draw and export phylogenetic trees using Biopython Bio.Phylo with matplotlib. Use when creating publication-quality tree figures, customizing colors and labels, or exporting to image formats.",
+      "description": "Draw and export phylogenetic trees using Biopython Bio.Phylo with matplotlib and modern alternatives. Use when creating tree figures, customizing colors and labels, exporting to image formats, or choosing between Bio.Phylo, ggtree, ETE4, and iTOL for publication.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -3163,7 +3307,7 @@
     },
     {
       "name": "bio-proteomics-differential-abundance",
-      "description": "Statistical testing for differentially abundant proteins between conditions. Covers limma and MSstats workflows with multiple testing correction. Use when identifying proteins with significant abundance changes between experimental groups.",
+      "description": "Statistical testing for differentially abundant proteins between conditions. Covers preprocessing (log2 transformation, normalization), limma and DEqMS workflows with empirical Bayes moderation, fold change shrinkage for accurate effect size estimation, and Python alternatives. Use when identifying proteins with significant abundance changes between experimental groups.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -4447,7 +4591,7 @@
     },
     {
       "name": "bio-variant-annotation",
-      "description": "Comprehensive variant annotation using bcftools annotate/csq, VEP, SnpEff, and ANNOVAR. Add database annotations, predict functional consequences, and assess clinical significance. Use when annotating variants with functional and clinical information.",
+      "description": "Comprehensive variant annotation using bcftools annotate/csq, VEP, SnpEff, and ANNOVAR. Add database annotations, predict functional consequences, and assess clinical significance with MANE transcript selection and pathogenicity scoring. Use when annotating variants with functional and clinical information.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -4483,7 +4627,7 @@
     },
     {
       "name": "bio-variant-calling-deepvariant",
-      "description": "Deep learning-based variant calling with Google DeepVariant. Provides high accuracy for germline SNPs and indels from Illumina, PacBio, and ONT data. Use when calling variants with DeepVariant deep learning caller.",
+      "description": "Deep learning-based variant calling with Google DeepVariant. Provides high accuracy for germline SNPs and indels from Illumina, PacBio, and ONT data. Use when calling variants with DeepVariant deep learning caller or when highest germline calling accuracy is required.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -4519,7 +4663,7 @@
     },
     {
       "name": "bio-variant-calling-structural-variant-calling",
-      "description": "Call structural variants (SVs) from short-read sequencing using Manta, Delly, and LUMPY. Detects deletions, insertions, inversions, duplications, and translocations that are too large for standard SNV callers. Use when detecting structural variants from short-read data.",
+      "description": "Call structural variants (SVs) from sequencing data using Manta, Delly, GRIDSS, and LUMPY. Detects deletions, insertions, inversions, duplications, and translocations too large for standard SNV callers. Use when detecting structural variants from short-read or long-read data and building consensus callsets.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -4531,7 +4675,7 @@
     },
     {
       "name": "bio-variant-normalization",
-      "description": "Normalize indel representation and split multiallelic variants using bcftools norm. Use when comparing variants from different callers or preparing VCF for downstream analysis.",
+      "description": "Normalize indel representation, decompose MNPs, and split multiallelic variants using bcftools norm. Use when comparing variants from different callers, preparing VCF for database annotation, or merging VCFs from multiple sources.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -4675,7 +4819,7 @@
     },
     {
       "name": "bio-workflows-chipseq-pipeline",
-      "description": "End-to-end ChIP-seq workflow from FASTQ files to annotated peaks. Covers QC, alignment, peak calling with MACS3, and peak annotation with ChIPseeker. Use when processing ChIP-seq data from alignment through peak annotation.",
+      "description": "End-to-end ChIP-seq workflow from FASTQ files to annotated peaks. Covers QC, alignment, peak calling with MACS3 (or HOMER), and peak annotation with ChIPseeker. Use when processing ChIP-seq data from alignment through peak annotation.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -4683,6 +4827,18 @@
       "allowedTools": [],
       "installUrl": "github:GPTomics/bioSkills:workflows/chipseq-pipeline",
       "relPath": "workflows/chipseq-pipeline",
+      "verified": true
+    },
+    {
+      "name": "bio-workflows-clinical-trial-pipeline",
+      "description": "End-to-end clinical trial analysis workflow from CDISC data loading through statistical testing to regulatory-compliant reporting. Covers data preparation, logistic regression, categorical tests, subgroup analysis, and Table 1 generation. Use when performing a complete analysis of clinical trial data.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:GPTomics/bioSkills:workflows/clinical-trial-pipeline",
+      "relPath": "workflows/clinical-trial-pipeline",
       "verified": true
     },
     {
@@ -4987,7 +5143,7 @@
     },
     {
       "name": "bio-workflows-proteomics-pipeline",
-      "description": "End-to-end proteomics workflow from MaxQuant output to differential protein abundance. Orchestrates data import, normalization, imputation, and statistical testing with MSstats or limma. Use when processing mass spectrometry proteomics.",
+      "description": "End-to-end proteomics workflow from MaxQuant output to differential protein abundance. Orchestrates data import, normalization, imputation, and statistical testing with limma (default) or MSstats for complex feature-level designs. Use when processing mass spectrometry proteomics.",
       "version": "0.0.0",
       "license": "",
       "creator": "",

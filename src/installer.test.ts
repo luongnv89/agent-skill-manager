@@ -584,22 +584,27 @@ describe("discoverSkills", () => {
     expect(discovered.length).toBe(0);
   });
 
-  test("does not recurse deeper than 3 levels", async () => {
-    // Level 1/2/3/4 — only first 3 levels should be scanned
-    await mkdir(join(tempDir, "a", "b", "c", "d"), { recursive: true });
+  test("does not recurse deeper than 5 levels", async () => {
+    // 6 levels deep should be skipped
+    await mkdir(join(tempDir, "a", "b", "c", "d", "e", "f"), {
+      recursive: true,
+    });
     await writeFile(
-      join(tempDir, "a", "b", "c", "d", "SKILL.md"),
-      "---\nname: deep-skill\n---\n",
+      join(tempDir, "a", "b", "c", "d", "e", "f", "SKILL.md"),
+      "---\nname: too-deep\n---\n",
     );
-    // But level 3 should work
-    await mkdir(join(tempDir, "x", "y", "z"), { recursive: true });
+    // 5 levels deep should work (covers plugin-nested layouts like
+    // plugins/<group>/skills/<skill>/SKILL.md)
+    await mkdir(join(tempDir, "plugins", "group", "skills", "my-skill"), {
+      recursive: true,
+    });
     await writeFile(
-      join(tempDir, "x", "y", "z", "SKILL.md"),
-      "---\nname: level3-skill\n---\n",
+      join(tempDir, "plugins", "group", "skills", "my-skill", "SKILL.md"),
+      "---\nname: plugin-skill\n---\n",
     );
 
     const discovered = await discoverSkills(tempDir);
-    expect(discovered.map((s) => s.name)).toEqual(["level3-skill"]);
+    expect(discovered.map((s) => s.name)).toEqual(["plugin-skill"]);
   });
 
   test("stops recursing into directories that have SKILL.md", async () => {
