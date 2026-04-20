@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/Galaxy-Dawn/claude-scholar.git",
   "owner": "Galaxy-Dawn",
   "repo": "claude-scholar",
-  "updatedAt": "2026-03-27T23:21:32.970Z",
-  "skillCount": 47,
+  "updatedAt": "2026-04-20T06:33:22.507Z",
+  "skillCount": 48,
   "skills": [
     {
       "name": "agent-identifier",
@@ -399,6 +399,18 @@
       "allowedTools": [],
       "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/post-acceptance",
       "relPath": "skills/post-acceptance",
+      "verified": true
+    },
+    {
+      "name": "publication-chart-skill",
+      "description": "This skill should be used when the user asks for a publication-quality scientific figure or table, wants help choosing the right chart for results, needs a paper-ready pubfig or pubtab workflow, wants a figure + companion table for a results section, wants an Excel sheet turned into publication-ready LaTeX, or wants an existing scientific figure/table reviewed and upgraded.",
+      "version": "0.2.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Galaxy-Dawn/claude-scholar:skills/publication-chart-skill",
+      "relPath": "skills/publication-chart-skill",
       "verified": true
     },
     {

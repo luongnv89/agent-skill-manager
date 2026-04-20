@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/anthropics/skills.git",
   "owner": "anthropics",
   "repo": "skills",
-  "updatedAt": "2026-03-27T23:21:14.992Z",
+  "updatedAt": "2026-04-20T06:32:41.501Z",
   "skillCount": 18,
   "skills": [
     {
@@ -43,7 +43,7 @@
     },
     {
       "name": "claude-api",
-      "description": "Build apps with the Claude API or Anthropic SDK. TRIGGER when: code imports `anthropic`/`@anthropic-ai/sdk`/`claude_agent_sdk`, or user asks to use Claude API, Anthropic SDKs, or Agent SDK. DO NOT TRIGGER when: code imports `openai`/other AI SDK, general programming, or ML/data-science tasks.",
+      "description": "Build, debug, and optimize Claude API / Anthropic SDK apps. Apps built with this skill should include prompt caching. Also handles migrating existing Claude API code between Claude model versions (4.5 → 4.6, 4.6 → 4.7, retired-model replacements). TRIGGER when: code imports `anthropic`/`@anthropic-ai/sdk`; user asks for the Claude API, Anthropic SDK, or Managed Agents; user adds/modifies/tunes a Claude feature (caching, thinking, compaction, tool use, batch, files, citations, memory) or model (Opus/Sonnet/Haiku) in a file; questions about prompt caching / cache hit rate in an Anthropic SDK project. SKIP: file imports `openai`/other-provider SDK, filename like `*-openai.py`/`*-generic.py`, provider-neutral code, general programming/ML.",
       "version": "0.0.0",
       "license": "Complete terms in LICENSE.txt",
       "creator": "",

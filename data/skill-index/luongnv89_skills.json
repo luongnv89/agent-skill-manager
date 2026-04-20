@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/luongnv89/skills.git",
   "owner": "luongnv89",
   "repo": "skills",
-  "updatedAt": "2026-03-27T23:21:28.162Z",
-  "skillCount": 35,
+  "updatedAt": "2026-04-20T06:33:12.504Z",
+  "skillCount": 36,
   "skills": [
     {
       "name": "agent-config",
@@ -19,7 +19,7 @@
     },
     {
       "name": "appstore-review-checker",
-      "description": "Pre-submission audit of iOS/macOS apps against 150+ Apple App Store Review Guidelines. Analyzes source code, project config, metadata, and screenshots to catch rejection risks before you submit. Provides per-guideline verdicts (PASS/FAIL/WARNING/N/A) with specific fix suggestions. Use this skill whenever someone wants to check if their app will pass App Store review, asks about App Store rejection risks, says \"will Apple approve this\", \"check my app for review\", \"pre-submission audit\", \"App Store compliance check\", \"why might my app get rejected\", \"review guidelines check\", or mentions preparing an app for App Store submission — even if they don't say \"review guidelines\" explicitly. Also trigger when someone is debugging a rejection and wants to know what else might fail.",
+      "description": "Audit iOS/macOS app projects against Apple App Store Review Guidelines to catch rejection risks before submission, with per-guideline PASS/FAIL/WARNING verdicts and fix suggestions.",
       "version": "1.1.1",
       "license": "",
       "creator": "",
@@ -31,7 +31,7 @@
     },
     {
       "name": "aso-marketing",
-      "description": "Full-lifecycle App Store Optimization (ASO) for mobile apps — keyword strategy, metadata optimization, visual assets, localization, conversion improvement, and store policy compliance for both Apple App Store and Google Play. Use when asked to \"optimize my app store listing\", \"ASO plan\", \"improve app visibility\", \"increase app downloads\", \"keyword strategy\", \"store listing optimization\", \"check listing compliance\", or any request about making a mobile app more discoverable. Also trigger when user mentions app store rankings, screenshot optimization, or app metadata — even without saying \"ASO\".",
+      "description": "Optimize App Store and Google Play listings with keyword strategy, metadata, and localization. Use when asked to improve app store visibility, ASO, or app discoverability.",
       "version": "1.1.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -43,7 +43,7 @@
     },
     {
       "name": "auto-push",
-      "description": "Stage all changes, create commit, and push to remote. Use when asked to \"push everything\", \"commit and push all\", \"push all my changes\", or for bulk operations. Includes safety checks for secrets, API keys, and large files. Execute immediately after safety checks (no extra confirmation step). Use with caution.",
+      "description": "Stage all changes, commit with a generated message, and push to remote — with safety checks for secrets, large files, and protected branches. Executes immediately after checks pass; no extra confirmation needed.",
       "version": "1.0.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -55,8 +55,8 @@
     },
     {
       "name": "cli-builder",
-      "description": "Guide users through building a CLI tool for any module or application. Use when users ask to \"build a CLI\", \"create a command-line tool\", \"add CLI interface\", \"make this scriptable\", \"wrap this in a CLI\", \"add a terminal interface\", or mention specific CLI frameworks like argparse, click, typer, commander, yargs, cobra, clap, picocli, or thor. Follows a strict 5-step approval-gated workflow: Analyze -> Design -> Plan -> Execute -> Summarize. Language-agnostic — auto-detects the project's language and recommends appropriate CLI libraries.",
-      "version": "1.0.1",
+      "description": "Build a production-quality CLI tool for any module or application. Auto-detects language, recommends CLI libraries, and follows a 5-step approval-gated workflow: Analyze, Design, Plan, Execute, Summarize.",
+      "version": "1.0.2",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
       "compatibility": "",
@@ -79,19 +79,19 @@
     },
     {
       "name": "code-review",
-      "description": "Perform code reviews following best practices from Code Smells and The Pragmatic Programmer. Use when asked to \"review this code\", \"check for code smells\", \"review my PR\", \"audit the codebase\", or need quality feedback on code changes. Supports both full codebase audits and focused PR/diff reviews. Outputs structured markdown reports grouped by severity.",
-      "version": "1.1.1",
+      "description": "Review code changes for bugs, security vulnerabilities, and code quality issues — producing prioritized findings with specific fix suggestions.",
+      "version": "1.1.2",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/code-review",
       "relPath": "skills/code-review",
-      "verified": true
+      "verified": false
     },
     {
       "name": "context-hub",
-      "description": "Use Context Hub (`chub`) to fetch up-to-date third-party API/SDK docs before writing or reviewing integration code. Trigger this skill whenever a task mentions external APIs, SDKs, webhooks, auth flows, or library-specific method usage (OpenAI, Stripe, Anthropic, Pinecone, etc.), even if the user does not explicitly ask for documentation.",
+      "description": "Fetch up-to-date third-party API/SDK docs via `chub` before writing or reviewing integration code — so method names, payload fields, and auth headers are always sourced from live docs, not stale training data.",
       "version": "1.0.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -103,8 +103,8 @@
     },
     {
       "name": "devops-pipeline",
-      "description": "Implement pre-commit hooks and GitHub Actions for quality assurance. Use when asked to \"setup CI/CD\", \"add pre-commit hooks\", \"create GitHub Actions\", \"setup quality gates\", \"automate testing\", \"add linting to CI\", or any DevOps automation for code quality. Detects project type and configures appropriate tools.",
-      "version": "1.0.1",
+      "description": "Implement pre-commit hooks and lean GitHub Actions for shift-left quality assurance — maximizing local test coverage and minimizing CI cost.",
+      "version": "2.0.0",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
       "compatibility": "",
@@ -115,7 +115,7 @@
     },
     {
       "name": "docs-generator",
-      "description": "Restructure project documentation for clarity and accessibility. Use when users ask to \"organize docs\", \"generate documentation\", \"improve doc structure\", \"restructure README\", or need to reorganize scattered documentation into a coherent structure. Analyzes project type and creates appropriate documentation hierarchy.",
+      "description": "Generate and restructure project documentation into a clear, accessible hierarchy. Use when asked to \"organize docs\", \"generate documentation\", \"improve doc structure\", or \"restructure README\".",
       "version": "1.2.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -127,7 +127,7 @@
     },
     {
       "name": "dont-make-me-think",
-      "description": "Review any UI for usability issues using Steve Krug's \"Don't Make Me Think\" principles, or redesign a UI to be more intuitive. Use this skill whenever the user asks to \"review my UI\", \"check usability\", \"is this interface confusing\", \"why do users get lost\", \"simplify this design\", \"make this more intuitive\", \"UX review\", \"usability audit\", \"Krug review\", \"don't make me think\", or shares a screenshot/URL/mockup and wants feedback on whether it's easy to use. Also trigger when the user describes user confusion, drop-off, or complaints about a flow being hard to understand — even if they don't mention \"usability\" explicitly. Works with screenshots, live URLs, HTML/CSS code, wireframes, and verbal descriptions of interfaces.",
+      "description": "Review UI for usability issues using Steve Krug's principles and produce a scannable report. Use when asked for a usability audit, UX review, or UI feedback on screenshots, URLs, or code.",
       "version": "1.1.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -139,7 +139,7 @@
     },
     {
       "name": "drawio-generator",
-      "description": "Generate diagrams and visualizations as draw.io (diagrams.net) XML files — flowcharts, architecture, C4 models, ER diagrams, sequence diagrams, mind maps, swimlanes, and more. Trigger when user says \"draw.io\", \"drawio\", \"diagrams.net\", \".drawio file\", or wants draw.io format. Also trigger when extending existing .drawio files or when context calls for draw.io (corporate environments, Confluence/Jira integration, multi-page diagrams).",
+      "description": "Generate professional diagrams as valid draw.io XML files — flowcharts, architecture, C4 models, ER diagrams, sequence diagrams, mind maps, and swimlanes.",
       "version": "1.1.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -151,8 +151,8 @@
     },
     {
       "name": "excalidraw-generator",
-      "description": "Generate diagrams and visualizations as Excalidraw JSON files — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, org charts, wireframes, C4 models, swimlanes, and more. Trigger when user asks to draw, diagram, visualize, sketch, or chart anything, says \"excalidraw\", \"draw this\", \"make a diagram of\", \"visualize this\", or shares data/structures that would benefit from visualization. Also suggest when the user describes relationships, flows, or hierarchies even without saying \"diagram\".",
-      "version": "1.1.1",
+      "description": "Generate professional diagrams as valid Excalidraw JSON files — flowcharts, architecture, ER diagrams, mind maps, sequence diagrams, wireframes, C4 models, and more. Understands text, code, schemas, or verbal descriptions.",
+      "version": "1.2.0",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
       "compatibility": "",
@@ -163,7 +163,7 @@
     },
     {
       "name": "frontend-design",
-      "description": "Create distinctive, usability-focused, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include web apps, landing pages, dashboards, forms, portfolios). Generates creative, polished code that avoids generic AI aesthetics. Applies \"Don't Make Me Think\" usability principles and a default style guide (Black/White/Gray/Bright Green) when no style preference is provided.",
+      "description": "Design and implement production-grade frontend interfaces with distinctive aesthetics and working code. Use when asked to build a UI, component, page, or frontend feature.",
       "version": "1.2.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -175,7 +175,7 @@
     },
     {
       "name": "github-issue-creator",
-      "description": "Create or update GitHub issues from screenshots, bug report emails, messages, or any visual/text input. Extracts structured issue data from images or pasted text, detects the repo's issue templates, proposes issues for user approval, then creates or updates them via gh CLI. Use this skill whenever the user shares a screenshot of a bug, pastes an error report, forwards a bug email, wants to file issues from a conversation, says \"create an issue from this\", \"turn this into a GitHub issue\", \"file a bug for this\", \"update the issue with this info\", or has any visual or textual bug/feature report they want tracked as GitHub issues — even if they just drop an image and say \"handle this\".",
+      "description": "Create or update GitHub issues from screenshots, emails, messages, or any visual/text input. Extracts structured data, redacts PII, detects issue templates, proposes issues for approval, then files them via gh CLI.",
       "version": "1.0.0",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -187,8 +187,8 @@
     },
     {
       "name": "idea-validator",
-      "description": "Critically evaluate and enhance app ideas, startup concepts, and product proposals. Use when users ask to \"evaluate my idea\", \"review this concept\", \"is this a good idea\", \"validate my startup idea\", or want honest feedback on technical feasibility and market viability.",
-      "version": "1.2.3",
+      "description": "Evaluate app ideas and startup concepts across market viability, technical feasibility, and competitive landscape. Use when asked to validate, review, or score a product idea.",
+      "version": "1.3.0",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
       "compatibility": "",
@@ -199,7 +199,7 @@
     },
     {
       "name": "install-script-generator",
-      "description": "Generate cross-platform installation scripts for any software, library, or module. Use when users ask to \"create an installer\", \"generate installation script\", \"automate installation\", \"setup script for X\", \"install X on any OS\", or need automated deployment across Windows, Linux, and macOS. Generates a standalone install.sh (and optionally install.ps1) that can be run via a single curl/wget one-liner. Follows a four-phase approach — environment exploration, installation planning, script generation, and documentation.",
+      "description": "Generate cross-platform installation scripts for any software, library, or module. Produces a standalone install.sh runnable via a single curl/wget one-liner, with automatic OS, architecture, and package manager detection.",
       "version": "2.0.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -211,7 +211,7 @@
     },
     {
       "name": "logo-designer",
-      "description": "Design professional, modern logos with automatic project context detection. Use when users ask to \"create a logo\", \"design a logo\", \"generate brand identity\", \"make a favicon\", or need visual brand assets. Analyzes project files (README, package.json, etc.) to understand product name, purpose, and existing brand colors before generating logo concepts.",
+      "description": "Design professional SVG logos by analyzing project context and generating 7 brand asset variants — mark, full, wordmark, icon, favicon, white, and black — plus a brand showcase HTML page.",
       "version": "1.2.0",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -223,7 +223,7 @@
     },
     {
       "name": "name-checker",
-      "description": "Check product/brand names for trademark, domain, social media, and package registry conflicts. Use when users ask to \"check this name\", \"validate a product name\", \"is this name available\", \"is this package name taken\", or need to assess naming risks before publishing to npm, PyPI, Homebrew, or apt. Provides risk assessment and alternative suggestions. Also use when users want to secure a name early across registries to prevent namespace squatting, or ask \"can I publish under this name\".",
+      "description": "Check product and brand names for conflicts across trademarks, domains, social media handles, and package registries (npm, PyPI, Homebrew, apt). Delivers a risk assessment and actionable Proceed, Modify, or Abandon recommendation.",
       "version": "1.1.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -259,7 +259,7 @@
     },
     {
       "name": "opencode-runner",
-      "description": "Delegate coding tasks to opencode (opencode.ai) using free models. Checks installation, discovers free models, selects the best available one (preferring minimax > kimi > glm > MiMo, with Big Pickle as last resort), executes the task, and monitors progress. Use when asked to \"run this with opencode\", \"use opencode for this\", \"opencode this task\", \"delegate to opencode\", \"run with a free model\", or when the user wants to offload a coding task to opencode without paying for API credits. Also trigger when the user mentions opencode, free coding models, or wants a second AI opinion on a coding task.",
+      "description": "Delegate coding tasks to opencode using free cloud models. Use when asked to run a task with opencode, use a free model, or offload coding work to opencode.ai.",
       "version": "1.2.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -271,7 +271,7 @@
     },
     {
       "name": "openspec-task-loop",
-      "description": "Apply OpenSpec OPSX in a strict one-task-at-a-time loop. Use when the user asks to execute work as single-task changes, wants spec-first implementation per task, or says to use OpenSpec method for each task from a task list. Supports both native /opsx command environments and manual fallback by creating OpenSpec artifact files directly.",
+      "description": "Execute a spec-first one-task-at-a-time loop using OpenSpec OPSX. Use when asked to implement tasks from a list with single-task scope, spec artifacts, and sequential verification before archiving.",
       "version": "1.1.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -307,7 +307,7 @@
     },
     {
       "name": "readme-to-landing-page",
-      "description": "Transform any project README.md into a persuasive, landing-page-structured markdown file using proven copywriting frameworks (PAS, AIDA, StoryBrand). Reads the existing README and project files, extracts the product story, and rewrites the README.md to follow a conversion-optimized section flow — hero, problem, solution, how it works, social proof, FAQ, and CTA — all in pure markdown that renders natively on GitHub. Use when users ask to \"turn my README into a landing page\", \"make my README sell the project\", \"rewrite README as a landing page\", \"convert README to marketing style\", \"make my GitHub page more persuasive\", \"landing page my README\", \"optimize my README for conversions\", or want their GitHub front page to persuade visitors rather than just inform them. Also trigger when a user has a dry technical README and wants more stars, users, or contributors — even if they don't explicitly mention \"landing page\".",
+      "description": "Transform a project README.md into a conversion-optimized landing page using PAS, AIDA, or StoryBrand frameworks — hero, value prop, how it works, quick start, and CTA in pure GitHub-renderable markdown.",
       "version": "2.0.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -319,8 +319,8 @@
     },
     {
       "name": "release-manager",
-      "description": "Complete release automation — version bumping, changelog generation, README updates, documentation sync, builds, git tags, GitHub releases, and publishing to PyPI/npm. Use when asked to \"prepare a release\", \"bump the version\", \"cut a release\", \"publish to npm/pypi\", \"update the changelog\", \"generate release notes\", \"what changed since last release\", or anything related to shipping a new version. Even if they only mention one part (like \"update changelog\"), use this skill because releases have interdependent steps.",
-      "version": "2.3.1",
+      "description": "Automate the full release lifecycle — version bump, changelog, README update, git tag, GitHub release, and PyPI/npm publishing. Use this skill whenever the user wants to cut a release, bump a version, tag and push, create a GitHub release, generate release notes or a changelog, publish to PyPI or npm, or asks what changed since the last release. Even if the user just says \"ship it\", \"make a release\", or \"tag this version\" — this skill should handle it.",
+      "version": "2.4.0",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
       "compatibility": "",
@@ -331,7 +331,7 @@
     },
     {
       "name": "seo-ai-optimizer",
-      "description": "Audits and optimizes website codebases for SEO and AI bot scanning. Covers technical SEO (meta tags, sitemaps, robots.txt, canonical URLs, page speed hints, structured data), content SEO (heading structure, alt text, readability), and AI bot accessibility (llms.txt, GPTBot/ClaudeBot directives, ai-plugin.json, Schema.org/JSON-LD). Use when user asks to \"optimize for SEO\", \"audit SEO\", \"improve search rankings\", \"make site AI-friendly\", \"add structured data\", \"fix meta tags\", or \"optimize for AI bots\". Works with any web framework.",
+      "description": "Audit and optimize website codebases for technical SEO, content SEO, and AI bot accessibility. Fixes meta tags, sitemaps, robots.txt, structured data, llms.txt, and GPTBot/ClaudeBot directives across any web framework.",
       "version": "1.1.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -344,7 +344,7 @@
     {
       "name": "skill-creator",
       "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
       "compatibility": "",
@@ -355,7 +355,7 @@
     },
     {
       "name": "skill-inventory-auditor",
-      "description": "Audit all installed agent skills across global and project scopes to find and remove duplicate skills. Use when asked to \"audit my skills\", \"check for duplicate skills\", \"clean up skills\", \"deduplicate skills\", \"find duplicate skills\", or when the user wants to find and remove duplicated skill installations.",
+      "description": "Audit all installed agent skills across global and project scopes to find and remove duplicate skills. Use when asked to \"audit my skills\", \"deduplicate skills\", \"clean up skills\", or \"find duplicate skill installations\".",
       "version": "1.0.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -363,6 +363,18 @@
       "allowedTools": [],
       "installUrl": "github:luongnv89/skills:skills/skill-inventory-auditor",
       "relPath": "skills/skill-inventory-auditor",
+      "verified": true
+    },
+    {
+      "name": "slop-code",
+      "description": "Clean up a codebase by removing AI slop, dead code, weak types, duplication, defensive over-engineering, and legacy cruft using 8 parallel specialized subagents across two cleanup waves.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "creator": "Luong NGUYEN <luongnv89@gmail.com>",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:luongnv89/skills:skills/slop-code",
+      "relPath": "skills/slop-code",
       "verified": true
     },
     {
@@ -391,7 +403,7 @@
     },
     {
       "name": "test-coverage",
-      "description": "Expand unit test coverage by targeting untested branches and edge cases. Use when users ask to \"increase test coverage\", \"add more tests\", \"expand unit tests\", \"cover edge cases\", \"improve test coverage\", or want to identify and fill gaps in existing test suites. Adapts to project's testing framework.",
+      "description": "Expand unit test coverage by targeting untested branches and edge cases in any language. Identifies coverage gaps, writes new tests using the project's existing framework, and verifies measurable improvement.",
       "version": "1.2.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",
@@ -403,7 +415,7 @@
     },
     {
       "name": "theme-transformer",
-      "description": "Transform an existing website/app UI into a futuristic cyberpunk, neon, space, or digital-dark theme with user-adjustable colors. Use when asked to \"reskin the UI\", \"apply a dark theme\", \"cyberpunk style this app\", \"make the interface futuristic\", \"apply neon command center style\", or migrate a product to a new visual theme.",
+      "description": "Transform an existing website/app UI into a futuristic cyberpunk, neon, space, or digital-dark theme with user-adjustable colors. Use when asked to \"reskin the UI\", \"dark theme\", \"cyberpunk style\", or \"make the interface futuristic\".",
       "version": "1.0.1",
       "license": "MIT",
       "creator": "Luong NGUYEN <luongnv89@gmail.com>",

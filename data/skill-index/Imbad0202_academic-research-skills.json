@@ -2,56 +2,56 @@
   "repoUrl": "https://github.com/Imbad0202/academic-research-skills.git",
   "owner": "Imbad0202",
   "repo": "academic-research-skills",
-  "updatedAt": "2026-03-28T00:12:34.567Z",
+  "updatedAt": "2026-04-20T06:33:48.827Z",
   "skillCount": 4,
   "skills": [
     {
-      "name": "academic-paper-reviewer",
-      "description": "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise.",
-      "version": "1.4",
-      "license": "",
-      "creator": "",
-      "compatibility": "",
-      "allowedTools": [],
-      "installUrl": "github:Imbad0202/academic-research-skills:academic-paper-reviewer",
-      "relPath": "academic-paper-reviewer",
-      "verified": false
-    },
-    {
       "name": "academic-paper",
-      "description": "Academic paper writing skill with 12-agent pipeline. Supports IMRaD, literature review, theoretical, case study, policy brief, and conference paper structures.",
-      "version": "2.5",
+      "description": "12-agent academic paper writing pipeline. 10 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure). 6 paper types, 5 citation formats, bilingual abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, AI disclosure, 寫論文, 學術論文, 引導我寫論文, 審查意見.",
+      "version": "3.0.2",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Imbad0202/academic-research-skills:academic-paper",
       "relPath": "academic-paper",
-      "verified": false
+      "verified": true
+    },
+    {
+      "name": "academic-paper-reviewer",
+      "description": "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise. Supports full review, re-review (verification), quick assessment, methodology focus, Socratic guided, and calibration modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy.",
+      "version": "1.8.1",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Imbad0202/academic-research-skills:academic-paper-reviewer",
+      "relPath": "academic-paper-reviewer",
+      "verified": true
     },
     {
       "name": "academic-pipeline",
-      "description": "Orchestrator for the full academic research pipeline: research, write, integrity check, review, revise, re-review, re-revise, final integrity check, finalize.",
-      "version": "2.7",
+      "description": "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 10-stage workflow with mandatory integrity verification, two-stage peer review, and reproducible quality gates. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow.",
+      "version": "3.2.2",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Imbad0202/academic-research-skills:academic-pipeline",
       "relPath": "academic-pipeline",
-      "verified": false
+      "verified": true
     },
     {
       "name": "deep-research",
-      "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review, lit-review, fact-check, Socratic guided research, and systematic review.",
-      "version": "2.4",
+      "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review, lit-review, fact-check, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題.",
+      "version": "2.8.1",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:Imbad0202/academic-research-skills:deep-research",
       "relPath": "deep-research",
-      "verified": false
+      "verified": true
     }
   ]
 }

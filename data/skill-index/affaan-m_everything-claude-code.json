@@ -2,9 +2,33 @@
   "repoUrl": "https://github.com/affaan-m/everything-claude-code.git",
   "owner": "affaan-m",
   "repo": "everything-claude-code",
-  "updatedAt": "2026-03-27T23:21:17.477Z",
-  "skillCount": 183,
+  "updatedAt": "2026-04-20T06:32:51.845Z",
+  "skillCount": 459,
   "skills": [
+    {
+      "name": "accessibility",
+      "description": "Design, implement, and audit inclusive digital products using WCAG 2.2 Level AA",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/accessibility",
+      "relPath": "skills/accessibility",
+      "verified": true
+    },
+    {
+      "name": "agent-eval",
+      "description": "编码代理（Claude Code、Aider、Codex等）在自定义任务上的直接比较，包含通过率、成本、时间和一致性指标",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/agent-eval",
+      "relPath": "docs/zh-CN/skills/agent-eval",
+      "verified": true
+    },
     {
       "name": "agent-eval",
       "description": "Head-to-head comparison of coding agents (Claude Code, Aider, Codex, etc.) on custom tasks with pass rate, cost, time, and consistency metrics",
@@ -19,6 +43,18 @@
     },
     {
       "name": "agent-harness-construction",
+      "description": "设计和优化AI代理的动作空间、工具定义和观察格式，以提高完成率。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/agent-harness-construction",
+      "relPath": "docs/zh-CN/skills/agent-harness-construction",
+      "verified": true
+    },
+    {
+      "name": "agent-harness-construction",
       "description": "Design and optimize AI agent action spaces, tool definitions, and observation formatting for higher completion rates.",
       "version": "0.0.0",
       "license": "",
@@ -27,6 +63,78 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/agent-harness-construction",
       "relPath": "skills/agent-harness-construction",
+      "verified": true
+    },
+    {
+      "name": "agent-introspection-debugging",
+      "description": "Structured self-debugging workflow for AI agent failures using capture, diagnosis, contained recovery, and introspection reports.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/agent-introspection-debugging",
+      "relPath": ".agents/skills/agent-introspection-debugging",
+      "verified": true
+    },
+    {
+      "name": "agent-introspection-debugging",
+      "description": "Structured self-debugging workflow for AI agent failures using capture, diagnosis, contained recovery, and introspection reports.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/agent-introspection-debugging",
+      "relPath": "skills/agent-introspection-debugging",
+      "verified": true
+    },
+    {
+      "name": "agent-payment-x402",
+      "description": "Add x402 payment execution to AI agents — per-task budgets, spending controls, and non-custodial wallets via MCP tools. Use when agents need to pay for APIs, services, or other agents.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/agent-payment-x402",
+      "relPath": "skills/agent-payment-x402",
+      "verified": true
+    },
+    {
+      "name": "agent-sort",
+      "description": "Build an evidence-backed ECC install plan for a specific repo by sorting skills, commands, rules, hooks, and extras into DAILY vs LIBRARY buckets using parallel repo-aware review passes. Use when ECC should be trimmed to what a project actually needs instead of loading the full bundle.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/agent-sort",
+      "relPath": ".agents/skills/agent-sort",
+      "verified": true
+    },
+    {
+      "name": "agent-sort",
+      "description": "Build an evidence-backed ECC install plan for a specific repo by sorting skills, commands, rules, hooks, and extras into DAILY vs LIBRARY buckets using parallel repo-aware review passes. Use when ECC should be trimmed to what a project actually needs instead of loading the full bundle.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/agent-sort",
+      "relPath": "skills/agent-sort",
+      "verified": true
+    },
+    {
+      "name": "agentic-engineering",
+      "description": "作为代理工程师，采用评估优先执行、分解和成本感知模型路由进行操作。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/agentic-engineering",
+      "relPath": "docs/zh-CN/skills/agentic-engineering",
       "verified": true
     },
     {
@@ -55,6 +163,18 @@
     },
     {
       "name": "ai-first-engineering",
+      "description": "团队中人工智能代理生成大部分实施输出的工程运营模型。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/ai-first-engineering",
+      "relPath": "docs/zh-CN/skills/ai-first-engineering",
+      "verified": true
+    },
+    {
+      "name": "ai-first-engineering",
       "description": "Engineering operating model for teams where AI agents generate a large share of implementation output.",
       "version": "0.0.0",
       "license": "",
@@ -63,6 +183,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/ai-first-engineering",
       "relPath": "skills/ai-first-engineering",
+      "verified": true
+    },
+    {
+      "name": "ai-regression-testing",
+      "description": "AI辅助开发的回归测试策略。沙盒模式API测试，无需依赖数据库，自动化的缺陷检查工作流程，以及捕捉AI盲点的模式，其中同一模型编写和审查代码。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/ai-regression-testing",
+      "relPath": "docs/zh-CN/skills/ai-regression-testing",
       "verified": true
     },
     {
@@ -79,6 +211,18 @@
     },
     {
       "name": "android-clean-architecture",
+      "description": "适用于Android和Kotlin多平台项目的Clean Architecture模式——模块结构、依赖规则、用例、仓库以及数据层模式。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/android-clean-architecture",
+      "relPath": "docs/zh-CN/skills/android-clean-architecture",
+      "verified": true
+    },
+    {
+      "name": "android-clean-architecture",
       "description": "Clean Architecture patterns for Android and Kotlin Multiplatform projects — module structure, dependency rules, UseCases, Repositories, and data layer patterns.",
       "version": "0.0.0",
       "license": "",
@@ -87,6 +231,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/android-clean-architecture",
       "relPath": "skills/android-clean-architecture",
+      "verified": true
+    },
+    {
+      "name": "api-connector-builder",
+      "description": "Build a new API connector or provider by matching the target repo's existing integration pattern exactly. Use when adding one more integration without inventing a second architecture.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/api-connector-builder",
+      "relPath": "skills/api-connector-builder",
       "verified": true
     },
     {
@@ -99,6 +255,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/api-design",
       "relPath": ".agents/skills/api-design",
+      "verified": true
+    },
+    {
+      "name": "api-design",
+      "description": "REST API设计模式，包括资源命名、状态码、分页、过滤、错误响应、版本控制和生产API的速率限制。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/api-design",
+      "relPath": "docs/zh-CN/skills/api-design",
+      "verified": true
+    },
+    {
+      "name": "api-design",
+      "description": "REST API tasarım kalıpları; kaynak isimlendirme, durum kodları, sayfalama, filtreleme, hata yanıtları, versiyonlama ve üretim API'leri için hız sınırlama içerir.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/api-design",
+      "relPath": "docs/tr/skills/api-design",
       "verified": true
     },
     {
@@ -123,6 +303,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/api-design",
       "relPath": "skills/api-design",
+      "verified": true
+    },
+    {
+      "name": "architecture-decision-records",
+      "description": "在Claude Code会话期间，将做出的架构决策捕获为结构化的架构决策记录（ADR）。自动检测决策时刻，记录上下文、考虑的替代方案和理由。维护一个ADR日志，以便未来的开发人员理解代码库为何以当前方式构建。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/architecture-decision-records",
+      "relPath": "docs/zh-CN/skills/architecture-decision-records",
       "verified": true
     },
     {
@@ -163,6 +355,18 @@
     },
     {
       "name": "article-writing",
+      "description": "根据提供的示例或品牌指导，以独特的语气撰写文章、指南、博客帖子、教程、新闻简报等长篇内容。当用户需要超过一段的精致书面内容时使用，尤其是当语气一致性、结构和可信度至关重要时。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/article-writing",
+      "relPath": "docs/zh-CN/skills/article-writing",
+      "verified": true
+    },
+    {
+      "name": "article-writing",
       "description": "Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive voice derived from supplied examples or brand guidance. Use when the user wants polished written content longer than a paragraph, especially when voice consistency, structure, and credibility matter.",
       "version": "0.0.0",
       "license": "",
@@ -171,6 +375,42 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/article-writing",
       "relPath": "skills/article-writing",
+      "verified": true
+    },
+    {
+      "name": "automation-audit-ops",
+      "description": "Evidence-first automation inventory and overlap audit workflow for ECC. Use when the user wants to know which jobs, hooks, connectors, MCP servers, or wrappers are live, broken, redundant, or missing before fixing anything.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/automation-audit-ops",
+      "relPath": "skills/automation-audit-ops",
+      "verified": true
+    },
+    {
+      "name": "autonomous-agent-harness",
+      "description": "Transform Claude Code into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone agent frameworks (Hermes, AutoGPT) by leveraging Claude Code's native crons, dispatch, MCP tools, and memory. Use when the user wants continuous autonomous operation, scheduled tasks, or a self-directing agent loop.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/autonomous-agent-harness",
+      "relPath": "skills/autonomous-agent-harness",
+      "verified": true
+    },
+    {
+      "name": "autonomous-loops",
+      "description": "自主Claude代码循环的模式与架构——从简单的顺序管道到基于RFC的多智能体有向无环图系统。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/autonomous-loops",
+      "relPath": "docs/zh-CN/skills/autonomous-loops",
       "verified": true
     },
     {
@@ -205,6 +445,66 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/backend-patterns",
+      "relPath": "docs/ja-JP/skills/backend-patterns",
+      "verified": true
+    },
+    {
+      "name": "backend-patterns",
+      "description": "后端架构模式、API设计、数据库优化以及适用于Node.js、Express和Next.js API路由的服务器端最佳实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/backend-patterns",
+      "relPath": "docs/zh-CN/skills/backend-patterns",
+      "verified": true
+    },
+    {
+      "name": "backend-patterns",
+      "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/backend-patterns",
+      "relPath": "docs/zh-TW/skills/backend-patterns",
+      "verified": true
+    },
+    {
+      "name": "backend-patterns",
+      "description": "Node.js, Express, Next.js API 라우트를 위한 백엔드 아키텍처 패턴, API 설계, 데이터베이스 최적화 및 서버 사이드 모범 사례.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/backend-patterns",
+      "relPath": "docs/ko-KR/skills/backend-patterns",
+      "verified": true
+    },
+    {
+      "name": "backend-patterns",
+      "description": "Node.js, Express ve Next.js API routes için backend mimari kalıpları, API tasarımı, veritabanı optimizasyonu ve sunucu tarafı en iyi uygulamalar.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/backend-patterns",
+      "relPath": "docs/tr/skills/backend-patterns",
+      "verified": true
+    },
+    {
+      "name": "backend-patterns",
+      "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.kiro/skills/backend-patterns",
       "relPath": ".kiro/skills/backend-patterns",
       "verified": true
@@ -223,7 +523,7 @@
     },
     {
       "name": "benchmark",
-      "description": "",
+      "description": "Use this skill to measure performance baselines, detect regressions before/after PRs, and compare stack alternatives.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -231,7 +531,19 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/benchmark",
       "relPath": "skills/benchmark",
-      "verified": false
+      "verified": true
+    },
+    {
+      "name": "blueprint",
+      "description": "将单行目标转化为多会话、多代理工程项目的分步构建计划。每个步骤包含独立的上下文简介，以便新代理能直接执行。包括对抗性审查门、依赖图、并行步骤检测、反模式目录和计划突变协议。触发条件：当用户请求复杂多PR任务的计划、蓝图或路线图，或描述需要多个会话的工作时。不触发条件：任务可在单个PR或少于3个工具调用中完成，或用户说“直接执行”时。origin: community",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/blueprint",
+      "relPath": "docs/zh-CN/skills/blueprint",
+      "verified": true
     },
     {
       "name": "blueprint",
@@ -246,6 +558,30 @@
       "verified": true
     },
     {
+      "name": "brand-voice",
+      "description": "Build a source-derived writing style profile from real posts, essays, launch notes, docs, or site copy, then reuse that profile across content, outreach, and social workflows. Use when the user wants voice consistency without generic AI writing tropes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/brand-voice",
+      "relPath": ".agents/skills/brand-voice",
+      "verified": true
+    },
+    {
+      "name": "brand-voice",
+      "description": "Build a source-derived writing style profile from real posts, essays, launch notes, docs, or site copy, then reuse that profile across content, outreach, and social workflows. Use when the user wants voice consistency without generic AI writing tropes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/brand-voice",
+      "relPath": "skills/brand-voice",
+      "verified": true
+    },
+    {
       "name": "browser-qa",
       "description": "",
       "version": "0.0.0",
@@ -253,9 +589,21 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/browser-qa",
+      "relPath": "docs/zh-CN/skills/browser-qa",
+      "verified": false
+    },
+    {
+      "name": "browser-qa",
+      "description": "Use this skill to automate visual testing and UI interaction verification using browser automation after deploying features.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/browser-qa",
       "relPath": "skills/browser-qa",
-      "verified": false
+      "verified": true
     },
     {
       "name": "bun-runtime",
@@ -283,6 +631,18 @@
     },
     {
       "name": "bun-runtime",
+      "description": "Bun 作为运行时、包管理器、打包器和测试运行器。何时选择 Bun 而非 Node、迁移注意事项以及 Vercel 支持。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/bun-runtime",
+      "relPath": "docs/zh-CN/skills/bun-runtime",
+      "verified": true
+    },
+    {
+      "name": "bun-runtime",
       "description": "Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support.",
       "version": "0.0.0",
       "license": "",
@@ -295,7 +655,7 @@
     },
     {
       "name": "canary-watch",
-      "description": "",
+      "description": "Use this skill to monitor a deployed URL for regressions after deploys, merges, or dependency upgrades.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -303,7 +663,19 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/canary-watch",
       "relPath": "skills/canary-watch",
-      "verified": false
+      "verified": true
+    },
+    {
+      "name": "carrier-relationship-management",
+      "description": "用于管理承运商组合、协商运费、跟踪承运商绩效、分配货运以及维护战略承运商关系的编码专业知识。基于拥有15年以上经验的运输经理提供的信息。包括记分卡框架、RFP流程、市场情报和合规性审查。适用于管理承运商、协商费率、评估承运商绩效或制定货运策略时使用。license: Apache-2.0",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/carrier-relationship-management",
+      "relPath": "docs/zh-CN/skills/carrier-relationship-management",
+      "verified": true
     },
     {
       "name": "carrier-relationship-management",
@@ -315,6 +687,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/carrier-relationship-management",
       "relPath": "skills/carrier-relationship-management",
+      "verified": true
+    },
+    {
+      "name": "ck",
+      "description": "Persistent per-project memory for Claude Code. Auto-loads project context on session start, tracks sessions with git activity, and writes to native memory. Commands run deterministic Node.js scripts — behavior is consistent across model versions.",
+      "version": "2.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/ck",
+      "relPath": "skills/ck",
       "verified": true
     },
     {
@@ -331,6 +715,18 @@
     },
     {
       "name": "claude-api",
+      "description": "Anthropic Claude API 的 Python 和 TypeScript 使用模式。涵盖 Messages API、流式处理、工具使用、视觉功能、扩展思维、批量处理、提示缓存和 Claude Agent SDK。适用于使用 Claude API 或 Anthropic SDK 构建应用程序的场景。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/claude-api",
+      "relPath": "docs/zh-CN/skills/claude-api",
+      "verified": true
+    },
+    {
+      "name": "claude-api",
       "description": "Anthropic Claude API patterns for Python and TypeScript. Covers Messages API, streaming, tool use, vision, extended thinking, batches, prompt caching, and Claude Agent SDK. Use when building applications with the Claude API or Anthropic SDKs.",
       "version": "0.0.0",
       "license": "",
@@ -339,6 +735,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/claude-api",
       "relPath": "skills/claude-api",
+      "verified": true
+    },
+    {
+      "name": "claude-devfleet",
+      "description": "通过Claude DevFleet协调多智能体编码任务——规划项目、在隔离的工作树中并行调度智能体、监控进度并读取结构化报告。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/claude-devfleet",
+      "relPath": "docs/zh-CN/skills/claude-devfleet",
       "verified": true
     },
     {
@@ -373,8 +781,80 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/clickhouse-io",
+      "relPath": "docs/ja-JP/skills/clickhouse-io",
+      "verified": true
+    },
+    {
+      "name": "clickhouse-io",
+      "description": "ClickHouse数据库模式、查询优化、分析以及高性能分析工作负载的数据工程最佳实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/clickhouse-io",
+      "relPath": "docs/zh-CN/skills/clickhouse-io",
+      "verified": true
+    },
+    {
+      "name": "clickhouse-io",
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/clickhouse-io",
+      "relPath": "docs/zh-TW/skills/clickhouse-io",
+      "verified": true
+    },
+    {
+      "name": "clickhouse-io",
+      "description": "고성능 분석 워크로드를 위한 ClickHouse 데이터베이스 패턴, 쿼리 최적화, 분석 및 데이터 엔지니어링 모범 사례.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/clickhouse-io",
+      "relPath": "docs/ko-KR/skills/clickhouse-io",
+      "verified": true
+    },
+    {
+      "name": "clickhouse-io",
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/clickhouse-io",
       "relPath": "skills/clickhouse-io",
+      "verified": true
+    },
+    {
+      "name": "code-tour",
+      "description": "Create CodeTour `.tour` files — persona-targeted, step-by-step walkthroughs with real file and line anchors. Use for onboarding tours, architecture walkthroughs, PR tours, RCA tours, and structured \"explain how this works\" requests.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/code-tour",
+      "relPath": "skills/code-tour",
+      "verified": true
+    },
+    {
+      "name": "codebase-onboarding",
+      "description": "分析一个陌生的代码库，并生成一个结构化的入门指南，包括架构图、关键入口点、规范和一个起始的CLAUDE.md文件。适用于加入新项目或首次在代码仓库中设置Claude Code时。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/codebase-onboarding",
+      "relPath": "docs/zh-CN/skills/codebase-onboarding",
       "verified": true
     },
     {
@@ -391,7 +871,7 @@
     },
     {
       "name": "coding-standards",
-      "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
+      "description": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -399,6 +879,66 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/coding-standards",
       "relPath": ".agents/skills/coding-standards",
+      "verified": true
+    },
+    {
+      "name": "coding-standards",
+      "description": "TypeScript、JavaScript、React、Node.js開発のための汎用コーディング標準、ベストプラクティス、パターン。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/coding-standards",
+      "relPath": "docs/ja-JP/skills/coding-standards",
+      "verified": true
+    },
+    {
+      "name": "coding-standards",
+      "description": "适用于TypeScript、JavaScript、React和Node.js开发的通用编码标准、最佳实践和模式。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/coding-standards",
+      "relPath": "docs/zh-CN/skills/coding-standards",
+      "verified": true
+    },
+    {
+      "name": "coding-standards",
+      "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/coding-standards",
+      "relPath": "docs/zh-TW/skills/coding-standards",
+      "verified": true
+    },
+    {
+      "name": "coding-standards",
+      "description": "TypeScript, JavaScript, React, Node.js 개발을 위한 범용 코딩 표준, 모범 사례 및 패턴.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/coding-standards",
+      "relPath": "docs/ko-KR/skills/coding-standards",
+      "verified": true
+    },
+    {
+      "name": "coding-standards",
+      "description": "TypeScript, JavaScript, React ve Node.js geliştirme için evrensel kodlama standartları, en iyi uygulamalar ve kalıplar.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/coding-standards",
+      "relPath": "docs/tr/skills/coding-standards",
       "verified": true
     },
     {
@@ -415,7 +955,7 @@
     },
     {
       "name": "coding-standards",
-      "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
+      "description": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -423,6 +963,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/coding-standards",
       "relPath": "skills/coding-standards",
+      "verified": true
+    },
+    {
+      "name": "compose-multiplatform-patterns",
+      "description": "KMP项目中的Compose Multiplatform和Jetpack Compose模式——状态管理、导航、主题化、性能优化和平台特定UI。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/compose-multiplatform-patterns",
+      "relPath": "docs/zh-CN/skills/compose-multiplatform-patterns",
       "verified": true
     },
     {
@@ -439,6 +991,30 @@
     },
     {
       "name": "configure-ecc",
+      "description": "Everything Claude Code のインタラクティブなインストーラー — スキルとルールの選択とインストールをユーザーレベルまたはプロジェクトレベルのディレクトリへガイドし、パスを検証し、必要に応じてインストールされたファイルを最適化します。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/configure-ecc",
+      "relPath": "docs/ja-JP/skills/configure-ecc",
+      "verified": true
+    },
+    {
+      "name": "configure-ecc",
+      "description": "Everything Claude Code 的交互式安装程序 — 引导用户选择并安装技能和规则到用户级或项目级目录，验证路径，并可选择优化已安装文件。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/configure-ecc",
+      "relPath": "docs/zh-CN/skills/configure-ecc",
+      "verified": true
+    },
+    {
+      "name": "configure-ecc",
       "description": "Interactive installer for Everything Claude Code — guides users through selecting and installing skills and rules to user-level or project-level directories, verifies paths, and optionally optimizes installed files.",
       "version": "0.0.0",
       "license": "",
@@ -447,6 +1023,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/configure-ecc",
       "relPath": "skills/configure-ecc",
+      "verified": true
+    },
+    {
+      "name": "connections-optimizer",
+      "description": "Reorganize the user's X and LinkedIn network with review-first pruning, add/follow recommendations, and channel-specific warm outreach drafted in the user's real voice. Use when the user wants to clean up following lists, grow toward current priorities, or rebalance a social graph around higher-signal relationships.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/connections-optimizer",
+      "relPath": "skills/connections-optimizer",
       "verified": true
     },
     {
@@ -475,6 +1063,18 @@
     },
     {
       "name": "content-engine",
+      "description": "为X、LinkedIn、TikTok、YouTube、新闻通讯和跨平台重新利用的多平台活动创建平台原生内容系统。适用于当用户需要社交媒体帖子、帖子串、脚本、内容日历，或一个源资产在多个平台上清晰适配时。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/content-engine",
+      "relPath": "docs/zh-CN/skills/content-engine",
+      "verified": true
+    },
+    {
+      "name": "content-engine",
       "description": "Create platform-native content systems for X, LinkedIn, TikTok, YouTube, newsletters, and repurposed multi-platform campaigns. Use when the user wants social posts, threads, scripts, content calendars, or one source asset adapted cleanly across platforms.",
       "version": "0.0.0",
       "license": "",
@@ -483,6 +1083,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/content-engine",
       "relPath": "skills/content-engine",
+      "verified": true
+    },
+    {
+      "name": "content-hash-cache-pattern",
+      "description": "使用SHA-256内容哈希缓存昂贵的文件处理结果——路径无关、自动失效、服务层分离。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/content-hash-cache-pattern",
+      "relPath": "docs/zh-CN/skills/content-hash-cache-pattern",
       "verified": true
     },
     {
@@ -499,6 +1111,18 @@
     },
     {
       "name": "context-budget",
+      "description": "审核Claude Code上下文窗口在代理、技能、MCP服务器和规则中的消耗情况。识别膨胀、冗余组件，并提供优先的令牌节省建议。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/context-budget",
+      "relPath": "docs/zh-CN/skills/context-budget",
+      "verified": true
+    },
+    {
+      "name": "context-budget",
       "description": "Audits Claude Code context window consumption across agents, skills, MCP servers, and rules. Identifies bloat, redundant components, and produces prioritized token-savings recommendations.",
       "version": "0.0.0",
       "license": "",
@@ -507,6 +1131,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/context-budget",
       "relPath": "skills/context-budget",
+      "verified": true
+    },
+    {
+      "name": "continuous-agent-loop",
+      "description": "具有质量门、评估和恢复控制的连续自主代理循环模式。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/continuous-agent-loop",
+      "relPath": "docs/zh-CN/skills/continuous-agent-loop",
       "verified": true
     },
     {
@@ -523,6 +1159,66 @@
     },
     {
       "name": "continuous-learning",
+      "description": "Claude Codeセッションから再利用可能なパターンを自動的に抽出し、将来の使用のために学習済みスキルとして保存します。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/continuous-learning",
+      "relPath": "docs/ja-JP/skills/continuous-learning",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning",
+      "description": "自动从Claude Code会话中提取可重复使用的模式，并将其保存为学习到的技能以供将来使用。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/continuous-learning",
+      "relPath": "docs/zh-CN/skills/continuous-learning",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning",
+      "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/continuous-learning",
+      "relPath": "docs/zh-TW/skills/continuous-learning",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning",
+      "description": "Claude Code 세션에서 재사용 가능한 패턴을 자동으로 추출하여 향후 사용을 위한 학습된 스킬로 저장합니다.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/continuous-learning",
+      "relPath": "docs/ko-KR/skills/continuous-learning",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning",
+      "description": "Claude Code oturumlarından yeniden kullanılabilir kalıpları otomatik olarak çıkarın ve gelecekte kullanmak üzere öğrenilmiş skill'ler olarak kaydedin.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/continuous-learning",
+      "relPath": "docs/tr/skills/continuous-learning",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning",
       "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
       "version": "0.0.0",
       "license": "",
@@ -531,6 +1227,66 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/continuous-learning",
       "relPath": "skills/continuous-learning",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning-v2",
+      "description": "フックを介してセッションを観察し、信頼度スコアリング付きのアトミックなインスティンクトを作成し、スキル/コマンド/エージェントに進化させるインスティンクトベースの学習システム。",
+      "version": "2.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/continuous-learning-v2",
+      "relPath": "docs/ja-JP/skills/continuous-learning-v2",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning-v2",
+      "description": "基于本能的学习系统，通过钩子观察会话，创建带置信度评分的原子本能，并将其进化为技能/命令/代理。v2.1版本增加了项目范围的本能，以防止跨项目污染。",
+      "version": "2.1.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/continuous-learning-v2",
+      "relPath": "docs/zh-CN/skills/continuous-learning-v2",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning-v2",
+      "description": "Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents.",
+      "version": "2.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/continuous-learning-v2",
+      "relPath": "docs/zh-TW/skills/continuous-learning-v2",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning-v2",
+      "description": "훅을 통해 세션을 관찰하고, 신뢰도 점수가 있는 원자적 본능을 생성하며, 이를 스킬/명령어/에이전트로 진화시키는 본능 기반 학습 시스템. v2.1에서는 프로젝트 간 오염을 방지하기 위한 프로젝트 범위 본능이 추가되었습니다.",
+      "version": "2.1.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/continuous-learning-v2",
+      "relPath": "docs/ko-KR/skills/continuous-learning-v2",
+      "verified": true
+    },
+    {
+      "name": "continuous-learning-v2",
+      "description": "Hook'lar aracılığıyla oturumları gözlemleyen, güven skorlaması ile atomik instinct'ler oluşturan ve bunları skill/command/agent'lara evriltiren instinct tabanlı öğrenme sistemi. v2.1 çapraz proje kontaminasyonunu önlemek için proje kapsamlı instinct'ler ekler.",
+      "version": "2.1.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/continuous-learning-v2",
+      "relPath": "docs/tr/skills/continuous-learning-v2",
       "verified": true
     },
     {
@@ -547,6 +1303,18 @@
     },
     {
       "name": "cost-aware-llm-pipeline",
+      "description": "LLM API 使用成本优化模式 —— 基于任务复杂度的模型路由、预算跟踪、重试逻辑和提示缓存。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/cost-aware-llm-pipeline",
+      "relPath": "docs/zh-CN/skills/cost-aware-llm-pipeline",
+      "verified": true
+    },
+    {
+      "name": "cost-aware-llm-pipeline",
       "description": "Cost optimization patterns for LLM API usage — model routing by task complexity, budget tracking, retry logic, and prompt caching.",
       "version": "0.0.0",
       "license": "",
@@ -555,6 +1323,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/cost-aware-llm-pipeline",
       "relPath": "skills/cost-aware-llm-pipeline",
+      "verified": true
+    },
+    {
+      "name": "council",
+      "description": "Convene a four-voice council for ambiguous decisions, tradeoffs, and go/no-go calls. Use when multiple valid paths exist and you need structured disagreement before choosing.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/council",
+      "relPath": "skills/council",
+      "verified": true
+    },
+    {
+      "name": "cpp-coding-standards",
+      "description": "基于C++核心指南（isocpp.github.io）的C++编码标准。在编写、审查或重构C++代码时使用，以强制实施现代、安全和惯用的实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/cpp-coding-standards",
+      "relPath": "docs/zh-CN/skills/cpp-coding-standards",
       "verified": true
     },
     {
@@ -567,6 +1359,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/cpp-coding-standards",
       "relPath": "skills/cpp-coding-standards",
+      "verified": true
+    },
+    {
+      "name": "cpp-testing",
+      "description": "C++ テストの作成/更新/修正、GoogleTest/CTest の設定、失敗またはフレーキーなテストの診断、カバレッジ/サニタイザーの追加時にのみ使用します。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/cpp-testing",
+      "relPath": "docs/ja-JP/skills/cpp-testing",
+      "verified": true
+    },
+    {
+      "name": "cpp-testing",
+      "description": "仅用于编写/更新/修复C++测试、配置GoogleTest/CTest、诊断失败或不稳定的测试，或添加覆盖率/消毒器时使用。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/cpp-testing",
+      "relPath": "docs/zh-CN/skills/cpp-testing",
       "verified": true
     },
     {
@@ -595,6 +1411,18 @@
     },
     {
       "name": "crosspost",
+      "description": "跨X、LinkedIn、Threads和Bluesky的多平台内容分发。使用内容引擎模式根据平台适配内容。从不跨平台发布相同内容。当用户希望跨社交平台分发内容时使用。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/crosspost",
+      "relPath": "docs/zh-CN/skills/crosspost",
+      "verified": true
+    },
+    {
+      "name": "crosspost",
       "description": "Multi-platform content distribution across X, LinkedIn, Threads, and Bluesky. Adapts content per platform using content-engine patterns. Never posts identical content cross-platform. Use when the user wants to distribute content across social platforms.",
       "version": "0.0.0",
       "license": "",
@@ -603,6 +1431,42 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/crosspost",
       "relPath": "skills/crosspost",
+      "verified": true
+    },
+    {
+      "name": "csharp-testing",
+      "description": "C# and .NET testing patterns with xUnit, FluentAssertions, mocking, integration tests, and test organization best practices.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/csharp-testing",
+      "relPath": "skills/csharp-testing",
+      "verified": true
+    },
+    {
+      "name": "customer-billing-ops",
+      "description": "Operate customer billing workflows such as subscriptions, refunds, churn triage, billing-portal recovery, and plan analysis using connected billing tools like Stripe. Use when the user needs to help a customer, inspect subscription state, or manage revenue-impacting billing operations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/customer-billing-ops",
+      "relPath": "skills/customer-billing-ops",
+      "verified": true
+    },
+    {
+      "name": "customs-trade-compliance",
+      "description": "海关文件、关税分类、关税优化、受限方筛查以及多司法管辖区法规合规的编码化专业知识。由拥有15年以上经验的贸易合规专家提供。包括HS分类逻辑、Incoterms应用、自贸协定利用以及罚款减免。适用于处理海关清关、关税分类、贸易合规、进出口文件或关税优化时使用。license: Apache-2.0",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/customs-trade-compliance",
+      "relPath": "docs/zh-CN/skills/customs-trade-compliance",
       "verified": true
     },
     {
@@ -618,6 +1482,42 @@
       "verified": true
     },
     {
+      "name": "dart-flutter-patterns",
+      "description": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/dart-flutter-patterns",
+      "relPath": "skills/dart-flutter-patterns",
+      "verified": true
+    },
+    {
+      "name": "dashboard-builder",
+      "description": "Build monitoring dashboards that answer real operator questions for Grafana, SigNoz, and similar platforms. Use when turning metrics into a working dashboard instead of a vanity board.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/dashboard-builder",
+      "relPath": "skills/dashboard-builder",
+      "verified": true
+    },
+    {
+      "name": "data-scraper-agent",
+      "description": "构建一个全自动化的AI驱动数据收集代理，适用于任何公共来源——招聘网站、价格信息、新闻、GitHub、体育赛事等任何内容。按计划进行抓取，使用免费LLM（Gemini Flash）丰富数据，将结果存储在Notion/Sheets/Supabase中，并从用户反馈中学习。完全免费在GitHub Actions上运行。适用于用户希望自动监控、收集或跟踪任何公共数据的场景。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/data-scraper-agent",
+      "relPath": "docs/zh-CN/skills/data-scraper-agent",
+      "verified": true
+    },
+    {
       "name": "data-scraper-agent",
       "description": "Build a fully automated AI-powered data collection agent for any public source — job boards, prices, news, GitHub, sports, anything. Scrapes on a schedule, enriches data with a free LLM (Gemini Flash), stores results in Notion/Sheets/Supabase, and learns from user feedback. Runs 100% free on GitHub Actions. Use when the user wants to monitor, collect, or track any public data automatically.",
       "version": "0.0.0",
@@ -627,6 +1527,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/data-scraper-agent",
       "relPath": "skills/data-scraper-agent",
+      "verified": true
+    },
+    {
+      "name": "database-migrations",
+      "description": "数据库迁移最佳实践，涵盖模式变更、数据迁移、回滚以及零停机部署，适用于PostgreSQL、MySQL及常用ORM（Prisma、Drizzle、Django、TypeORM、golang-migrate）。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/database-migrations",
+      "relPath": "docs/zh-CN/skills/database-migrations",
+      "verified": true
+    },
+    {
+      "name": "database-migrations",
+      "description": "Şema değişiklikleri, veri migration'ları, rollback'ler ve PostgreSQL, MySQL ve yaygın ORM'ler (Prisma, Drizzle, Django, TypeORM, golang-migrate) arasında sıfır kesinti deployment'ları için veritabanı migration en iyi uygulamaları.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/database-migrations",
+      "relPath": "docs/tr/skills/database-migrations",
       "verified": true
     },
     {
@@ -667,6 +1591,18 @@
     },
     {
       "name": "deep-research",
+      "description": "使用firecrawl和exa MCPs进行多源深度研究。搜索网络、综合发现并交付带有来源引用的报告。适用于用户希望对任何主题进行有证据和引用的彻底研究时。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/deep-research",
+      "relPath": "docs/zh-CN/skills/deep-research",
+      "verified": true
+    },
+    {
+      "name": "deep-research",
       "description": "Multi-source deep research using firecrawl and exa MCPs. Searches the web, synthesizes findings, and delivers cited reports with source attribution. Use when the user wants thorough research on any topic with evidence and citations.",
       "version": "0.0.0",
       "license": "",
@@ -675,6 +1611,42 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/deep-research",
       "relPath": "skills/deep-research",
+      "verified": true
+    },
+    {
+      "name": "defi-amm-security",
+      "description": "Security checklist for Solidity AMM contracts, liquidity pools, and swap flows. Covers reentrancy, CEI ordering, donation or inflation attacks, oracle manipulation, slippage, admin controls, and integer math.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/defi-amm-security",
+      "relPath": "skills/defi-amm-security",
+      "verified": true
+    },
+    {
+      "name": "deployment-patterns",
+      "description": "部署工作流、CI/CD流水线模式、Docker容器化、健康检查、回滚策略以及Web应用程序的生产就绪检查清单。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/deployment-patterns",
+      "relPath": "docs/zh-CN/skills/deployment-patterns",
+      "verified": true
+    },
+    {
+      "name": "deployment-patterns",
+      "description": "Deployment iş akışları, CI/CD pipeline kalıpları, Docker konteynerizasyonu, sağlık kontrolleri, rollback stratejileri ve web uygulamaları için üretim hazırlığı kontrol listeleri.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/deployment-patterns",
+      "relPath": "docs/tr/skills/deployment-patterns",
       "verified": true
     },
     {
@@ -703,7 +1675,7 @@
     },
     {
       "name": "design-system",
-      "description": "",
+      "description": "Use this skill to generate or audit design systems, check visual consistency, and review PRs that touch styling.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -711,7 +1683,43 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/design-system",
       "relPath": "skills/design-system",
-      "verified": false
+      "verified": true
+    },
+    {
+      "name": "django-patterns",
+      "description": "Django architecture patterns, REST API design with DRF, ORM best practices, caching, signals, middleware, and production-grade Django apps.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/django-patterns",
+      "relPath": "docs/ja-JP/skills/django-patterns",
+      "verified": true
+    },
+    {
+      "name": "django-patterns",
+      "description": "Django架构模式，使用DRF设计REST API，ORM最佳实践，缓存，信号，中间件，以及生产级Django应用程序。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/django-patterns",
+      "relPath": "docs/zh-CN/skills/django-patterns",
+      "verified": true
+    },
+    {
+      "name": "django-patterns",
+      "description": "DRF ile Django mimari desenleri, REST API tasarımı, ORM en iyi uygulamaları, caching, signal'ler, middleware ve production-grade Django uygulamaları.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/django-patterns",
+      "relPath": "docs/tr/skills/django-patterns",
+      "verified": true
     },
     {
       "name": "django-patterns",
@@ -723,6 +1731,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/django-patterns",
       "relPath": "skills/django-patterns",
+      "verified": true
+    },
+    {
+      "name": "django-security",
+      "description": "Django security best practices, authentication, authorization, CSRF protection, SQL injection prevention, XSS prevention, and secure deployment configurations.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/django-security",
+      "relPath": "docs/ja-JP/skills/django-security",
+      "verified": true
+    },
+    {
+      "name": "django-security",
+      "description": "Django 安全最佳实践、认证、授权、CSRF 防护、SQL 注入预防、XSS 预防和安全部署配置。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/django-security",
+      "relPath": "docs/zh-CN/skills/django-security",
       "verified": true
     },
     {
@@ -745,8 +1777,56 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/django-tdd",
+      "relPath": "docs/ja-JP/skills/django-tdd",
+      "verified": true
+    },
+    {
+      "name": "django-tdd",
+      "description": "Django 测试策略，包括 pytest-django、TDD 方法、factory_boy、模拟、覆盖率以及测试 Django REST Framework API。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/django-tdd",
+      "relPath": "docs/zh-CN/skills/django-tdd",
+      "verified": true
+    },
+    {
+      "name": "django-tdd",
+      "description": "Django testing strategies with pytest-django, TDD methodology, factory_boy, mocking, coverage, and testing Django REST Framework APIs.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/django-tdd",
       "relPath": "skills/django-tdd",
+      "verified": true
+    },
+    {
+      "name": "django-verification",
+      "description": "Verification loop for Django projects: migrations, linting, tests with coverage, security scans, and deployment readiness checks before release or PR.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/django-verification",
+      "relPath": "docs/ja-JP/skills/django-verification",
+      "verified": true
+    },
+    {
+      "name": "django-verification",
+      "description": "Django项目的验证循环：迁移、代码检查、带覆盖率的测试、安全扫描，以及在发布或PR前的部署就绪检查。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/django-verification",
+      "relPath": "docs/zh-CN/skills/django-verification",
       "verified": true
     },
     {
@@ -775,6 +1855,18 @@
     },
     {
       "name": "dmux-workflows",
+      "description": "使用dmux（AI代理的tmux窗格管理器）进行多代理编排。跨Claude Code、Codex、OpenCode及其他工具的并行代理工作流模式。适用于并行运行多个代理会话或协调多代理开发工作流时。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/dmux-workflows",
+      "relPath": "docs/zh-CN/skills/dmux-workflows",
+      "verified": true
+    },
+    {
+      "name": "dmux-workflows",
       "description": "Multi-agent orchestration using dmux (tmux pane manager for AI agents). Patterns for parallel agent workflows across Claude Code, Codex, OpenCode, and other harnesses. Use when running multiple agent sessions in parallel or coordinating multi-agent development workflows.",
       "version": "0.0.0",
       "license": "",
@@ -783,6 +1875,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/dmux-workflows",
       "relPath": "skills/dmux-workflows",
+      "verified": true
+    },
+    {
+      "name": "docker-patterns",
+      "description": "用于本地开发的Docker和Docker Compose模式，包括容器安全、网络、卷策略和多服务编排。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/docker-patterns",
+      "relPath": "docs/zh-CN/skills/docker-patterns",
+      "verified": true
+    },
+    {
+      "name": "docker-patterns",
+      "description": "Yerel geliştirme, konteyner güvenliği, ağ, volume stratejileri ve multi-servis orkestrasyon için Docker ve Docker Compose kalıpları.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/docker-patterns",
+      "relPath": "docs/tr/skills/docker-patterns",
       "verified": true
     },
     {
@@ -835,6 +1951,18 @@
     },
     {
       "name": "documentation-lookup",
+      "description": "通过 Context7 MCP 使用最新的库和框架文档，而非训练数据。当用户提出设置问题、API参考、代码示例或命名框架（例如 React、Next.js、Prisma）时激活。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/documentation-lookup",
+      "relPath": "docs/zh-CN/skills/documentation-lookup",
+      "verified": true
+    },
+    {
+      "name": "documentation-lookup",
       "description": "Use up-to-date library and framework docs via Context7 MCP instead of training data. Activates for setup questions, API references, code examples, or when the user names a framework (e.g. React, Next.js, Prisma).",
       "version": "0.0.0",
       "license": "",
@@ -843,6 +1971,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/documentation-lookup",
       "relPath": "skills/documentation-lookup",
+      "verified": true
+    },
+    {
+      "name": "dotnet-patterns",
+      "description": "Idiomatic C# and .NET patterns, conventions, dependency injection, async/await, and best practices for building robust, maintainable .NET applications.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/dotnet-patterns",
+      "relPath": "skills/dotnet-patterns",
       "verified": true
     },
     {
@@ -855,6 +1995,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/e2e-testing",
       "relPath": ".agents/skills/e2e-testing",
+      "verified": true
+    },
+    {
+      "name": "e2e-testing",
+      "description": "Playwright E2E 测试模式、页面对象模型、配置、CI/CD 集成、工件管理和不稳定测试策略。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/e2e-testing",
+      "relPath": "docs/zh-CN/skills/e2e-testing",
+      "verified": true
+    },
+    {
+      "name": "e2e-testing",
+      "description": "Playwright E2E test kalıpları, Page Object Model, yapılandırma, CI/CD entegrasyonu, artifact yönetimi ve kararsız test stratejileri.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/e2e-testing",
+      "relPath": "docs/tr/skills/e2e-testing",
       "verified": true
     },
     {
@@ -882,6 +2046,42 @@
       "verified": true
     },
     {
+      "name": "ecc-tools-cost-audit",
+      "description": "Evidence-first ECC Tools burn and billing audit workflow. Use when investigating runaway PR creation, quota bypass, premium-model leakage, duplicate jobs, or GitHub App cost spikes in the ECC Tools repo.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/ecc-tools-cost-audit",
+      "relPath": "skills/ecc-tools-cost-audit",
+      "verified": true
+    },
+    {
+      "name": "email-ops",
+      "description": "Evidence-first mailbox triage, drafting, send verification, and sent-mail-safe follow-up workflow for ECC. Use when the user wants to organize email, draft or send through the real mail surface, or prove what landed in Sent.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/email-ops",
+      "relPath": "skills/email-ops",
+      "verified": true
+    },
+    {
+      "name": "energy-procurement",
+      "description": "电力与燃气采购、电价优化、需量电费管理、可再生能源购电协议评估及多设施能源成本管理的编码化专业知识。基于能源采购经理在大型工商业用户中超过15年的经验。包括市场结构分析、对冲策略、负荷分析和可持续性报告框架。适用于采购能源、优化电价、管理需量电费、评估购电协议或制定能源策略时使用。license: Apache-2.0",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/energy-procurement",
+      "relPath": "docs/zh-CN/skills/energy-procurement",
+      "verified": true
+    },
+    {
       "name": "energy-procurement",
       "description": "Codified expertise for electricity and gas procurement, tariff optimization, demand charge management, renewable PPA evaluation, and multi-facility energy cost management. Informed by energy procurement managers with 15+ years experience at large commercial and industrial consumers. Includes market structure analysis, hedging strategies, load profiling, and sustainability reporting frameworks. Use when procuring energy, optimizing tariffs, managing demand charges, evaluating PPAs, or developing energy strategies.",
       "version": "1.0.0",
@@ -891,6 +2091,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/energy-procurement",
       "relPath": "skills/energy-procurement",
+      "verified": true
+    },
+    {
+      "name": "enterprise-agent-ops",
+      "description": "通过可观测性、安全边界和生命周期管理来操作长期运行的代理工作负载。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/enterprise-agent-ops",
+      "relPath": "docs/zh-CN/skills/enterprise-agent-ops",
       "verified": true
     },
     {
@@ -915,6 +2127,66 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/eval-harness",
       "relPath": ".agents/skills/eval-harness",
+      "verified": true
+    },
+    {
+      "name": "eval-harness",
+      "description": "Claude Codeセッションの正式な評価フレームワークで、評価駆動開発（EDD）の原則を実装します",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/eval-harness",
+      "relPath": "docs/ja-JP/skills/eval-harness",
+      "verified": true
+    },
+    {
+      "name": "eval-harness",
+      "description": "克劳德代码会话的正式评估框架，实施评估驱动开发（EDD）原则",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/eval-harness",
+      "relPath": "docs/zh-CN/skills/eval-harness",
+      "verified": true
+    },
+    {
+      "name": "eval-harness",
+      "description": "Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/eval-harness",
+      "relPath": "docs/zh-TW/skills/eval-harness",
+      "verified": true
+    },
+    {
+      "name": "eval-harness",
+      "description": "평가 주도 개발(EDD) 원칙을 구현하는 Claude Code 세션용 공식 평가 프레임워크",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/eval-harness",
+      "relPath": "docs/ko-KR/skills/eval-harness",
+      "verified": true
+    },
+    {
+      "name": "eval-harness",
+      "description": "Eval-driven development (EDD) ilkelerini uygulayan Claude Code oturumları için formal değerlendirme çerçevesi",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/eval-harness",
+      "relPath": "docs/tr/skills/eval-harness",
       "verified": true
     },
     {
@@ -954,6 +2226,18 @@
       "verified": true
     },
     {
+      "name": "evm-token-decimals",
+      "description": "Prevent silent decimal mismatch bugs across EVM chains. Covers runtime decimal lookup, chain-aware caching, bridged-token precision drift, and safe normalization for bots, dashboards, and DeFi tools.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/evm-token-decimals",
+      "relPath": "skills/evm-token-decimals",
+      "verified": true
+    },
+    {
       "name": "exa-search",
       "description": "Neural search via Exa MCP for web, code, and company research. Use when the user needs web search, code examples, company intel, people lookup, or AI-powered deep research with Exa's neural search engine.",
       "version": "0.0.0",
@@ -963,6 +2247,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/exa-search",
       "relPath": ".agents/skills/exa-search",
+      "verified": true
+    },
+    {
+      "name": "exa-search",
+      "description": "通过Exa MCP进行神经搜索，适用于网络、代码和公司研究。当用户需要网络搜索、代码示例、公司情报、人员查找，或使用Exa神经搜索引擎进行AI驱动的深度研究时使用。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/exa-search",
+      "relPath": "docs/zh-CN/skills/exa-search",
       "verified": true
     },
     {
@@ -991,6 +2287,18 @@
     },
     {
       "name": "fal-ai-media",
+      "description": "通过 fal.ai MCP 实现统一的媒体生成——图像、视频和音频。涵盖文本到图像（Nano Banana）、文本/图像到视频（Seedance、Kling、Veo 3）、文本到语音（CSM-1B），以及视频到音频（ThinkSound）。当用户想要使用 AI 生成图像、视频或音频时使用。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/fal-ai-media",
+      "relPath": "docs/zh-CN/skills/fal-ai-media",
+      "verified": true
+    },
+    {
+      "name": "fal-ai-media",
       "description": "Unified media generation via fal.ai MCP — image, video, and audio. Covers text-to-image (Nano Banana), text/image-to-video (Seedance, Kling, Veo 3), text-to-speech (CSM-1B), and video-to-audio (ThinkSound). Use when the user wants to generate images, videos, or audio with AI.",
       "version": "0.0.0",
       "license": "",
@@ -999,6 +2307,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/fal-ai-media",
       "relPath": "skills/fal-ai-media",
+      "verified": true
+    },
+    {
+      "name": "finance-billing-ops",
+      "description": "Evidence-first revenue, pricing, refunds, team-billing, and billing-model truth workflow for ECC. Use when the user wants a sales snapshot, pricing comparison, duplicate-charge diagnosis, or code-backed billing reality instead of generic payments advice.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/finance-billing-ops",
+      "relPath": "skills/finance-billing-ops",
+      "verified": true
+    },
+    {
+      "name": "flutter-dart-code-review",
+      "description": "库无关的Flutter/Dart代码审查清单，涵盖Widget最佳实践、状态管理模式（BLoC、Riverpod、Provider、GetX、MobX、Signals）、Dart惯用法、性能、可访问性、安全性和整洁架构。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/flutter-dart-code-review",
+      "relPath": "docs/zh-CN/skills/flutter-dart-code-review",
       "verified": true
     },
     {
@@ -1015,6 +2347,18 @@
     },
     {
       "name": "foundation-models-on-device",
+      "description": "苹果FoundationModels框架用于设备上的LLM——文本生成、使用@Generable进行引导生成、工具调用，以及在iOS 26+中的快照流。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/foundation-models-on-device",
+      "relPath": "docs/zh-CN/skills/foundation-models-on-device",
+      "verified": true
+    },
+    {
+      "name": "foundation-models-on-device",
       "description": "Apple FoundationModels framework for on-device LLM — text generation, guided generation with @Generable, tool calling, and snapshot streaming in iOS 26+.",
       "version": "0.0.0",
       "license": "",
@@ -1023,6 +2367,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/foundation-models-on-device",
       "relPath": "skills/foundation-models-on-device",
+      "verified": true
+    },
+    {
+      "name": "frontend-design",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use when the user asks to build web components, pages, or applications and the visual direction matters as much as the code quality.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/frontend-design",
+      "relPath": ".agents/skills/frontend-design",
+      "verified": true
+    },
+    {
+      "name": "frontend-design",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use when the user asks to build web components, pages, or applications and the visual direction matters as much as the code quality.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/frontend-design",
+      "relPath": "skills/frontend-design",
       "verified": true
     },
     {
@@ -1035,6 +2403,66 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/frontend-patterns",
       "relPath": ".agents/skills/frontend-patterns",
+      "verified": true
+    },
+    {
+      "name": "frontend-patterns",
+      "description": "React、Next.js、状態管理、パフォーマンス最適化、UIベストプラクティスのためのフロントエンド開発パターン。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/frontend-patterns",
+      "relPath": "docs/ja-JP/skills/frontend-patterns",
+      "verified": true
+    },
+    {
+      "name": "frontend-patterns",
+      "description": "React、Next.js、状态管理、性能优化和UI最佳实践的前端开发模式。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/frontend-patterns",
+      "relPath": "docs/zh-CN/skills/frontend-patterns",
+      "verified": true
+    },
+    {
+      "name": "frontend-patterns",
+      "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/frontend-patterns",
+      "relPath": "docs/zh-TW/skills/frontend-patterns",
+      "verified": true
+    },
+    {
+      "name": "frontend-patterns",
+      "description": "React, Next.js, 상태 관리, 성능 최적화 및 UI 모범 사례를 위한 프론트엔드 개발 패턴.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/frontend-patterns",
+      "relPath": "docs/ko-KR/skills/frontend-patterns",
+      "verified": true
+    },
+    {
+      "name": "frontend-patterns",
+      "description": "React, Next.js, state yönetimi, performans optimizasyonu ve UI en iyi uygulamaları için frontend geliştirme kalıpları.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/frontend-patterns",
+      "relPath": "docs/tr/skills/frontend-patterns",
       "verified": true
     },
     {
@@ -1087,6 +2515,18 @@
     },
     {
       "name": "frontend-slides",
+      "description": "从零开始或通过转换PowerPoint文件创建令人惊艳、动画丰富的HTML演示文稿。当用户想要构建演示文稿、将PPT/PPTX转换为网页格式，或为演讲/推介创建幻灯片时使用。帮助非设计师通过视觉探索而非抽象选择发现他们的美学。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/frontend-slides",
+      "relPath": "docs/zh-CN/skills/frontend-slides",
+      "verified": true
+    },
+    {
+      "name": "frontend-slides",
       "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices.",
       "version": "0.0.0",
       "license": "",
@@ -1095,6 +2535,114 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/frontend-slides",
       "relPath": "skills/frontend-slides",
+      "verified": true
+    },
+    {
+      "name": "gan-style-harness",
+      "description": "GAN-inspired Generator-Evaluator agent harness for building high-quality applications autonomously. Based on Anthropic's March 2026 harness design paper.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/gan-style-harness",
+      "relPath": "skills/gan-style-harness",
+      "verified": true
+    },
+    {
+      "name": "gateguard",
+      "description": "Fact-forcing gate that blocks Edit/Write/Bash (including MultiEdit) and demands concrete investigation (importers, data schemas, user instruction) before allowing the action. Measurably improves output quality by +2.25 points vs ungated agents.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/gateguard",
+      "relPath": "skills/gateguard",
+      "verified": true
+    },
+    {
+      "name": "git-workflow",
+      "description": "Git workflow patterns including branching strategies, commit conventions, merge vs rebase, conflict resolution, and collaborative development best practices for teams of all sizes.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/git-workflow",
+      "relPath": "skills/git-workflow",
+      "verified": true
+    },
+    {
+      "name": "github-ops",
+      "description": "GitHub repository operations, automation, and management. Issue triage, PR management, CI/CD operations, release management, and security monitoring using the gh CLI. Use when the user wants to manage GitHub issues, PRs, CI status, releases, contributors, stale items, or any GitHub operational task beyond simple git commands.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/github-ops",
+      "relPath": "skills/github-ops",
+      "verified": true
+    },
+    {
+      "name": "golang-patterns",
+      "description": "堅牢で効率的かつ保守可能なGoアプリケーションを構築するための慣用的なGoパターン、ベストプラクティス、規約。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/golang-patterns",
+      "relPath": "docs/ja-JP/skills/golang-patterns",
+      "verified": true
+    },
+    {
+      "name": "golang-patterns",
+      "description": "用于构建健壮、高效且可维护的Go应用程序的惯用Go模式、最佳实践和约定。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/golang-patterns",
+      "relPath": "docs/zh-CN/skills/golang-patterns",
+      "verified": true
+    },
+    {
+      "name": "golang-patterns",
+      "description": "Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/golang-patterns",
+      "relPath": "docs/zh-TW/skills/golang-patterns",
+      "verified": true
+    },
+    {
+      "name": "golang-patterns",
+      "description": "견고하고 효율적이며 유지보수 가능한 Go 애플리케이션 구축을 위한 관용적 Go 패턴, 모범 사례 및 규칙.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/golang-patterns",
+      "relPath": "docs/ko-KR/skills/golang-patterns",
+      "verified": true
+    },
+    {
+      "name": "golang-patterns",
+      "description": "İdiomatic Go desenler, en iyi uygulamalar ve sağlam, verimli ve bakımı kolay Go uygulamaları oluşturmak için konvansiyonlar.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/golang-patterns",
+      "relPath": "docs/tr/skills/golang-patterns",
       "verified": true
     },
     {
@@ -1123,6 +2671,66 @@
     },
     {
       "name": "golang-testing",
+      "description": "テスト駆動開発とGoコードの高品質を保証するための包括的なテスト戦略。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/golang-testing",
+      "relPath": "docs/ja-JP/skills/golang-testing",
+      "verified": true
+    },
+    {
+      "name": "golang-testing",
+      "description": "Go测试模式包括表格驱动测试、子测试、基准测试、模糊测试和测试覆盖率。遵循TDD方法论，采用地道的Go实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/golang-testing",
+      "relPath": "docs/zh-CN/skills/golang-testing",
+      "verified": true
+    },
+    {
+      "name": "golang-testing",
+      "description": "Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/golang-testing",
+      "relPath": "docs/zh-TW/skills/golang-testing",
+      "verified": true
+    },
+    {
+      "name": "golang-testing",
+      "description": "테이블 주도 테스트, 서브테스트, 벤치마크, 퍼징, 테스트 커버리지를 포함한 Go 테스팅 패턴. 관용적 Go 관행과 함께 TDD 방법론을 따릅니다.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/golang-testing",
+      "relPath": "docs/ko-KR/skills/golang-testing",
+      "verified": true
+    },
+    {
+      "name": "golang-testing",
+      "description": "Table-driven testler, subtestler, benchmark'lar, fuzzing ve test coverage içeren Go test desenleri. TDD metodolojisi ile idiomatic Go uygulamalarını takip eder.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/golang-testing",
+      "relPath": "docs/tr/skills/golang-testing",
+      "verified": true
+    },
+    {
+      "name": "golang-testing",
       "description": "Go testing best practices including table-driven tests, test helpers, benchmarking, race detection, coverage analysis, and integration testing patterns. Use when writing or improving Go tests.",
       "version": "0.0.0",
       "license": "",
@@ -1143,6 +2751,114 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/golang-testing",
       "relPath": "skills/golang-testing",
+      "verified": true
+    },
+    {
+      "name": "google-workspace-ops",
+      "description": "Operate across Google Drive, Docs, Sheets, and Slides as one workflow surface for plans, trackers, decks, and shared documents. Use when the user needs to find, summarize, edit, migrate, or clean up Google Workspace assets without dropping to raw tool calls.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/google-workspace-ops",
+      "relPath": "skills/google-workspace-ops",
+      "verified": true
+    },
+    {
+      "name": "healthcare-cdss-patterns",
+      "description": "Clinical Decision Support System (CDSS) development patterns. Drug interaction checking, dose validation, clinical scoring (NEWS2, qSOFA), alert severity classification, and integration into EMR workflows.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/healthcare-cdss-patterns",
+      "relPath": "skills/healthcare-cdss-patterns",
+      "verified": true
+    },
+    {
+      "name": "healthcare-emr-patterns",
+      "description": "EMR/EHR development patterns for healthcare applications. Clinical safety, encounter workflows, prescription generation, clinical decision support integration, and accessibility-first UI for medical data entry.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/healthcare-emr-patterns",
+      "relPath": "skills/healthcare-emr-patterns",
+      "verified": true
+    },
+    {
+      "name": "healthcare-eval-harness",
+      "description": "Patient safety evaluation harness for healthcare application deployments. Automated test suites for CDSS accuracy, PHI exposure, clinical workflow integrity, and integration compliance. Blocks deployments on safety failures.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/healthcare-eval-harness",
+      "relPath": "skills/healthcare-eval-harness",
+      "verified": true
+    },
+    {
+      "name": "healthcare-phi-compliance",
+      "description": "Protected Health Information (PHI) and Personally Identifiable Information (PII) compliance patterns for healthcare applications. Covers data classification, access control, audit trails, encryption, and common leak vectors.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/healthcare-phi-compliance",
+      "relPath": "skills/healthcare-phi-compliance",
+      "verified": true
+    },
+    {
+      "name": "hexagonal-architecture",
+      "description": "Design, implement, and refactor Ports & Adapters systems with clear domain boundaries, dependency inversion, and testable use-case orchestration across TypeScript, Java, Kotlin, and Go services.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/hexagonal-architecture",
+      "relPath": "skills/hexagonal-architecture",
+      "verified": true
+    },
+    {
+      "name": "hipaa-compliance",
+      "description": "HIPAA-specific entrypoint for healthcare privacy and security work. Use when a task is explicitly framed around HIPAA, PHI handling, covered entities, BAAs, breach posture, or US healthcare compliance requirements.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/hipaa-compliance",
+      "relPath": "skills/hipaa-compliance",
+      "verified": true
+    },
+    {
+      "name": "hookify-rules",
+      "description": "This skill should be used when the user asks to create a hookify rule, write a hook rule, configure hookify, add a hookify rule, or needs guidance on hookify rule syntax and patterns.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/hookify-rules",
+      "relPath": "skills/hookify-rules",
+      "verified": true
+    },
+    {
+      "name": "inventory-demand-planning",
+      "description": "为多地点零售商提供需求预测、安全库存优化、补货规划及促销提升估算的编码化专业知识。基于拥有15年以上管理数百个SKU经验的需求规划师的专业知识。包括预测方法选择、ABC/XYZ分析、季节性过渡管理及供应商谈判框架。适用于预测需求、设定安全库存、规划补货、管理促销或优化库存水平时使用。license: Apache-2.0",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/inventory-demand-planning",
+      "relPath": "docs/zh-CN/skills/inventory-demand-planning",
       "verified": true
     },
     {
@@ -1183,6 +2899,18 @@
     },
     {
       "name": "investor-materials",
+      "description": "创建和更新宣传文稿、一页简介、投资者备忘录、加速器申请、财务模型和融资材料。当用户需要面向投资者的文件、预测、资金用途表、里程碑计划或必须在多个融资资产中保持内部一致性的材料时使用。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/investor-materials",
+      "relPath": "docs/zh-CN/skills/investor-materials",
+      "verified": true
+    },
+    {
+      "name": "investor-materials",
       "description": "Create and update pitch decks, one-pagers, investor memos, accelerator applications, financial models, and fundraising materials. Use when the user needs investor-facing documents, projections, use-of-funds tables, milestone plans, or materials that must stay internally consistent across multiple fundraising assets.",
       "version": "0.0.0",
       "license": "",
@@ -1219,6 +2947,18 @@
     },
     {
       "name": "investor-outreach",
+      "description": "草拟冷邮件、热情介绍简介、跟进邮件、更新邮件和投资者沟通以筹集资金。当用户需要向天使投资人、风险投资公司、战略投资者或加速器进行推广，并需要简洁、个性化的面向投资者的消息时使用。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/investor-outreach",
+      "relPath": "docs/zh-CN/skills/investor-outreach",
+      "verified": true
+    },
+    {
+      "name": "investor-outreach",
       "description": "Draft cold emails, warm intro blurbs, follow-ups, update emails, and investor communications for fundraising. Use when the user wants outreach to angels, VCs, strategic investors, or accelerators and needs concise, personalized, investor-facing messaging.",
       "version": "0.0.0",
       "license": "",
@@ -1227,6 +2967,54 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/investor-outreach",
       "relPath": "skills/investor-outreach",
+      "verified": true
+    },
+    {
+      "name": "iterative-retrieval",
+      "description": "サブエージェントのコンテキスト問題を解決するために、コンテキスト取得を段階的に洗練するパターン",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/iterative-retrieval",
+      "relPath": "docs/ja-JP/skills/iterative-retrieval",
+      "verified": true
+    },
+    {
+      "name": "iterative-retrieval",
+      "description": "逐步优化上下文检索以解决子代理上下文问题的模式",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/iterative-retrieval",
+      "relPath": "docs/zh-CN/skills/iterative-retrieval",
+      "verified": true
+    },
+    {
+      "name": "iterative-retrieval",
+      "description": "Pattern for progressively refining context retrieval to solve the subagent context problem",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/iterative-retrieval",
+      "relPath": "docs/zh-TW/skills/iterative-retrieval",
+      "verified": true
+    },
+    {
+      "name": "iterative-retrieval",
+      "description": "서브에이전트 컨텍스트 문제를 해결하기 위한 점진적 컨텍스트 검색 개선 패턴",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/iterative-retrieval",
+      "relPath": "docs/ko-KR/skills/iterative-retrieval",
       "verified": true
     },
     {
@@ -1243,6 +3031,30 @@
     },
     {
       "name": "java-coding-standards",
+      "description": "Spring Bootサービス向けのJavaコーディング標準：命名、不変性、Optional使用、ストリーム、例外、ジェネリクス、プロジェクトレイアウト。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/java-coding-standards",
+      "relPath": "docs/ja-JP/skills/java-coding-standards",
+      "verified": true
+    },
+    {
+      "name": "java-coding-standards",
+      "description": "Spring Boot服务的Java编码标准：命名、不可变性、Optional用法、流、异常、泛型和项目布局。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/java-coding-standards",
+      "relPath": "docs/zh-CN/skills/java-coding-standards",
+      "verified": true
+    },
+    {
+      "name": "java-coding-standards",
       "description": "Java coding standards for Spring Boot services: naming, immutability, Optional usage, streams, exceptions, generics, and project layout.",
       "version": "0.0.0",
       "license": "",
@@ -1251,6 +3063,54 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/java-coding-standards",
       "relPath": "skills/java-coding-standards",
+      "verified": true
+    },
+    {
+      "name": "jira-integration",
+      "description": "Use this skill when retrieving Jira tickets, analyzing requirements, updating ticket status, adding comments, or transitioning issues. Provides Jira API patterns via MCP or direct REST calls.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/jira-integration",
+      "relPath": "skills/jira-integration",
+      "verified": true
+    },
+    {
+      "name": "jpa-patterns",
+      "description": "JPA/Hibernate patterns for entity design, relationships, query optimization, transactions, auditing, indexing, pagination, and pooling in Spring Boot.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/jpa-patterns",
+      "relPath": "docs/ja-JP/skills/jpa-patterns",
+      "verified": true
+    },
+    {
+      "name": "jpa-patterns",
+      "description": "Spring Boot中的JPA/Hibernate模式，用于实体设计、关系处理、查询优化、事务管理、审计、索引、分页和连接池。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/jpa-patterns",
+      "relPath": "docs/zh-CN/skills/jpa-patterns",
+      "verified": true
+    },
+    {
+      "name": "jpa-patterns",
+      "description": "Spring Boot'ta entity tasarımı, ilişkiler, sorgu optimizasyonu, transaction'lar, auditing, indeksleme, sayfalama ve pooling için JPA/Hibernate kalıpları.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/jpa-patterns",
+      "relPath": "docs/tr/skills/jpa-patterns",
       "verified": true
     },
     {
@@ -1263,6 +3123,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/jpa-patterns",
       "relPath": "skills/jpa-patterns",
+      "verified": true
+    },
+    {
+      "name": "knowledge-ops",
+      "description": "Knowledge base management, ingestion, sync, and retrieval across multiple storage layers (local files, MCP memory, vector stores, Git repos). Use when the user wants to save, organize, sync, deduplicate, or search across their knowledge systems.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/knowledge-ops",
+      "relPath": "skills/knowledge-ops",
+      "verified": true
+    },
+    {
+      "name": "kotlin-coroutines-flows",
+      "description": "Kotlin协程与Flow在Android和KMP中的模式——结构化并发、Flow操作符、StateFlow、错误处理和测试。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/kotlin-coroutines-flows",
+      "relPath": "docs/zh-CN/skills/kotlin-coroutines-flows",
       "verified": true
     },
     {
@@ -1279,6 +3163,18 @@
     },
     {
       "name": "kotlin-exposed-patterns",
+      "description": "JetBrains Exposed ORM 模式，包括 DSL 查询、DAO 模式、事务、HikariCP 连接池、Flyway 迁移和仓库模式。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/kotlin-exposed-patterns",
+      "relPath": "docs/zh-CN/skills/kotlin-exposed-patterns",
+      "verified": true
+    },
+    {
+      "name": "kotlin-exposed-patterns",
       "description": "JetBrains Exposed ORM patterns including DSL queries, DAO pattern, transactions, HikariCP connection pooling, Flyway migrations, and repository pattern.",
       "version": "0.0.0",
       "license": "",
@@ -1287,6 +3183,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-exposed-patterns",
       "relPath": "skills/kotlin-exposed-patterns",
+      "verified": true
+    },
+    {
+      "name": "kotlin-ktor-patterns",
+      "description": "Ktor 服务器模式，包括路由 DSL、插件、身份验证、Koin DI、kotlinx.serialization、WebSockets 和 testApplication 测试。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/kotlin-ktor-patterns",
+      "relPath": "docs/zh-CN/skills/kotlin-ktor-patterns",
       "verified": true
     },
     {
@@ -1303,6 +3211,30 @@
     },
     {
       "name": "kotlin-patterns",
+      "description": "惯用的Kotlin模式、最佳实践和约定，用于构建健壮、高效且可维护的Kotlin应用程序，包括协程、空安全和DSL构建器。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/kotlin-patterns",
+      "relPath": "docs/zh-CN/skills/kotlin-patterns",
+      "verified": true
+    },
+    {
+      "name": "kotlin-patterns",
+      "description": "Coroutine'ler, null safety ve DSL builder'lar ile sağlam, verimli ve sürdürülebilir Kotlin uygulamaları oluşturmak için idiomatic Kotlin kalıpları, en iyi uygulamalar ve konvansiyonlar.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/kotlin-patterns",
+      "relPath": "docs/tr/skills/kotlin-patterns",
+      "verified": true
+    },
+    {
+      "name": "kotlin-patterns",
       "description": "Idiomatic Kotlin patterns, best practices, and conventions for building robust, efficient, and maintainable Kotlin applications with coroutines, null safety, and DSL builders.",
       "version": "0.0.0",
       "license": "",
@@ -1311,6 +3243,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/kotlin-patterns",
       "relPath": "skills/kotlin-patterns",
+      "verified": true
+    },
+    {
+      "name": "kotlin-testing",
+      "description": "使用Kotest、MockK、协程测试、基于属性的测试和Kover覆盖率的Kotlin测试模式。遵循TDD方法论和地道的Kotlin实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/kotlin-testing",
+      "relPath": "docs/zh-CN/skills/kotlin-testing",
+      "verified": true
+    },
+    {
+      "name": "kotlin-testing",
+      "description": "Kotest, MockK, coroutine testi, property-based testing ve Kover coverage ile Kotlin test kalıpları. İdiomatic Kotlin uygulamalarıyla TDD metodolojisini takip eder.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/kotlin-testing",
+      "relPath": "docs/tr/skills/kotlin-testing",
       "verified": true
     },
     {
@@ -1327,6 +3283,30 @@
     },
     {
       "name": "laravel-patterns",
+      "description": "Laravel架构模式、路由/控制器、Eloquent ORM、服务层、队列、事件、缓存以及用于生产应用的API资源。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/laravel-patterns",
+      "relPath": "docs/zh-CN/skills/laravel-patterns",
+      "verified": true
+    },
+    {
+      "name": "laravel-patterns",
+      "description": "Laravel architecture patterns, routing/controllers, Eloquent ORM, service layers, queues, events, caching, and API resources for production apps.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/laravel-patterns",
+      "relPath": "docs/tr/skills/laravel-patterns",
+      "verified": true
+    },
+    {
+      "name": "laravel-patterns",
       "description": "Laravel architecture patterns, routing/controllers, Eloquent ORM, service layers, queues, events, caching, and API resources for production apps.",
       "version": "0.0.0",
       "license": "",
@@ -1335,6 +3315,42 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-patterns",
       "relPath": "skills/laravel-patterns",
+      "verified": true
+    },
+    {
+      "name": "laravel-plugin-discovery",
+      "description": "Discover and evaluate Laravel packages via LaraPlugins.io MCP. Use when the user wants to find plugins, check package health, or assess Laravel/PHP compatibility.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-plugin-discovery",
+      "relPath": "skills/laravel-plugin-discovery",
+      "verified": true
+    },
+    {
+      "name": "laravel-security",
+      "description": "Laravel 安全最佳实践，涵盖认证/授权、验证、CSRF、批量赋值、文件上传、密钥管理、速率限制和安全部署。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/laravel-security",
+      "relPath": "docs/zh-CN/skills/laravel-security",
+      "verified": true
+    },
+    {
+      "name": "laravel-security",
+      "description": "Laravel security best practices for authn/authz, validation, CSRF, mass assignment, file uploads, secrets, rate limiting, and secure deployment.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/laravel-security",
+      "relPath": "docs/tr/skills/laravel-security",
       "verified": true
     },
     {
@@ -1347,6 +3363,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-security",
       "relPath": "skills/laravel-security",
+      "verified": true
+    },
+    {
+      "name": "laravel-tdd",
+      "description": "使用 PHPUnit 和 Pest、工厂、数据库测试、模拟以及覆盖率目标进行 Laravel 的测试驱动开发。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/laravel-tdd",
+      "relPath": "docs/zh-CN/skills/laravel-tdd",
+      "verified": true
+    },
+    {
+      "name": "laravel-tdd",
+      "description": "Test-driven development for Laravel with PHPUnit and Pest, factories, database testing, fakes, and coverage targets.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/laravel-tdd",
+      "relPath": "docs/tr/skills/laravel-tdd",
       "verified": true
     },
     {
@@ -1369,8 +3409,56 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/laravel-verification",
+      "relPath": "docs/zh-CN/skills/laravel-verification",
+      "verified": true
+    },
+    {
+      "name": "laravel-verification",
+      "description": "Verification loop for Laravel projects: env checks, linting, static analysis, tests with coverage, security scans, and deployment readiness.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/laravel-verification",
+      "relPath": "docs/tr/skills/laravel-verification",
+      "verified": true
+    },
+    {
+      "name": "laravel-verification",
+      "description": "Verification loop for Laravel projects: env checks, linting, static analysis, tests with coverage, security scans, and deployment readiness.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/laravel-verification",
       "relPath": "skills/laravel-verification",
+      "verified": true
+    },
+    {
+      "name": "lead-intelligence",
+      "description": "AI-native lead intelligence and outreach pipeline. Replaces Apollo, Clay, and ZoomInfo with agent-powered signal scoring, mutual ranking, warm path discovery, source-derived voice modeling, and channel-specific outreach across email, LinkedIn, and X. Use when the user wants to find, qualify, and reach high-value contacts.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/lead-intelligence",
+      "relPath": "skills/lead-intelligence",
+      "verified": true
+    },
+    {
+      "name": "liquid-glass-design",
+      "description": "iOS 26 液态玻璃设计系统 — 适用于 SwiftUI、UIKit 和 WidgetKit 的动态玻璃材质，具有模糊、反射和交互式变形效果。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/liquid-glass-design",
+      "relPath": "docs/zh-CN/skills/liquid-glass-design",
       "verified": true
     },
     {
@@ -1386,6 +3474,30 @@
       "verified": true
     },
     {
+      "name": "llm-trading-agent-security",
+      "description": "Security patterns for autonomous trading agents with wallet or transaction authority. Covers prompt injection, spend limits, pre-send simulation, circuit breakers, MEV protection, and key handling.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/llm-trading-agent-security",
+      "relPath": "skills/llm-trading-agent-security",
+      "verified": true
+    },
+    {
+      "name": "logistics-exception-management",
+      "description": "针对货运异常、货物延误、损坏、丢失和承运商纠纷的编码化专业知识，由拥有15年以上运营经验的物流专业人士提供。包括升级协议、承运商特定行为、索赔程序和判断框架。在处理运输异常、货运索赔、交付问题或承运商纠纷时使用。license: Apache-2.0",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/logistics-exception-management",
+      "relPath": "docs/zh-CN/skills/logistics-exception-management",
+      "verified": true
+    },
+    {
       "name": "logistics-exception-management",
       "description": "Codified expertise for handling freight exceptions, shipment delays, damages, losses, and carrier disputes. Informed by logistics professionals with 15+ years operational experience. Includes escalation protocols, carrier-specific behaviors, claims procedures, and judgment frameworks. Use when handling shipping exceptions, freight claims, delivery issues, or carrier disputes.",
       "version": "1.0.0",
@@ -1395,6 +3507,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/logistics-exception-management",
       "relPath": "skills/logistics-exception-management",
+      "verified": true
+    },
+    {
+      "name": "manim-video",
+      "description": "Build reusable Manim explainers for technical concepts, graphs, system diagrams, and product walkthroughs, then hand off to the wider ECC video stack if needed. Use when the user wants a clean animated explainer rather than a generic talking-head script.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/manim-video",
+      "relPath": "skills/manim-video",
       "verified": true
     },
     {
@@ -1419,6 +3543,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/market-research",
       "relPath": ".agents/skills/market-research",
+      "verified": true
+    },
+    {
+      "name": "market-research",
+      "description": "进行市场研究、竞争分析、投资者尽职调查和行业情报，附带来源归属和决策导向的摘要。适用于用户需要市场规模、竞争对手比较、基金研究、技术扫描或为商业决策提供信息的研究时。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/market-research",
+      "relPath": "docs/zh-CN/skills/market-research",
       "verified": true
     },
     {
@@ -1459,6 +3595,18 @@
     },
     {
       "name": "mcp-server-patterns",
+      "description": "使用Node/TypeScript SDK构建MCP服务器——工具、资源、提示、Zod验证、stdio与可流式HTTP对比。使用Context7或官方MCP文档获取最新API信息。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/mcp-server-patterns",
+      "relPath": "docs/zh-CN/skills/mcp-server-patterns",
+      "verified": true
+    },
+    {
+      "name": "mcp-server-patterns",
       "description": "Build MCP servers with Node/TypeScript SDK — tools, resources, prompts, Zod validation, stdio vs Streamable HTTP. Use Context7 or official MCP docs for latest API.",
       "version": "0.0.0",
       "license": "",
@@ -1467,6 +3615,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/mcp-server-patterns",
       "relPath": "skills/mcp-server-patterns",
+      "verified": true
+    },
+    {
+      "name": "messages-ops",
+      "description": "Evidence-first live messaging workflow for ECC. Use when the user wants to read texts or DMs, recover a recent one-time code, inspect a thread before replying, or prove which message source was actually checked.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/messages-ops",
+      "relPath": "skills/messages-ops",
+      "verified": true
+    },
+    {
+      "name": "nanoclaw-repl",
+      "description": "操作并扩展NanoClaw v2，这是ECC基于claude -p构建的零依赖会话感知REPL。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/nanoclaw-repl",
+      "relPath": "docs/zh-CN/skills/nanoclaw-repl",
       "verified": true
     },
     {
@@ -1479,6 +3651,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/nanoclaw-repl",
       "relPath": "skills/nanoclaw-repl",
+      "verified": true
+    },
+    {
+      "name": "nestjs-patterns",
+      "description": "NestJS architecture patterns for modules, controllers, providers, DTO validation, guards, interceptors, config, and production-grade TypeScript backends.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/nestjs-patterns",
+      "relPath": "skills/nestjs-patterns",
       "verified": true
     },
     {
@@ -1507,6 +3691,30 @@
     },
     {
       "name": "nextjs-turbopack",
+      "description": "Next.js 16+ 和 Turbopack — 增量打包、文件系统缓存、开发速度，以及何时使用 Turbopack 与 webpack。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/nextjs-turbopack",
+      "relPath": "docs/zh-CN/skills/nextjs-turbopack",
+      "verified": true
+    },
+    {
+      "name": "nextjs-turbopack",
+      "description": "Next.js 16+ and Turbopack — incremental bundling, FS caching, dev speed, and when to use Turbopack vs webpack.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/nextjs-turbopack",
+      "relPath": "docs/tr/skills/nextjs-turbopack",
+      "verified": true
+    },
+    {
+      "name": "nextjs-turbopack",
       "description": "Next.js 16+ and Turbopack — incremental bundling, FS caching, dev speed, and when to use Turbopack vs webpack.",
       "version": "0.0.0",
       "license": "",
@@ -1515,6 +3723,42 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/nextjs-turbopack",
       "relPath": "skills/nextjs-turbopack",
+      "verified": true
+    },
+    {
+      "name": "nodejs-keccak256",
+      "description": "Prevent Ethereum hashing bugs in JavaScript and TypeScript. Node's sha3-256 is NIST SHA3, not Ethereum Keccak-256, and silently breaks selectors, signatures, storage slots, and address derivation.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/nodejs-keccak256",
+      "relPath": "skills/nodejs-keccak256",
+      "verified": true
+    },
+    {
+      "name": "nutrient-document-processing",
+      "description": "Nutrient DWS API を使用してドキュメントの処理、変換、OCR、抽出、編集、署名、フォーム入力を行います。PDF、DOCX、XLSX、PPTX、HTML、画像に対応しています。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/nutrient-document-processing",
+      "relPath": "docs/ja-JP/skills/nutrient-document-processing",
+      "verified": true
+    },
+    {
+      "name": "nutrient-document-processing",
+      "description": "使用Nutrient DWS API处理、转换、OCR识别、提取、编辑、签名和填写文档。支持PDF、DOCX、XLSX、PPTX、HTML和图像格式。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/nutrient-document-processing",
+      "relPath": "docs/zh-CN/skills/nutrient-document-processing",
       "verified": true
     },
     {
@@ -1531,6 +3775,18 @@
     },
     {
       "name": "nuxt4-patterns",
+      "description": "Nuxt 4 应用模式，涵盖水合安全、性能优化、路由规则、懒加载，以及使用 useFetch 和 useAsyncData 进行 SSR 安全的数据获取。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/nuxt4-patterns",
+      "relPath": "docs/zh-CN/skills/nuxt4-patterns",
+      "verified": true
+    },
+    {
+      "name": "nuxt4-patterns",
       "description": "Nuxt 4 app patterns for hydration safety, performance, route rules, lazy loading, and SSR-safe data fetching with useFetch and useAsyncData.",
       "version": "0.0.0",
       "license": "",
@@ -1539,6 +3795,42 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/nuxt4-patterns",
       "relPath": "skills/nuxt4-patterns",
+      "verified": true
+    },
+    {
+      "name": "openclaw-persona-forge",
+      "description": "为 OpenClaw AI Agent 锻造完整的龙虾灵魂方案。根据用户偏好或随机抽卡， 输出身份定位、灵魂描述(SOUL.md)、角色化底线规则、名字和头像生图提示词。 如当前环境提供已审核的生图 skill，可自动生成统一风格头像图片。 当用户需要创建、设计或定制 OpenClaw 龙虾灵魂时使用。 不适用于：微调已有 SOUL.md、非 OpenClaw 平台的角色设计、纯工具型无性格 Agent。 触发词：龙虾灵魂、虾魂、OpenClaw 灵魂、养虾灵魂、龙虾角色、龙虾定位、 龙虾剧本杀角色、龙虾游戏角色、龙虾 NPC、龙虾性格、龙虾背景故事、 lobster soul、lobster character、抽卡、随机龙虾、龙虾 SOUL、gacha。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/openclaw-persona-forge",
+      "relPath": "skills/openclaw-persona-forge",
+      "verified": true
+    },
+    {
+      "name": "opensource-pipeline",
+      "description": "Open-source pipeline: fork, sanitize, and package private projects for safe public release. Chains 3 agents (forker, sanitizer, packager). Triggers: '/opensource', 'open source this', 'make this public', 'prepare for open source'.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/opensource-pipeline",
+      "relPath": "skills/opensource-pipeline",
+      "verified": true
+    },
+    {
+      "name": "perl-patterns",
+      "description": "现代 Perl 5.36+ 的惯用法、最佳实践和约定，用于构建稳健、可维护的 Perl 应用程序。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/perl-patterns",
+      "relPath": "docs/zh-CN/skills/perl-patterns",
       "verified": true
     },
     {
@@ -1555,6 +3847,18 @@
     },
     {
       "name": "perl-security",
+      "description": "全面的Perl安全指南，涵盖污染模式、输入验证、安全进程执行、DBI参数化查询、Web安全（XSS/SQLi/CSRF）以及perlcritic安全策略。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/perl-security",
+      "relPath": "docs/zh-CN/skills/perl-security",
+      "verified": true
+    },
+    {
+      "name": "perl-security",
       "description": "Comprehensive Perl security covering taint mode, input validation, safe process execution, DBI parameterized queries, web security (XSS/SQLi/CSRF), and perlcritic security policies.",
       "version": "0.0.0",
       "license": "",
@@ -1563,6 +3867,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/perl-security",
       "relPath": "skills/perl-security",
+      "verified": true
+    },
+    {
+      "name": "perl-testing",
+      "description": "使用Test2::V0、Test::More、prove runner、模拟、Devel::Cover覆盖率和TDD方法的Perl测试模式。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/perl-testing",
+      "relPath": "docs/zh-CN/skills/perl-testing",
       "verified": true
     },
     {
@@ -1579,6 +3895,18 @@
     },
     {
       "name": "plankton-code-quality",
+      "description": "使用Plankton进行编写时代码质量强制执行——通过钩子在每次文件编辑时自动格式化、代码检查和Claude驱动的修复。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/plankton-code-quality",
+      "relPath": "docs/zh-CN/skills/plankton-code-quality",
+      "verified": true
+    },
+    {
+      "name": "plankton-code-quality",
       "description": "Write-time code quality enforcement using Plankton — auto-formatting, linting, and Claude-powered fixes on every file edit via hooks.",
       "version": "0.0.0",
       "license": "",
@@ -1587,6 +3915,66 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/plankton-code-quality",
       "relPath": "skills/plankton-code-quality",
+      "verified": true
+    },
+    {
+      "name": "postgres-patterns",
+      "description": "PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/postgres-patterns",
+      "relPath": "docs/ja-JP/skills/postgres-patterns",
+      "verified": true
+    },
+    {
+      "name": "postgres-patterns",
+      "description": "用于查询优化、模式设计、索引和安全性的PostgreSQL数据库模式。基于Supabase最佳实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/postgres-patterns",
+      "relPath": "docs/zh-CN/skills/postgres-patterns",
+      "verified": true
+    },
+    {
+      "name": "postgres-patterns",
+      "description": "PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/postgres-patterns",
+      "relPath": "docs/zh-TW/skills/postgres-patterns",
+      "verified": true
+    },
+    {
+      "name": "postgres-patterns",
+      "description": "쿼리 최적화, 스키마 설계, 인덱싱, 보안을 위한 PostgreSQL 데이터베이스 패턴. Supabase 모범 사례 기반.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/postgres-patterns",
+      "relPath": "docs/ko-KR/skills/postgres-patterns",
+      "verified": true
+    },
+    {
+      "name": "postgres-patterns",
+      "description": "Sorgu optimizasyonu, şema tasarımı, indeksleme ve güvenlik için PostgreSQL veritabanı kalıpları. Supabase en iyi uygulamalarına dayanır.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/postgres-patterns",
+      "relPath": "docs/tr/skills/postgres-patterns",
       "verified": true
     },
     {
@@ -1614,8 +4002,32 @@
       "verified": true
     },
     {
+      "name": "product-capability",
+      "description": "Translate PRD intent, roadmap asks, or product discussions into an implementation-ready capability plan that exposes constraints, invariants, interfaces, and unresolved decisions before multi-service work starts. Use when the user needs an ECC-native PRD-to-SRS lane instead of vague planning prose.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/product-capability",
+      "relPath": ".agents/skills/product-capability",
+      "verified": true
+    },
+    {
+      "name": "product-capability",
+      "description": "Translate PRD intent, roadmap asks, or product discussions into an implementation-ready capability plan that exposes constraints, invariants, interfaces, and unresolved decisions before multi-service work starts. Use when the user needs an ECC-native PRD-to-SRS lane instead of vague planning prose.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/product-capability",
+      "relPath": "skills/product-capability",
+      "verified": true
+    },
+    {
       "name": "product-lens",
-      "description": "",
+      "description": "Use this skill to validate the \"why\" before building, run product diagnostics, and pressure-test product direction before the request becomes an implementation contract.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1623,7 +4035,19 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/product-lens",
       "relPath": "skills/product-lens",
-      "verified": false
+      "verified": true
+    },
+    {
+      "name": "production-scheduling",
+      "description": "为离散和批量制造中的生产调度、作业排序、产线平衡、换模优化和瓶颈解决提供编码化专业知识。基于拥有15年以上经验的生产调度师的知识。包括约束理论/鼓-缓冲-绳、快速换模、设备综合效率分析、中断响应框架以及企业资源计划/制造执行系统交互模式。适用于调度生产、解决瓶颈、优化换模、应对中断或平衡制造产线时。license: Apache-2.0",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/production-scheduling",
+      "relPath": "docs/zh-CN/skills/production-scheduling",
+      "verified": true
     },
     {
       "name": "production-scheduling",
@@ -1638,15 +4062,51 @@
       "verified": true
     },
     {
-      "name": "project-guidelines-example",
-      "description": "Example project-specific skill template based on a real production application.",
+      "name": "project-flow-ops",
+      "description": "Operate execution flow across GitHub and Linear by triaging issues and pull requests, linking active work, and keeping GitHub public-facing while Linear remains the internal execution layer. Use when the user wants backlog control, PR triage, or GitHub-to-Linear coordination.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:affaan-m/everything-claude-code:skills/project-guidelines-example",
-      "relPath": "skills/project-guidelines-example",
+      "installUrl": "github:affaan-m/everything-claude-code:skills/project-flow-ops",
+      "relPath": "skills/project-flow-ops",
+      "verified": true
+    },
+    {
+      "name": "project-guidelines-example",
+      "description": "",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/project-guidelines-example",
+      "relPath": "docs/ja-JP/skills/project-guidelines-example",
+      "verified": false
+    },
+    {
+      "name": "project-guidelines-example",
+      "description": "",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/project-guidelines-example",
+      "relPath": "docs/zh-TW/skills/project-guidelines-example",
+      "verified": false
+    },
+    {
+      "name": "prompt-optimizer",
+      "description": "分析原始提示，识别意图和差距，匹配ECC组件（技能/命令/代理/钩子），并输出一个可直接粘贴的优化提示。仅提供咨询角色——绝不自行执行任务。触发时机：当用户说“优化提示”、“改进我的提示”、“如何编写提示”、“帮我优化这个指令”或明确要求提高提示质量时。中文等效表达同样触发：“优化prompt”、“改进prompt”、“怎么写prompt”、“帮我优化这个指令”。不触发时机：当用户希望直接执行任务，或说“直接做”时。不触发时机：当用户说“优化代码”、“优化性能”、“optimize performance”、“optimize this code”时——这些是重构/性能优化任务，而非提示优化。",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/prompt-optimizer",
+      "relPath": "docs/zh-CN/skills/prompt-optimizer",
       "verified": true
     },
     {
@@ -1659,6 +4119,42 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/prompt-optimizer",
       "relPath": "skills/prompt-optimizer",
+      "verified": true
+    },
+    {
+      "name": "python-patterns",
+      "description": "Pythonic イディオム、PEP 8標準、型ヒント、堅牢で効率的かつ保守可能なPythonアプリケーションを構築するためのベストプラクティス。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/python-patterns",
+      "relPath": "docs/ja-JP/skills/python-patterns",
+      "verified": true
+    },
+    {
+      "name": "python-patterns",
+      "description": "Pythonic 惯用法、PEP 8 标准、类型提示以及构建稳健、高效且可维护的 Python 应用程序的最佳实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/python-patterns",
+      "relPath": "docs/zh-CN/skills/python-patterns",
+      "verified": true
+    },
+    {
+      "name": "python-patterns",
+      "description": "Pythonic idiomlar, PEP 8 standartları, type hint'ler ve sağlam, verimli ve bakımı kolay Python uygulamaları oluşturmak için en iyi uygulamalar.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/python-patterns",
+      "relPath": "docs/tr/skills/python-patterns",
       "verified": true
     },
     {
@@ -1687,6 +4183,42 @@
     },
     {
       "name": "python-testing",
+      "description": "pytest、TDD手法、フィクスチャ、モック、パラメータ化、カバレッジ要件を使用したPythonテスト戦略。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/python-testing",
+      "relPath": "docs/ja-JP/skills/python-testing",
+      "verified": true
+    },
+    {
+      "name": "python-testing",
+      "description": "使用pytest的Python测试策略，包括TDD方法、夹具、模拟、参数化和覆盖率要求。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/python-testing",
+      "relPath": "docs/zh-CN/skills/python-testing",
+      "verified": true
+    },
+    {
+      "name": "python-testing",
+      "description": "pytest, TDD metodolojisi, fixture'lar, mocking, parametrizasyon ve coverage gereksinimleri kullanarak Python test stratejileri.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/python-testing",
+      "relPath": "docs/tr/skills/python-testing",
+      "verified": true
+    },
+    {
+      "name": "python-testing",
       "description": "Python testing best practices using pytest including fixtures, parametrization, mocking, coverage analysis, async testing, and test organization. Use when writing or improving Python tests.",
       "version": "0.0.0",
       "license": "",
@@ -1711,6 +4243,18 @@
     },
     {
       "name": "pytorch-patterns",
+      "description": "PyTorch深度学习模式与最佳实践，用于构建稳健、高效且可复现的训练流程、模型架构和数据加载。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/pytorch-patterns",
+      "relPath": "docs/zh-CN/skills/pytorch-patterns",
+      "verified": true
+    },
+    {
+      "name": "pytorch-patterns",
       "description": "PyTorch deep learning patterns and best practices for building robust, efficient, and reproducible training pipelines, model architectures, and data loading.",
       "version": "0.0.0",
       "license": "",
@@ -1719,6 +4263,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/pytorch-patterns",
       "relPath": "skills/pytorch-patterns",
+      "verified": true
+    },
+    {
+      "name": "quality-nonconformance",
+      "description": "为受监管制造业中的质量控制、不合格调查、根本原因分析、纠正措施和供应商质量管理提供编码化专业知识。基于在FDA、IATF 16949和AS9100环境中拥有15年以上经验的质量工程师的见解。包括不合格报告生命周期管理、纠正与预防措施系统、统计过程控制解释和审核方法。适用于调查不合格、进行根本原因分析、管理纠正与预防措施、解释统计过程控制数据或处理供应商质量问题。license: Apache-2.0",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/quality-nonconformance",
+      "relPath": "docs/zh-CN/skills/quality-nonconformance",
       "verified": true
     },
     {
@@ -1735,6 +4291,18 @@
     },
     {
       "name": "ralphinho-rfc-pipeline",
+      "description": "基于RFC驱动的多智能体DAG执行模式，包含质量门、合并队列和工作单元编排。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/ralphinho-rfc-pipeline",
+      "relPath": "docs/zh-CN/skills/ralphinho-rfc-pipeline",
+      "verified": true
+    },
+    {
+      "name": "ralphinho-rfc-pipeline",
       "description": "RFC-driven multi-agent DAG execution pattern with quality gates, merge queues, and work unit orchestration.",
       "version": "0.0.0",
       "license": "",
@@ -1747,6 +4315,18 @@
     },
     {
       "name": "regex-vs-llm-structured-text",
+      "description": "选择在解析结构化文本时使用正则表达式还是大型语言模型的决策框架——从正则表达式开始，仅在低置信度的边缘情况下添加大型语言模型。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/regex-vs-llm-structured-text",
+      "relPath": "docs/zh-CN/skills/regex-vs-llm-structured-text",
+      "verified": true
+    },
+    {
+      "name": "regex-vs-llm-structured-text",
       "description": "Decision framework for choosing between regex and LLM when parsing structured text — start with regex, add LLM only for low-confidence edge cases.",
       "version": "0.0.0",
       "license": "",
@@ -1755,6 +4335,54 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/regex-vs-llm-structured-text",
       "relPath": "skills/regex-vs-llm-structured-text",
+      "verified": true
+    },
+    {
+      "name": "remotion-video-creation",
+      "description": "Best practices for Remotion - Video creation in React. 29 domain-specific rules covering 3D, animations, audio, captions, charts, transitions, and more.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/remotion-video-creation",
+      "relPath": "skills/remotion-video-creation",
+      "verified": true
+    },
+    {
+      "name": "repo-scan",
+      "description": "Cross-stack source code asset audit — classifies every file, detects embedded third-party libraries, and delivers actionable four-level verdicts per module with interactive HTML reports.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/repo-scan",
+      "relPath": "skills/repo-scan",
+      "verified": true
+    },
+    {
+      "name": "research-ops",
+      "description": "Evidence-first current-state research workflow for ECC. Use when the user wants fresh facts, comparisons, enrichment, or a recommendation built from current public evidence and any supplied local context.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/research-ops",
+      "relPath": "skills/research-ops",
+      "verified": true
+    },
+    {
+      "name": "returns-reverse-logistics",
+      "description": "用于退货授权、接收与检验、处置决策、退款处理、欺诈检测以及保修索赔管理的标准化专业知识。基于拥有15年以上经验的退货运营经理的见解。包括分级框架、处置经济学、欺诈模式识别和供应商回收流程。适用于处理产品退货、逆向物流、退款决策、退货欺诈检测或保修索赔时使用。license: Apache-2.0",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/returns-reverse-logistics",
+      "relPath": "docs/zh-CN/skills/returns-reverse-logistics",
       "verified": true
     },
     {
@@ -1771,6 +4399,18 @@
     },
     {
       "name": "rules-distill",
+      "description": "扫描技能以提取跨领域原则并将其提炼为规则——追加、修订或创建新的规则文件",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/rules-distill",
+      "relPath": "docs/zh-CN/skills/rules-distill",
+      "verified": true
+    },
+    {
+      "name": "rules-distill",
       "description": "Scan skills to extract cross-cutting principles and distill them into rules — append, revise, or create new rule files",
       "version": "0.0.0",
       "license": "",
@@ -1779,6 +4419,30 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/rules-distill",
       "relPath": "skills/rules-distill",
+      "verified": true
+    },
+    {
+      "name": "rust-patterns",
+      "description": "地道的Rust模式、所有权、错误处理、特质、并发，以及构建安全、高性能应用程序的最佳实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/rust-patterns",
+      "relPath": "docs/zh-CN/skills/rust-patterns",
+      "verified": true
+    },
+    {
+      "name": "rust-patterns",
+      "description": "Idiomatic Rust patterns, ownership, error handling, traits, concurrency, and best practices for building safe, performant applications.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/rust-patterns",
+      "relPath": "docs/tr/skills/rust-patterns",
       "verified": true
     },
     {
@@ -1795,6 +4459,30 @@
     },
     {
       "name": "rust-testing",
+      "description": "Rust测试模式，包括单元测试、集成测试、异步测试、基于属性的测试、模拟和覆盖率。遵循TDD方法学。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/rust-testing",
+      "relPath": "docs/zh-CN/skills/rust-testing",
+      "verified": true
+    },
+    {
+      "name": "rust-testing",
+      "description": "Rust testing patterns including unit tests, integration tests, async testing, property-based testing, mocking, and coverage. Follows TDD methodology.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/rust-testing",
+      "relPath": "docs/tr/skills/rust-testing",
+      "verified": true
+    },
+    {
+      "name": "rust-testing",
       "description": "Rust testing patterns including unit tests, integration tests, async testing, property-based testing, mocking, and coverage. Follows TDD methodology.",
       "version": "0.0.0",
       "license": "",
@@ -1807,7 +4495,7 @@
     },
     {
       "name": "safety-guard",
-      "description": "",
+      "description": "Use this skill to prevent destructive operations when working on production systems or running agents autonomously.",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1815,7 +4503,7 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/safety-guard",
       "relPath": "skills/safety-guard",
-      "verified": false
+      "verified": true
     },
     {
       "name": "santa-method",
@@ -1827,6 +4515,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/santa-method",
       "relPath": "skills/santa-method",
+      "verified": true
+    },
+    {
+      "name": "search-first",
+      "description": "研究优先于编码的工作流程。在编写自定义代码之前，搜索现有的工具、库和模式。调用研究员代理。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/search-first",
+      "relPath": "docs/zh-CN/skills/search-first",
       "verified": true
     },
     {
@@ -1854,6 +4554,18 @@
       "verified": true
     },
     {
+      "name": "security-bounty-hunter",
+      "description": "Hunt for exploitable, bounty-worthy security issues in repositories. Focuses on remotely reachable vulnerabilities that qualify for real reports instead of noisy local-only findings.",
+      "version": "1.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/security-bounty-hunter",
+      "relPath": "skills/security-bounty-hunter",
+      "verified": true
+    },
+    {
       "name": "security-review",
       "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.",
       "version": "0.0.0",
@@ -1863,6 +4575,66 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/security-review",
       "relPath": ".agents/skills/security-review",
+      "verified": true
+    },
+    {
+      "name": "security-review",
+      "description": "認証の追加、ユーザー入力の処理、シークレットの操作、APIエンドポイントの作成、支払い/機密機能の実装時にこのスキルを使用します。包括的なセキュリティチェックリストとパターンを提供します。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/security-review",
+      "relPath": "docs/ja-JP/skills/security-review",
+      "verified": true
+    },
+    {
+      "name": "security-review",
+      "description": "在添加身份验证、处理用户输入、处理机密信息、创建API端点或实现支付/敏感功能时使用此技能。提供全面的安全检查清单和模式。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/security-review",
+      "relPath": "docs/zh-CN/skills/security-review",
+      "verified": true
+    },
+    {
+      "name": "security-review",
+      "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/security-review",
+      "relPath": "docs/zh-TW/skills/security-review",
+      "verified": true
+    },
+    {
+      "name": "security-review",
+      "description": "인증 추가, 사용자 입력 처리, 시크릿 관리, API 엔드포인트 생성, 결제/민감한 기능 구현 시 이 스킬을 사용하세요. 포괄적인 보안 체크리스트와 패턴을 제공합니다.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/security-review",
+      "relPath": "docs/ko-KR/skills/security-review",
+      "verified": true
+    },
+    {
+      "name": "security-review",
+      "description": "Kimlik doğrulama eklerken, kullanıcı girdisi işlerken, secret'larla çalışırken, API endpoint'leri oluştururken veya ödeme/hassas özellikler uygularken bu skill'i kullanın. Kapsamlı güvenlik kontrol listesi ve kalıplar sağlar.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/security-review",
+      "relPath": "docs/tr/skills/security-review",
       "verified": true
     },
     {
@@ -1891,6 +4663,30 @@
     },
     {
       "name": "security-scan",
+      "description": "AgentShield を使用して、Claude Code の設定（.claude/ ディレクトリ）のセキュリティ脆弱性、設定ミス、インジェクションリスクをスキャンします。CLAUDE.md、settings.json、MCP サーバー、フック、エージェント定義をチェックします。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/security-scan",
+      "relPath": "docs/ja-JP/skills/security-scan",
+      "verified": true
+    },
+    {
+      "name": "security-scan",
+      "description": "使用AgentShield扫描您的Claude代码配置（.claude/目录），以发现安全漏洞、配置错误和注入风险。检查CLAUDE.md、settings.json、MCP服务器、钩子和代理定义。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/security-scan",
+      "relPath": "docs/zh-CN/skills/security-scan",
+      "verified": true
+    },
+    {
+      "name": "security-scan",
       "description": "Scan your Claude Code configuration (.claude/ directory) for security vulnerabilities, misconfigurations, and injection risks using AgentShield. Checks CLAUDE.md, settings.json, MCP servers, hooks, and agent definitions.",
       "version": "0.0.0",
       "license": "",
@@ -1899,6 +4695,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/security-scan",
       "relPath": "skills/security-scan",
+      "verified": true
+    },
+    {
+      "name": "seo",
+      "description": "Audit, plan, and implement SEO improvements across technical SEO, on-page optimization, structured data, Core Web Vitals, and content strategy. Use when the user wants better search visibility, SEO remediation, schema markup, sitemap/robots work, or keyword mapping.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/seo",
+      "relPath": "skills/seo",
       "verified": true
     },
     {
@@ -1915,6 +4723,18 @@
     },
     {
       "name": "skill-stocktake",
+      "description": "用于审计Claude技能和命令的质量。支持快速扫描（仅变更技能）和全面盘点模式，采用顺序子代理批量评估。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/skill-stocktake",
+      "relPath": "docs/zh-CN/skills/skill-stocktake",
+      "verified": true
+    },
+    {
+      "name": "skill-stocktake",
       "description": "Use when auditing Claude skills and commands for quality. Supports Quick Scan (changed skills only) and Full Stocktake modes with sequential subagent batch evaluation.",
       "version": "0.0.0",
       "license": "",
@@ -1923,6 +4743,54 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/skill-stocktake",
       "relPath": "skills/skill-stocktake",
+      "verified": true
+    },
+    {
+      "name": "social-graph-ranker",
+      "description": "Weighted social-graph ranking for warm intro discovery, bridge scoring, and network gap analysis across X and LinkedIn. Use when the user wants the reusable graph-ranking engine itself, not the broader outreach or network-maintenance workflow layered on top of it.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/social-graph-ranker",
+      "relPath": "skills/social-graph-ranker",
+      "verified": true
+    },
+    {
+      "name": "springboot-patterns",
+      "description": "Spring Boot architecture patterns, REST API design, layered services, data access, caching, async processing, and logging. Use for Java Spring Boot backend work.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/springboot-patterns",
+      "relPath": "docs/ja-JP/skills/springboot-patterns",
+      "verified": true
+    },
+    {
+      "name": "springboot-patterns",
+      "description": "Spring Boot架构模式、REST API设计、分层服务、数据访问、缓存、异步处理和日志记录。用于Java Spring Boot后端工作。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/springboot-patterns",
+      "relPath": "docs/zh-CN/skills/springboot-patterns",
+      "verified": true
+    },
+    {
+      "name": "springboot-patterns",
+      "description": "Spring Boot architecture patterns, REST API design, layered services, data access, caching, async processing, and logging. Use for Java Spring Boot backend work.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/springboot-patterns",
+      "relPath": "docs/tr/skills/springboot-patterns",
       "verified": true
     },
     {
@@ -1945,6 +4813,42 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/springboot-security",
+      "relPath": "docs/ja-JP/skills/springboot-security",
+      "verified": true
+    },
+    {
+      "name": "springboot-security",
+      "description": "Java Spring Boot 服务中认证/授权、验证、CSRF、密钥、标头、速率限制和依赖安全性的 Spring Security 最佳实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/springboot-security",
+      "relPath": "docs/zh-CN/skills/springboot-security",
+      "verified": true
+    },
+    {
+      "name": "springboot-security",
+      "description": "Spring Security best practices for authn/authz, validation, CSRF, secrets, headers, rate limiting, and dependency security in Java Spring Boot services.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/springboot-security",
+      "relPath": "docs/tr/skills/springboot-security",
+      "verified": true
+    },
+    {
+      "name": "springboot-security",
+      "description": "Spring Security best practices for authn/authz, validation, CSRF, secrets, headers, rate limiting, and dependency security in Java Spring Boot services.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-security",
       "relPath": "skills/springboot-security",
       "verified": true
@@ -1957,8 +4861,80 @@
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/springboot-tdd",
+      "relPath": "docs/ja-JP/skills/springboot-tdd",
+      "verified": true
+    },
+    {
+      "name": "springboot-tdd",
+      "description": "使用JUnit 5、Mockito、MockMvc、Testcontainers和JaCoCo进行Spring Boot的测试驱动开发。适用于添加功能、修复错误或重构时。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/springboot-tdd",
+      "relPath": "docs/zh-CN/skills/springboot-tdd",
+      "verified": true
+    },
+    {
+      "name": "springboot-tdd",
+      "description": "Test-driven development for Spring Boot using JUnit 5, Mockito, MockMvc, Testcontainers, and JaCoCo. Use when adding features, fixing bugs, or refactoring.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/springboot-tdd",
+      "relPath": "docs/tr/skills/springboot-tdd",
+      "verified": true
+    },
+    {
+      "name": "springboot-tdd",
+      "description": "Test-driven development for Spring Boot using JUnit 5, Mockito, MockMvc, Testcontainers, and JaCoCo. Use when adding features, fixing bugs, or refactoring.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/springboot-tdd",
       "relPath": "skills/springboot-tdd",
+      "verified": true
+    },
+    {
+      "name": "springboot-verification",
+      "description": "Verification loop for Spring Boot projects: build, static analysis, tests with coverage, security scans, and diff review before release or PR.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/springboot-verification",
+      "relPath": "docs/ja-JP/skills/springboot-verification",
+      "verified": true
+    },
+    {
+      "name": "springboot-verification",
+      "description": "Spring Boot项目验证循环：构建、静态分析、测试覆盖、安全扫描，以及发布或PR前的差异审查。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/springboot-verification",
+      "relPath": "docs/zh-CN/skills/springboot-verification",
+      "verified": true
+    },
+    {
+      "name": "springboot-verification",
+      "description": "Verification loop for Spring Boot projects: build, static analysis, tests with coverage, security scans, and diff review before release or PR.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/springboot-verification",
+      "relPath": "docs/tr/skills/springboot-verification",
       "verified": true
     },
     {
@@ -1987,6 +4963,54 @@
     },
     {
       "name": "strategic-compact",
+      "description": "任意の自動コンパクションではなく、タスクフェーズを通じてコンテキストを保持するための論理的な間隔での手動コンパクションを提案します。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/strategic-compact",
+      "relPath": "docs/ja-JP/skills/strategic-compact",
+      "verified": true
+    },
+    {
+      "name": "strategic-compact",
+      "description": "建议在逻辑间隔处手动压缩上下文，以在任务阶段中保留上下文，而非任意的自动压缩。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/strategic-compact",
+      "relPath": "docs/zh-CN/skills/strategic-compact",
+      "verified": true
+    },
+    {
+      "name": "strategic-compact",
+      "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/strategic-compact",
+      "relPath": "docs/zh-TW/skills/strategic-compact",
+      "verified": true
+    },
+    {
+      "name": "strategic-compact",
+      "description": "임의의 자동 컴팩션 대신 논리적 간격에서 수동 컨텍스트 압축을 제안하여 작업 단계를 통해 컨텍스트를 보존합니다.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/strategic-compact",
+      "relPath": "docs/ko-KR/skills/strategic-compact",
+      "verified": true
+    },
+    {
+      "name": "strategic-compact",
       "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
       "version": "0.0.0",
       "license": "",
@@ -1995,6 +5019,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/strategic-compact",
       "relPath": "skills/strategic-compact",
+      "verified": true
+    },
+    {
+      "name": "swift-actor-persistence",
+      "description": "在 Swift 中使用 actor 实现线程安全的数据持久化——基于内存缓存与文件支持的存储，通过设计消除数据竞争。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/swift-actor-persistence",
+      "relPath": "docs/zh-CN/skills/swift-actor-persistence",
       "verified": true
     },
     {
@@ -2011,6 +5047,18 @@
     },
     {
       "name": "swift-concurrency-6-2",
+      "description": "Swift 6.2 可接近的并发性 — 默认单线程，@concurrent 用于显式后台卸载，隔离一致性用于主 actor 类型。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/swift-concurrency-6-2",
+      "relPath": "docs/zh-CN/skills/swift-concurrency-6-2",
+      "verified": true
+    },
+    {
+      "name": "swift-concurrency-6-2",
       "description": "Swift 6.2 Approachable Concurrency — single-threaded by default, @concurrent for explicit background offloading, isolated conformances for main actor types.",
       "version": "0.0.0",
       "license": "",
@@ -2023,6 +5071,18 @@
     },
     {
       "name": "swift-protocol-di-testing",
+      "description": "基于协议的依赖注入，用于可测试的Swift代码——使用聚焦协议和Swift Testing模拟文件系统、网络和外部API。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/swift-protocol-di-testing",
+      "relPath": "docs/zh-CN/skills/swift-protocol-di-testing",
+      "verified": true
+    },
+    {
+      "name": "swift-protocol-di-testing",
       "description": "Protocol-based dependency injection for testable Swift code — mock file system, network, and external APIs using focused protocols and Swift Testing.",
       "version": "0.0.0",
       "license": "",
@@ -2031,6 +5091,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/swift-protocol-di-testing",
       "relPath": "skills/swift-protocol-di-testing",
+      "verified": true
+    },
+    {
+      "name": "swiftui-patterns",
+      "description": "SwiftUI 架构模式，使用 @Observable 进行状态管理，视图组合，导航，性能优化，以及现代 iOS/macOS UI 最佳实践。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/swiftui-patterns",
+      "relPath": "docs/zh-CN/skills/swiftui-patterns",
       "verified": true
     },
     {
@@ -2059,6 +5131,66 @@
     },
     {
       "name": "tdd-workflow",
+      "description": "新機能の作成、バグ修正、コードのリファクタリング時にこのスキルを使用します。ユニット、統合、E2Eテストを含む80%以上のカバレッジでテスト駆動開発を強制します。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/tdd-workflow",
+      "relPath": "docs/ja-JP/skills/tdd-workflow",
+      "verified": true
+    },
+    {
+      "name": "tdd-workflow",
+      "description": "在编写新功能、修复错误或重构代码时使用此技能。强制执行测试驱动开发，确保单元测试、集成测试和端到端测试的覆盖率超过80%。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/tdd-workflow",
+      "relPath": "docs/zh-CN/skills/tdd-workflow",
+      "verified": true
+    },
+    {
+      "name": "tdd-workflow",
+      "description": "Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/tdd-workflow",
+      "relPath": "docs/zh-TW/skills/tdd-workflow",
+      "verified": true
+    },
+    {
+      "name": "tdd-workflow",
+      "description": "새 기능 작성, 버그 수정 또는 코드 리팩터링 시 이 스킬을 사용하세요. 단위, 통합, E2E 테스트를 포함한 80% 이상의 커버리지로 테스트 주도 개발을 시행합니다.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/tdd-workflow",
+      "relPath": "docs/ko-KR/skills/tdd-workflow",
+      "verified": true
+    },
+    {
+      "name": "tdd-workflow",
+      "description": "Yeni özellikler yazarken, hata düzeltirken veya kod refactor ederken bu skill'i kullanın. Unit, integration ve E2E testlerini içeren %80+ kapsam ile test güdümlü geliştirmeyi zorlar.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/tdd-workflow",
+      "relPath": "docs/tr/skills/tdd-workflow",
+      "verified": true
+    },
+    {
+      "name": "tdd-workflow",
       "description": "Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.",
       "version": "1.0",
       "license": "",
@@ -2083,6 +5215,18 @@
     },
     {
       "name": "team-builder",
+      "description": "用于组合和派遣并行团队的交互式代理选择器",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/team-builder",
+      "relPath": "docs/zh-CN/skills/team-builder",
+      "verified": true
+    },
+    {
+      "name": "team-builder",
       "description": "Interactive agent picker for composing and dispatching parallel teams",
       "version": "0.0.0",
       "license": "",
@@ -2091,6 +5235,54 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/team-builder",
       "relPath": "skills/team-builder",
+      "verified": true
+    },
+    {
+      "name": "terminal-ops",
+      "description": "Evidence-first repo execution workflow for ECC. Use when the user wants a command run, a repo checked, a CI failure debugged, or a narrow fix pushed with exact proof of what was executed and verified.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/terminal-ops",
+      "relPath": "skills/terminal-ops",
+      "verified": true
+    },
+    {
+      "name": "token-budget-advisor",
+      "description": "Offers the user an informed choice about how much response depth to consume before answering. Use this skill when the user explicitly wants to control response length, depth, or token budget. TRIGGER when: \"token budget\", \"token count\", \"token usage\", \"token limit\", \"response length\", \"answer depth\", \"short version\", \"brief answer\", \"detailed answer\", \"exhaustive answer\", \"respuesta corta vs larga\", \"cuántos tokens\", \"ahorrar tokens\", \"responde al 50%\", \"dame la versión corta\", \"quiero controlar cuánto usas\", or clear variants where the user is explicitly asking to control answer size or depth. DO NOT TRIGGER when: user has already specified a level in the current session (maintain it), the request is clearly a one-word answer, or \"token\" refers to auth/session/payment tokens rather than response size.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/token-budget-advisor",
+      "relPath": "skills/token-budget-advisor",
+      "verified": true
+    },
+    {
+      "name": "ui-demo",
+      "description": "Record polished UI demo videos using Playwright. Use when the user asks to create a demo, walkthrough, screen recording, or tutorial video of a web application. Produces WebM videos with visible cursor, natural pacing, and professional feel.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/ui-demo",
+      "relPath": "skills/ui-demo",
+      "verified": true
+    },
+    {
+      "name": "unified-notifications-ops",
+      "description": "Operate notifications as one ECC-native workflow across GitHub, Linear, desktop alerts, hooks, and connected communication surfaces. Use when the real problem is alert routing, deduplication, escalation, or inbox collapse.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/unified-notifications-ops",
+      "relPath": "skills/unified-notifications-ops",
       "verified": true
     },
     {
@@ -2103,6 +5295,66 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/verification-loop",
       "relPath": ".agents/skills/verification-loop",
+      "verified": true
+    },
+    {
+      "name": "verification-loop",
+      "description": "",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ja-JP/skills/verification-loop",
+      "relPath": "docs/ja-JP/skills/verification-loop",
+      "verified": false
+    },
+    {
+      "name": "verification-loop",
+      "description": "Claude Code 会话的全面验证系统。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/verification-loop",
+      "relPath": "docs/zh-CN/skills/verification-loop",
+      "verified": true
+    },
+    {
+      "name": "verification-loop",
+      "description": "",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-TW/skills/verification-loop",
+      "relPath": "docs/zh-TW/skills/verification-loop",
+      "verified": false
+    },
+    {
+      "name": "verification-loop",
+      "description": "Claude Code 세션을 위한 포괄적인 검증 시스템.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/ko-KR/skills/verification-loop",
+      "relPath": "docs/ko-KR/skills/verification-loop",
+      "verified": true
+    },
+    {
+      "name": "verification-loop",
+      "description": "Claude Code oturumları için kapsamlı doğrulama sistemi.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/tr/skills/verification-loop",
+      "relPath": "docs/tr/skills/verification-loop",
       "verified": true
     },
     {
@@ -2143,6 +5395,18 @@
     },
     {
       "name": "video-editing",
+      "description": "AI辅助的视频编辑工作流程，用于剪辑、构建和增强实拍素材。涵盖从原始拍摄到FFmpeg、Remotion、ElevenLabs、fal.ai，再到Descript或CapCut最终润色的完整流程。适用于用户想要编辑视频、剪辑素材、制作vlog或构建视频内容的情况。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/video-editing",
+      "relPath": "docs/zh-CN/skills/video-editing",
+      "verified": true
+    },
+    {
+      "name": "video-editing",
       "description": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
       "version": "0.0.0",
       "license": "",
@@ -2151,6 +5415,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/video-editing",
       "relPath": "skills/video-editing",
+      "verified": true
+    },
+    {
+      "name": "videodb",
+      "description": "视频与音频的查看、理解与行动。查看：从本地文件、URL、RTSP/直播源或实时录制桌面获取内容；返回实时上下文和可播放流链接。理解：提取帧，构建视觉/语义/时间索引，并通过时间戳和自动剪辑搜索片段。行动：转码和标准化（编解码器、帧率、分辨率、宽高比），执行时间线编辑（字幕、文本/图像叠加、品牌化、音频叠加、配音、翻译），生成媒体资源（图像、音频、视频），并为直播流或桌面捕获的事件创建实时警报。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": ["Read", "Grep", "Glob", "Bash(python:*)"],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/videodb",
+      "relPath": "docs/zh-CN/skills/videodb",
       "verified": true
     },
     {
@@ -2167,6 +5443,18 @@
     },
     {
       "name": "visa-doc-translate",
+      "description": "将签证申请文件（图片）翻译成英文，并创建包含原文和译文的双语PDF",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/visa-doc-translate",
+      "relPath": "docs/zh-CN/skills/visa-doc-translate",
+      "verified": true
+    },
+    {
+      "name": "visa-doc-translate",
       "description": "Translate visa application documents (images) to English and create a bilingual PDF with original and translation",
       "version": "0.0.0",
       "license": "",
@@ -2175,6 +5463,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:skills/visa-doc-translate",
       "relPath": "skills/visa-doc-translate",
+      "verified": true
+    },
+    {
+      "name": "workspace-surface-audit",
+      "description": "Audit the active repo, MCP servers, plugins, connectors, env surfaces, and harness setup, then recommend the highest-value ECC-native skills, hooks, agents, and operator workflows. Use when the user wants help setting up Claude Code or understanding what capabilities are actually available in their environment.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:skills/workspace-surface-audit",
+      "relPath": "skills/workspace-surface-audit",
       "verified": true
     },
     {
@@ -2187,6 +5487,18 @@
       "allowedTools": [],
       "installUrl": "github:affaan-m/everything-claude-code:.agents/skills/x-api",
       "relPath": ".agents/skills/x-api",
+      "verified": true
+    },
+    {
+      "name": "x-api",
+      "description": "X/Twitter API集成，用于发布推文、线程、读取时间线、搜索和分析。涵盖OAuth认证模式、速率限制和平台原生内容发布。当用户希望以编程方式与X交互时使用。",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:affaan-m/everything-claude-code:docs/zh-CN/skills/x-api",
+      "relPath": "docs/zh-CN/skills/x-api",
       "verified": true
     },
     {

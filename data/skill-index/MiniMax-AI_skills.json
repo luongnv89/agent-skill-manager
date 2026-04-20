@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/MiniMax-AI/skills.git",
   "owner": "MiniMax-AI",
   "repo": "skills",
-  "updatedAt": "2026-03-27T23:21:29.064Z",
-  "skillCount": 15,
+  "updatedAt": "2026-04-20T06:33:14.195Z",
+  "skillCount": 23,
   "skills": [
     {
       "name": "android-native-dev",
@@ -15,6 +15,42 @@
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/android-native-dev",
       "relPath": "skills/android-native-dev",
+      "verified": true
+    },
+    {
+      "name": "buddy-sings",
+      "description": "Use when user wants their Claude Code pet (/buddy) to sing a song. Triggers on any request that combines the concept of their Claude Code buddy, pet, or companion with singing or music. Supports multilingual triggers — match equivalent phrases in any language.",
+      "version": "1.1",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:MiniMax-AI/skills:skills/buddy-sings",
+      "relPath": "skills/buddy-sings",
+      "verified": true
+    },
+    {
+      "name": "color-font-skill",
+      "description": "Choose presentation-ready color palettes and font pairings for PPT/design tasks. Use when users ask for visual theme choices, brand-safe palettes, or font recommendations. Triggers include: 配色, 色板, 字体, color palette, font, PPT配色, 字体搭配.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/color-font-skill",
+      "relPath": "plugins/pptx-plugin/skills/color-font-skill",
+      "verified": true
+    },
+    {
+      "name": "design-style-skill",
+      "description": "Select a consistent visual design system for PPT slides using radius/spacing style recipes. Use when users ask for overall style direction or component styling consistency. Includes Sharp/Soft/Rounded/Pill recipes, component mappings, typography/spacing rules, and mixing guidance. Triggers: 风格, style, radius, spacing, 圆角, 间距, PPT风格, 视觉风格, design style, component style.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/design-style-skill",
+      "relPath": "plugins/pptx-plugin/skills/design-style-skill",
       "verified": true
     },
     {
@@ -90,15 +126,27 @@
       "verified": true
     },
     {
-      "name": "minimax-multimodal-toolkit",
-      "description": "MiniMax multimodal model skill — use MiniMax Multi-Modal models for speech, music, video, and image. Create voice, music, video, and images with MiniMax AI: TTS (text-to-speech, voice cloning, voice design, multi-segment), music (songs, instrumentals), video (text-to-video, image-to-video, start-end frame, subject reference, templates, long-form multi-scene), image (text-to-image, image-to-image with character reference), and media processing (convert, concat, trim, extract). Use when the user mentions MiniMax, multimodal generation, or wants speech/music/video/image AI, MiniMax APIs, or FFmpeg workflows alongside MiniMax outputs.",
-      "version": "1.0",
+      "name": "minimax-music-gen",
+      "description": "Use when user wants to generate music, songs, or audio tracks. Triggers on any request involving music creation, song writing, lyrics generation, audio production, or covers. Also triggers when user provides lyrics and wants them turned into a song, or describes a mood/scene and wants background music. Supports multilingual triggers — match equivalent phrases in any language. Do NOT use for music playback of existing files, music theory questions, or music recommendation without generation.",
+      "version": "1.1",
       "license": "MIT",
       "creator": "",
       "compatibility": "",
       "allowedTools": [],
-      "installUrl": "github:MiniMax-AI/skills:skills/minimax-multimodal-toolkit",
-      "relPath": "skills/minimax-multimodal-toolkit",
+      "installUrl": "github:MiniMax-AI/skills:skills/minimax-music-gen",
+      "relPath": "skills/minimax-music-gen",
+      "verified": true
+    },
+    {
+      "name": "minimax-music-playlist",
+      "description": "Generate personalized music playlists by analyzing the user's music taste and generation feedback history. Triggers on any request involving playlist generation, music taste profiling, or personalized music recommendations. Supports multilingual triggers — match equivalent phrases in any language.",
+      "version": "2.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:MiniMax-AI/skills:skills/minimax-music-playlist",
+      "relPath": "skills/minimax-music-playlist",
       "verified": true
     },
     {
@@ -123,6 +171,42 @@
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/minimax-xlsx",
       "relPath": "skills/minimax-xlsx",
+      "verified": true
+    },
+    {
+      "name": "mmx-cli",
+      "description": "Use mmx to generate text, images, video, speech, and music via the MiniMax AI platform. Use when the user wants to create media content, chat with MiniMax models, perform web search, or manage MiniMax API resources from the terminal.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:MiniMax-AI/skills:skills/minimax-multimodal-toolkit",
+      "relPath": "skills/minimax-multimodal-toolkit",
+      "verified": true
+    },
+    {
+      "name": "ppt-editing-skill",
+      "description": "Edit existing PowerPoint files or templates with XML-safe workflows. Use for template-based deck updates: analyze layouts, map content to slides, duplicate/reorder/delete slides safely, edit slide XML in parallel, clean orphaned assets, and repack validated PPTX output.",
+      "version": "0.0.0",
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/ppt-editing-skill",
+      "relPath": "plugins/pptx-plugin/skills/ppt-editing-skill",
+      "verified": true
+    },
+    {
+      "name": "ppt-orchestra-skill",
+      "description": "Plan and orchestrate multi-slide PowerPoint creation from scratch. Use before generating a full deck with subagents: classify each slide type, enforce visual variety, set typography/spacing rules, and run text-based QA to catch content issues.",
+      "version": "0.0.0",
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/ppt-orchestra-skill",
+      "relPath": "plugins/pptx-plugin/skills/ppt-orchestra-skill",
       "verified": true
     },
     {
@@ -171,6 +255,18 @@
       "allowedTools": [],
       "installUrl": "github:MiniMax-AI/skills:skills/shader-dev",
       "relPath": "skills/shader-dev",
+      "verified": true
+    },
+    {
+      "name": "slide-making-skill",
+      "description": "Implement single-slide PowerPoint pages with PptxGenJS. Use when writing or fixing slide JS files: dimensions, positioning, text/image/chart APIs, styling rules, and export expectations for native .pptx output.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:MiniMax-AI/skills:plugins/pptx-plugin/skills/slide-making-skill",
+      "relPath": "plugins/pptx-plugin/skills/slide-making-skill",
       "verified": true
     },
     {

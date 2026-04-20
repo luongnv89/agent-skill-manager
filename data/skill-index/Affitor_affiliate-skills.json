@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/Affitor/affiliate-skills.git",
   "owner": "Affitor",
   "repo": "affiliate-skills",
-  "updatedAt": "2026-03-27T23:21:27.196Z",
-  "skillCount": 48,
+  "updatedAt": "2026-04-20T06:33:11.236Z",
+  "skillCount": 53,
   "skills": [
     {
       "name": "ab-test-generator",
@@ -126,6 +126,18 @@
       "verified": true
     },
     {
+      "name": "content-angle-ranker",
+      "description": "Rank content angles by engagement data, competition level, and platform fit. Data-driven angle selection instead of guesswork. Use this skill when the user has a keyword or product and needs to decide WHAT to create, which angle to take, which format to use, or which platform to target. Triggers on: \"what angle should I use\", \"rank content ideas for [keyword]\", \"best angle for [product]\", \"which content idea will perform best\", \"help me pick an angle\", \"what should I write about\", \"content angle for [topic]\", \"rank my content ideas\", \"which approach will get the most views\", \"data-driven content planning\", \"angle ranker\", \"content scoring\", \"which hook should I use\", \"compare these content ideas\", \"prioritize my content angles\", \"what video should I make\".",
+      "version": "1.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
+      "allowedTools": [],
+      "installUrl": "github:Affitor/affiliate-skills:skills/research/content-angle-ranker",
+      "relPath": "skills/research/content-angle-ranker",
+      "verified": true
+    },
+    {
       "name": "content-decay-detector",
       "description": "Monitor existing content for ranking drops and trigger refresh workflows. Triggers on: \"check for content decay\", \"which content needs updating\", \"content refresh\", \"ranking drops\", \"traffic decline\", \"stale content\", \"content audit\", \"what to refresh\", \"outdated content\", \"content performance check\", \"update old articles\", \"declining rankings\", \"content maintenance\", \"refresh priority list\", \"which articles are losing traffic\", \"SEO content audit\".",
       "version": "1.0",
@@ -171,6 +183,18 @@
       "allowedTools": [],
       "installUrl": "github:Affitor/affiliate-skills:skills/automation/content-repurposer",
       "relPath": "skills/automation/content-repurposer",
+      "verified": true
+    },
+    {
+      "name": "content-research-brief",
+      "description": "Research trending topics, collect source articles, and generate a structured research brief for content creation. Stop writing from thin air — write from real sources. Use this skill when the user wants to research a topic before writing, collect sources for an article, create a research-backed content brief, or says \"research [topic] for me\", \"find sources about [keyword]\", \"content brief for [topic]\", \"what's the latest on [product]\", \"research before writing\", \"collect articles about [keyword]\", \"trending news about [topic]\", \"gather sources for my article\", \"brief me on [topic]\", \"what are people saying about [product]\", \"news roundup for [keyword]\", \"research brief\", \"source collection\", \"content research\", \"prep research for writing\".",
+      "version": "1.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
+      "allowedTools": [],
+      "installUrl": "github:Affitor/affiliate-skills:skills/content/content-research-brief",
+      "relPath": "skills/content/content-research-brief",
       "verified": true
     },
     {
@@ -267,6 +291,18 @@
       "allowedTools": [],
       "installUrl": "github:Affitor/affiliate-skills:skills/blog/how-to-tutorial-writer",
       "relPath": "skills/blog/how-to-tutorial-writer",
+      "verified": true
+    },
+    {
+      "name": "infographic-generator",
+      "description": "Generate branded infographic specifications from any content or data. Outputs structured layout, copy, data visualization, and color scheme — ready to render as HTML/CSS, Satori, Canva, or any design tool. Use this skill when the user wants an infographic, data visual, social media image, comparison chart, stat card, or says \"create an infographic for [content]\", \"make a visual for my LinkedIn post\", \"design an image for [topic]\", \"stat graphic for [data]\", \"comparison infographic\", \"branded image\", \"social media graphic\", \"infographic for [blog post]\", \"data visualization\", \"visual content\", \"image for my post\", \"LinkedIn carousel image\", \"feature comparison chart\", \"pricing table image\".",
+      "version": "1.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
+      "allowedTools": [],
+      "installUrl": "github:Affitor/affiliate-skills:skills/content/infographic-generator",
+      "relPath": "skills/content/infographic-generator",
       "verified": true
     },
     {
@@ -519,6 +555,30 @@
       "allowedTools": [],
       "installUrl": "github:Affitor/affiliate-skills:skills/content/tiktok-script-writer",
       "relPath": "skills/content/tiktok-script-writer",
+      "verified": true
+    },
+    {
+      "name": "traffic-analyzer",
+      "description": "Analyze website traffic, global rank, engagement metrics, and traffic sources for any domain. Use this skill to evaluate affiliate program websites, compare competitor traffic, assess advertiser strength, or understand where an audience comes from. Triggers on: \"analyze traffic for [domain]\", \"how much traffic does [site] get\", \"compare traffic between [site A] and [site B]\", \"is [program] worth promoting based on traffic\", \"traffic analysis\", \"website analytics for [domain]\", \"where does [site] get traffic\", \"check if [advertiser] is legit\", \"evaluate [program] website health\", \"SimilarWeb analysis\", \"traffic sources for [domain]\", \"how popular is [site]\", \"website rank\", \"domain authority check\", \"compare affiliate program websites\".",
+      "version": "1.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
+      "allowedTools": [],
+      "installUrl": "github:Affitor/affiliate-skills:skills/research/traffic-analyzer",
+      "relPath": "skills/research/traffic-analyzer",
+      "verified": true
+    },
+    {
+      "name": "trending-content-scout",
+      "description": "Scan social platforms for top-performing content by engagement before you create anything. Use this skill when the user wants to see what content is winning in a niche, find viral content patterns, research what's working on YouTube/TikTok/X/Reddit, benchmark engagement, discover content gaps, or says \"what content is working for [topic]\", \"show me top performing content about [keyword]\", \"what's trending in [niche]\", \"find viral content about [product]\", \"content research for [keyword]\", \"what gets views in [niche]\", \"engagement analysis for [topic]\", \"scout the competition\", \"what videos are getting the most views about [keyword]\", \"social listening for [topic]\", \"trending content in [niche]\", \"top content analysis\", \"what hooks work for [keyword]\", \"content intelligence\", \"find winning formats\".",
+      "version": "1.0",
+      "license": "MIT",
+      "creator": "",
+      "compatibility": "Claude Code, ChatGPT, Gemini CLI, Cursor, Windsurf, OpenClaw, any AI agent",
+      "allowedTools": [],
+      "installUrl": "github:Affitor/affiliate-skills:skills/research/trending-content-scout",
+      "relPath": "skills/research/trending-content-scout",
       "verified": true
     },
     {

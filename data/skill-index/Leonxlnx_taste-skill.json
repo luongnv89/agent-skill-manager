@@ -2,8 +2,8 @@
   "repoUrl": "https://github.com/Leonxlnx/taste-skill.git",
   "owner": "Leonxlnx",
   "repo": "taste-skill",
-  "updatedAt": "2026-03-27T23:21:26.273Z",
-  "skillCount": 7,
+  "updatedAt": "2026-04-20T06:33:09.978Z",
+  "skillCount": 8,
   "skills": [
     {
       "name": "design-taste-frontend",
@@ -27,6 +27,18 @@
       "allowedTools": [],
       "installUrl": "github:Leonxlnx/taste-skill:skills/output-skill",
       "relPath": "skills/output-skill",
+      "verified": true
+    },
+    {
+      "name": "gpt-taste",
+      "description": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.",
+      "version": "0.0.0",
+      "license": "",
+      "creator": "",
+      "compatibility": "",
+      "allowedTools": [],
+      "installUrl": "github:Leonxlnx/taste-skill:skills/gpt-tasteskill",
+      "relPath": "skills/gpt-tasteskill",
       "verified": true
     },
     {
