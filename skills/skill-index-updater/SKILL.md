@@ -1,7 +1,7 @@
 ---
 name: skill-index-updater
 description: Add new GitHub skill repositories to the ASM curated index, audit discovered skills, update the website catalog, and create a PR. Use whenever someone shares GitHub URLs of skill repos to add, says "add this repo to the index", "update the skill catalog", "index these skills", "add new skill source", "new skill repo", or wants to onboard a new skill collection into ASM — even if they just paste a GitHub link without explanation.
-version: 1.0.0
+version: 1.1.0
 license: MIT
 compatibility: Claude Code
 allowed-tools: Bash Read Write Edit Grep Glob WebFetch Agent
@@ -86,9 +86,11 @@ For each discovered SKILL.md, parse the YAML frontmatter to extract:
 
 Report how many skills were found per repo. If a repo has **zero** SKILL.md files, flag it and ask the user whether to still include it (it might have skills added later).
 
-### Step 3: Audit Discovered Skills
+### Step 3: Audit and Evaluate Discovered Skills
 
-For each discovered skill, perform a lightweight audit:
+For each discovered skill, perform two checks — a lightweight audit **and** a quality evaluation using `asm eval`. Both run against the temp clone from Step 2; do not re-clone.
+
+#### 3a. Lightweight audit
 
 1. **Frontmatter completeness**: Does it have at minimum `name` and `description`?
 2. **Content check**: Does the SKILL.md have meaningful instruction content (not just frontmatter)?
@@ -100,17 +102,40 @@ For each discovered skill, perform a lightweight audit:
 
 This is a lightweight check — the full security audit runs when users install individual skills via `asm install`. The goal here is to catch obvious red flags before adding a repo to the curated index.
 
-Report the audit results:
+#### 3b. Quality evaluation with `asm eval`
+
+Run `asm eval` on each discovered skill directory and capture the JSON report. This gives reviewers a quality signal (structure, description, prompt engineering, safety, testability, naming) **before** the repo lands in the index, so they can spot obvious quality issues early:
+
+```bash
+asm eval "$TEMP_DIR/{repo}/{relPath}" --json
+```
+
+The JSON report contains `overallScore` (0-100), a letter `grade` (A/B/C/D/F), and a `categories[]` array with per-category scores. You do not need to re-run eval during indexing — `bun run preindex` (Step 7) invokes the evaluator via the ingester and writes `evalSummary` + `tokenCount` into `data/skill-index/{owner}_{repo}.json` automatically. The explicit run here is for **pre-commit visibility** only.
+
+#### Combined report
+
+Merge both checks into a single table so the user can see quality and safety at a glance:
 
 ```
 Repo: owner/repo (N skills discovered)
 
-  skill-name-1        OK     name + description present, no security flags
-  skill-name-2        WARN   missing description
-  skill-name-3        FLAG   contains shell execution patterns (exec, spawn)
+  skill-name-1        OK     92 / A    name + description present, no security flags
+  skill-name-2        WARN   58 / D    missing description
+  skill-name-3        FLAG   71 / C    contains shell execution patterns (exec, spawn)
 ```
 
-The current policy is **permissive** — accept all repos that have at least one valid skill (with name + description). Security warnings are informational only and do not block inclusion. This policy may become stricter in future versions.
+Columns: `audit status`, `eval overallScore / grade`, notes.
+
+The current policy is **permissive** — accept all repos that have at least one valid skill (with name + description). Security warnings and low eval scores are informational only and do not block inclusion; they exist so the reviewer can make an informed call. If a user asks "should we really add this one?", point at the eval categories for specifics. This policy may become stricter in future versions.
+
+#### Where the eval result ends up
+
+After Step 7 regenerates the index, each skill entry in `data/skill-index/{owner}_{repo}.json` gains two derived fields:
+
+- `tokenCount`: heuristic token estimate for the SKILL.md body
+- `evalSummary`: `{ overallScore, grade, categories[], evaluatedAt, evaluatedVersion }`
+
+These power the "est. tokens" and "eval score" badges shown in the website catalog, the TUI, and `asm inspect`. No manual editing required — the ingester populates them as part of `preindex`.
 
 ### Step 4: Check for Existing Repos to Update
 
@@ -180,13 +205,25 @@ If `bun run preindex` fails or takes too long, generate the index file manually 
       "compatibility": "",
       "allowedTools": [],
       "installUrl": "github:{owner}/{repo}:{relative/path/to/skill}",
-      "relPath": "relative/path/to/skill"
+      "relPath": "relative/path/to/skill",
+      "tokenCount": 0,
+      "evalSummary": {
+        "overallScore": 0,
+        "grade": "F",
+        "categories": [
+          { "id": "structure", "name": "Structure & completeness", "score": 0, "max": 10 }
+        ],
+        "evaluatedAt": "{ISO timestamp}",
+        "evaluatedVersion": "0.0.0"
+      }
     }
   ]
 }
 ```
 
 The `installUrl` format matters — it's how `asm install` locates skills. For single-skill repos (SKILL.md at root), omit the path portion. For multi-skill repos, include the relative path to the skill directory.
+
+If you fall back to manual generation, you can populate `tokenCount` and `evalSummary` by calling `asm eval <path> --json` on each skill directory and lifting the `overallScore`, `grade`, `categories`, `evaluatedAt` fields into the skill entry. When `preindex` succeeds, the ingester handles this for you automatically.
 
 ### Step 8: Rebuild Website Catalog
 
@@ -208,8 +245,9 @@ Run a final check:
 
 1. `data/skill-index-resources.json` is valid JSON and contains the new entries
 2. Each new `data/skill-index/{owner}_{repo}.json` exists and is valid JSON
-3. `website/catalog.json` is valid JSON and includes the new skills
-4. `git diff --stat` shows only the expected files changed
+3. Each skill entry in those index files has `tokenCount` (number) and `evalSummary` (object with `overallScore`, `grade`, `categories`) populated — if any are missing, re-run `bun run preindex` or fall back to manual population as described in Step 7
+4. `website/catalog.json` is valid JSON and includes the new skills
+5. `git diff --stat` shows only the expected files changed
 
 Report a summary to the user:
 
