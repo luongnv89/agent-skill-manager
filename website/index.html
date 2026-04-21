@@ -1947,8 +1947,8 @@ function getFiltered() {
   } else if (sortMode === 'grade') {
     const gradeRank = { 'A': 0, 'B': 1, 'C': 2, 'D': 3, 'F': 4 };
     results = results.slice().sort((a, b) => {
-      const ag = a.evalSummary ? gradeRank[a.evalSummary.grade] : 99;
-      const bg = b.evalSummary ? gradeRank[b.evalSummary.grade] : 99;
+      const ag = a.evalSummary ? (gradeRank[a.evalSummary.grade] ?? 99) : 99;
+      const bg = b.evalSummary ? (gradeRank[b.evalSummary.grade] ?? 99) : 99;
       if (ag !== bg) return ag - bg;
       // Within a grade bucket, higher overallScore first
       const as = a.evalSummary ? a.evalSummary.overallScore : -1;
@@ -2565,6 +2565,7 @@ function attachEvents() {
     if (e.key !== 'Enter' && e.key !== ' ') return;
     const card = e.target.closest('.skill-card');
     if (!card) return;
+    if (e.target.closest('.copy-btn')) return;
     e.preventDefault();
     lastFocusedCard = card;
     openModal(card.getAttribute('data-id'));
