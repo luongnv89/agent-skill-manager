@@ -1415,6 +1415,13 @@ function bar(score: number, max: number, width = 20): string {
 
 /**
  * Render a human-readable evaluation report (no ANSI — the CLI adds colour).
+ *
+ * Quality is the primary provider — its score drives the `Overall score:`
+ * headline and its categories get the familiar bar chart. Any additional
+ * providers (e.g. skill-creator) are surfaced as a one-line score next to
+ * the headline plus a dedicated findings block when they have something to
+ * say. This keeps a single `asm eval` call showing all results without
+ * duplicating quality's categories under a second heading.
  */
 export function formatReport(
   report: EvaluationReport & { providers?: ProviderEvalReport[] },
@@ -1424,6 +1431,16 @@ export function formatReport(
   lines.push(`SKILL.md:         ${report.skillMdPath}`);
   lines.push("");
   lines.push(`Overall score:    ${report.overallScore}/100  (${report.grade})`);
+
+  const extraProviders = (report.providers ?? []).filter(
+    (p) => p.id !== "quality",
+  );
+  for (const provider of extraProviders) {
+    const verdict = provider.passed ? "pass" : "fail";
+    const label = `${provider.id}@${provider.version}`;
+    lines.push(`  ${label}:  ${provider.score}/100  ${verdict}`);
+  }
+
   lines.push("");
   lines.push("Categories:");
   for (const c of report.categories) {
@@ -1443,22 +1460,13 @@ export function formatReport(
   } else {
     lines.push("No suggestions — skill looks great.");
   }
-  if (report.providers && report.providers.length > 0) {
+
+  for (const provider of extraProviders) {
+    if (provider.findings.length === 0) continue;
     lines.push("");
-    lines.push("Providers:");
-    for (const provider of report.providers) {
-      const verdict = provider.passed ? "pass" : "fail";
-      lines.push(
-        `  ${provider.id}@${provider.version}  ${provider.score}/100  ${verdict}`,
-      );
-      for (const category of provider.categories) {
-        lines.push(
-          `    ${category.name.padEnd(26)} ${category.score}/${category.max}`,
-        );
-      }
-      for (const finding of provider.findings) {
-        lines.push(`    [${finding.severity}] ${finding.message}`);
-      }
+    lines.push(`${provider.id}@${provider.version} findings:`);
+    for (const finding of provider.findings) {
+      lines.push(`  [${finding.severity}] ${finding.message}`);
     }
   }
   return lines.join("\n");
