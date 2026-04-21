@@ -2124,12 +2124,14 @@ describe("CLI integration: import", () => {
     );
     expect(exitCode).toBe(0);
     const result = JSON.parse(stdout);
-    // Most should be skipped (1 expected failure: codex-plugin provider missing locally)
-    expect(result.failed).toBe(1);
+    // Importing an export of the host's own state: nothing should install,
+    // every result is either skipped (provider present, already installed) or
+    // failed (provider missing on this host). The per-host failed count is not
+    // stable — it depends on which providers are configured — so we assert on
+    // the invariant instead: no results outside {skipped, failed}.
+    expect(result.installed).toBe(0);
     for (const r of result.results) {
-      if (r.status !== "failed") {
-        expect(r.status).toBe("skipped");
-      }
+      expect(["skipped", "failed"]).toContain(r.status);
     }
   });
 
