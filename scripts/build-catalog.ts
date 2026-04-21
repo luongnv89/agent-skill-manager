@@ -399,6 +399,19 @@ for (const file of files) {
 
 const skills = Array.from(skillMap.values());
 
+// Recompute skillCount per repo from the actual deduplicated skill entries so
+// that repos with true duplicates report the correct count (pre-dedup input
+// count is stale once any entry is skipped by the duplicate guard above).
+const actualSkillCountByRepo = new Map<string, number>();
+for (const skill of skills) {
+  const key = `${skill.owner}/${skill.repo}`;
+  actualSkillCountByRepo.set(key, (actualSkillCountByRepo.get(key) ?? 0) + 1);
+}
+for (const r of repos) {
+  const key = `${r.owner}/${r.repo}`;
+  r.skillCount = actualSkillCountByRepo.get(key) ?? 0;
+}
+
 // Sort skills alphabetically by name
 skills.sort((a, b) => a.name.localeCompare(b.name));
 

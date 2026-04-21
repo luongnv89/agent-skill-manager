@@ -156,10 +156,15 @@ describe("data/skill-index: token count + eval enrichment", () => {
 
 // ─── catalog dedup preserves distinct install paths (issue #201) ───────────
 
+const CATALOG_PATH = join(WEBSITE_DIR, "catalog.json");
+const catalogExists = existsSync(CATALOG_PATH);
+
 describe("catalog: preserves all distinct install targets (issue #201)", () => {
-  const catalog = JSON.parse(
-    readFileSync(join(WEBSITE_DIR, "catalog.json"), "utf-8"),
-  );
+  if (!catalogExists) {
+    test.skip("catalog.json not present — run `bun scripts/build-catalog.ts` to generate it", () => {});
+    return;
+  }
+  const catalog = JSON.parse(readFileSync(CATALOG_PATH, "utf-8"));
 
   test("catalog.totalSkills equals catalog.skills.length", () => {
     expect(catalog.totalSkills).toBe(catalog.skills.length);

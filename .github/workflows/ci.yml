@@ -102,6 +102,9 @@ jobs:
       - name: Make entry point executable
         run: chmod +x dist/agent-skill-manager.js
 
+      - name: Build catalog (required by build-verification tests)
+        run: bun scripts/build-catalog.ts
+
       - name: Run Node.js E2E tests
         run: bun test tests/e2e/node-e2e.test.ts tests/e2e/build-verification.test.ts
 
