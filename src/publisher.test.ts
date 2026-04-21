@@ -535,6 +535,30 @@ describe("publishSkill", () => {
     return async () => ({ ...makeDummySecurityReport(), ...overrides });
   }
 
+  // Tests must be host-independent: they should not take a different branch
+  // through publishSkill depending on whether the developer happens to have `gh`
+  // installed and authenticated. Each test that reaches step 6 passes this stub
+  // so results match across dev machines, CI, and the pre-commit hook.
+  function fakeGhCli(
+    overrides: Partial<{
+      available: boolean;
+      authenticated: boolean;
+      login: string | null;
+    }> = {},
+  ): () => Promise<{
+    available: boolean;
+    authenticated: boolean;
+    login: string | null;
+  }> {
+    const result = {
+      available: true,
+      authenticated: true,
+      login: "testuser",
+      ...overrides,
+    };
+    return async () => result;
+  }
+
   beforeEach(async () => {
     gitDir = await mkdtemp(join(tmpdir(), "publish-integ-"));
     // Init git repo
@@ -619,6 +643,7 @@ describe("publishSkill", () => {
         verdict: "warning",
         verdictReason: "Suspicious patterns detected",
       }),
+      _checkGhCliFn: fakeGhCli(),
     });
 
     // With --force + --dry-run, should succeed past the verdict check
@@ -653,6 +678,7 @@ describe("publishSkill", () => {
         verdict: "safe",
         verdictReason: "No issues found",
       }),
+      _checkGhCliFn: fakeGhCli(),
     });
 
     expect(result.success).toBe(true);
@@ -676,6 +702,7 @@ describe("publishSkill", () => {
         verdict: "safe",
         verdictReason: "Clean",
       }),
+      _checkGhCliFn: fakeGhCli(),
     });
 
     expect(result.success).toBe(true);
@@ -707,8 +734,9 @@ describe("publishSkill", () => {
   });
 
   test("fallback path when gh CLI is unavailable", async () => {
-    // Run with dry-run to avoid needing gh
-    // The test verifies the pipeline up through manifest generation
+    // This test's point is to exercise the `gh not available` branch explicitly.
+    // Stub gh as unavailable so the test runs the same whether or not the host
+    // has gh installed; the fallback path still produces a valid manifest.
     const result = await publishSkill({
       path: gitDir,
       dryRun: true,
@@ -718,9 +746,11 @@ describe("publishSkill", () => {
         verdict: "safe",
         verdictReason: "No issues found",
       }),
+      _checkGhCliFn: fakeGhCli({ available: false, authenticated: false }),
     });
 
-    // Regardless of gh availability, dry-run should succeed with a manifest
+    // Fallback path should still succeed with a manifest — PR creation is
+    // skipped, author falls back to metadata.creator.
     expect(result.success).toBe(true);
     expect(result.manifest).not.toBeNull();
     expect(result.error).toBeNull();
@@ -747,6 +777,7 @@ describe("publishSkill", () => {
       force: false,
       yes: true,
       _auditFn: fakeAudit({ verdict: "safe", verdictReason: "OK" }),
+      _checkGhCliFn: fakeGhCli(),
     });
 
     expect(result.success).toBe(false);
