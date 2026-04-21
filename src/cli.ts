@@ -4077,7 +4077,9 @@ async function cmdBundle(args: ParsedArgs) {
   const subcommand = args.subcommand;
 
   if (!subcommand) {
-    error("Missing subcommand. Use: create, install, list, show, remove, modify, or export");
+    error(
+      "Missing subcommand. Use: create, install, list, show, remove, modify, or export",
+    );
     console.error(`Run "asm bundle --help" for usage.`);
     process.exit(2);
   }
@@ -4387,7 +4389,9 @@ async function cmdBundle(args: ParsedArgs) {
         if (args.flags.json) {
           console.log(JSON.stringify(predefinedBundles, null, 2));
         } else {
-          console.error(ansi.bold(`Pre-defined Bundles (${predefinedBundles.length}):\n`));
+          console.error(
+            ansi.bold(`Pre-defined Bundles (${predefinedBundles.length}):\n`),
+          );
           for (const bundle of predefinedBundles) {
             const tagsStr =
               bundle.tags && bundle.tags.length > 0
@@ -4416,7 +4420,9 @@ async function cmdBundle(args: ParsedArgs) {
           console.log("No bundles found.");
           console.error(ansi.dim("Create one with: asm bundle create <name>"));
           console.error(
-            ansi.dim("List pre-defined bundles with: asm bundle list --predefined"),
+            ansi.dim(
+              "List pre-defined bundles with: asm bundle list --predefined",
+            ),
           );
         }
         return;
@@ -4530,7 +4536,9 @@ async function cmdBundle(args: ParsedArgs) {
       const bundleName = args.positional[0];
       if (!bundleName) {
         error("Missing required argument: <name>");
-        console.error(`Usage: asm bundle modify <name> [--add <installUrl>] [--remove <skillName>] [--description <desc>] [--author <author>] [--tags <tag,...>]`);
+        console.error(
+          `Usage: asm bundle modify <name> [--add <installUrl>] [--remove <skillName>] [--description <desc>] [--author <author>] [--tags <tag,...>]`,
+        );
         process.exit(2);
       }
 
@@ -4548,7 +4556,11 @@ async function cmdBundle(args: ParsedArgs) {
       const addUrl = args.flags.add;
       if (addUrl) {
         const newSkillRef: BundleSkillRef = {
-          name: addUrl.split("/").pop()?.replace(/\.json$/, "") ?? addUrl,
+          name:
+            addUrl
+              .split("/")
+              .pop()
+              ?.replace(/\.json$/, "") ?? addUrl,
           installUrl: addUrl,
         };
         bundle.skills.push(newSkillRef);
@@ -4567,7 +4579,9 @@ async function cmdBundle(args: ParsedArgs) {
           modified = true;
           console.error(ansi.green(`Removed skill "${removeSkill}"`));
         } else {
-          console.error(ansi.dim(`Skill "${removeSkill}" not found in bundle (no change)`));
+          console.error(
+            ansi.dim(`Skill "${removeSkill}" not found in bundle (no change)`),
+          );
         }
       }
 
@@ -4607,27 +4621,35 @@ async function cmdBundle(args: ParsedArgs) {
         newTags === null
       ) {
         console.error(ansi.bold(`Modifying bundle "${bundle.name}"`));
-        console.error(`  Current skills: ${bundle.skills.map((s) => s.name).join(", ")}`);
+        console.error(
+          `  Current skills: ${bundle.skills.map((s) => s.name).join(", ")}`,
+        );
         console.error(`  Description: ${bundle.description}`);
         console.error(`  Author: ${bundle.author}`);
         console.error(`  Tags: ${bundle.tags?.join(", ") ?? "(none)"}`);
         console.error(``);
 
-        process.stderr.write(`${ansi.bold("New description")} (Enter to keep current): `);
+        process.stderr.write(
+          `${ansi.bold("New description")} (Enter to keep current): `,
+        );
         const descInput = await readLine();
         if (descInput.trim()) {
           bundle.description = descInput.trim();
           modified = true;
         }
 
-        process.stderr.write(`${ansi.bold("New author")} (Enter to keep current): `);
+        process.stderr.write(
+          `${ansi.bold("New author")} (Enter to keep current): `,
+        );
         const authorInput = await readLine();
         if (authorInput.trim()) {
           bundle.author = authorInput.trim();
           modified = true;
         }
 
-        process.stderr.write(`${ansi.bold("New tags (comma-separated)")} (Enter to keep current): `);
+        process.stderr.write(
+          `${ansi.bold("New tags (comma-separated)")} (Enter to keep current): `,
+        );
         const tagsInput = await readLine();
         if (tagsInput.trim()) {
           bundle.tags = tagsInput
@@ -4681,8 +4703,7 @@ async function cmdBundle(args: ParsedArgs) {
       }
 
       const outputFile =
-        (args.positional[1] as string | undefined) ??
-        `./${bundleName}.json`;
+        (args.positional[1] as string | undefined) ?? `./${bundleName}.json`;
 
       const { resolve: resolvePath } = await import("path");
       const absOutputPath = resolvePath(outputFile);
@@ -4717,10 +4738,20 @@ async function cmdBundle(args: ParsedArgs) {
       }
 
       const { writeFile: fsWriteFile } = await import("fs/promises");
-      await fsWriteFile(absOutputPath, JSON.stringify(bundle, null, 2) + "\n", "utf-8");
+      await fsWriteFile(
+        absOutputPath,
+        JSON.stringify(bundle, null, 2) + "\n",
+        "utf-8",
+      );
 
       if (args.flags.json) {
-        console.log(JSON.stringify({ exported: true, path: absOutputPath, bundle }, null, 2));
+        console.log(
+          JSON.stringify(
+            { exported: true, path: absOutputPath, bundle },
+            null,
+            2,
+          ),
+        );
       } else {
         console.error(ansi.green(`Exported to ${absOutputPath}`));
       }
