@@ -459,6 +459,58 @@ mkdirSync(assetsOutDir, { recursive: true });
 
 writeFileSync(join(outDir, "catalog.json"), JSON.stringify(catalog), "utf-8");
 
+// ─── Bundles ─────────────────────────────────────────────────────────────────
+
+interface BundleSkill {
+  name: string;
+  installUrl: string;
+  description: string;
+}
+
+interface Bundle {
+  version: number;
+  name: string;
+  description: string;
+  author: string;
+  createdAt: string;
+  tags: string[];
+  skills: BundleSkill[];
+}
+
+interface BundlesData {
+  generatedAt: string;
+  totalBundles: number;
+  bundles: Bundle[];
+}
+
+const bundlesDir = join(root, "data", "bundles");
+const bundleFiles = existsSync(bundlesDir)
+  ? readdirSync(bundlesDir).filter((f) => f.endsWith(".json"))
+  : [];
+
+const bundles: Bundle[] = [];
+for (const file of bundleFiles.sort()) {
+  const filePath = join(bundlesDir, file);
+  try {
+    const bundle: Bundle = JSON.parse(readFileSync(filePath, "utf-8"));
+    bundles.push(bundle);
+  } catch (e) {
+    console.warn(`Skipping bundle ${file}: invalid JSON — ${e}`);
+  }
+}
+
+const bundlesData: BundlesData = {
+  generatedAt: new Date().toISOString(),
+  totalBundles: bundles.length,
+  bundles,
+};
+
+writeFileSync(
+  join(outDir, "bundles.json"),
+  JSON.stringify(bundlesData),
+  "utf-8",
+);
+
 // Copy logo assets
 const faviconSrc = join(root, "assets", "logo", "favicon.svg");
 if (existsSync(faviconSrc)) {
@@ -471,6 +523,7 @@ console.log(`Catalog built successfully:`);
 console.log(`  Skills: ${skills.length}`);
 console.log(`  Repos:  ${repos.length}`);
 console.log(`  Categories: ${categories.join(", ")}`);
+console.log(`  Bundles: ${bundles.length}`);
 
 // Category distribution
 const catCounts: Record<string, number> = {};

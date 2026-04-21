@@ -1112,6 +1112,134 @@ mark.hl {
   margin-bottom: 16px;
 }
 .page-content .back-link:hover { text-decoration: underline; }
+
+/* ─── Bundle Cards ─────────────────────────────────────────────────────── */
+.bundle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.bundle-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.bundle-card:hover {
+  border-color: var(--brand-dim);
+  box-shadow: 0 0 20px var(--brand-glow);
+  transform: translateY(-1px);
+}
+.bundle-name {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brand);
+}
+.bundle-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.bundle-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.bundle-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--badge-cat-bg);
+  color: var(--brand-dim);
+}
+.bundle-skills-header {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.bundle-skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.bundle-skill-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.bundle-skill-name {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 600;
+}
+.bundle-skill-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+.bundle-install {
+  margin-top: 4px;
+}
+.bundle-install-cmd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brand);
+  cursor: text;
+  user-select: all;
+  word-break: break-all;
+}
+.bundle-copy-btn {
+  flex-shrink: 0;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.bundle-copy-btn:hover { color: var(--brand); border-color: var(--brand); }
+.bundle-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.bundle-loading, .bundle-error {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
 /* Changelog-specific */
 .changelog-version {
   font-family: var(--font-mono);
@@ -1597,6 +1725,7 @@ mark.hl {
     <a href="#" class="site-title" onclick="navigateTo('catalog');return false;">asm <span>catalog</span></a>
     <nav class="header-nav">
       <a class="nav-link active" href="#" data-page="catalog" onclick="navigateTo('catalog');return false;">Skills</a>
+      <a class="nav-link" href="#bundles" data-page="bundles" onclick="navigateTo('bundles');return false;">Bundles</a>
       <a class="nav-link" href="#docs" data-page="docs" onclick="navigateTo('docs');return false;">Docs</a>
       <a class="nav-link" href="#registry" data-page="registry" onclick="navigateTo('registry');return false;">Registry</a>
       <a class="nav-link" href="#best-practices" data-page="best-practices" onclick="navigateTo('best-practices');return false;">Best Practices</a>
@@ -1685,6 +1814,9 @@ mark.hl {
 
 <!-- ─── Acknowledgements Page ─────────────────────────────────────────── -->
 <div id="page-acknowledgements" class="page-content"></div>
+
+<!-- ─── Bundles Page ─────────────────────────────────────────────────── -->
+<div id="page-bundles" class="page-content"></div>
 
 <!-- ─── Modal ───────────────────────────────────────────────────────────── -->
 <div class="modal-overlay" id="modal-overlay">
@@ -2624,14 +2756,16 @@ function navigateTo(page) {
   var bestPracticesEl = document.getElementById('page-best-practices');
   var changelogEl = document.getElementById('page-changelog');
   var acknowledgementsEl = document.getElementById('page-acknowledgements');
+  var bundlesEl = document.getElementById('page-bundles');
   docsEl.classList.toggle('active', page === 'docs');
   registryEl.classList.toggle('active', page === 'registry');
   bestPracticesEl.classList.toggle('active', page === 'best-practices');
   changelogEl.classList.toggle('active', page === 'changelog');
   acknowledgementsEl.classList.toggle('active', page === 'acknowledgements');
+  bundlesEl.classList.toggle('active', page === 'bundles');
   // Update hash
   if (page === 'catalog') {
-    if (location.hash === '#docs' || location.hash === '#registry' || location.hash === '#best-practices' || location.hash === '#changelog' || location.hash === '#acknowledgements') history.replaceState(null, '', location.pathname + location.search);
+    if (location.hash === '#docs' || location.hash === '#registry' || location.hash === '#best-practices' || location.hash === '#changelog' || location.hash === '#acknowledgements' || location.hash === '#bundles') history.replaceState(null, '', location.pathname + location.search);
   } else {
     history.replaceState(null, '', '#' + page);
   }
@@ -2641,12 +2775,13 @@ function navigateTo(page) {
   if (page === 'best-practices' && !bestPracticesEl.innerHTML) { renderBestPracticesPage(); addPreCopyButtons(bestPracticesEl); }
   if (page === 'changelog' && !changelogEl.innerHTML) { renderChangelogPage(); addPreCopyButtons(changelogEl); }
   if (page === 'acknowledgements' && !acknowledgementsEl.innerHTML) { renderAcknowledgementsPage(); }
+  if (page === 'bundles' && !bundlesEl.innerHTML) { renderBundlesPage(); }
   window.scrollTo(0, 0);
 }
 
 function handleHashChange() {
   var hash = location.hash.replace('#', '');
-  if (hash === 'docs' || hash === 'registry' || hash === 'best-practices' || hash === 'changelog' || hash === 'acknowledgements') {
+  if (hash === 'docs' || hash === 'registry' || hash === 'best-practices' || hash === 'changelog' || hash === 'acknowledgements' || hash === 'bundles') {
     navigateTo(hash);
   } else {
     navigateTo('catalog');
@@ -3888,6 +4023,101 @@ async function renderAcknowledgementsPage() {
   html += '</div>';
 
   target.innerHTML = html;
+}
+
+// ─── Bundles Page Content ────────────────────────────────────────────────────
+async function renderBundlesPage() {
+  var target = document.getElementById('page-bundles');
+  // Set loading state immediately so the !innerHTML guard prevents duplicate fetches.
+  target.innerHTML = '<h1>Pre-defined Bundles</h1><div class="bundle-loading">Loading bundles&hellip;</div>';
+
+  var data;
+  try {
+    var res = await fetch('bundles.json');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  } catch (err) {
+    target.innerHTML = '<h1>Pre-defined Bundles</h1>'
+      + '<div class="bundle-error">&#x26a0; Could not load bundles: ' + esc(err.message) + '</div>';
+    return;
+  }
+
+  var bundles = data.bundles || [];
+
+  var html = '<h1>Pre-defined Bundles</h1>'
+    + '<p>Curated skill collections for common workflows and domains. Install an entire bundle with a single command to get started fast.</p>'
+    + '<p>Install a bundle: <code>asm bundle install &lt;name&gt;</code></p>'
+    + '<div class="bundle-grid">';
+
+  for (var i = 0; i < bundles.length; i++) {
+    var b = bundles[i];
+    var name = esc(b.name || '');
+    var desc = esc(b.description || '');
+    var tags = b.tags || [];
+    var bSkills = b.skills || [];
+    var installCmd = 'asm bundle install ' + (b.name || '');
+
+    // Tags
+    var tagsHtml = '';
+    for (var t = 0; t < tags.length; t++) {
+      tagsHtml += '<span class="bundle-tag">' + esc(tags[t]) + '</span>';
+    }
+
+    // Skills list
+    var skillsHtml = '';
+    for (var s = 0; s < bSkills.length; s++) {
+      var sk = bSkills[s];
+      skillsHtml += '<div class="bundle-skill-item">'
+        + '<span class="bundle-skill-name">' + esc(sk.name || '') + '</span>'
+        + '<span class="bundle-skill-desc">' + esc(sk.description || '') + '</span>'
+        + '</div>';
+    }
+
+    html += '<div class="bundle-card">'
+      + '<div class="bundle-name">' + name + '</div>'
+      + '<div class="bundle-desc">' + desc + '</div>'
+      + (tagsHtml ? '<div class="bundle-tags">' + tagsHtml + '</div>' : '')
+      + '<div>'
+        + '<div class="bundle-skills-header">' + esc(String(bSkills.length)) + ' skill' + (bSkills.length !== 1 ? 's' : '') + ' included</div>'
+        + '<div class="bundle-skill-list">' + skillsHtml + '</div>'
+      + '</div>'
+      + '<div class="bundle-install">'
+        + '<div class="bundle-install-cmd">'
+          + '<span style="flex:1">' + esc(installCmd) + '</span>'
+          + '<button class="bundle-copy-btn" onclick="copyBundleCmd(this, ' + JSON.stringify(installCmd) + ')">copy</button>'
+        + '</div>'
+      + '</div>'
+      + '<div class="bundle-stats">'
+        + '<span>&#x25a0; ' + esc(String(bSkills.length)) + ' skills</span>'
+        + (b.author ? '<span>by ' + esc(b.author) + '</span>' : '')
+      + '</div>'
+      + '</div>';
+  }
+
+  html += '</div>';
+
+  if (bundles.length === 0) {
+    html = '<h1>Pre-defined Bundles</h1>'
+      + '<div class="bundle-error">No bundles found.</div>';
+  }
+
+  target.innerHTML = html;
+}
+
+function copyBundleCmd(btn, cmd) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(cmd).then(function() { showCopied(btn); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = cmd;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showCopied(btn);
+  }
 }
 
 // ─── Boot ──────────────────────────────────────────────────────────────────
