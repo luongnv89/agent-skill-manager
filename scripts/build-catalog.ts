@@ -19,6 +19,7 @@ import { createHash } from "crypto";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import MiniSearch from "minisearch";
+import { MINISEARCH_OPTIONS } from "./minisearch-options";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const indexDir = join(root, "data", "skill-index");
@@ -482,10 +483,22 @@ writeFileSync(join(outDir, "catalog.json"), JSON.stringify(catalog), "utf-8");
 // tests still consume it); the split artifacts are derived deterministically.
 
 // Filesystem-safe slug for each skill. IDs contain `/` and `::` so we hash
-// them; 16 hex chars (64 bits) collision-free for 6.7K skills. The slug is
-// embedded in every slim row so the frontend never has to recompute it.
+// them; 16 hex chars (64 bits) collision-free for 6.7K skills (~2.5e-9
+// probability). The slug is embedded in every slim row so the frontend
+// never has to recompute it. Defence-in-depth: track seen slugs and throw
+// on collision so a silently-overwritten detail file can't ship.
+const seenSlugs = new Map<string, string>();
 function slugForId(id: string): string {
-  return createHash("sha1").update(id).digest("hex").slice(0, 16);
+  const slug = createHash("sha1").update(id).digest("hex").slice(0, 16);
+  const prior = seenSlugs.get(slug);
+  if (prior !== undefined && prior !== id) {
+    throw new Error(
+      `Slug collision: SHA1(${id}) and SHA1(${prior}) both truncate to ${slug}. ` +
+        `Widen slice in slugForId or disambiguate inputs.`,
+    );
+  }
+  seenSlugs.set(slug, id);
+  return slug;
 }
 
 interface SkillsMinRow {
@@ -567,25 +580,14 @@ writeFileSync(
   "utf-8",
 );
 
-// MiniSearch options — MUST stay in lockstep with the frontend loader in
-// website/index.html (search `MINISEARCH_OPTIONS`). The index deserializer
-// requires the exact same options that were used at build time.
+// MiniSearch options live in ./minisearch-options.ts so the build-verification
+// test can import them and compare against the frontend's inline copy — see
+// that file's doc comment for why we split it out.
 //
-// `id` is the row's position in skills.min.json.skills (so the frontend can
+// `id` is the row's position in skills.min.json.skills so the frontend can
 // look the row up by array index instead of re-storing the full string ID
-// twice in the serialized index — saves ~1.5 MB on search.idx.json).
-const miniSearchOptions = {
-  idField: "id",
-  fields: ["name", "description", "categoriesStr"],
-  storeFields: [] as string[],
-  searchOptions: {
-    boost: { name: 3, description: 1, categoriesStr: 1 },
-    prefix: true,
-    fuzzy: 0.2,
-  },
-};
-
-const miniSearch = new MiniSearch(miniSearchOptions);
+// twice in the serialized index — saves ~1.5 MB on search.idx.json.
+const miniSearch = new MiniSearch(MINISEARCH_OPTIONS);
 miniSearch.addAll(
   skills.map((s, i) => ({
     id: i,

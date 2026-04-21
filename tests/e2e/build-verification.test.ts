@@ -1,6 +1,7 @@
 import { describe, test, expect } from "bun:test";
 import { join, resolve } from "path";
 import { readFileSync, existsSync, readdirSync, statSync } from "fs";
+import { MINISEARCH_OPTIONS } from "../../scripts/minisearch-options";
 
 const WEBSITE_DIR = resolve(import.meta.dir, "..", "..", "website");
 
@@ -341,29 +342,46 @@ describe("catalog: split artifacts (issue #214)", () => {
   });
 
   test("MiniSearch options match between build script and frontend loader", () => {
-    // Guard against silent scoring drift: if the `fields`, `idField`, or
-    // `boost` weights diverge between the build-time construction and the
-    // frontend's loadJSON call, search relevance breaks without any error.
-    const buildTs = readFileSync(
-      join(WEBSITE_DIR, "..", "scripts", "build-catalog.ts"),
-      "utf-8",
-    );
+    // Guard against silent scoring drift: if any option (fields, idField,
+    // boost weights, fuzzy, prefix, storeFields) diverges between the
+    // build-time serialization and the frontend's loadJSON call, relevance
+    // ranking breaks without any thrown error. The build script imports
+    // MINISEARCH_OPTIONS directly from scripts/minisearch-options.ts, so
+    // we compare the frontend's inline copy against that canonical module.
     const html = readFileSync(join(WEBSITE_DIR, "index.html"), "utf-8");
 
-    // Extract an option value from each source, normalizing quote style so
-    // "x" and 'x' compare equal (build uses double, frontend single).
-    function extractOption(src: string, key: string): string | null {
-      const m = src.match(
-        new RegExp(`${key}\\s*:\\s*(\\[[^\\]]*\\]|['"][^'"]*['"]|\\d+)`),
-      );
-      return m ? m[1].replace(/\s+/g, "").replace(/'/g, '"') : null;
+    // Find the frontend options literal and slice its balanced-brace body.
+    // A regex with `\[[^\]]*\]` would silently return null on multi-line
+    // arrays and let the test pass vacuously, so we walk braces instead.
+    const marker = "const MINISEARCH_OPTIONS = {";
+    const start = html.indexOf(marker);
+    expect(start).toBeGreaterThanOrEqual(0);
+    const braceStart = html.indexOf("{", start);
+    let depth = 0;
+    let end = -1;
+    for (let i = braceStart; i < html.length; i++) {
+      const ch = html[i];
+      if (ch === "{") depth++;
+      else if (ch === "}") {
+        depth--;
+        if (depth === 0) {
+          end = i;
+          break;
+        }
+      }
     }
-    for (const key of ["idField", "fields"]) {
-      const build = extractOption(buildTs, key);
-      const front = extractOption(html, key);
-      expect(build).not.toBeNull();
-      expect(front).toBe(build);
-    }
+    expect(end).toBeGreaterThan(braceStart);
+    const literal = html.slice(braceStart, end + 1);
+
+    // The inline copy is JS (unquoted keys, single quotes, optional trailing
+    // commas). Convert to strict JSON: double-quote keys, swap quote style,
+    // strip trailing commas.
+    const jsonLike = literal
+      .replace(/([{,]\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*:)/g, '$1"$2"$3')
+      .replace(/'([^']*)'/g, '"$1"')
+      .replace(/,(\s*[}\]])/g, "$1");
+    const frontendOptions = JSON.parse(jsonLike);
+    expect(frontendOptions).toEqual(MINISEARCH_OPTIONS);
   });
 
   test("search.idx.json deserializes and finds a known query (smoke test)", async () => {

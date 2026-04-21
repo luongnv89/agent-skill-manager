@@ -2382,7 +2382,8 @@ function getPaginationRange(current, total) {
 // Stores the in-flight promise so concurrent opens don't double-fetch.
 const detailCache = new Map();
 // Request token to guard against race conditions when the user clicks
-// card A then card B before A's detail resolves.
+// card A then card B before A's detail resolves. closeModal() bumps it
+// too so an in-flight fetch doesn't inject into a closed overlay.
 let openModalToken = 0;
 
 function fetchSkillDetail(slimSkill) {
@@ -2525,6 +2526,12 @@ function trapFocus(el) {
 }
 
 function closeModal() {
+  // Invalidate any in-flight detail fetch so its resolution doesn't inject
+  // stale content into the hidden modal DOM. (The network request itself
+  // still completes; the ~1.4 KB payload isn't worth an AbortController
+  // that would break rapid same-card re-clicks by aborting the shared
+  // promise in the detailCache.)
+  ++openModalToken;
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
   if (_focusTrapHandler) {

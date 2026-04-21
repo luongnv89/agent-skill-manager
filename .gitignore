@@ -20,7 +20,10 @@ Thumbs.db
 # Coverage
 coverage/
 
-# Website (generated at build time)
+# Website (generated at build time by `bun scripts/build-catalog.ts`, also
+# run by .github/workflows/deploy-website.yml before the Pages upload).
+# Kept out of git to avoid noisy diffs and keep data/skill-index/*.json as
+# the single source of truth.
 website/catalog.json
 website/bundles.json
 website/skills.min.json
