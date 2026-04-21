@@ -1457,6 +1457,15 @@ mark.hl {
   .site-header.menu-open .header-nav { display: flex; }
   .nav-link { font-size: 14px; padding: 12px 20px; min-height: 44px; display: flex; align-items: center; border-radius: 0; }
   .nav-link.active { border-left: 3px solid var(--brand); padding-left: 17px; }
+  .header-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px 4px;
+    margin-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .header-nav-actions .gh-link { flex: 1; justify-content: center; }
   .gh-link { min-height: 44px; display: inline-flex; align-items: center; }
   .theme-toggle { width: 44px; height: 44px; }
   .header-version { display: none; }
@@ -2850,7 +2859,32 @@ function closeMobileMenu() {
 (function initMobileMenu() {
   var btn = document.getElementById('menu-toggle');
   var header = document.querySelector('.site-header');
-  if (!btn || !header) return;
+  var nav = document.getElementById('header-nav');
+  var headerRight = document.querySelector('.header-right');
+  var themeToggle = document.getElementById('theme-toggle');
+  var ghLink = document.querySelector('.gh-link');
+  if (!btn || !header || !nav || !headerRight || !themeToggle || !ghLink) return;
+
+  // Anchors to restore original desktop DOM order inside .header-right.
+  var themeAnchor = themeToggle.nextSibling;
+  var ghAnchor = ghLink.nextSibling;
+
+  // Wrapper appended to the nav dropdown on mobile that hosts the theme
+  // toggle + GitHub link below the nav links, separated by a divider.
+  var mobileActions = document.createElement('div');
+  mobileActions.className = 'header-nav-actions';
+
+  function moveToNav() {
+    if (mobileActions.parentNode !== nav) nav.appendChild(mobileActions);
+    if (themeToggle.parentNode !== mobileActions) mobileActions.appendChild(themeToggle);
+    if (ghLink.parentNode !== mobileActions) mobileActions.appendChild(ghLink);
+  }
+  function moveToHeader() {
+    if (themeToggle.parentNode !== headerRight) headerRight.insertBefore(themeToggle, themeAnchor);
+    if (ghLink.parentNode !== headerRight) headerRight.insertBefore(ghLink, ghAnchor);
+    if (mobileActions.parentNode === nav) nav.removeChild(mobileActions);
+  }
+
   btn.addEventListener('click', function(e) {
     e.stopPropagation();
     if (header.classList.contains('menu-open')) {
@@ -2870,10 +2904,20 @@ function closeMobileMenu() {
       btn.focus();
     }
   });
-  // Close the menu when the viewport grows past the mobile breakpoint so the
-  // dropdown doesn't stay stuck open after rotating or resizing to desktop.
+
+  // Reparent theme + GitHub into the dropdown on mobile, back into
+  // .header-right on desktop. Listening once for both sync and change.
   var mql = window.matchMedia('(min-width: 769px)');
-  var onChange = function(ev) { if (ev.matches) closeMobileMenu(); };
+  var apply = function(isDesktop) {
+    if (isDesktop) {
+      closeMobileMenu();
+      moveToHeader();
+    } else {
+      moveToNav();
+    }
+  };
+  apply(mql.matches);
+  var onChange = function(ev) { apply(ev.matches); };
   if (mql.addEventListener) mql.addEventListener('change', onChange);
   else if (mql.addListener) mql.addListener(onChange);
 })();
