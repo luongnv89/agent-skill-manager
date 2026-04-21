@@ -784,6 +784,15 @@ mark.hl {
   line-height: 1.6;
   margin-bottom: 20px;
 }
+.modal-loading, .modal-error {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+.modal-error { color: var(--accent-warn, #c94a4a); border-style: solid; }
 .modal-meta {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -1897,6 +1906,7 @@ mark.hl {
   </p>
 </footer>
 
+<script src="assets/minisearch.min.js"></script>
 <script>
 // ─── Theme ─────────────────────────────────────────────────────────────────
 (function initTheme() {
@@ -2039,10 +2049,20 @@ function esc(str) {
 // Wrap query-token matches in <mark class="hl">. Operates on already-escaped
 // HTML so it stays XSS-safe — esc() never produces angle brackets, and the
 // regex only inserts fixed <mark> tags.
-function highlightMatches(text, query) {
+//
+// `terms` — optional explicit token list from MiniSearch's `search()` result
+// (`hit.terms`). When provided, these are used as-is so prefix/fuzzy
+// expansions ("clade" → "claude") are highlighted correctly. When absent,
+// falls back to tokenizing the raw query (same behaviour as before).
+function highlightMatches(text, query, terms) {
   const escaped = esc(text);
-  if (!query || !query.trim()) return escaped;
-  const tokens = query.trim().toLowerCase().split(/[\s\-_.,;:()[\]{}"']+/).filter(t => t.length >= 2);
+  let tokens;
+  if (terms && terms.length) {
+    tokens = terms.map(t => String(t).toLowerCase()).filter(t => t.length >= 2);
+  } else {
+    if (!query || !query.trim()) return escaped;
+    tokens = query.trim().toLowerCase().split(/[\s\-_.,;:()[\]{}"']+/).filter(t => t.length >= 2);
+  }
   if (!tokens.length) return escaped;
   // Dedupe + sort by length (longest first) so overlapping matches prefer the
   // most specific token, and escape regex metacharacters in tokens.
@@ -2059,39 +2079,34 @@ function highlightMatches(text, query) {
     .join('');
 }
 
-// ─── Search (originally mirrored src/skill-index.ts scoring; #186 extends it
-// with category-aware scoring so search also surfaces "writing" / "design" /
-// etc. Drift from skill-index.ts accepted — tracked as follow-up.)
-const SCORE_NAME_EXACT = 10;
-const SCORE_NAME_PARTIAL = 5;
-const SCORE_DESC_EXACT = 3;
-const SCORE_DESC_PARTIAL = 1;
-
-function tokenize(text) {
-  const tokens = new Set();
-  const words = text.toLowerCase().split(/[\s\-_.,;:()[\]{}"']+/);
-  for (const w of words) {
-    if (w.length >= 2) tokens.add(w);
+// ─── Search (MiniSearch, issue #214) ───────────────────────────────────────
+// Options MUST match the build script (scripts/build-catalog.ts — search for
+// `miniSearchOptions`). The serialized index depends on the exact same
+// tokenization + field config.
+const MINISEARCH_OPTIONS = {
+  idField: 'id',
+  fields: ['name', 'description', 'categoriesStr'],
+  storeFields: [],
+  searchOptions: {
+    boost: { name: 3, description: 1, categoriesStr: 1 },
+    prefix: true,
+    fuzzy: 0.2
   }
-  return tokens;
-}
+};
+// Populated in boot(). Null until the index finishes loading.
+let miniSearch = null;
+// Last search terms (incl. prefix/fuzzy expansions) so highlightMatches can
+// mark the actual matched tokens rather than the raw query string.
+let lastSearchTerms = null;
 
-function scoreSkill(query, skill) {
-  const qt = tokenize(query);
-  const nt = tokenize(skill.name);
-  const dt = tokenize(skill.description);
-  const catStr = (skill.categories || []).join(' ').toLowerCase();
-  const ct = tokenize(catStr);
-  let score = 0;
-  for (const q of qt) {
-    if (nt.has(q)) score += SCORE_NAME_EXACT;
-    if (dt.has(q)) score += SCORE_DESC_EXACT;
-    if (skill.name.toLowerCase().includes(q)) score += SCORE_NAME_PARTIAL;
-    if (skill.description.toLowerCase().includes(q)) score += SCORE_DESC_PARTIAL;
-    // Category match — low weight, helps surface obvious topical hits
-    if (ct.has(q)) score += SCORE_DESC_PARTIAL;
+// Flatten the per-hit `terms` arrays into a deduped list for highlight use.
+function extractTerms(hits) {
+  const seen = new Set();
+  for (const h of hits) {
+    if (!Array.isArray(h.terms)) continue;
+    for (const t of h.terms) if (t) seen.add(String(t).toLowerCase());
   }
-  return score;
+  return Array.from(seen);
 }
 
 // ─── Filter & Search ───────────────────────────────────────────────────────
@@ -2124,7 +2139,9 @@ function getFiltered() {
   }
   if (activeFacets.usesTools.size > 0) {
     results = results.filter(s => {
-      const yes = !!(s.allowedTools && s.allowedTools.length > 0);
+      // Slim rows carry `hasTools`; fall back to allowedTools for anywhere
+      // the full-catalog shape is still passed in.
+      const yes = s.hasTools === true || !!(s.allowedTools && s.allowedTools.length > 0);
       return (yes && activeFacets.usesTools.has('yes')) || (!yes && activeFacets.usesTools.has('no'));
     });
   }
@@ -2138,19 +2155,31 @@ function getFiltered() {
     return bf - af;
   };
 
-  // Search — keep score-ordered results when relevance sort is in use, but
-  // still float featured skills above the rest.
+  // Search — MiniSearch with prefix + fuzzy. We build a Set of matching IDs
+  // up front, intersect with the filter-narrowed `results`, then reorder by
+  // score. Featured-first pinning is preserved above score order.
   let scored = null;
-  if (searchQuery.trim()) {
+  if (searchQuery.trim() && miniSearch) {
+    const hits = miniSearch.search(searchQuery.trim());
+    lastSearchTerms = extractTerms(hits);
+    // hit.id is the row's position in catalog.skills (built that way at
+    // build-time; see scripts/build-catalog.ts).
+    const scoreById = new Map();
+    for (const h of hits) {
+      const skill = catalog.skills[h.id];
+      if (skill) scoreById.set(skill.id, h.score);
+    }
     scored = results
-      .map(s => ({ skill: s, score: scoreSkill(searchQuery, s) }))
-      .filter(r => r.score > 0)
+      .filter(s => scoreById.has(s.id))
+      .map(s => ({ skill: s, score: scoreById.get(s.id) }))
       .sort((a, b) => {
         const f = featuredFirst(a.skill, b.skill);
         if (f !== 0) return f;
         return b.score - a.score;
       });
     results = scored.map(r => r.skill);
+  } else {
+    lastSearchTerms = null;
   }
 
   // Sort — apply AFTER filters. 'relevance' is a no-op when search is active
@@ -2227,8 +2256,14 @@ function evalScoreClass(score) {
 function renderCard(s) {
   const cmd = 'asm install ' + s.installUrl;
   const cats = s.categories.map(c => '<span class="badge badge-cat">' + esc(c) + '</span>').join('');
-  const warn = s.allowedTools && s.allowedTools.length > 0
-    ? '<span class="badge badge-warn" tabindex="0" title="Tool access: ' + esc(s.allowedTools.join(', ')) + '">&#x1F527; uses tools</span>'
+  // `s.hasTools` is the slim-file equivalent of `allowedTools.length > 0`.
+  // The full allowedTools array only ships with the lazy-loaded detail.
+  const usesTools = s.hasTools === true || (Array.isArray(s.allowedTools) && s.allowedTools.length > 0);
+  const toolsTitle = Array.isArray(s.allowedTools) && s.allowedTools.length > 0
+    ? 'Tool access: ' + s.allowedTools.join(', ')
+    : 'This skill uses tools';
+  const warn = usesTools
+    ? '<span class="badge badge-warn" tabindex="0" title="' + esc(toolsTitle) + '">&#x1F527; uses tools</span>'
     : '';
   const ver = s.version && s.version !== '0.0.0' ? '<span class="skill-version">v' + esc(s.version) + '</span>' : '';
   const isOfficial = s.owner === 'anthropics';
@@ -2255,10 +2290,10 @@ function renderCard(s) {
 
   return '<article class="' + cardClass + '" data-id="' + esc(s.id) + '" tabindex="0" role="button">'
     + '<div class="card-header">'
-    + '<span class="skill-name">' + highlightMatches(s.name, searchQuery) + '</span>'
+    + '<span class="skill-name">' + highlightMatches(s.name, searchQuery, lastSearchTerms) + '</span>'
     + '<span class="skill-repo">' + esc(s.owner) + '/' + esc(s.repo) + '</span>'
     + '</div>'
-    + '<p class="skill-desc">' + highlightMatches(s.description, searchQuery) + '</p>'
+    + '<p class="skill-desc">' + highlightMatches(s.description, searchQuery, lastSearchTerms) + '</p>'
     + '<div class="card-footer">'
     + '<div class="badge-row">' + featuredBadge + officialBadge + verifiedBadge + evalBadge + tokenBadge + cats + warn + '</div>'
     + ver
@@ -2342,9 +2377,66 @@ function getPaginationRange(current, total) {
 }
 
 // ─── Modal ─────────────────────────────────────────────────────────────────
-function openModal(skillId) {
-  const skill = catalog.skills.find(s => s.id === skillId);
-  if (!skill) return;
+// Per-skill detail fetch cache. Keyed by detailPath so two slim rows that
+// happen to share a path (shouldn't happen, but defensive) collapse cleanly.
+// Stores the in-flight promise so concurrent opens don't double-fetch.
+const detailCache = new Map();
+// Request token to guard against race conditions when the user clicks
+// card A then card B before A's detail resolves.
+let openModalToken = 0;
+
+function fetchSkillDetail(slimSkill) {
+  const key = slimSkill.detailPath || slimSkill.id;
+  if (detailCache.has(key)) return detailCache.get(key);
+  const p = (async () => {
+    const res = await fetch(slimSkill.detailPath);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.json();
+  })();
+  // Don't cache failures — clear the entry on rejection so a retry can
+  // re-fetch (network blip shouldn't permanently poison the modal).
+  p.catch(() => detailCache.delete(key));
+  detailCache.set(key, p);
+  return p;
+}
+
+async function openModal(skillId) {
+  const slim = catalog.skills.find(s => s.id === skillId);
+  if (!slim) return;
+
+  const token = ++openModalToken;
+  const overlay = document.getElementById('modal-overlay');
+  const wasOpen = overlay.classList.contains('open');
+
+  // Show the overlay + loading state immediately so clicks feel responsive.
+  // The loading header uses the slim row (name/repo are always available).
+  document.getElementById('modal-content').innerHTML =
+    '<div class="modal-name" id="modal-title">' + esc(slim.name) + '</div>'
+    + '<div class="modal-repo">' + esc(slim.owner) + '/' + esc(slim.repo) + '</div>'
+    + '<div class="modal-desc">' + esc(slim.description) + '</div>'
+    + '<div class="modal-loading">Loading details&hellip;</div>';
+  if (!wasOpen) {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modal-close').focus();
+    trapFocus(document.getElementById('modal'));
+  }
+
+  let skill;
+  try {
+    skill = await fetchSkillDetail(slim);
+  } catch (err) {
+    // If another modal was opened in the meantime, don't clobber it.
+    if (token !== openModalToken) return;
+    document.getElementById('modal-content').innerHTML =
+      '<div class="modal-name" id="modal-title">' + esc(slim.name) + '</div>'
+      + '<div class="modal-repo">' + esc(slim.owner) + '/' + esc(slim.repo) + '</div>'
+      + '<div class="modal-error">&#x26a0; Could not load details: ' + esc(err.message) + '</div>';
+    return;
+  }
+
+  // Stale fetch — the user clicked a different card before this resolved.
+  if (token !== openModalToken) return;
 
   const cmd = 'asm install ' + skill.installUrl;
   const cats = skill.categories.map(c => '<span class="badge badge-cat">' + esc(c) + '</span>').join(' ');
@@ -2402,17 +2494,21 @@ function openModal(skillId) {
     + '<button class="copy-btn" data-cmd="' + esc(cmd) + '" onclick="copyCmd(this)">copy</button>'
     + '</div>'
     + (skill.skillUrl ? '<div class="modal-skill-link"><a href="' + esc(skill.skillUrl) + '" target="_blank" rel="noopener">View SKILL.md on GitHub &rarr;</a></div>' : '');
-
-  document.getElementById('modal-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  document.getElementById('modal-close').focus();
-  trapFocus(document.getElementById('modal'));
+  // Overlay is already open + focus trapped from the synchronous pre-fetch
+  // block above — don't re-open here (would replace the focus trap handler).
 }
 
 let lastFocusedCard = null;
 let _focusTrapHandler = null;
 
 function trapFocus(el) {
+  // Defensively remove any previous handler so rapid close→reopen cycles
+  // (or an aborted open that never made it to closeModal) don't stack
+  // listeners on document.
+  if (_focusTrapHandler) {
+    document.removeEventListener('keydown', _focusTrapHandler);
+    _focusTrapHandler = null;
+  }
   _focusTrapHandler = function(e) {
     if (e.key !== 'Tab') return;
     const focusable = el.querySelectorAll('button, a[href], input, [tabindex]:not([tabindex="-1"])');
@@ -2556,7 +2652,7 @@ function computeFacetCounts() {
     }
     const src = skillSource(s);
     out.source[src] = (out.source[src] || 0) + 1;
-    const yes = !!(s.allowedTools && s.allowedTools.length > 0);
+    const yes = s.hasTools === true || !!(s.allowedTools && s.allowedTools.length > 0);
     out.usesTools[yes ? 'yes' : 'no']++;
   }
   return out;
@@ -4295,11 +4391,25 @@ function copyBundleCmd(btn, cmd) {
 }
 
 // ─── Boot ──────────────────────────────────────────────────────────────────
+// Fetch the slim catalog + search index in parallel, hydrate MiniSearch,
+// then render. Per-skill detail files are fetched lazily on modal open.
+// (issue #214 — splits catalog.json into list + search-index + per-skill
+//  detail artifacts so the browser only downloads what it needs for the grid.)
 async function boot() {
   try {
-    const res = await fetch('catalog.json');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    catalog = await res.json();
+    const [skillsRes, idxRes] = await Promise.all([
+      fetch('skills.min.json'),
+      fetch('search.idx.json')
+    ]);
+    if (!skillsRes.ok) throw new Error('skills.min.json HTTP ' + skillsRes.status);
+    if (!idxRes.ok) throw new Error('search.idx.json HTTP ' + idxRes.status);
+    const [skillsData, idxText] = await Promise.all([
+      skillsRes.json(),
+      idxRes.text()
+    ]);
+    catalog = skillsData;
+    // loadJSON takes a string; pass the same options that were used at build.
+    miniSearch = MiniSearch.loadJSON(idxText, MINISEARCH_OPTIONS);
     readState();
     initControls();
     attachEvents();

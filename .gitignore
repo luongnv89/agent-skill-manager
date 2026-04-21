@@ -23,6 +23,9 @@ coverage/
 # Website (generated at build time)
 website/catalog.json
 website/bundles.json
+website/skills.min.json
+website/search.idx.json
+website/skills/
 website/assets/favicon.svg
 
 

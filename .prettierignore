@@ -1,0 +1,13 @@
+# Generated website artifacts
+website/catalog.json
+website/bundles.json
+website/skills.min.json
+website/search.idx.json
+website/skills/
+
+# Vendored third-party bundles — do not reformat
+website/assets/minisearch.min.js
+
+# Build output
+dist/
+node_modules/

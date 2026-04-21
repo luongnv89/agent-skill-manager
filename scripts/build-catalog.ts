@@ -13,15 +13,19 @@ import {
   mkdirSync,
   copyFileSync,
   existsSync,
+  rmSync,
 } from "fs";
+import { createHash } from "crypto";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import MiniSearch from "minisearch";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const indexDir = join(root, "data", "skill-index");
 const resourcesPath = join(root, "data", "skill-index-resources.json");
 const outDir = join(root, "website");
 const assetsOutDir = join(outDir, "assets");
+const skillsDetailDir = join(outDir, "skills");
 
 // ─── Category Taxonomy ───────────────────────────────────────────────────────
 
@@ -467,6 +471,193 @@ mkdirSync(assetsOutDir, { recursive: true });
 
 writeFileSync(join(outDir, "catalog.json"), JSON.stringify(catalog), "utf-8");
 
+// ─── Split artifacts (issue #214) ────────────────────────────────────────────
+// Emit three browser-facing artifacts so visitors download only what they need:
+//
+//   1. website/skills.min.json   — compact list (cards, filters, sorts)
+//   2. website/search.idx.json   — MiniSearch index serialized with toJSON
+//   3. website/skills/<slug>.json — one per skill, fetched on demand
+//
+// catalog.json stays the authoritative internal source (upstream tooling and
+// tests still consume it); the split artifacts are derived deterministically.
+
+// Filesystem-safe slug for each skill. IDs contain `/` and `::` so we hash
+// them; 16 hex chars (64 bits) collision-free for 6.7K skills. The slug is
+// embedded in every slim row so the frontend never has to recompute it.
+function slugForId(id: string): string {
+  return createHash("sha1").update(id).digest("hex").slice(0, 16);
+}
+
+interface SkillsMinRow {
+  /** Original catalog id — kept so deep-linking and card `data-id` still work. */
+  id: string;
+  /** Relative path the browser fetches to hydrate the detail view. */
+  detailPath: string;
+  name: string;
+  description: string;
+  owner: string;
+  repo: string;
+  categories: string[];
+  installUrl: string;
+  license: string;
+  version: string;
+  verified: boolean;
+  featured?: boolean;
+  /** Derived flag — avoids shipping the full allowedTools array on the list. */
+  hasTools: boolean;
+  tokenCount?: number;
+  /** Slimmed eval summary — only what the card badge needs. */
+  evalSummary?: { overallScore: number; grade: "A" | "B" | "C" | "D" | "F" };
+}
+
+interface SkillsMin {
+  generatedAt: string;
+  version: string;
+  totalSkills: number;
+  totalRepos: number;
+  stars: number;
+  categories: string[];
+  repos: CatalogRepo[];
+  skills: SkillsMinRow[];
+}
+
+// Build the slim rows in the same order as catalog.skills so the frontend can
+// rely on deterministic ordering when the backing index drops out of sync.
+const slimSkills: SkillsMinRow[] = skills.map((s) => {
+  const slug = slugForId(s.id);
+  const row: SkillsMinRow = {
+    id: s.id,
+    detailPath: `skills/${slug}.json`,
+    name: s.name,
+    description: s.description,
+    owner: s.owner,
+    repo: s.repo,
+    categories: s.categories,
+    installUrl: s.installUrl,
+    license: s.license,
+    version: s.version,
+    verified: s.verified,
+    hasTools: Array.isArray(s.allowedTools) && s.allowedTools.length > 0,
+  };
+  if (s.featured === true) row.featured = true;
+  if (typeof s.tokenCount === "number") row.tokenCount = s.tokenCount;
+  if (s.evalSummary) {
+    row.evalSummary = {
+      overallScore: s.evalSummary.overallScore,
+      grade: s.evalSummary.grade,
+    };
+  }
+  return row;
+});
+
+const skillsMin: SkillsMin = {
+  generatedAt: catalog.generatedAt,
+  version: catalog.version,
+  totalSkills: catalog.totalSkills,
+  totalRepos: catalog.totalRepos,
+  stars: catalog.stars,
+  categories: catalog.categories,
+  repos: catalog.repos,
+  skills: slimSkills,
+};
+
+writeFileSync(
+  join(outDir, "skills.min.json"),
+  JSON.stringify(skillsMin),
+  "utf-8",
+);
+
+// MiniSearch options — MUST stay in lockstep with the frontend loader in
+// website/index.html (search `MINISEARCH_OPTIONS`). The index deserializer
+// requires the exact same options that were used at build time.
+//
+// `id` is the row's position in skills.min.json.skills (so the frontend can
+// look the row up by array index instead of re-storing the full string ID
+// twice in the serialized index — saves ~1.5 MB on search.idx.json).
+const miniSearchOptions = {
+  idField: "id",
+  fields: ["name", "description", "categoriesStr"],
+  storeFields: [] as string[],
+  searchOptions: {
+    boost: { name: 3, description: 1, categoriesStr: 1 },
+    prefix: true,
+    fuzzy: 0.2,
+  },
+};
+
+const miniSearch = new MiniSearch(miniSearchOptions);
+miniSearch.addAll(
+  skills.map((s, i) => ({
+    id: i,
+    name: s.name,
+    description: s.description,
+    categoriesStr: (s.categories || []).join(" "),
+  })),
+);
+
+writeFileSync(
+  join(outDir, "search.idx.json"),
+  JSON.stringify(miniSearch),
+  "utf-8",
+);
+
+// Per-skill detail files. Clear the directory first so slugs that no longer
+// correspond to a live skill don't linger across rebuilds.
+if (existsSync(skillsDetailDir)) {
+  rmSync(skillsDetailDir, { recursive: true, force: true });
+}
+mkdirSync(skillsDetailDir, { recursive: true });
+
+interface SkillDetail {
+  id: string;
+  name: string;
+  description: string;
+  version: string;
+  license: string;
+  creator: string;
+  compatibility: string;
+  allowedTools: string[];
+  installUrl: string;
+  skillUrl: string;
+  owner: string;
+  repo: string;
+  categories: string[];
+  verified: boolean;
+  featured?: boolean;
+  tokenCount?: number;
+  evalSummary?: SkillEvalSummary;
+}
+
+let detailFilesWritten = 0;
+for (const s of skills) {
+  const slug = slugForId(s.id);
+  const detail: SkillDetail = {
+    id: s.id,
+    name: s.name,
+    description: s.description,
+    version: s.version,
+    license: s.license,
+    creator: s.creator,
+    compatibility: s.compatibility,
+    allowedTools: s.allowedTools,
+    installUrl: s.installUrl,
+    skillUrl: s.skillUrl,
+    owner: s.owner,
+    repo: s.repo,
+    categories: s.categories,
+    verified: s.verified,
+  };
+  if (s.featured === true) detail.featured = true;
+  if (typeof s.tokenCount === "number") detail.tokenCount = s.tokenCount;
+  if (s.evalSummary) detail.evalSummary = s.evalSummary;
+  writeFileSync(
+    join(skillsDetailDir, `${slug}.json`),
+    JSON.stringify(detail),
+    "utf-8",
+  );
+  detailFilesWritten++;
+}
+
 // ─── Bundles ─────────────────────────────────────────────────────────────────
 
 interface BundleSkill {
@@ -527,11 +718,27 @@ if (existsSync(faviconSrc)) {
 
 // ─── Stats ───────────────────────────────────────────────────────────────────
 
+function kb(bytes: number): string {
+  if (bytes >= 1_048_576) return `${(bytes / 1_048_576).toFixed(2)} MB`;
+  return `${(bytes / 1024).toFixed(1)} KB`;
+}
+
 console.log(`Catalog built successfully:`);
 console.log(`  Skills: ${skills.length}`);
 console.log(`  Repos:  ${repos.length}`);
 console.log(`  Categories: ${categories.join(", ")}`);
 console.log(`  Bundles: ${bundles.length}`);
+console.log(`  Split artifacts (issue #214):`);
+console.log(
+  `    catalog.json:     ${kb(Bun.file(join(outDir, "catalog.json")).size)}`,
+);
+console.log(
+  `    skills.min.json:  ${kb(Bun.file(join(outDir, "skills.min.json")).size)}`,
+);
+console.log(
+  `    search.idx.json:  ${kb(Bun.file(join(outDir, "search.idx.json")).size)}`,
+);
+console.log(`    skills/*.json:    ${detailFilesWritten} files`);
 
 // Category distribution
 const catCounts: Record<string, number> = {};
