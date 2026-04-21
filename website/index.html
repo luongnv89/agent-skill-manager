@@ -1413,10 +1413,32 @@ mark.hl {
     padding: 0 12px 24px;
   }
   .site-header { padding: 12px 16px; flex-wrap: wrap; }
+  .header-left { min-width: 0; }
   .controls { padding: 0 12px; }
   .site-title { font-size: 14px; }
-  .header-nav { margin-left: 4px; gap: 2px; }
-  .nav-link { font-size: 11px; padding: 3px 6px; min-height: 44px; display: inline-flex; align-items: center; }
+  .header-nav {
+    margin-left: 4px;
+    gap: 2px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 100%;
+  }
+  .header-nav::-webkit-scrollbar { display: none; }
+  .header-nav.has-scroll-right {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+            mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+  }
+  .header-nav.has-scroll-left.has-scroll-right {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+            mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+  }
+  .header-nav.has-scroll-left:not(.has-scroll-right) {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 20px);
+            mask-image: linear-gradient(to right, transparent, #000 20px);
+  }
+  .nav-link { font-size: 11px; padding: 3px 6px; min-height: 44px; display: inline-flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
   .gh-link { min-height: 44px; display: inline-flex; align-items: center; }
   .theme-toggle { width: 44px; height: 44px; }
   .header-version { display: none; }
@@ -1444,7 +1466,7 @@ mark.hl {
   .logo-mark { width: 26px; height: 26px; flex-shrink: 0; }
   .site-title { font-size: 13px; }
   .header-nav { margin-left: 2px; gap: 1px; }
-  .nav-link { font-size: 12px; padding: 3px 5px; min-height: 44px; display: inline-flex; align-items: center; }
+  .nav-link { font-size: 12px; padding: 3px 5px; min-height: 44px; display: inline-flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
   .header-right { gap: 8px; }
   .gh-link { padding: 5px 8px; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; }
   .gh-link span.gh-stars { display: none !important; }
@@ -1542,7 +1564,7 @@ mark.hl {
   }
   .logo-mark { width: 22px; height: 22px; }
   .site-title { font-size: 12px; }
-  .nav-link { font-size: 12px; padding: 2px 4px; min-height: 44px; display: inline-flex; align-items: center; }
+  .nav-link { font-size: 12px; padding: 2px 4px; min-height: 44px; display: inline-flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
   .gh-link { padding: 4px 6px; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; }
   .gh-link svg { width: 14px; height: 14px; }
   .gh-link span:not(.gh-stars) { display: none; }
@@ -1600,7 +1622,7 @@ mark.hl {
   .header-left { gap: 4px; }
   .logo-mark { width: 20px; height: 20px; }
   .site-title { font-size: 12px; }
-  .header-nav { display: none; }
+  .header-nav { display: flex; }
   .header-right { gap: 6px; }
   .gh-link { padding: 3px 5px; min-height: 44px; display: inline-flex; align-items: center; }
   .theme-toggle { width: 44px; height: 44px; }
@@ -2743,12 +2765,31 @@ function attachEvents() {
 // ─── Page Navigation ────────────────────────────────────────────────────────
 let currentPageView = 'catalog';
 
-function navigateTo(page) {
+// Detect whether scrollIntoView reads its argument as an options object.
+// Old engines (Safari <14, legacy Android WebView) coerce the argument to a
+// boolean (alignToTop), which would scroll the page vertically instead of
+// centering the nav link horizontally. Probe once at startup.
+var _scrollIntoViewAcceptsOptions = (function() {
+  if (typeof Element === 'undefined' || !Element.prototype || typeof Element.prototype.scrollIntoView !== 'function') return false;
+  var read = false;
+  var probe = {};
+  try { Object.defineProperty(probe, 'behavior', { get: function() { read = true; return 'auto'; } }); } catch (_) { return false; }
+  try { document.createElement('div').scrollIntoView(probe); } catch (_) {}
+  return read;
+})();
+
+function navigateTo(page, opts) {
   currentPageView = page;
   // Update nav active state
+  var scrollBehavior = (opts && opts.instant) ? 'auto' : 'smooth';
   document.querySelectorAll('.nav-link').forEach(function(link) {
-    link.classList.toggle('active', link.getAttribute('data-page') === page);
+    var isActive = link.getAttribute('data-page') === page;
+    link.classList.toggle('active', isActive);
+    if (isActive && _scrollIntoViewAcceptsOptions) {
+      try { link.scrollIntoView({ inline: 'center', block: 'nearest', behavior: scrollBehavior }); } catch (_) {}
+    }
   });
+  if (typeof updateNavScrollFades === 'function') updateNavScrollFades();
   // Show/hide pages
   document.getElementById('page-catalog').classList.toggle('hidden', page !== 'catalog');
   var docsEl = document.getElementById('page-docs');
@@ -2779,16 +2820,39 @@ function navigateTo(page) {
   window.scrollTo(0, 0);
 }
 
-function handleHashChange() {
+function handleHashChange(opts) {
   var hash = location.hash.replace('#', '');
   if (hash === 'docs' || hash === 'registry' || hash === 'best-practices' || hash === 'changelog' || hash === 'acknowledgements' || hash === 'bundles') {
-    navigateTo(hash);
+    navigateTo(hash, opts);
   } else {
-    navigateTo('catalog');
+    navigateTo('catalog', opts);
   }
 }
 
 window.addEventListener('hashchange', handleHashChange);
+
+// Toggle edge-fade classes on the mobile nav based on scroll position so the
+// gradient mask only appears on the side that has more content to reveal.
+function updateNavScrollFades() {
+  var nav = document.querySelector('.header-nav');
+  if (!nav) return;
+  var maxScroll = nav.scrollWidth - nav.clientWidth;
+  nav.classList.toggle('has-scroll-left', nav.scrollLeft > 1);
+  nav.classList.toggle('has-scroll-right', nav.scrollLeft < maxScroll - 1);
+}
+(function initNavScrollFades() {
+  var nav = document.querySelector('.header-nav');
+  if (!nav) return;
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function() { updateNavScrollFades(); ticking = false; });
+  }
+  nav.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  updateNavScrollFades();
+})();
 
 // ─── Copy Buttons for Code Blocks ───────────────────────────────────────────
 function addPreCopyButtons(container) {
@@ -4138,7 +4202,7 @@ async function boot() {
       document.getElementById('header-version').textContent = 'v' + catalog.version;
     }
     // Handle initial hash navigation
-    handleHashChange();
+    handleHashChange({ instant: true });
   } catch (err) {
     document.getElementById('skill-grid').innerHTML =
       '<div class="empty-state"><div class="empty-icon">&#x26a0;</div><p>Failed to load catalog: ' + esc(err.message) + '</p></div>';
