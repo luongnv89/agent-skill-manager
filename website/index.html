@@ -3405,6 +3405,26 @@ function renderChangelogPage() {
     + 'adhering to <a href="https://semver.org/">Semantic Versioning</a>.</p>'
     + '<p><a href="https://github.com/luongnv89/agent-skill-manager/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">View full changelog on GitHub &rarr;</a></p>'
 
+    + renderChangelogEntry('2.3.0', '2026-04-21', [
+      { tag: 'added', items: [
+        'Add <code>skill-creator</code> deterministic eval provider &mdash; complements the <code>quality</code> provider with rule-based checks tailored to skill authoring (<a href="https://github.com/luongnv89/agent-skill-manager/pull/197" target="_blank" rel="noopener">#197</a>, <a href="https://github.com/luongnv89/agent-skill-manager/pull/198" target="_blank" rel="noopener">#198</a>)',
+        '<code>asm eval</code> accepts GitHub refs and batch-evaluates collections &mdash; point at a repo or collection and score every skill in one command (<a href="https://github.com/luongnv89/agent-skill-manager/pull/196" target="_blank" rel="noopener">#196</a>)',
+        'Scannable <code>asm list</code> output for large inventories &mdash; denser, easier-to-scan rows optimised for users with hundreds of installed skills (<a href="https://github.com/luongnv89/agent-skill-manager/pull/192" target="_blank" rel="noopener">#192</a>, <a href="https://github.com/luongnv89/agent-skill-manager/pull/195" target="_blank" rel="noopener">#195</a>)',
+        'Multi-axis filtering and search highlighting on the catalog page &mdash; filter skills by multiple criteria simultaneously with matched terms highlighted in results (<a href="https://github.com/luongnv89/agent-skill-manager/pull/186" target="_blank" rel="noopener">#186</a>)'
+      ]},
+      { tag: 'fixed', items: [
+        'Preserve escaped HTML entities in search highlights so angle brackets and ampersands render correctly in highlighted matches',
+        'Keyboard activation on the install CTA and sort safety on unknown grades (<a href="https://github.com/luongnv89/agent-skill-manager/pull/186" target="_blank" rel="noopener">#186</a>)'
+      ]}
+    ])
+
+    + renderChangelogEntry('2.2.0', '2026-04-20', [
+      { tag: 'added', items: [
+        'Show estimated token count and <code>asm eval</code> scores on every consumer surface &mdash; website cards/modal, TUI list/detail, and CLI <code>inspect</code>. Token count uses a <code>words + spaces</code> heuristic labelled with <code>~</code>; eval scores include overall score, letter grade, per-category breakdown, and an explicit empty state pointing to <code>asm eval &lt;skill&gt;</code> when data is missing. Catalog payload is the single source of truth, so all 3,140 indexed skills carry both signals (<a href="https://github.com/luongnv89/agent-skill-manager/pull/191" target="_blank" rel="noopener">#191</a>, closes <a href="https://github.com/luongnv89/agent-skill-manager/issues/187" target="_blank" rel="noopener">#187</a>, <a href="https://github.com/luongnv89/agent-skill-manager/issues/188" target="_blank" rel="noopener">#188</a>)',
+        'Refreshed Documentation page with the full <code>asm</code> command reference &mdash; adds 6 missing commands (<code>import</code>, <code>outdated</code>, <code>update</code>, <code>doctor</code>, <code>bundle</code>, <code>config path</code>), expands global-options and install-flags tables, and adds per-command sections with flags and runnable examples for <code>list</code>, <code>search</code>, <code>inspect</code>, <code>audit</code>, <code>uninstall</code>, <code>stats</code>, <code>doctor</code>, <code>bundle</code>, <code>index</code>, <code>outdated</code>/<code>update</code>, <code>export</code>/<code>import</code>, and <code>config</code> (<a href="https://github.com/luongnv89/agent-skill-manager/pull/190" target="_blank" rel="noopener">#190</a>, closes <a href="https://github.com/luongnv89/agent-skill-manager/issues/189" target="_blank" rel="noopener">#189</a>)'
+      ]}
+    ])
+
     + renderChangelogEntry('2.1.0', '2026-04-20', [
       { tag: 'added', items: [
         '<code>heygen-com/hyperframes</code> curated-index entry &mdash; 5 new skills (hyperframes, hyperframes-cli, hyperframes-registry, website-to-hyperframes, gsap) for HTML-based video composition (#184)',
