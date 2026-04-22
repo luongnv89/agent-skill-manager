@@ -10,11 +10,11 @@ import {
 } from "../lib/utils.js";
 
 /**
- * Compact sidebar row for a skill. Mirrors SkillCard's visual
- * vocabulary (badges, eval tone, highlight) but in a single-row
- * layout suited to a scrollable left pane. Clicking navigates to
- * `/skills/:id` while preserving the current `location.search` so
- * active filters survive the selection.
+ * Compact sidebar row for a skill. Inherits the badge/eval-tone/
+ * highlight vocabulary of the legacy catalog card but in a
+ * single-row layout suited to a scrollable left pane. Clicking
+ * navigates to `/skills/:id` while preserving the current
+ * `location.search` so active filters survive the selection.
  *
  * The `active` prop flips the selected visual (left-rail accent +
  * contrasting background) so the user never loses the currently
