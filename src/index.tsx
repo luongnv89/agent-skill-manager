@@ -388,4 +388,3 @@ export async function main() {
     restore();
   }
 }
-

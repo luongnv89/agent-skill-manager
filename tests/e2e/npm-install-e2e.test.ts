@@ -1,5 +1,5 @@
 import { fileURLToPath } from "url";
-import { describe, test, expect, beforeAll, afterAll, vi} from "vitest";
+import { describe, test, expect, beforeAll, afterAll, vi } from "vitest";
 import { join, resolve, dirname } from "path";
 import { mkdtemp, rm, readFile, access } from "fs/promises";
 import { existsSync, readdirSync } from "fs";
@@ -100,7 +100,11 @@ async function runAsm(
       PATH: `${join(installDir, "bin")}:${process.env.PATH}`,
     },
   });
-  return { stdout: res.stdout.trim(), stderr: res.stderr.trim(), exitCode: res.exitCode };
+  return {
+    stdout: res.stdout.trim(),
+    stderr: res.stderr.trim(),
+    exitCode: res.exitCode,
+  };
 }
 
 // ─── Installation structure ─────────────────────────────────────────────────

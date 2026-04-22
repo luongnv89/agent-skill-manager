@@ -338,7 +338,8 @@ describe("formatFallbackInstructions", () => {
 // ─── parseArgs integration ──────────────────────────────────────────────────
 
 describe("parseArgs publish flags", () => {
-  const parse = (...args: string[]) => parseArgs(["node", "script.ts", ...args]);
+  const parse = (...args: string[]) =>
+    parseArgs(["node", "script.ts", ...args]);
 
   test("parses publish command", () => {
     const result = parse("publish");

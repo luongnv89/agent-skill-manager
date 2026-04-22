@@ -16,7 +16,11 @@ async function runNode(
     env: { ...process.env, NO_COLOR: "1" },
     cwd: ROOT,
   });
-  return { stdout: res.stdout.trim(), stderr: res.stderr.trim(), exitCode: res.exitCode };
+  return {
+    stdout: res.stdout.trim(),
+    stderr: res.stderr.trim(),
+    exitCode: res.exitCode,
+  };
 }
 
 // ─── Tier 1: must work after install ────────────────────────────────────────

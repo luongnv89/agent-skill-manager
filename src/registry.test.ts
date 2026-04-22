@@ -656,9 +656,9 @@ describe("resolveFromRegistry", () => {
   function mockFetch(data: RegistryIndex | null) {
     if (data === null) {
       // Simulate a network failure
-      fetchSpy = vi.spyOn(globalThis, "fetch").mockRejectedValue(
-        new Error("network error"),
-      );
+      fetchSpy = vi
+        .spyOn(globalThis, "fetch")
+        .mockRejectedValue(new Error("network error"));
     } else {
       fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
         new Response(JSON.stringify(data), {

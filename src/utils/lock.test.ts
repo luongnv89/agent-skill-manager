@@ -72,7 +72,11 @@ describe("readLock", () => {
   });
 
   test("handles invalid schema (missing version) by returning empty lock", async () => {
-    await writeFile(mockState.lockPath, JSON.stringify({ skills: {} }), "utf-8");
+    await writeFile(
+      mockState.lockPath,
+      JSON.stringify({ skills: {} }),
+      "utf-8",
+    );
     const lock = await readLock();
     expect(lock.version).toBe(1);
     expect(lock.skills).toEqual({});

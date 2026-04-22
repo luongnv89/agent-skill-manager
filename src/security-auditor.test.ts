@@ -15,7 +15,12 @@ import {
 import { spawnCollect } from "./utils/test-spawn";
 
 // Helper: path to the CLI entry point
-const CLI_BIN = join(dirname(fileURLToPath(import.meta.url)), "..", "bin", "agent-skill-manager.ts");
+const CLI_BIN = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "bin",
+  "agent-skill-manager.ts",
+);
 
 // Helper: run CLI as subprocess
 async function runCLI(
@@ -24,7 +29,11 @@ async function runCLI(
   const res = await spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
     env: { ...process.env, NO_COLOR: "1" },
   });
-  return { stdout: res.stdout.trim(), stderr: res.stderr.trim(), exitCode: res.exitCode };
+  return {
+    stdout: res.stdout.trim(),
+    stderr: res.stderr.trim(),
+    exitCode: res.exitCode,
+  };
 }
 
 // ─── scanCode tests ─────────────────────────────────────────────────────────

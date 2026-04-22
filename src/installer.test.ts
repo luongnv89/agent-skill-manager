@@ -46,8 +46,7 @@ vi.mock("./utils/checkbox-picker", () => ({
   checkboxPicker: (opts: unknown) => mocks.checkboxPicker(opts),
 }));
 vi.mock("./config", async () => {
-  const actual =
-    await vi.importActual<typeof import("./config")>("./config");
+  const actual = await vi.importActual<typeof import("./config")>("./config");
   return {
     ...actual,
     saveSelectedTools: (names: string[]) => mocks.saveSelectedTools(names),

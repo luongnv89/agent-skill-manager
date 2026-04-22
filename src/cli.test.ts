@@ -1,5 +1,13 @@
 import { fileURLToPath } from "url";
-import { describe, test, expect, beforeEach, afterEach, beforeAll, afterAll } from "vitest";
+import {
+  describe,
+  test,
+  expect,
+  beforeEach,
+  afterEach,
+  beforeAll,
+  afterAll,
+} from "vitest";
 import { parseArgs, isCLIMode } from "./cli";
 import { compareSemver } from "./scanner";
 import { join, dirname } from "path";
@@ -17,7 +25,12 @@ import { tmpdir, homedir } from "os";
 import { spawnCollect, runInlineTs } from "./utils/test-spawn";
 
 // Helper: path to the CLI entry point
-const CLI_BIN = join(dirname(fileURLToPath(import.meta.url)), "..", "bin", "agent-skill-manager.ts");
+const CLI_BIN = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "bin",
+  "agent-skill-manager.ts",
+);
 
 // Helper: run CLI as subprocess, returns { stdout, stderr, exitCode }
 async function runCLI(
@@ -26,7 +39,11 @@ async function runCLI(
   const res = await spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
     env: { ...process.env, NO_COLOR: "1" },
   });
-  return { stdout: res.stdout.trim(), stderr: res.stderr.trim(), exitCode: res.exitCode };
+  return {
+    stdout: res.stdout.trim(),
+    stderr: res.stderr.trim(),
+    exitCode: res.exitCode,
+  };
 }
 
 // ─── parseArgs unit tests ───────────────────────────────────────────────────
@@ -3322,7 +3339,13 @@ describe("parseArgs: bundle modify and export", () => {
   });
 
   test("bundle modify my-bundle --add url parses add flag", () => {
-    const r = parse("bundle", "modify", "my-bundle", "--add", "github:user/repo");
+    const r = parse(
+      "bundle",
+      "modify",
+      "my-bundle",
+      "--add",
+      "github:user/repo",
+    );
     expect(r.command).toBe("bundle");
     expect(r.subcommand).toBe("modify");
     expect(r.positional).toEqual(["my-bundle"]);
@@ -3336,7 +3359,13 @@ describe("parseArgs: bundle modify and export", () => {
   });
 
   test("bundle modify my-bundle --description 'new desc' parses description flag", () => {
-    const r = parse("bundle", "modify", "my-bundle", "--description", "new desc");
+    const r = parse(
+      "bundle",
+      "modify",
+      "my-bundle",
+      "--description",
+      "new desc",
+    );
     expect(r.subcommand).toBe("modify");
     expect(r.flags.description).toBe("new desc");
   });
@@ -3475,12 +3504,7 @@ version: 1.0.0
       expect(stderr).toContain("updated");
 
       // Verify by showing the bundle
-      const { stdout } = await runCLI(
-        "bundle",
-        "show",
-        bundleName,
-        "--json",
-      );
+      const { stdout } = await runCLI("bundle", "show", bundleName, "--json");
       const parsed = JSON.parse(stdout);
       expect(parsed.description).toBe("Updated description");
       expect(parsed.author).toBe("new-author");

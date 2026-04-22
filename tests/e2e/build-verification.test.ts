@@ -4,7 +4,12 @@ import { join, resolve, dirname } from "path";
 import { readFileSync, existsSync, readdirSync, statSync } from "fs";
 import { MINISEARCH_OPTIONS } from "../../scripts/minisearch-options";
 
-const WEBSITE_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "website");
+const WEBSITE_DIR = resolve(
+  dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "..",
+  "website",
+);
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DIST = join(ROOT, "dist");
