@@ -20,7 +20,24 @@ export interface RunCommandResult {
   stderr: string;
 }
 
-const isBun = typeof (globalThis as { Bun?: unknown }).Bun !== "undefined";
+interface BunSpawnOptions {
+  cwd?: string;
+  stdout?: "pipe" | "inherit" | "ignore";
+  stderr?: "pipe" | "inherit" | "ignore";
+}
+
+interface BunSubprocess {
+  stdout: ReadableStream<Uint8Array>;
+  stderr: ReadableStream<Uint8Array>;
+  exited: Promise<number | null>;
+}
+
+interface BunNamespace {
+  spawn(argv: string[], opts?: BunSpawnOptions): BunSubprocess;
+}
+
+const bunApi = (globalThis as { Bun?: BunNamespace }).Bun;
+const isBun = typeof bunApi !== "undefined";
 
 export async function runCommand(
   argv: string[],
@@ -40,14 +57,11 @@ async function runWithBun(
   argv: string[],
   opts: RunCommandOptions,
 ): Promise<RunCommandResult> {
-  const BunApi = (globalThis as { Bun: { spawn: Function } }).Bun;
-  let proc: {
-    stdout: ReadableStream;
-    stderr: ReadableStream;
-    exited: Promise<number | null>;
-  };
+  // Non-null: runWithBun is only called when isBun is true.
+  const bun = bunApi as BunNamespace;
+  let proc: BunSubprocess;
   try {
-    proc = BunApi.spawn(argv, {
+    proc = bun.spawn(argv, {
       cwd: opts.cwd,
       stdout: "pipe",
       stderr: "pipe",
