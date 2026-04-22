@@ -41,11 +41,26 @@ async function runWithBun(
   opts: RunCommandOptions,
 ): Promise<RunCommandResult> {
   const BunApi = (globalThis as { Bun: { spawn: Function } }).Bun;
-  const proc = BunApi.spawn(argv, {
-    cwd: opts.cwd,
-    stdout: "pipe",
-    stderr: "pipe",
-  });
+  let proc: {
+    stdout: ReadableStream;
+    stderr: ReadableStream;
+    exited: Promise<number | null>;
+  };
+  try {
+    proc = BunApi.spawn(argv, {
+      cwd: opts.cwd,
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+  } catch (err) {
+    // Bun.spawn throws synchronously on missing binary; normalize to the
+    // same shape as the Node branch so callers can check exitCode.
+    const code = (err as NodeJS.ErrnoException).code;
+    if (code === "ENOENT") {
+      return { exitCode: 127, stdout: "", stderr: (err as Error).message };
+    }
+    throw err;
+  }
   const [stdout, stderr, exitCode] = await Promise.all([
     new Response(proc.stdout).text(),
     new Response(proc.stderr).text(),
@@ -69,6 +84,7 @@ async function runWithNode(
     });
     let stdout = "";
     let stderr = "";
+    let settled = false;
     child.stdout?.on("data", (chunk) => {
       stdout += chunk.toString();
     });
@@ -76,9 +92,21 @@ async function runWithNode(
       stderr += chunk.toString();
     });
     child.on("error", (err) => {
+      if (settled) return;
+      settled = true;
+      // Missing binary should surface as a non-zero exit code, not a
+      // rejection — callers like checkGhCli() rely on an exitCode guard to
+      // fall back gracefully when `gh` isn't installed.
+      const code = (err as NodeJS.ErrnoException).code;
+      if (code === "ENOENT") {
+        resolvePromise({ exitCode: 127, stdout, stderr: err.message });
+        return;
+      }
       rejectPromise(err);
     });
     child.on("close", (code) => {
+      if (settled) return;
+      settled = true;
       // Node returns null when the child was signal-killed; surface that as
       // non-zero so callers' `exitCode !== 0` guards fire.
       resolvePromise({ exitCode: code ?? -1, stdout, stderr });

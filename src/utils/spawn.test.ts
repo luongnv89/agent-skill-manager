@@ -35,4 +35,14 @@ describe("runCommand", () => {
   it("rejects when argv is empty", async () => {
     await expect(runCommand([])).rejects.toThrow(/non-empty argv/);
   });
+
+  it("surfaces missing binary (ENOENT) as exit code 127", async () => {
+    // checkGhCli() and similar graceful-fallback callers rely on an exitCode
+    // guard — they must not see a rejected promise when the binary is absent.
+    const { exitCode } = await runCommand([
+      "asm-nonexistent-binary-for-test-xyz-42",
+      "--version",
+    ]);
+    expect(exitCode).toBe(127);
+  });
 });
