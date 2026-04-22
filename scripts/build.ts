@@ -1,112 +1,71 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
-import { readFileSync, rmSync } from "fs";
-import { resolve } from "path";
+import { readFileSync, writeFileSync, rmSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
+import { build as esbuild } from "esbuild";
 
-const root = resolve(import.meta.dir, "..");
+const here = dirname(fileURLToPath(import.meta.url));
+const root = resolve(here, "..");
 const pkg = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
-const version = pkg.version;
+const version: string = pkg.version;
 
 let commitHash = "unknown";
 try {
-  const proc = Bun.spawn(["git", "rev-parse", "--short", "HEAD"], {
-    stdout: "pipe",
-    stderr: "pipe",
+  const res = spawnSync("git", ["rev-parse", "--short", "HEAD"], {
     cwd: root,
+    encoding: "utf8",
   });
-  commitHash = (await new Response(proc.stdout).text()).trim() || "unknown";
+  if (res.status === 0) {
+    commitHash = res.stdout.trim() || "unknown";
+  }
 } catch {
   // git not available
 }
 
-// Plugin to handle bun:ffi imports for cross-runtime compatibility.
-// When running on Bun, the real bun:ffi is used for native TUI rendering.
-// When running on Node.js, no-op stubs are provided so the app doesn't crash
-// (the TUI entry point will re-exec with Bun automatically).
-const bunFfiShim: import("bun").BunPlugin = {
-  name: "bun-ffi-shim",
-  setup(build) {
-    build.onResolve({ filter: /^bun:ffi$/ }, () => ({
-      path: "bun:ffi",
-      namespace: "bun-ffi-shim",
-    }));
-    build.onLoad({ filter: /.*/, namespace: "bun-ffi-shim" }, () => ({
-      contents: `
-        let mod;
-        if (typeof globalThis.Bun !== "undefined") {
-          mod = await import(String.raw\`bun\${":" + "ffi"}\`);
-        } else {
-          const noop = () => 1;
-          const symbolsProxy = new Proxy({}, { get: () => noop });
-          mod = {
-            dlopen() { return { symbols: symbolsProxy, close() {} }; },
-            toArrayBuffer() { return new ArrayBuffer(0); },
-            ptr() { return 0; },
-            JSCallback: class { constructor() { this.ptr = 1; } close() {} },
-          };
-        }
-        export const { dlopen, toArrayBuffer, ptr, JSCallback } = mod;
-      `,
-      loader: "js",
-    }));
-  },
-};
-
 // Clean dist/ to remove stale chunks from previous builds
 rmSync(resolve(root, "dist"), { recursive: true, force: true });
 
-const result = await Bun.build({
-  entrypoints: [resolve(root, "bin/agent-skill-manager.ts")],
+const result = await esbuild({
+  entryPoints: [resolve(root, "bin/agent-skill-manager.ts")],
   outdir: resolve(root, "dist"),
-  target: "node",
+  outbase: resolve(root),
+  entryNames: "agent-skill-manager",
+  bundle: true,
+  format: "esm",
+  platform: "node",
+  target: "node18",
   minify: true,
   splitting: true,
-  plugins: [bunFfiShim],
+  // Ink only loads react-devtools-core behind an `if (process.env.DEV)` gate;
+  // exclude it from the bundle so production runs on node without the devDep.
+  external: ["react-devtools-core"],
   define: {
     "process.env.__ASM_VERSION__": JSON.stringify(version),
     "process.env.__ASM_COMMIT__": JSON.stringify(commitHash),
+    // React picks its dev vs production runtime via this string; without
+    // inlining "production" here, esbuild keeps the dev build (larger, with
+    // prop-type validation and extra warnings).
+    "process.env.NODE_ENV": JSON.stringify("production"),
   },
+  // Patch ESM-wrapped CJS deps so their `require(...)` shim resolves against
+  // Node's real module loader. Without this, `require("process")` etc. from
+  // bundled CJS code throws "Dynamic require of X is not supported" at runtime.
+  banner: {
+    js: "import { createRequire as __asmCreateRequire } from 'node:module'; const require = __asmCreateRequire(import.meta.url);",
+  },
+  metafile: true,
+  logLevel: "warning",
 });
 
-if (!result.success) {
-  console.error("Build failed:");
-  for (const log of result.logs) {
-    console.error(log);
-  }
-  process.exit(1);
+// Prepend shebang to the CLI entry only (not shared chunks).
+const entryPath = resolve(root, "dist", "agent-skill-manager.js");
+const entryContent = readFileSync(entryPath, "utf8");
+if (!entryContent.startsWith("#!")) {
+  writeFileSync(entryPath, "#!/usr/bin/env node\n" + entryContent);
 }
 
-// Post-process: wrap @opentui/core platform-specific dynamic import with a
-// runtime guard. On Bun, the original import runs natively (it can handle .ts
-// files in node_modules). On Node.js v25+, the import would fail with
-// ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING, so we return a no-op stub instead.
-const DYNAMIC_IMPORT_RE =
-  /await import\(`@opentui\/core-\$\{process\.platform\}-\$\{process\.arch\}\/index\.ts`\)/g;
-const PLATFORM_THROW_RE =
-  /throw Error\(`opentui is not supported on the current platform: \$\{process\.platform\}-\$\{process\.arch\}`\)/g;
-
-const DYNAMIC_IMPORT_REPLACEMENT =
-  '(typeof globalThis.Bun!=="undefined"' +
-  "?await import(`@opentui/core-${process.platform}-${process.arch}/index.ts`)" +
-  ':({default:""}))';
-
-let patchedFiles = 0;
-for (const output of result.outputs) {
-  if (!output.path.endsWith(".js")) continue;
-  const text = await Bun.file(output.path).text();
-  if (!DYNAMIC_IMPORT_RE.test(text)) continue;
-  DYNAMIC_IMPORT_RE.lastIndex = 0;
-  const patched = text
-    .replace(DYNAMIC_IMPORT_RE, DYNAMIC_IMPORT_REPLACEMENT)
-    .replace(PLATFORM_THROW_RE, "void 0");
-  await Bun.write(output.path, patched);
-  patchedFiles++;
-}
-
+const outputCount = Object.keys(result.metafile?.outputs ?? {}).length;
 console.log(`Built agent-skill-manager v${version} (${commitHash})`);
-console.log(`  ${result.outputs.length} output(s) in dist/`);
-if (patchedFiles > 0) {
-  console.log(
-    `  Patched ${patchedFiles} file(s): stubbed @opentui/core platform import for Node.js compat`,
-  );
-}
+console.log(`  ${outputCount} output(s) in dist/`);

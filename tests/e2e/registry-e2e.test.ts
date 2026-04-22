@@ -12,6 +12,7 @@
  * the cache file via the ASM_REGISTRY_CACHE env var.
  */
 
+import { fileURLToPath } from "url";
 import {
   describe,
   test,
@@ -19,22 +20,16 @@ import {
   beforeAll,
   beforeEach,
   afterEach,
-  setDefaultTimeout,
-} from "bun:test";
-import { join, resolve } from "path";
-import {
-  mkdtemp,
-  rm,
-  writeFile,
-  mkdir,
-  readFile,
-  access,
-} from "fs/promises";
+  vi,
+} from "vitest";
+import { join, resolve, dirname } from "path";
+import { mkdtemp, rm, writeFile, mkdir, readFile, access } from "fs/promises";
 import { tmpdir } from "os";
+import { spawnCollect } from "../../src/utils/test-spawn";
 
-setDefaultTimeout(120_000);
+vi.setConfig({ testTimeout: 120_000 });
 
-const ROOT = resolve(import.meta.dir, "..", "..");
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const DIST_BIN = join(ROOT, "dist", "agent-skill-manager.js");
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -44,26 +39,21 @@ async function runAsm(
   args: string[],
   opts: { env?: Record<string, string>; cwd?: string } = {},
 ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-  const proc = Bun.spawn(["bun", DIST_BIN, ...args], {
-    stdout: "pipe",
-    stderr: "pipe",
+  const res = await spawnCollect(["node", DIST_BIN, ...args], {
     env: { ...process.env, NO_COLOR: "1", ...opts.env },
     cwd: opts.cwd ?? ROOT,
   });
-  const [stdout, stderr] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-  ]);
-  const exitCode = await proc.exited;
-  return { stdout: stdout.trim(), stderr: stderr.trim(), exitCode };
+  return {
+    stdout: res.stdout.trim(),
+    stderr: res.stderr.trim(),
+    exitCode: res.exitCode,
+  };
 }
 
 /** Run a git command in a directory */
 async function git(args: string[], cwd: string): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], {
+  const res = await spawnCollect(["git", ...args], {
     cwd,
-    stdout: "pipe",
-    stderr: "pipe",
     env: {
       ...process.env,
       GIT_AUTHOR_NAME: "Test User",
@@ -72,13 +62,10 @@ async function git(args: string[], cwd: string): Promise<string> {
       GIT_COMMITTER_EMAIL: "test@example.com",
     },
   });
-  const stdout = await new Response(proc.stdout).text();
-  const exitCode = await proc.exited;
-  if (exitCode !== 0) {
-    const stderr = await new Response(proc.stderr).text();
-    throw new Error(`git ${args.join(" ")} failed: ${stderr}`);
+  if (res.exitCode !== 0) {
+    throw new Error(`git ${args.join(" ")} failed: ${res.stderr}`);
   }
-  return stdout.trim();
+  return res.stdout.trim();
 }
 
 /** Create a minimal git repo with one commit */
@@ -165,9 +152,11 @@ describe("publish: skill at repo root", () => {
   });
 
   test("--dry-run outputs valid manifest JSON", async () => {
-    const { stdout, stderr, exitCode } = await runAsm(
-      ["publish", "--dry-run", repoDir],
-    );
+    const { stdout, stderr, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      repoDir,
+    ]);
     expect(exitCode).toBe(0);
     expect(stderr).toContain("Dry run");
     const json = JSON.parse(stdout);
@@ -179,9 +168,11 @@ describe("publish: skill at repo root", () => {
   });
 
   test("--dry-run: skill at root has no skill_path", async () => {
-    const { stdout, exitCode } = await runAsm(
-      ["publish", "--dry-run", repoDir],
-    );
+    const { stdout, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      repoDir,
+    ]);
     expect(exitCode).toBe(0);
     const json = JSON.parse(stdout);
     // skill_path should be absent when skill is at repo root
@@ -189,9 +180,12 @@ describe("publish: skill at repo root", () => {
   });
 
   test("--machine --dry-run: outputs v1 envelope", async () => {
-    const { stdout, exitCode } = await runAsm(
-      ["publish", "--dry-run", "--machine", repoDir],
-    );
+    const { stdout, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      "--machine",
+      repoDir,
+    ]);
     expect(exitCode).toBe(0);
     const json = JSON.parse(stdout);
     expect(json.version).toBe(1);
@@ -221,18 +215,22 @@ describe("publish: skill in subdirectory", () => {
   });
 
   test("--dry-run: manifest includes skill_path", async () => {
-    const { stdout, exitCode } = await runAsm(
-      ["publish", "--dry-run", skillDir],
-    );
+    const { stdout, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      skillDir,
+    ]);
     expect(exitCode).toBe(0);
     const json = JSON.parse(stdout);
     expect(json.skill_path).toBe("skills/test-skill");
   });
 
   test("--dry-run: repository points to repo root, not skill subdir", async () => {
-    const { stdout, exitCode } = await runAsm(
-      ["publish", "--dry-run", skillDir],
-    );
+    const { stdout, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      skillDir,
+    ]);
     expect(exitCode).toBe(0);
     const json = JSON.parse(stdout);
     // Repository is the repo root URL, not a subdir URL
@@ -241,9 +239,11 @@ describe("publish: skill in subdirectory", () => {
   });
 
   test("--dry-run: commit SHA is 40 hex chars", async () => {
-    const { stdout, exitCode } = await runAsm(
-      ["publish", "--dry-run", skillDir],
-    );
+    const { stdout, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      skillDir,
+    ]);
     expect(exitCode).toBe(0);
     const json = JSON.parse(stdout);
     expect(json.commit).toMatch(/^[0-9a-f]{40}$/);
@@ -262,18 +262,22 @@ describe("publish: error paths", () => {
   });
 
   test("non-git directory exits with error", async () => {
-    const { stdout, stderr, exitCode } = await runAsm(
-      ["publish", "--dry-run", tmpDir],
-    );
+    const { stdout, stderr, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      tmpDir,
+    ]);
     // exits 0 but outputs error (publisher returns result, not throws)
     expect(stdout + stderr).toMatch(/git|Error/i);
   });
 
   test("missing SKILL.md exits with error", async () => {
     await makeGitRepo(tmpDir);
-    const { stdout, stderr, exitCode } = await runAsm(
-      ["publish", "--dry-run", tmpDir],
-    );
+    const { stdout, stderr, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      tmpDir,
+    ]);
     expect(stdout + stderr).toMatch(/SKILL\.md/i);
   });
 
@@ -283,9 +287,7 @@ describe("publish: error paths", () => {
     await git(["add", "SKILL.md"], tmpDir);
     await git(["commit", "-m", "add dangerous skill"], tmpDir);
 
-    const { stdout, stderr } = await runAsm(
-      ["publish", "--dry-run", tmpDir],
-    );
+    const { stdout, stderr } = await runAsm(["publish", "--dry-run", tmpDir]);
     expect(stdout + stderr).toMatch(/dangerous/i);
   });
 
@@ -298,9 +300,7 @@ describe("publish: error paths", () => {
     await git(["add", "SKILL.md"], tmpDir);
     await git(["commit", "-m", "add invalid skill"], tmpDir);
 
-    const { stdout, stderr } = await runAsm(
-      ["publish", "--dry-run", tmpDir],
-    );
+    const { stdout, stderr } = await runAsm(["publish", "--dry-run", tmpDir]);
     expect(stdout + stderr).toMatch(/name/i);
   });
 
@@ -379,7 +379,15 @@ describe("install: resolve from registry cache", () => {
 
   test("bare name resolves from registry cache", async () => {
     const { stdout, stderr, exitCode } = await runAsm(
-      ["install", "hello-world", "--provider", "agents", "--scope", "project", "--yes"],
+      [
+        "install",
+        "hello-world",
+        "--provider",
+        "agents",
+        "--scope",
+        "project",
+        "--yes",
+      ],
       { env: testEnv() },
     );
     // Should resolve from registry and attempt to install
@@ -389,7 +397,15 @@ describe("install: resolve from registry cache", () => {
 
   test("resolved source includes skill_path subpath", async () => {
     const { stdout, stderr } = await runAsm(
-      ["install", "hello-world", "--provider", "agents", "--scope", "project", "--yes"],
+      [
+        "install",
+        "hello-world",
+        "--provider",
+        "agents",
+        "--scope",
+        "project",
+        "--yes",
+      ],
       { env: testEnv() },
     );
     // The parsed source should show the skill_path as a subpath
@@ -398,7 +414,15 @@ describe("install: resolve from registry cache", () => {
 
   test("scoped name author/skill resolves correctly", async () => {
     const { stdout, stderr } = await runAsm(
-      ["install", "luongnv89/hello-world", "--provider", "agents", "--scope", "project", "--yes"],
+      [
+        "install",
+        "luongnv89/hello-world",
+        "--provider",
+        "agents",
+        "--scope",
+        "project",
+        "--yes",
+      ],
       { env: testEnv() },
     );
     expect(stdout + stderr).toMatch(/Resolving.*luongnv89\/hello-world/i);
@@ -407,7 +431,15 @@ describe("install: resolve from registry cache", () => {
 
   test("nonexistent bare name falls back gracefully", async () => {
     const { stdout, stderr, exitCode } = await runAsm(
-      ["install", "nonexistent-skill-xyz", "--provider", "agents", "--scope", "project", "--yes"],
+      [
+        "install",
+        "nonexistent-skill-xyz",
+        "--provider",
+        "agents",
+        "--scope",
+        "project",
+        "--yes",
+      ],
       { env: testEnv() },
     );
     // Not in registry → tries existing resolution methods → eventually fails
@@ -417,7 +449,15 @@ describe("install: resolve from registry cache", () => {
 
   test("scoped name not in registry gives clear error", async () => {
     const { stdout, stderr, exitCode } = await runAsm(
-      ["install", "nobody/nonexistent-xyz", "--provider", "agents", "--scope", "project", "--yes"],
+      [
+        "install",
+        "nobody/nonexistent-xyz",
+        "--provider",
+        "agents",
+        "--scope",
+        "project",
+        "--yes",
+      ],
       { env: testEnv() },
     );
     expect(exitCode).toBeGreaterThan(0);
@@ -461,7 +501,15 @@ describe("install: resolve from registry cache", () => {
 
     const { stdout, stderr, exitCode } = await runAsm(
       // Non-TTY: should error on ambiguity (cannot prompt)
-      ["install", "hello-world", "--provider", "agents", "--scope", "project", "--yes"],
+      [
+        "install",
+        "hello-world",
+        "--provider",
+        "agents",
+        "--scope",
+        "project",
+        "--yes",
+      ],
       { env: testEnv() },
     );
     // Should mention multiple matches or ask user to use scoped name
@@ -487,9 +535,12 @@ describe("publish: manifest field validation (dry-run --machine)", () => {
   });
 
   test("manifest has all required fields", async () => {
-    const { stdout, exitCode } = await runAsm(
-      ["publish", "--dry-run", "--machine", repoDir],
-    );
+    const { stdout, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      "--machine",
+      repoDir,
+    ]);
     expect(exitCode).toBe(0);
     const envelope = JSON.parse(stdout);
     const manifest = envelope.data.manifest;
@@ -504,9 +555,12 @@ describe("publish: manifest field validation (dry-run --machine)", () => {
   });
 
   test("manifest tags come from SKILL.md frontmatter", async () => {
-    const { stdout, exitCode } = await runAsm(
-      ["publish", "--dry-run", "--machine", repoDir],
-    );
+    const { stdout, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      "--machine",
+      repoDir,
+    ]);
     expect(exitCode).toBe(0);
     const envelope = JSON.parse(stdout);
     expect(Array.isArray(envelope.data.manifest.tags)).toBe(true);
@@ -514,9 +568,12 @@ describe("publish: manifest field validation (dry-run --machine)", () => {
   });
 
   test("manifest version matches SKILL.md version", async () => {
-    const { stdout, exitCode } = await runAsm(
-      ["publish", "--dry-run", "--machine", repoDir],
-    );
+    const { stdout, exitCode } = await runAsm([
+      "publish",
+      "--dry-run",
+      "--machine",
+      repoDir,
+    ]);
     expect(exitCode).toBe(0);
     const envelope = JSON.parse(stdout);
     expect(envelope.data.manifest.version).toBe("1.0.0");

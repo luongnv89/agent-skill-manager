@@ -13,22 +13,22 @@ repos:
       # ── Commit stage ────────────────────────────────────────────────────────
       - id: prettier
         name: prettier
-        entry: bun x prettier --write --ignore-unknown
+        entry: npx prettier --write --ignore-unknown
         language: system
         types: [text]
         files: \.(ts|tsx|js|jsx|json|css|scss|md)$
-        exclude: ^(node_modules/|dist/|bun\.lock)
+        exclude: ^(node_modules/|dist/|package-lock\.json)
 
       - id: typecheck
         name: typecheck
-        entry: bun run --bun tsc --noEmit
+        entry: npx tsc --noEmit
         language: system
         types: [ts, tsx]
         pass_filenames: false
 
       - id: unit-tests
         name: unit tests
-        entry: bun test src/
+        entry: npx vitest run src/
         language: system
         pass_filenames: false
         stages: [pre-commit]
@@ -36,14 +36,14 @@ repos:
       # ── Push stage ──────────────────────────────────────────────────────────
       - id: build
         name: build
-        entry: bun run build
+        entry: npm run build
         language: system
         pass_filenames: false
         stages: [pre-push]
 
-      - id: e2e-bun
-        name: e2e tests (bun)
-        entry: bun test tests/e2e/bun-e2e.test.ts
+      - id: e2e-node
+        name: e2e tests (node)
+        entry: npx vitest run tests/e2e/node-e2e.test.ts
         language: system
         pass_filenames: false
         stages: [pre-push]

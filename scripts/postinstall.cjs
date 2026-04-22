@@ -2,7 +2,7 @@
 /**
  * Runs after `npm install -g agent-skill-manager`.
  *
- * Walks PATH for duplicate `asm` binaries so users catch npm-vs-bun shadowing
+ * Walks PATH for duplicate `asm` binaries so users catch shadowing
  * before the stale install silently outruns the new one. Never fails the
  * install — any unexpected error is swallowed.
  *
@@ -17,11 +17,7 @@ try {
   const isGlobal =
     process.env.npm_config_global === "true" ||
     process.env.npm_config_global === "1";
-  if (
-    process.env.ASM_SKIP_POSTINSTALL ||
-    process.env.CI ||
-    !isGlobal
-  ) {
+  if (process.env.ASM_SKIP_POSTINSTALL || process.env.CI || !isGlobal) {
     process.exit(0);
   }
 
@@ -73,7 +69,7 @@ try {
     process.stderr.write(`  shadowed: ${other.path}\n`);
   }
   process.stderr.write(
-    "  Pick one package manager (npm OR bun) and remove the other install.\n",
+    "  Remove the stale install so the new one resolves first on PATH.\n",
   );
   process.stderr.write(
     "  See: https://github.com/luongnv89/agent-skill-manager#troubleshooting\n\n",

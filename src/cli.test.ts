@@ -1,3 +1,4 @@
+import { fileURLToPath } from "url";
 import {
   describe,
   test,
@@ -6,10 +7,10 @@ import {
   afterEach,
   beforeAll,
   afterAll,
-} from "bun:test";
+} from "vitest";
 import { parseArgs, isCLIMode } from "./cli";
 import { compareSemver } from "./scanner";
-import { join } from "path";
+import { join, dirname } from "path";
 import {
   mkdtemp,
   rm,
@@ -21,25 +22,28 @@ import {
   symlink,
 } from "fs/promises";
 import { tmpdir, homedir } from "os";
+import { spawnCollect, runInlineTs } from "./utils/test-spawn";
 
 // Helper: path to the CLI entry point
-const CLI_BIN = join(import.meta.dir, "..", "bin", "agent-skill-manager.ts");
+const CLI_BIN = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "bin",
+  "agent-skill-manager.ts",
+);
 
 // Helper: run CLI as subprocess, returns { stdout, stderr, exitCode }
 async function runCLI(
   ...args: string[]
 ): Promise<{ stdout: string; stderr: string; exitCode: number }> {
-  const proc = Bun.spawn(["bun", CLI_BIN, ...args], {
-    stdout: "pipe",
-    stderr: "pipe",
+  const res = await spawnCollect(["npx", "tsx", CLI_BIN, ...args], {
     env: { ...process.env, NO_COLOR: "1" },
   });
-  const [stdout, stderr] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-  ]);
-  const exitCode = await proc.exited;
-  return { stdout: stdout.trim(), stderr: stderr.trim(), exitCode };
+  return {
+    stdout: res.stdout.trim(),
+    stderr: res.stderr.trim(),
+    exitCode: res.exitCode,
+  };
 }
 
 // ─── parseArgs unit tests ───────────────────────────────────────────────────
@@ -1217,17 +1221,10 @@ describe("CLI integration: install registry resolution", () => {
       }
     `;
 
-    const proc = Bun.spawn(["bun", "-e", script], {
-      stdout: "pipe",
-      stderr: "pipe",
+    const { stdout, stderr, exitCode } = await runInlineTs(script, {
       env: { ...process.env, NO_COLOR: "1" },
-      cwd: join(import.meta.dir, ".."),
+      cwd: join(dirname(fileURLToPath(import.meta.url)), ".."),
     });
-    const [stdout, stderr] = await Promise.all([
-      new Response(proc.stdout).text(),
-      new Response(proc.stderr).text(),
-    ]);
-    const exitCode = await proc.exited;
 
     expect(exitCode).toBe(0);
     expect(stdout).toBe(`github:testauthor/my-test-repo#${"a".repeat(40)}`);
@@ -1246,15 +1243,11 @@ describe("readLine", () => {
       const result = await readLine();
       process.stdout.write(result);
     `;
-    const proc = Bun.spawn(["bun", "-e", script], {
-      stdout: "pipe",
-      stderr: "pipe",
-      stdin: new Blob(["hello\n"]),
+    const { stdout, exitCode } = await runInlineTs(script, {
+      stdin: "hello\n",
       env: { ...process.env },
-      cwd: join(import.meta.dir, ".."),
+      cwd: join(dirname(fileURLToPath(import.meta.url)), ".."),
     });
-    const stdout = await new Response(proc.stdout).text();
-    const exitCode = await proc.exited;
     expect(exitCode).toBe(0);
     expect(stdout).toBe("hello");
   });
@@ -1265,15 +1258,11 @@ describe("readLine", () => {
       const result = await readLine();
       process.stdout.write(result);
     `;
-    const proc = Bun.spawn(["bun", "-e", script], {
-      stdout: "pipe",
-      stderr: "pipe",
-      stdin: new Blob(["yes"]),
+    const { stdout, exitCode } = await runInlineTs(script, {
+      stdin: "yes",
       env: { ...process.env },
-      cwd: join(import.meta.dir, ".."),
+      cwd: join(dirname(fileURLToPath(import.meta.url)), ".."),
     });
-    const stdout = await new Response(proc.stdout).text();
-    const exitCode = await proc.exited;
     expect(exitCode).toBe(0);
     expect(stdout).toBe("yes");
   });
@@ -1284,15 +1273,11 @@ describe("readLine", () => {
       const result = await readLine();
       process.stdout.write(JSON.stringify(result));
     `;
-    const proc = Bun.spawn(["bun", "-e", script], {
-      stdout: "pipe",
-      stderr: "pipe",
-      stdin: new Blob([""]),
+    const { stdout, exitCode } = await runInlineTs(script, {
+      stdin: "",
       env: { ...process.env },
-      cwd: join(import.meta.dir, ".."),
+      cwd: join(dirname(fileURLToPath(import.meta.url)), ".."),
     });
-    const stdout = await new Response(proc.stdout).text();
-    const exitCode = await proc.exited;
     expect(exitCode).toBe(0);
     expect(stdout).toBe('""');
   });
@@ -3354,7 +3339,13 @@ describe("parseArgs: bundle modify and export", () => {
   });
 
   test("bundle modify my-bundle --add url parses add flag", () => {
-    const r = parse("bundle", "modify", "my-bundle", "--add", "github:user/repo");
+    const r = parse(
+      "bundle",
+      "modify",
+      "my-bundle",
+      "--add",
+      "github:user/repo",
+    );
     expect(r.command).toBe("bundle");
     expect(r.subcommand).toBe("modify");
     expect(r.positional).toEqual(["my-bundle"]);
@@ -3368,7 +3359,13 @@ describe("parseArgs: bundle modify and export", () => {
   });
 
   test("bundle modify my-bundle --description 'new desc' parses description flag", () => {
-    const r = parse("bundle", "modify", "my-bundle", "--description", "new desc");
+    const r = parse(
+      "bundle",
+      "modify",
+      "my-bundle",
+      "--description",
+      "new desc",
+    );
     expect(r.subcommand).toBe("modify");
     expect(r.flags.description).toBe("new desc");
   });
@@ -3507,12 +3504,7 @@ version: 1.0.0
       expect(stderr).toContain("updated");
 
       // Verify by showing the bundle
-      const { stdout } = await runCLI(
-        "bundle",
-        "show",
-        bundleName,
-        "--json",
-      );
+      const { stdout } = await runCLI("bundle", "show", bundleName, "--json");
       const parsed = JSON.parse(stdout);
       expect(parsed.description).toBe("Updated description");
       expect(parsed.author).toBe("new-author");

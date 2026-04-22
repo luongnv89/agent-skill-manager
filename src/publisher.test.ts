@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
+import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { mkdtemp, rm, writeFile, mkdir } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
@@ -20,6 +20,9 @@ import type { GenerateManifestOptions } from "./publisher";
 import type { PublishResult } from "./utils/types";
 import type { SecurityAuditReport } from "./utils/types";
 
+import { spawnSyncArgv } from "./utils/test-spawn";
+import { parseArgs, isCLIMode } from "./cli";
+import { publishSkill } from "./publisher";
 // ─── Helpers ───────────────────────────────────────────────────────────────
 
 let tempDir: string;
@@ -335,9 +338,8 @@ describe("formatFallbackInstructions", () => {
 // ─── parseArgs integration ──────────────────────────────────────────────────
 
 describe("parseArgs publish flags", () => {
-  // Import parseArgs to verify flag parsing
-  const { parseArgs } = require("./cli");
-  const parse = (...args: string[]) => parseArgs(["bun", "script.ts", ...args]);
+  const parse = (...args: string[]) =>
+    parseArgs(["node", "script.ts", ...args]);
 
   test("parses publish command", () => {
     const result = parse("publish");
@@ -389,8 +391,6 @@ describe("parseArgs publish flags", () => {
 // ─── isCLIMode ──────────────────────────────────────────────────────────────
 
 describe("isCLIMode recognizes publish", () => {
-  const { isCLIMode } = require("./cli");
-
   test("publish is recognized as CLI mode", () => {
     expect(isCLIMode(["bun", "script.ts", "publish"])).toBe(true);
   });
@@ -454,7 +454,7 @@ describe("getRemoteOrigin", () => {
     const noRemoteDir = await mkdtemp(join(tmpdir(), "publisher-noremote-"));
     try {
       // Init a bare git repo with no remote
-      Bun.spawnSync(["git", "init"], { cwd: noRemoteDir });
+      spawnSyncArgv(["git", "init"], { cwd: noRemoteDir });
       await expect(getRemoteOrigin(noRemoteDir)).rejects.toThrow(
         "No remote origin found",
       );
@@ -527,8 +527,6 @@ describe("publishSkill", () => {
   // The _auditFn option injects a stub without mock.module (avoids cross-file leaks).
   let gitDir: string;
 
-  const { publishSkill } = require("./publisher");
-
   function fakeAudit(
     overrides: Partial<SecurityAuditReport> = {},
   ): (path: string, name: string) => Promise<SecurityAuditReport> {
@@ -562,13 +560,13 @@ describe("publishSkill", () => {
   beforeEach(async () => {
     gitDir = await mkdtemp(join(tmpdir(), "publish-integ-"));
     // Init git repo
-    Bun.spawnSync(["git", "init"], { cwd: gitDir });
-    Bun.spawnSync(["git", "config", "user.email", "test@test.com"], {
+    spawnSyncArgv(["git", "init"], { cwd: gitDir });
+    spawnSyncArgv(["git", "config", "user.email", "test@test.com"], {
       cwd: gitDir,
     });
-    Bun.spawnSync(["git", "config", "user.name", "Test"], { cwd: gitDir });
+    spawnSyncArgv(["git", "config", "user.name", "Test"], { cwd: gitDir });
     // Add remote
-    Bun.spawnSync(
+    spawnSyncArgv(
       [
         "git",
         "remote",
@@ -589,8 +587,8 @@ describe("publishSkill", () => {
         creator: "testuser",
       }),
     );
-    Bun.spawnSync(["git", "add", "."], { cwd: gitDir });
-    Bun.spawnSync(["git", "commit", "-m", "init"], { cwd: gitDir });
+    spawnSyncArgv(["git", "add", "."], { cwd: gitDir });
+    spawnSyncArgv(["git", "commit", "-m", "init"], { cwd: gitDir });
   });
 
   afterEach(async () => {
@@ -768,8 +766,8 @@ describe("publishSkill", () => {
         creator: "testuser",
       }),
     );
-    Bun.spawnSync(["git", "add", "."], { cwd: gitDir });
-    Bun.spawnSync(["git", "commit", "-m", "bad name"], { cwd: gitDir });
+    spawnSyncArgv(["git", "add", "."], { cwd: gitDir });
+    spawnSyncArgv(["git", "commit", "-m", "bad name"], { cwd: gitDir });
 
     const result = await publishSkill({
       path: gitDir,
@@ -796,14 +794,14 @@ describe("checkGhCli edge case: authenticated but login null", () => {
 
   beforeEach(async () => {
     gitDirLocal = await mkdtemp(join(tmpdir(), "publish-loginull-"));
-    Bun.spawnSync(["git", "init"], { cwd: gitDirLocal });
-    Bun.spawnSync(["git", "config", "user.email", "test@test.com"], {
+    spawnSyncArgv(["git", "init"], { cwd: gitDirLocal });
+    spawnSyncArgv(["git", "config", "user.email", "test@test.com"], {
       cwd: gitDirLocal,
     });
-    Bun.spawnSync(["git", "config", "user.name", "Test"], {
+    spawnSyncArgv(["git", "config", "user.name", "Test"], {
       cwd: gitDirLocal,
     });
-    Bun.spawnSync(
+    spawnSyncArgv(
       [
         "git",
         "remote",
@@ -823,8 +821,8 @@ describe("checkGhCli edge case: authenticated but login null", () => {
         creator: "testuser",
       }),
     );
-    Bun.spawnSync(["git", "add", "."], { cwd: gitDirLocal });
-    Bun.spawnSync(["git", "commit", "-m", "init"], { cwd: gitDirLocal });
+    spawnSyncArgv(["git", "add", "."], { cwd: gitDirLocal });
+    spawnSyncArgv(["git", "commit", "-m", "init"], { cwd: gitDirLocal });
   });
 
   afterEach(async () => {
@@ -832,7 +830,7 @@ describe("checkGhCli edge case: authenticated but login null", () => {
   });
 
   test("publishSkill throws when gh is authenticated but login is null", async () => {
-    const { publishSkill: publishSkillFn } = require("./publisher");
+    const publishSkillFn = publishSkill;
 
     await expect(
       publishSkillFn({
@@ -856,18 +854,18 @@ describe("checkGhCli edge case: authenticated but login null", () => {
 describe("publishSkill fallback: gh available but not authenticated", () => {
   let gitDirLocal: string;
 
-  const { publishSkill: publishSkillFn } = require("./publisher");
+  const publishSkillFn = publishSkill;
 
   beforeEach(async () => {
     gitDirLocal = await mkdtemp(join(tmpdir(), "publish-noauth-"));
-    Bun.spawnSync(["git", "init"], { cwd: gitDirLocal });
-    Bun.spawnSync(["git", "config", "user.email", "test@test.com"], {
+    spawnSyncArgv(["git", "init"], { cwd: gitDirLocal });
+    spawnSyncArgv(["git", "config", "user.email", "test@test.com"], {
       cwd: gitDirLocal,
     });
-    Bun.spawnSync(["git", "config", "user.name", "Test"], {
+    spawnSyncArgv(["git", "config", "user.name", "Test"], {
       cwd: gitDirLocal,
     });
-    Bun.spawnSync(
+    spawnSyncArgv(
       [
         "git",
         "remote",
@@ -887,8 +885,8 @@ describe("publishSkill fallback: gh available but not authenticated", () => {
         creator: "testuser",
       }),
     );
-    Bun.spawnSync(["git", "add", "."], { cwd: gitDirLocal });
-    Bun.spawnSync(["git", "commit", "-m", "init"], { cwd: gitDirLocal });
+    spawnSyncArgv(["git", "add", "."], { cwd: gitDirLocal });
+    spawnSyncArgv(["git", "commit", "-m", "init"], { cwd: gitDirLocal });
   });
 
   afterEach(async () => {
@@ -930,8 +928,8 @@ describe("publishSkill fallback: gh available but not authenticated", () => {
         creator: "testuser",
       }),
     );
-    Bun.spawnSync(["git", "add", "."], { cwd: gitDirLocal });
-    Bun.spawnSync(["git", "commit", "-m", "bad name"], { cwd: gitDirLocal });
+    spawnSyncArgv(["git", "add", "."], { cwd: gitDirLocal });
+    spawnSyncArgv(["git", "commit", "-m", "bad name"], { cwd: gitDirLocal });
 
     const result = await publishSkillFn({
       path: gitDirLocal,
