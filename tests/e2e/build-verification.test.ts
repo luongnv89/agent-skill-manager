@@ -1,6 +1,7 @@
 import { describe, test, expect } from "bun:test";
 import { join, resolve } from "path";
 import { readFileSync, existsSync, readdirSync, statSync } from "fs";
+import { MINISEARCH_OPTIONS } from "../../scripts/minisearch-options";
 
 const WEBSITE_DIR = resolve(import.meta.dir, "..", "..", "website");
 
@@ -245,6 +246,212 @@ describe("website: token count + eval surfaces", () => {
   });
 
   test("formatTokens always prefixes its output with `~` (approximation)", () => {
-    expect(html).toMatch(/return\s+'~'\s*\+\s*count\s*\+\s*' tokens'/);
+    // Keep this resilient to formatter-driven quote/line-wrap changes.
+    expect(html).toMatch(
+      /return\s+["']~["']\s*\+\s*count\s*\+\s*["'] tokens["']/,
+    );
+  });
+});
+
+// ─── split artifacts (issue #214) ──────────────────────────────────────────
+// The build emits three browser-facing artifacts derived from catalog.json so
+// the frontend can fetch only what it needs on page load. catalog.json stays
+// the authoritative internal source (tests above still pass against it).
+
+const SKILLS_MIN_PATH = join(WEBSITE_DIR, "skills.min.json");
+const SEARCH_IDX_PATH = join(WEBSITE_DIR, "search.idx.json");
+const SKILLS_DETAIL_DIR = join(WEBSITE_DIR, "skills");
+
+describe("catalog: split artifacts (issue #214)", () => {
+  if (!catalogExists || !existsSync(SKILLS_MIN_PATH)) {
+    test.skip("split artifacts not present — run `bun scripts/build-catalog.ts` to generate them", () => {});
+    return;
+  }
+  const catalog = JSON.parse(readFileSync(CATALOG_PATH, "utf-8"));
+  const skillsMin = JSON.parse(readFileSync(SKILLS_MIN_PATH, "utf-8"));
+
+  test("skills.min.json mirrors catalog totalSkills and top-level aggregates", () => {
+    expect(skillsMin.totalSkills).toBe(catalog.totalSkills);
+    expect(skillsMin.totalRepos).toBe(catalog.totalRepos);
+    expect(skillsMin.categories).toEqual(catalog.categories);
+    expect(skillsMin.skills.length).toBe(catalog.skills.length);
+    expect(skillsMin.version).toBe(catalog.version);
+  });
+
+  test("every slim skill row carries the fields the card + filters need", () => {
+    for (const s of skillsMin.skills) {
+      expect(typeof s.id).toBe("string");
+      expect(typeof s.detailPath).toBe("string");
+      expect(s.detailPath).toMatch(/^skills\/[0-9a-f]{16}\.json$/);
+      expect(typeof s.name).toBe("string");
+      expect(typeof s.description).toBe("string");
+      expect(typeof s.owner).toBe("string");
+      expect(typeof s.repo).toBe("string");
+      expect(Array.isArray(s.categories)).toBe(true);
+      expect(typeof s.installUrl).toBe("string");
+      expect(typeof s.hasTools).toBe("boolean");
+      expect(typeof s.verified).toBe("boolean");
+    }
+  });
+
+  test("every detailPath resolves to an on-disk skill file", () => {
+    for (const s of skillsMin.skills) {
+      const p = join(WEBSITE_DIR, s.detailPath);
+      expect(existsSync(p)).toBe(true);
+    }
+  });
+
+  test("skills/ directory count matches catalog.skills.length", () => {
+    const files = readdirSync(SKILLS_DETAIL_DIR).filter((f) =>
+      f.endsWith(".json"),
+    );
+    expect(files.length).toBe(catalog.skills.length);
+  });
+
+  test("search.idx.json is a MiniSearch serialization with the expected shape", () => {
+    const idx = JSON.parse(readFileSync(SEARCH_IDX_PATH, "utf-8"));
+    expect(idx.documentCount).toBe(catalog.skills.length);
+    expect(idx.serializationVersion).toBeDefined();
+    // The build script uses numeric ids (row index in catalog.skills) to
+    // shrink the index — guard that invariant because the frontend relies on
+    // `catalog.skills[hit.id]` to map hits back to slim rows. Must be a
+    // real number, not a string-of-digits.
+    expect(typeof idx.documentIds).toBe("object");
+    const firstKey = Object.keys(idx.documentIds)[0];
+    expect(typeof idx.documentIds[firstKey]).toBe("number");
+  });
+
+  test("slim rows align 1:1 with catalog.skills by id + derived fields", () => {
+    // Ordering must match because the search index uses array indices as
+    // document IDs — if these ever diverge, `catalog.skills[hit.id]` maps
+    // to the wrong slim row silently.
+    for (let i = 0; i < catalog.skills.length; i++) {
+      const full = catalog.skills[i];
+      const slim = skillsMin.skills[i];
+      expect(slim.id).toBe(full.id);
+      expect(slim.name).toBe(full.name);
+      expect(slim.owner).toBe(full.owner);
+      expect(slim.repo).toBe(full.repo);
+      expect(slim.hasTools).toBe(
+        Array.isArray(full.allowedTools) && full.allowedTools.length > 0,
+      );
+      if (full.evalSummary) {
+        expect(slim.evalSummary?.grade).toBe(full.evalSummary.grade);
+        expect(slim.evalSummary?.overallScore).toBe(
+          full.evalSummary.overallScore,
+        );
+      }
+    }
+  });
+
+  test("MiniSearch options match between build script and frontend loader", () => {
+    // Guard against silent scoring drift: if any option (fields, idField,
+    // boost weights, fuzzy, prefix, storeFields) diverges between the
+    // build-time serialization and the frontend's loadJSON call, relevance
+    // ranking breaks without any thrown error. The build script imports
+    // MINISEARCH_OPTIONS directly from scripts/minisearch-options.ts, so
+    // we compare the frontend's inline copy against that canonical module.
+    const html = readFileSync(join(WEBSITE_DIR, "index.html"), "utf-8");
+
+    // Find the frontend options literal and slice its balanced-brace body.
+    // A regex with `\[[^\]]*\]` would silently return null on multi-line
+    // arrays and let the test pass vacuously, so we walk braces instead.
+    const marker = "const MINISEARCH_OPTIONS = {";
+    const start = html.indexOf(marker);
+    expect(start).toBeGreaterThanOrEqual(0);
+    const braceStart = html.indexOf("{", start);
+    let depth = 0;
+    let end = -1;
+    for (let i = braceStart; i < html.length; i++) {
+      const ch = html[i];
+      if (ch === "{") depth++;
+      else if (ch === "}") {
+        depth--;
+        if (depth === 0) {
+          end = i;
+          break;
+        }
+      }
+    }
+    expect(end).toBeGreaterThan(braceStart);
+    const literal = html.slice(braceStart, end + 1);
+
+    // The inline copy is JS (unquoted keys, single quotes, optional trailing
+    // commas). Convert to strict JSON: double-quote keys, swap quote style,
+    // strip trailing commas.
+    const jsonLike = literal
+      .replace(/([{,]\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*:)/g, '$1"$2"$3')
+      .replace(/'([^']*)'/g, '"$1"')
+      .replace(/,(\s*[}\]])/g, "$1");
+    const frontendOptions = JSON.parse(jsonLike);
+    expect(frontendOptions).toEqual(MINISEARCH_OPTIONS);
+  });
+
+  test("search.idx.json deserializes and finds a known query (smoke test)", async () => {
+    const idxText = readFileSync(SEARCH_IDX_PATH, "utf-8");
+    // Import dynamically so the tests don't pay the load cost when the
+    // artifact isn't present (already guarded above).
+    const { default: MiniSearch } = await import("minisearch");
+    const idx = MiniSearch.loadJSON(idxText, MINISEARCH_OPTIONS);
+    const hits = idx.search("skill");
+    expect(hits.length).toBeGreaterThan(0);
+    expect(typeof hits[0].id).toBe("number");
+    expect(catalog.skills[hits[0].id]).toBeDefined();
+  });
+
+  test("search.idx.json and skills.min.json share the same generatedAt", () => {
+    // The frontend boot guard compares these two fields to detect CDN/cache
+    // skew between artifacts — without matching generatedAt values the array-
+    // index invariant (hit.id → catalog.skills[i]) silently misaligns.
+    const idx = JSON.parse(readFileSync(SEARCH_IDX_PATH, "utf-8"));
+    const slim = JSON.parse(readFileSync(SKILLS_MIN_PATH, "utf-8"));
+    expect(typeof idx.generatedAt).toBe("string");
+    expect(idx.generatedAt).toBe(slim.generatedAt);
+  });
+
+  test("skills.min.json is materially smaller than catalog.json (raw bytes)", () => {
+    const catalogSize = statSync(CATALOG_PATH).size;
+    const slimSize = statSync(SKILLS_MIN_PATH).size;
+    // Conservative lower-bound check — the whole point of the split. If this
+    // ever regresses, either the slim shape drifted or catalog.json shrunk
+    // for other reasons; either way, worth looking at.
+    expect(slimSize).toBeLessThan(catalogSize * 0.75);
+  });
+});
+
+// ─── website loader swap (issue #214) ──────────────────────────────────────
+
+describe("website: loader uses split artifacts (issue #214)", () => {
+  const html = readFileSync(join(WEBSITE_DIR, "index.html"), "utf-8");
+
+  test("boot fetches skills.min.json + search.idx.json in parallel", () => {
+    // Assert the resources + Promise.all are present without coupling to
+    // quote style or formatter line wrapping inside the HTML script block.
+    expect(html).toMatch(/fetch\(["']skills\.min\.json["']\)/);
+    expect(html).toMatch(/fetch\(["']search\.idx\.json["']\)/);
+    expect(html).toContain("Promise.all");
+  });
+
+  test("boot no longer fetches catalog.json directly", () => {
+    // The string "catalog.json" survives in gitignore comments etc., so
+    // scope the check to a literal fetch call.
+    expect(html).not.toContain("fetch('catalog.json')");
+  });
+
+  test("MiniSearch runtime is vendored (not CDN-loaded)", () => {
+    expect(html).toContain('src="assets/minisearch.min.js"');
+  });
+
+  test("old linear scoreSkill / tokenize path is removed", () => {
+    // The linear Array.filter + scoreSkill path was the thing being replaced.
+    // If either name reappears we likely regressed into dual-path code.
+    expect(html).not.toContain("function scoreSkill");
+    expect(html).not.toContain("SCORE_NAME_EXACT");
+  });
+
+  test("openModal fetches the per-skill detail on demand", () => {
+    expect(html).toContain("fetchSkillDetail");
+    expect(html).toContain("detailPath");
+    expect(html).toContain("detailCache");
   });
 });
