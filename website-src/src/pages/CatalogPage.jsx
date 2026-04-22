@@ -1,4 +1,6 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useParams, Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import { useCatalogState } from "../hooks/useCatalogState.js";
 import {
@@ -7,22 +9,37 @@ import {
   defaultSort,
 } from "../lib/filter-sort.js";
 import { computeFacetCounts } from "../lib/facets.js";
+import { decodeSkillId } from "../lib/utils.js";
 import SearchBox from "../components/SearchBox.jsx";
 import CategoryTabs from "../components/CategoryTabs.jsx";
 import FacetRow from "../components/FacetRow.jsx";
-import SkillCard from "../components/SkillCard.jsx";
-import Pagination from "../components/Pagination.jsx";
-
-const PAGE_SIZE = 48;
+import SkillListItem from "../components/SkillListItem.jsx";
+import SkillDetail from "../components/SkillDetail.jsx";
+import SidebarDrawer from "../components/SidebarDrawer.jsx";
+import { Button } from "../components/ui/button.jsx";
 
 /**
- * Main catalog view. Composes search + category tabs + facet filters +
- * repo select + sort select + card grid + pagination.
+ * Two-pane catalog view (#228). Left sidebar holds search, filters,
+ * sort, and the scrollable skill list. The right pane shows either
+ * the selected skill's detail (when the URL is `/skills/:id`) or a
+ * friendly empty state prompting the user to pick one.
  *
- * The data contract (`skills.min.json` + `search.idx.json`) is consumed
- * unchanged; `scripts/build-catalog.ts` remains the sole producer.
+ * Both `/` and `/skills/:id` render this component so that:
+ *   - direct deep-links to a skill still work (`:id` from useParams)
+ *   - the sidebar is always present — the list is the home view
+ *
+ * The data contract (`skills.min.json` + `search.idx.json`) is
+ * consumed unchanged; `scripts/build-catalog.ts` remains the sole
+ * producer.
  */
 export default function CatalogPage() {
+  const { id: encodedId } = useParams();
+  const decodedId = useMemo(
+    () => (encodedId ? decodeSkillId(encodedId) : null),
+    [encodedId],
+  );
+  const location = useLocation();
+
   const { loading, error, catalog, miniSearch } = useCatalog();
   const {
     state,
@@ -33,9 +50,10 @@ export default function CatalogPage() {
     setActiveRepo,
     setFacet,
     setSort,
-    setPage,
     clearAll,
   } = useCatalogState();
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const searchResults = useMemo(() => {
     if (!catalog || !miniSearch || !state.searchQuery.trim()) {
@@ -44,7 +62,6 @@ export default function CatalogPage() {
     const hits = miniSearch.search(state.searchQuery.trim());
     const scoreById = new Map();
     for (const h of hits) {
-      // hit.id is an array index into catalog.skills (see build-catalog.ts).
       const row = catalog.skills[h.id];
       if (row) scoreById.set(row.id, h.score);
     }
@@ -68,6 +85,11 @@ export default function CatalogPage() {
     [catalog],
   );
 
+  const selectedSkill = useMemo(() => {
+    if (!catalog || !decodedId) return null;
+    return catalog.skills.find((s) => s.id === decodedId) || null;
+  }, [catalog, decodedId]);
+
   if (error) {
     return (
       <div className="py-16 text-center">
@@ -88,121 +110,213 @@ export default function CatalogPage() {
   }
 
   const total = filtered.length;
-  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-  const page = Math.min(state.page, totalPages);
-  const start = (page - 1) * PAGE_SIZE;
-  const slice = filtered.slice(start, start + PAGE_SIZE);
   const hasFilters = anyFilterActive(state);
   const sortValue = state.sort || defaultSort(state.searchQuery);
 
-  return (
-    <div className="flex flex-col gap-6">
-      <section className="text-center py-4 sm:py-8">
-        <h1 className="text-2xl sm:text-3xl font-semibold text-[var(--fg)]">
-          Find the perfect <span className="text-[var(--brand)]">skill</span>
-        </h1>
-        <p className="text-sm text-[var(--fg-dim)] mt-2">
-          Browse and install agent skills for Claude Code, Codex, and more
-        </p>
-        <div className="flex justify-center gap-6 mt-4 text-sm text-[var(--fg-dim)]">
-          <Stat label="skills" value={catalog.totalSkills.toLocaleString()} />
-          <Stat label="repos" value={catalog.totalRepos} />
-          <Stat label="categories" value={catalog.categories.length} />
-        </div>
-        <div className="max-w-2xl mx-auto mt-6">
-          <SearchBox
-            draft={searchDraft}
-            onDraftChange={setSearchDraft}
-            onCommit={setSearchQuery}
-            placeholder="Search skills, tags, descriptions…"
-          />
-        </div>
-      </section>
+  // When the user explicitly looked up a skill that was filtered out of
+  // the current list (e.g. direct deep-link that doesn't match active
+  // filters), we still render the detail in the main pane — the sidebar
+  // just won't highlight anything.
+  const deepLinkedButFiltered =
+    decodedId && !filtered.some((s) => s.id === decodedId) && selectedSkill;
 
-      <div className="flex flex-col gap-3">
-        <CategoryTabs
-          categories={catalog.categories}
-          activeCategories={state.activeCategories}
-          totalSkills={catalog.totalSkills}
-          skills={catalog.skills}
-          onChange={setActiveCategories}
-        />
-        {facetCounts && (
-          <FacetRow
-            counts={facetCounts}
-            activeFacets={state.activeFacets}
-            onToggle={setFacet}
-          />
-        )}
-        <div className="flex flex-wrap items-center gap-2">
-          <select
-            value={state.activeRepo}
-            onChange={(e) => setActiveRepo(e.target.value)}
-            aria-label="Filter by repository"
-            className="px-2 py-1.5 rounded border border-[var(--border)] bg-[var(--bg-input)] text-[var(--fg)] text-xs"
-          >
-            <option value="all">All Repos ({catalog.totalRepos})</option>
-            {catalog.repos.map((r) => (
-              <option
-                key={r.owner + "/" + r.repo}
-                value={r.owner + "/" + r.repo}
-              >
-                {r.owner}/{r.repo} ({r.skillCount})
-              </option>
-            ))}
-          </select>
-          <select
-            value={sortValue}
-            onChange={(e) => setSort(e.target.value)}
-            aria-label="Sort skills"
-            className="px-2 py-1.5 rounded border border-[var(--border)] bg-[var(--bg-input)] text-[var(--fg)] text-xs"
-          >
-            <option value="relevance">Sort: relevance</option>
-            <option value="name">Sort: name</option>
-            <option value="grade">Sort: best score</option>
-            <option value="tokens-asc">Sort: smallest first</option>
-            <option value="tokens-desc">Sort: largest first</option>
-          </select>
-          {hasFilters && (
-            <button
-              type="button"
-              onClick={clearAll}
-              className="px-3 py-1.5 rounded border border-[var(--border)] bg-transparent text-[var(--fg-dim)] hover:text-[var(--fg)] hover:border-[var(--brand)] text-xs"
-            >
-              ✕ Clear all filters
-            </button>
-          )}
-          <span className="ml-auto text-xs text-[var(--fg-muted)]">
-            {hasFilters ? (
-              <>
-                Showing {total} of {catalog.totalSkills} skills
-              </>
-            ) : (
-              <>{total} skills</>
-            )}
-          </span>
-        </div>
+  const sidebarContent = (
+    <div className="flex flex-col gap-3 h-full">
+      <div className="flex items-center justify-between gap-2 lg:hidden">
+        <span className="text-sm font-semibold text-[var(--fg)]">
+          Filter skills
+        </span>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={() => setDrawerOpen(false)}
+          aria-label="Close sidebar"
+        >
+          <X className="h-4 w-4" aria-hidden="true" />
+        </Button>
       </div>
-
-      {slice.length === 0 ? (
-        <div className="py-12 text-center text-[var(--fg-dim)]">
-          <div className="text-3xl mb-2">✨</div>
-          <p>No skills match your search</p>
-        </div>
-      ) : (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {slice.map((s) => (
-            <SkillCard
+      <SearchBox
+        draft={searchDraft}
+        onDraftChange={setSearchDraft}
+        onCommit={setSearchQuery}
+        placeholder="Search skills…"
+      />
+      <CategoryTabs
+        categories={catalog.categories}
+        activeCategories={state.activeCategories}
+        totalSkills={catalog.totalSkills}
+        skills={catalog.skills}
+        onChange={setActiveCategories}
+      />
+      {facetCounts && (
+        <FacetRow
+          counts={facetCounts}
+          activeFacets={state.activeFacets}
+          onToggle={setFacet}
+        />
+      )}
+      <div className="flex flex-wrap items-center gap-2">
+        <select
+          value={state.activeRepo}
+          onChange={(e) => setActiveRepo(e.target.value)}
+          aria-label="Filter by repository"
+          className="px-2 py-1.5 rounded border border-[var(--border)] bg-[var(--bg-input)] text-[var(--fg)] text-xs flex-1 min-w-[140px]"
+        >
+          <option value="all">All Repos ({catalog.totalRepos})</option>
+          {catalog.repos.map((r) => (
+            <option key={r.owner + "/" + r.repo} value={r.owner + "/" + r.repo}>
+              {r.owner}/{r.repo} ({r.skillCount})
+            </option>
+          ))}
+        </select>
+        <select
+          value={sortValue}
+          onChange={(e) => setSort(e.target.value)}
+          aria-label="Sort skills"
+          className="px-2 py-1.5 rounded border border-[var(--border)] bg-[var(--bg-input)] text-[var(--fg)] text-xs flex-1 min-w-[130px]"
+        >
+          <option value="relevance">Sort: relevance</option>
+          <option value="name">Sort: name</option>
+          <option value="grade">Sort: best score</option>
+          <option value="tokens-asc">Sort: smallest first</option>
+          <option value="tokens-desc">Sort: largest first</option>
+        </select>
+        {hasFilters && (
+          <button
+            type="button"
+            onClick={clearAll}
+            className="px-3 py-1.5 rounded border border-[var(--border)] bg-transparent text-[var(--fg-dim)] hover:text-[var(--fg)] hover:border-[var(--brand)] text-xs"
+          >
+            ✕ Clear all
+          </button>
+        )}
+      </div>
+      <div
+        className="flex items-center justify-between text-[11px] text-[var(--fg-muted)] px-1"
+        aria-live="polite"
+      >
+        <span>
+          {hasFilters ? (
+            <>
+              {total} of {catalog.totalSkills} skills
+            </>
+          ) : (
+            <>{total} skills</>
+          )}
+        </span>
+      </div>
+      <div
+        className="flex-1 min-h-0 overflow-y-auto flex flex-col gap-1.5 pr-1 -mr-1"
+        role="list"
+        aria-label="Skill results"
+      >
+        {filtered.length === 0 ? (
+          <div className="py-8 text-center text-[var(--fg-dim)] text-sm">
+            <div className="text-2xl mb-1">✨</div>
+            <p>No skills match your filters</p>
+          </div>
+        ) : (
+          filtered.map((s) => (
+            <SkillListItem
               key={s.id}
               skill={s}
+              active={s.id === decodedId}
               searchQuery={state.searchQuery}
               searchTerms={searchResults.terms}
             />
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
+    </div>
+  );
 
-      <Pagination current={page} total={totalPages} onChange={setPage} />
+  return (
+    <div className="flex flex-col lg:flex-row lg:items-stretch gap-4 lg:gap-6 min-h-[calc(100vh-9rem)]">
+      {/* Mobile toolbar — visible only below lg */}
+      <div className="flex items-center justify-between gap-2 lg:hidden">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => setDrawerOpen(true)}
+          className="gap-1.5"
+          aria-label="Open filter sidebar"
+        >
+          <Menu className="h-4 w-4" aria-hidden="true" />
+          Browse
+          <span className="text-[10px] text-[var(--fg-muted)]">({total})</span>
+        </Button>
+        {decodedId && (
+          <Link
+            to={{ pathname: "/", search: location.search }}
+            className="text-xs text-[var(--fg-dim)] hover:text-[var(--brand)]"
+          >
+            ← Clear selection
+          </Link>
+        )}
+      </div>
+
+      <SidebarDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        ariaLabel="Skill filters and list"
+      >
+        {sidebarContent}
+      </SidebarDrawer>
+
+      <section
+        className="flex-1 min-w-0 lg:max-w-none"
+        aria-label="Skill detail"
+      >
+        {selectedSkill ? (
+          <div className="flex flex-col gap-3">
+            {deepLinkedButFiltered && (
+              <p className="text-[11px] text-[var(--fg-muted)] px-1">
+                This skill is hidden by your current filters.
+              </p>
+            )}
+            <SkillDetail key={selectedSkill.id} slim={selectedSkill} />
+          </div>
+        ) : decodedId ? (
+          <CatalogEmptyState
+            title="Skill not found"
+            body={`No skill with id "${decodedId}" exists in the catalog.`}
+          />
+        ) : (
+          <CatalogEmptyState
+            title="Select a skill"
+            body={
+              catalog.totalSkills > 0
+                ? "Pick a skill from the sidebar to see its full description, eval score, and install command."
+                : "Your catalog is empty."
+            }
+            stats={{
+              skills: catalog.totalSkills,
+              repos: catalog.totalRepos,
+              categories: catalog.categories.length,
+            }}
+          />
+        )}
+      </section>
+    </div>
+  );
+}
+
+function CatalogEmptyState({ title, body, stats }) {
+  return (
+    <div className="h-full flex flex-col items-center justify-center text-center px-6 py-16 gap-3">
+      <h1 className="text-2xl sm:text-3xl font-semibold text-[var(--fg)]">
+        {title}
+      </h1>
+      <p className="text-sm text-[var(--fg-dim)] max-w-md">{body}</p>
+      {stats && (
+        <dl className="flex gap-6 mt-4 text-sm text-[var(--fg-dim)]">
+          <Stat label="skills" value={stats.skills.toLocaleString()} />
+          <Stat label="repos" value={stats.repos} />
+          <Stat label="categories" value={stats.categories} />
+        </dl>
+      )}
     </div>
   );
 }
@@ -210,7 +324,8 @@ export default function CatalogPage() {
 function Stat({ label, value }) {
   return (
     <div className="flex flex-col items-center">
-      <strong className="text-lg text-[var(--fg)]">{value}</strong>
+      <dt className="sr-only">{label}</dt>
+      <dd className="text-lg text-[var(--fg)] font-semibold">{value}</dd>
       <span className="text-xs text-[var(--fg-muted)]">{label}</span>
     </div>
   );

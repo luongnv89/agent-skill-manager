@@ -3,7 +3,6 @@ import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import CatalogPage from "./pages/CatalogPage.jsx";
 import BundlesPage from "./pages/BundlesPage.jsx";
-import SkillDetailPage from "./pages/SkillDetailPage.jsx";
 import { CatalogProvider } from "./hooks/useCatalog.jsx";
 
 /**
@@ -13,6 +12,11 @@ import { CatalogProvider } from "./hooks/useCatalog.jsx";
  * GitHub Pages) and the legacy UI already used hash navigation — switching
  * to HashRouter preserves external deep links and avoids the need for
  * server-side rewrites.
+ *
+ * Routing (#228): `/` and `/skills/:id` both render `CatalogPage` —
+ * the catalog is always a two-pane layout, and the `:id` in the URL
+ * simply selects which skill shows in the detail pane. Same pattern
+ * for `/bundles` and `/bundles/:name`.
  */
 export default function App() {
   return (
@@ -22,8 +26,9 @@ export default function App() {
         <main className="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-6">
           <Routes>
             <Route path="/" element={<CatalogPage />} />
+            <Route path="/skills/:id" element={<CatalogPage />} />
             <Route path="/bundles" element={<BundlesPage />} />
-            <Route path="/skills/:id" element={<SkillDetailPage />} />
+            <Route path="/bundles/:name" element={<BundlesPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

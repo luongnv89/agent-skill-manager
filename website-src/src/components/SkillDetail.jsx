@@ -1,26 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useCatalog } from "../hooks/useCatalog.jsx";
-import { decodeSkillId, evalScoreClass, formatTokens } from "../lib/utils.js";
-import CopyButton from "../components/CopyButton.jsx";
-import { Badge } from "../components/ui/badge.jsx";
-import { Card } from "../components/ui/card.jsx";
+import { evalScoreClass, formatTokens } from "../lib/utils.js";
+import CopyButton from "./CopyButton.jsx";
+import { Badge } from "./ui/badge.jsx";
+import { Card } from "./ui/card.jsx";
 
 /**
- * Skill detail view. Port of the legacy modal — now a dedicated route so
- * the URL is deep-linkable (acceptance criterion). Lazy-loads the per-
- * skill JSON from `website/skills/<hash>.json` via the slim row's
- * `detailPath`.
+ * Reusable skill detail view. Rendered in the right pane of the
+ * two-pane `CatalogPage` (`/` and `/skills/:id` both route to it).
+ * Lazy-loads the full per-skill JSON from `slim.detailPath`; while
+ * that's in flight the slim row already provides all the fields
+ * needed to render a first paint.
+ *
+ * Props:
+ *   - slim: the slim row from catalog.skills (required)
  */
-export default function SkillDetailPage() {
-  const { id } = useParams();
-  const decodedId = useMemo(() => decodeSkillId(id), [id]);
-  const { catalog, loading } = useCatalog();
-  const slim = useMemo(
-    () => (catalog ? catalog.skills.find((s) => s.id === decodedId) : null),
-    [catalog, decodedId],
-  );
-
+export default function SkillDetail({ slim }) {
   const [detail, setDetail] = useState({
     data: null,
     loading: true,
@@ -28,7 +22,10 @@ export default function SkillDetailPage() {
   });
 
   useEffect(() => {
-    if (!slim?.detailPath) return;
+    if (!slim?.detailPath) {
+      setDetail({ data: null, loading: false, error: null });
+      return;
+    }
     let cancelled = false;
     setDetail({ data: null, loading: true, error: null });
     (async () => {
@@ -52,40 +49,16 @@ export default function SkillDetailPage() {
     };
   }, [slim?.detailPath]);
 
-  if (loading) {
-    return (
-      <div className="py-12 text-center text-[var(--fg-dim)]">
-        Loading catalog…
-      </div>
-    );
-  }
-  if (!slim) {
-    return (
-      <div className="py-12 text-center">
-        <p className="text-[var(--fg)]">Skill not found.</p>
-        <Link to="/" className="text-[var(--brand)] hover:underline text-sm">
-          ← Back to catalog
-        </Link>
-      </div>
-    );
-  }
+  const skill = useMemo(() => detail.data || slim, [detail.data, slim]);
+  if (!skill) return null;
 
-  const skill = detail.data || slim;
   const cmd = "asm install " + skill.installUrl;
   const evalScoreCls = skill.evalSummary
     ? evalScoreClass(skill.evalSummary.overallScore)
     : "";
 
   return (
-    <div className="max-w-3xl mx-auto flex flex-col gap-4">
-      <div>
-        <Link
-          to="/"
-          className="text-xs text-[var(--fg-dim)] hover:text-[var(--brand)]"
-        >
-          ← Back to catalog
-        </Link>
-      </div>
+    <div className="flex flex-col gap-4">
       <header>
         <h1 className="text-2xl font-semibold text-[var(--fg)]">
           {skill.name}
