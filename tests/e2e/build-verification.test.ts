@@ -214,12 +214,15 @@ describe("catalog: preserves all distinct install targets (issue #201)", () => {
 const WEBSITE_SRC_DIR = resolve(ROOT, "website-src", "src");
 
 describe("website: token count + eval surfaces", () => {
-  const cardSrc = readFileSync(
-    join(WEBSITE_SRC_DIR, "components", "SkillCard.jsx"),
+  // Sidebar list item replaced the legacy SkillCard in #228, so tokens +
+  // eval badges now live on SkillListItem. The reusable detail view was
+  // extracted from SkillDetailPage into components/SkillDetail.jsx.
+  const listItemSrc = readFileSync(
+    join(WEBSITE_SRC_DIR, "components", "SkillListItem.jsx"),
     "utf-8",
   );
   const detailSrc = readFileSync(
-    join(WEBSITE_SRC_DIR, "pages", "SkillDetailPage.jsx"),
+    join(WEBSITE_SRC_DIR, "components", "SkillDetail.jsx"),
     "utf-8",
   );
   const utilsSrc = readFileSync(
@@ -227,18 +230,18 @@ describe("website: token count + eval surfaces", () => {
     "utf-8",
   );
 
-  test("SkillCard reads tokenCount and renders a tokens badge", () => {
-    expect(cardSrc).toContain("formatTokens");
-    expect(cardSrc).toContain('tone="tokens"');
-    expect(cardSrc).toContain("skill.tokenCount");
+  test("SkillListItem reads tokenCount and renders a tokens badge", () => {
+    expect(listItemSrc).toContain("formatTokens");
+    expect(listItemSrc).toContain('tone="tokens"');
+    expect(listItemSrc).toContain("skill.tokenCount");
   });
 
-  test("SkillCard reads evalSummary and renders an eval badge", () => {
-    expect(cardSrc).toContain("skill.evalSummary");
-    expect(cardSrc).toContain("evalScoreClass");
+  test("SkillListItem reads evalSummary and renders an eval badge", () => {
+    expect(listItemSrc).toContain("skill.evalSummary");
+    expect(listItemSrc).toContain("evalScoreClass");
   });
 
-  test("SkillDetailPage renders an eval section with empty-state fallback", () => {
+  test("SkillDetail renders an eval section with empty-state fallback", () => {
     expect(detailSrc).toContain("asm eval score");
     // Always rendered even when there is no data — see issue #187 acceptance criteria
     expect(detailSrc).toContain("No ");
@@ -246,7 +249,7 @@ describe("website: token count + eval surfaces", () => {
     expect(detailSrc).toContain("is available");
   });
 
-  test("SkillDetailPage exposes Est. Tokens row when tokenCount is present", () => {
+  test("SkillDetail exposes Est. Tokens row when tokenCount is present", () => {
     expect(detailSrc).toContain("Est. Tokens");
   });
 
@@ -427,7 +430,7 @@ describe("website: loader uses split artifacts (issue #214)", () => {
     "utf-8",
   );
   const detailSrc = readFileSync(
-    join(WEBSITE_SRC_DIR, "pages", "SkillDetailPage.jsx"),
+    join(WEBSITE_SRC_DIR, "components", "SkillDetail.jsx"),
     "utf-8",
   );
 
@@ -446,7 +449,7 @@ describe("website: loader uses split artifacts (issue #214)", () => {
     expect(catalogHookSrc).toContain('from "minisearch"');
   });
 
-  test("SkillDetailPage fetches the per-skill detail on demand", () => {
+  test("SkillDetail fetches the per-skill detail on demand", () => {
     expect(detailSrc).toContain("slim.detailPath");
     expect(detailSrc).toContain("fetch(slim.detailPath)");
   });

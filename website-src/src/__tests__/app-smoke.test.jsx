@@ -14,13 +14,12 @@ import App from "../App.jsx";
 import { MINISEARCH_OPTIONS } from "../lib/minisearch-options.js";
 
 /**
- * End-to-end smoke test for the React app. Stubs `fetch` to return a
- * tiny catalog so we don't depend on the real build artifacts, builds
- * a matching MiniSearch index so the boot-time parity check passes,
- * and asserts that a skill card renders.
+ * End-to-end smoke tests for the React app.
  *
- * This is the acceptance-criteria smoke test (#229): "the site loads,
- * search returns results, a skill detail renders."
+ * Updated for #228: the catalog now renders as a two-pane layout
+ * (sidebar list + detail pane). These tests assert that the list
+ * is visible, selecting a skill in the sidebar updates the URL and
+ * renders the detail pane, and filter state survives selection.
  */
 const generatedAt = "2026-04-22T00:00:00.000Z";
 
@@ -96,10 +95,28 @@ const SKILL_DETAIL = {
   skillUrl: "https://github.com/owner/repo/blob/main/SKILL.md",
 };
 
+const BUNDLES = {
+  bundles: [
+    {
+      version: 1,
+      name: "starter",
+      description: "A minimal starter bundle.",
+      tags: ["demo"],
+      skills: [
+        {
+          name: "hello-world",
+          installUrl: "github:owner/repo:skills/hello-world",
+          description: "A friendly greeting skill.",
+        },
+      ],
+    },
+  ],
+};
+
 const FETCH_MAP = {
   "skills.min.json": () => new Response(JSON.stringify(catalog)),
   "search.idx.json": () => new Response(buildIndexJson()),
-  "bundles.json": () => new Response(JSON.stringify({ bundles: [] })),
+  "bundles.json": () => new Response(JSON.stringify(BUNDLES)),
   "skills/hello.json": () => new Response(JSON.stringify(SKILL_DETAIL)),
 };
 
@@ -130,49 +147,110 @@ describe("App smoke", () => {
     }
   });
   afterEach(() => {
-    // Unmount any component trees from the previous test — required because
-    // `globals: false` disables the auto-cleanup hook that @testing-library
-    // would otherwise install. Without this, the first test's App stays in
-    // the DOM and races with the next render.
     cleanup();
     vi.restoreAllMocks();
   });
 
-  it("loads the catalog and renders a skill card", async () => {
+  it("loads the catalog and renders skills in the sidebar list", async () => {
     render(
       <HashRouter>
         <App />
       </HashRouter>,
     );
+    // Both sidebar rows should mount once the catalog hydrates.
     await waitFor(() => {
       expect(screen.getByText("hello-world")).toBeTruthy();
     });
     expect(screen.getByText("readme-generator")).toBeTruthy();
+    // The empty-state prompt should render in the detail pane.
+    expect(screen.getByText(/Select a skill/i)).toBeTruthy();
   });
 
-  it("navigates to a skill detail route and renders lazy-fetched detail", async () => {
+  it("selecting a sidebar row updates the URL and renders detail", async () => {
     const { container } = render(
       <HashRouter>
         <App />
       </HashRouter>,
     );
-    // Wait for catalog render.
     await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
-    // Click the "Open details" link on the first card. Skill IDs contain
-    // `/` and `::`, so this exercises the encodeURIComponent round-trip
-    // through react-router's `useParams`.
-    const link = container.querySelector(
-      'a[aria-label="Open details for hello-world"]',
+
+    // Sidebar rows expose the skill name via an `aria-current` link.
+    const rows = container.querySelectorAll("aside a[href*='/skills/']");
+    expect(rows.length).toBeGreaterThan(0);
+    const helloLink = Array.from(rows).find((a) =>
+      a.textContent.includes("hello-world"),
     );
-    expect(link).toBeTruthy();
+    expect(helloLink).toBeTruthy();
+
     await act(async () => {
-      fireEvent.click(link);
+      fireEvent.click(helloLink);
     });
-    // Detail page renders the lazy-loaded skillUrl link.
+
+    // URL hash should reflect the selected skill.
     await waitFor(() => {
-      const back = screen.getByText(/Back to catalog/i);
-      expect(back).toBeTruthy();
+      expect(window.location.hash).toMatch(/\/skills\/[^/]+$|\/skills\/.+/);
+    });
+    // The lazy-loaded detail renders the SKILL.md link.
+    await waitFor(() => {
       expect(screen.getByText(/View SKILL.md on GitHub/i)).toBeTruthy();
+    });
+    // And the sidebar row is marked active.
+    const active = container.querySelector("aside a[aria-current='true']");
+    expect(active).toBeTruthy();
+    expect(active.textContent).toContain("hello-world");
+  });
+
+  it("preserves filter query params across selection", async () => {
+    // Start with a category filter already active in the URL.
+    window.history.replaceState(null, "", "/#/?cat=demo");
+    const { container } = render(
+      <HashRouter>
+        <App />
+      </HashRouter>,
+    );
+    await waitFor(() => expect(screen.getByText("hello-world")).toBeTruthy());
+
+    const helloLink = Array.from(
+      container.querySelectorAll("aside a[href*='/skills/']"),
+    ).find((a) => a.textContent.includes("hello-world"));
+    expect(helloLink).toBeTruthy();
+    // The link must carry the current search so the filter survives.
+    expect(helloLink.getAttribute("href")).toContain("cat=demo");
+
+    await act(async () => {
+      fireEvent.click(helloLink);
+    });
+
+    await waitFor(() => {
+      expect(window.location.hash).toContain("cat=demo");
+      expect(window.location.hash).toContain("/skills/");
+    });
+  });
+
+  it("bundles page renders a sidebar list and detail empty state", async () => {
+    window.history.replaceState(null, "", "/#/bundles");
+    const { container } = render(
+      <HashRouter>
+        <App />
+      </HashRouter>,
+    );
+    await waitFor(() => expect(screen.getByText("starter")).toBeTruthy());
+    // Empty state in detail pane.
+    expect(screen.getByText(/Pre-defined Bundles/i)).toBeTruthy();
+
+    const starterLink = Array.from(
+      container.querySelectorAll("aside a[href*='/bundles/']"),
+    ).find((a) => a.textContent.includes("starter"));
+    expect(starterLink).toBeTruthy();
+    await act(async () => {
+      fireEvent.click(starterLink);
+    });
+    await waitFor(() => {
+      expect(window.location.hash).toContain("/bundles/starter");
+    });
+    // Detail pane shows the install command.
+    await waitFor(() => {
+      expect(screen.getByText(/asm bundle install starter/)).toBeTruthy();
     });
   });
 });
