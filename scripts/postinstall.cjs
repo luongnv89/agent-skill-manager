@@ -17,11 +17,7 @@ try {
   const isGlobal =
     process.env.npm_config_global === "true" ||
     process.env.npm_config_global === "1";
-  if (
-    process.env.ASM_SKIP_POSTINSTALL ||
-    process.env.CI ||
-    !isGlobal
-  ) {
+  if (process.env.ASM_SKIP_POSTINSTALL || process.env.CI || !isGlobal) {
     process.exit(0);
   }
 
