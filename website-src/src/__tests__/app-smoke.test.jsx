@@ -1,5 +1,16 @@
 /** @vitest-environment jsdom */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// jsdom doesn't ship ResizeObserver; react-window (used by the virtualized
+// sidebar) subscribes to one on mount. A no-op stub is sufficient — the
+// tests don't measure actual row heights.
+if (typeof globalThis.ResizeObserver === "undefined") {
+  globalThis.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
 import {
   act,
   cleanup,

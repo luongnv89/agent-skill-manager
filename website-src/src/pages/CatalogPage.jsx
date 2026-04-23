@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { List } from "react-window";
 import { useCatalog } from "../hooks/useCatalog.jsx";
 import { useCatalogState } from "../hooks/useCatalogState.js";
 import {
@@ -17,6 +18,31 @@ import SkillListItem from "../components/SkillListItem.jsx";
 import SkillDetail from "../components/SkillDetail.jsx";
 import SidebarDrawer from "../components/SidebarDrawer.jsx";
 import { Button } from "../components/ui/button.jsx";
+
+const ROW_HEIGHT = 120;
+
+function SkillRow({
+  index,
+  style,
+  skills,
+  decodedId,
+  searchQuery,
+  searchTerms,
+  locationSearch,
+}) {
+  const s = skills[index];
+  return (
+    <div style={style} className="pb-1.5">
+      <SkillListItem
+        skill={s}
+        active={s.id === decodedId}
+        searchQuery={searchQuery}
+        searchTerms={searchTerms}
+        locationSearch={locationSearch}
+      />
+    </div>
+  );
+}
 
 /**
  * Two-pane catalog view (#228). Left sidebar holds search, filters,
@@ -207,7 +233,7 @@ export default function CatalogPage() {
         </span>
       </div>
       <div
-        className="flex-1 min-h-0 overflow-y-auto flex flex-col gap-1.5 pr-1 -mr-1"
+        className="flex-1 min-h-0 pr-1 -mr-1"
         role="list"
         aria-label="Skill results"
       >
@@ -217,15 +243,20 @@ export default function CatalogPage() {
             <p>No skills match your filters</p>
           </div>
         ) : (
-          filtered.map((s) => (
-            <SkillListItem
-              key={s.id}
-              skill={s}
-              active={s.id === decodedId}
-              searchQuery={state.searchQuery}
-              searchTerms={searchResults.terms}
-            />
-          ))
+          <List
+            rowComponent={SkillRow}
+            rowCount={filtered.length}
+            rowHeight={ROW_HEIGHT}
+            overscanCount={4}
+            rowProps={{
+              skills: filtered,
+              decodedId,
+              searchQuery: state.searchQuery,
+              searchTerms: searchResults.terms,
+              locationSearch: location.search,
+            }}
+            style={{ height: "100%" }}
+          />
         )}
       </div>
     </div>
