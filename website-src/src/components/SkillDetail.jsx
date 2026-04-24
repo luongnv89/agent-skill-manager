@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { evalScoreClass, formatTokens } from "../lib/utils.js";
 import CopyButton from "./CopyButton.jsx";
+import AddToBundleButton from "./AddToBundleButton.jsx";
 import { Badge } from "./ui/badge.jsx";
 import { Card } from "./ui/card.jsx";
 
@@ -214,6 +215,13 @@ export default function SkillDetail({ slim }) {
         </code>
         <CopyButton text={cmd} size="md" />
       </Card>
+
+      <div className="flex items-center gap-2">
+        <AddToBundleButton skill={skill} />
+        <span className="text-[11px] text-[var(--fg-muted)]">
+          Group this skill with others into an installable bundle.
+        </span>
+      </div>
 
       {skill.skillUrl && (
         <p className="text-xs">

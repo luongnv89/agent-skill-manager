@@ -2,6 +2,7 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Wrench } from "lucide-react";
 import { Badge } from "./ui/badge.jsx";
+import AddToBundleButton from "./AddToBundleButton.jsx";
 import { cn } from "../lib/cn.js";
 import {
   evalScoreClass,
@@ -64,13 +65,16 @@ function SkillListItem({
           className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r bg-[var(--brand)]"
         />
       )}
-      <span
-        className={cn(
-          "block text-sm font-semibold break-words",
-          active ? "text-[var(--brand)]" : "text-[var(--fg)]",
-        )}
-        dangerouslySetInnerHTML={{ __html: nameHtml }}
-      />
+      <div className="flex items-start justify-between gap-2">
+        <span
+          className={cn(
+            "block text-sm font-semibold break-words min-w-0 flex-1",
+            active ? "text-[var(--brand)]" : "text-[var(--fg)]",
+          )}
+          dangerouslySetInnerHTML={{ __html: nameHtml }}
+        />
+        <AddToBundleButton skill={skill} compact />
+      </div>
       <div className="mt-1 text-[10px] text-[var(--fg-muted)] truncate">
         {skill.owner}/{skill.repo}
       </div>

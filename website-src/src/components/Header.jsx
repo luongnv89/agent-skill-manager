@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useCatalog } from "../hooks/useCatalog.jsx";
+import BundleCartButton from "./BundleCartButton.jsx";
 
 function applyTheme(next) {
   document.documentElement.setAttribute("data-theme", next);
@@ -21,7 +22,7 @@ function formatStars(n) {
   return String(n);
 }
 
-export default function Header() {
+export default function Header({ onOpenBundleBuilder }) {
   const { catalog } = useCatalog();
   const version = catalog?.version;
   const stars = formatStars(catalog?.stars);
@@ -100,6 +101,9 @@ export default function Header() {
             >
               v{version}
             </span>
+          )}
+          {onOpenBundleBuilder && (
+            <BundleCartButton onOpen={onOpenBundleBuilder} />
           )}
           <button
             type="button"
