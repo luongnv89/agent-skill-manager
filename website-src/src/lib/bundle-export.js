@@ -38,9 +38,12 @@ export function buildBundleJson(skills, meta, now = new Date()) {
 }
 
 /**
- * Validate the minimum fields the CLI requires (`name` non-empty,
- * ≥1 skill) plus a JSON-filename-safe name check. Returns an array
- * of { field, message } — empty means valid.
+ * Validate the fields the CLI's `validateBundle()` in `src/bundler.ts`
+ * enforces server-side (non-empty `name`, `description`, `author`, and
+ * ≥ 1 skill), plus a JSON-filename-safe name check. Mirroring these
+ * here prevents users from exporting a `.json` that `asm bundle
+ * install` would then reject. Returns an array of { field, message }
+ * — empty means valid.
  */
 export function validateBundleForm(meta, skills) {
   const errors = [];
@@ -53,6 +56,15 @@ export function validateBundleForm(meta, skills) {
       message:
         "Name must start with a letter or digit and use only letters, digits, '.', '_', or '-' (max 64 chars).",
     });
+  }
+  if (!(meta.description || "").trim()) {
+    errors.push({
+      field: "description",
+      message: "Description is required.",
+    });
+  }
+  if (!(meta.author || "").trim()) {
+    errors.push({ field: "author", message: "Author is required." });
   }
   if (!Array.isArray(skills) || skills.length === 0) {
     errors.push({
@@ -177,7 +189,7 @@ function buildIssueBody(skills, meta, { catalogBaseUrl, maxBytes }) {
       s.description ? ` — ${truncateLine(s.description, 140)}` : ""
     }`;
     const encodedRowLen = encodeURIComponent(row + "\n").length;
-    if (runningEncodedLen + encodedRowLen > maxBytes && i < skills.length - 1) {
+    if (runningEncodedLen + encodedRowLen > maxBytes) {
       truncated = skills.length - i;
       break;
     }

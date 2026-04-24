@@ -71,21 +71,46 @@ describe("buildBundleJson", () => {
 });
 
 describe("validateBundleForm", () => {
-  it("requires a name and ≥1 skill", () => {
+  it("requires name, description, author, and ≥1 skill", () => {
     const errors = validateBundleForm({ name: "" }, []);
     const fields = errors.map((e) => e.field);
     expect(fields).toContain("name");
+    expect(fields).toContain("description");
+    expect(fields).toContain("author");
     expect(fields).toContain("skills");
   });
 
+  it("flags an empty description even when name and skills are valid", () => {
+    const errors = validateBundleForm(
+      { name: "ok-name", description: "  ", author: "alice" },
+      SKILLS,
+    );
+    expect(errors.map((e) => e.field)).toEqual(["description"]);
+  });
+
+  it("flags an empty author even when name and skills are valid", () => {
+    const errors = validateBundleForm(
+      { name: "ok-name", description: "has one", author: "" },
+      SKILLS,
+    );
+    expect(errors.map((e) => e.field)).toEqual(["author"]);
+  });
+
   it("rejects invalid name characters", () => {
-    const errors = validateBundleForm({ name: "bad name!" }, SKILLS);
+    const errors = validateBundleForm(
+      { name: "bad name!", description: "d", author: "a" },
+      SKILLS,
+    );
     expect(errors.some((e) => e.field === "name")).toBe(true);
   });
 
   it("accepts a sensible valid form", () => {
     const errors = validateBundleForm(
-      { name: "content.pack_v2-alpha" },
+      {
+        name: "content.pack_v2-alpha",
+        description: "A curated pack.",
+        author: "alice",
+      },
       SKILLS,
     );
     expect(errors).toEqual([]);
@@ -131,6 +156,28 @@ describe("buildIssueUrl", () => {
     expect(body).not.toContain(
       `#/skills/${encodeURIComponent(SKILLS[0].installUrl)}`,
     );
+  });
+
+  it("truncates even when the final single skill would overflow the budget", () => {
+    // Regression test: earlier the truncation guard had a `i < skills.length - 1`
+    // clause that let the last row through unconditionally, which could push
+    // the encoded body past the cap on a bundle where one very large skill
+    // sits at the end.
+    const bulkyDescription = "x".repeat(2000);
+    const skills = [
+      {
+        id: "o/r::x::huge",
+        name: "huge-skill",
+        installUrl: "github:o/r:skills/huge-skill",
+        description: bulkyDescription,
+      },
+    ];
+    const url = buildIssueUrl(skills, { name: "one" }, { maxBodyBytes: 500 });
+    const body = new URLSearchParams(url.split("?")[1]).get("body");
+    // The single bulky row should be replaced by the "…N more" note
+    // rather than appended, keeping the body inside (header + footer + note).
+    expect(body).toMatch(/more\*\* skill/);
+    expect(body).not.toContain(bulkyDescription);
   });
 
   it("keeps the whole URL within the encoded byte limit under large bundles", () => {

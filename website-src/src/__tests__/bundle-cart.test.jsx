@@ -235,12 +235,20 @@ describe("Bundle cart flow", () => {
       expect(screen.getByText(/Bundle name is required/i)).toBeTruthy();
     });
 
-    // Fill a valid name and publish (opens a new tab — stub window.open)
+    // Fill a valid name + description + author (all three required —
+    // mirrors the CLI's validateBundle) and publish. Opens a new tab
+    // so we stub window.open.
     const openSpy = vi.spyOn(window, "open").mockImplementation(() => null);
     const nameInput = container.querySelector("#bundle-name");
+    const descInput = container.querySelector("#bundle-description");
+    const authorInput = container.querySelector("#bundle-author");
     expect(nameInput).toBeTruthy();
+    expect(descInput).toBeTruthy();
+    expect(authorInput).toBeTruthy();
     await act(async () => {
       fireEvent.change(nameInput, { target: { value: "my-test-pack" } });
+      fireEvent.change(descInput, { target: { value: "A test pack." } });
+      fireEvent.change(authorInput, { target: { value: "alice" } });
     });
     const publishBtn = screen.getByRole("button", { name: /^Publish/i });
     await act(async () => {

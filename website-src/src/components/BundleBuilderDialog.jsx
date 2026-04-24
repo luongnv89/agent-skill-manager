@@ -124,6 +124,7 @@ export default function BundleBuilderDialog({ open, onClose }) {
         type="button"
         aria-label="Close bundle builder"
         onClick={onClose}
+        tabIndex={-1}
         className="absolute inset-0 bg-black/60"
       />
       <div
