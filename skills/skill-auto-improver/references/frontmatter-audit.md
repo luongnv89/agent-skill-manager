@@ -52,7 +52,12 @@ If the value contains literal double quotes, escape them with `\"`.
 
 ## Normalizing `asm eval --fix` output (mandatory after Phase 1)
 
-`asm eval --fix` writes `creator`, `version`, and sometimes `tags` at the **top level**. `quick_validate.py` rejects all three as unexpected keys. The fix migrates them under `metadata:`.
+`asm eval --fix` only writes top-level keys when authorship or version is missing entirely:
+
+- **No authorship anywhere** (no `author`, `metadata.author`, `creator`, or `metadata.creator`) → `--fix` appends top-level `author: <git user.name>`.
+- **No version anywhere** (no `metadata.version` or top-level `version`) → `--fix` appends top-level `version: 0.1.0`.
+
+`quick_validate.py` rejects both top-level `author:` and top-level `version:` as unexpected keys. The fix migrates them under `metadata:`. Older skills authored before the `author` rename may also carry a top-level `creator:` — treat it the same way (migrate to `metadata.author`).
 
 ### Before (post-`--fix`, fails Gate 1)
 
@@ -60,16 +65,12 @@ If the value contains literal double quotes, escape them with `\"`.
 ---
 name: my-skill
 description: "..."
-version: 0.2.0
 license: MIT
-creator: alice
 compatibility: Claude Code
 allowed-tools: Bash Read Write
 effort: high
-tags: eval, quality
-metadata:
-  creator: alice
-  version: "0.2.0"
+author: alice # written by --fix when no authorship existed
+version: 0.1.0 # written by --fix when no version existed
 ---
 ```
 
@@ -84,16 +85,16 @@ compatibility: "Claude Code"
 allowed-tools: Bash Read Write
 effort: high
 metadata:
-  version: 0.2.0
+  version: 0.1.0
   author: alice
 ---
 ```
 
 ### Migration rules
 
-1. **`creator` → `metadata.author`.** Value carries over verbatim. If both top-level `creator:` and `metadata.creator:` exist, take whichever is non-empty; if both, prefer the top-level value (that's what `--fix` just wrote). Drop `metadata.creator:` after the move — the canonical key is `author`.
+1. **`author` → `metadata.author`.** Value carries over verbatim. This is the primary case for skills processed by the current `--fix`. If a legacy top-level `creator:` is present instead (older fixer output), apply the same migration — both resolve to `metadata.author`. If `metadata.author` already exists, prefer the non-empty value; if both have values, prefer the top-level one (that's what `--fix` just wrote) and drop the duplicate.
 2. **`version` → `metadata.version`.** Same value-carryover rule. If `metadata.version` already exists with a different semver, prefer the higher one (the auto-improver bumped it).
-3. **`tags`** has no home in the allowed-keys set — drop it. If the user genuinely wants searchable tags, ask whether they want to add a `references/tags.md` notes file instead.
+3. **Other unexpected top-level keys.** Drop anything outside the allowed set (`name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort`). The current `--fix` does not write `tags:`, but legacy skills sometimes carry it — surface non-trivial drops to the user before deleting.
 4. **Quote any value** with the special characters listed above.
 5. **Re-run `quick_validate.py`** after migration to confirm clean.
 

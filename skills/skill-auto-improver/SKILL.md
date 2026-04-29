@@ -6,7 +6,7 @@ compatibility: "Claude Code; requires `asm` on PATH and Python 3 for skill-creat
 allowed-tools: Bash Read Write Edit Grep Glob
 effort: high
 metadata:
-  version: 1.0.0
+  version: 1.0.1
   author: luongnv89
 ---
 
@@ -126,15 +126,15 @@ asm eval "$SKILL_PATH" --fix --dry-run   # preview the diff
 asm eval "$SKILL_PATH" --fix              # write, creates SKILL.md.bak
 ```
 
-This handles trailing whitespace, CRLF normalization, missing `effort`, and other mechanical issues. **However, `asm eval --fix` writes top-level `creator` and `version` fields that `quick_validate.py` rejects as unexpected keys.** Immediately follow with the normalization step below.
+This handles trailing whitespace, CRLF normalization, missing `effort`, and other mechanical issues. **However, when authorship or version is missing, `asm eval --fix` writes a top-level `author:` (from `git config user.name`) and/or top-level `version: 0.1.0` — both of which `quick_validate.py` rejects as unexpected keys.** Immediately follow with the normalization step below.
 
 #### Frontmatter normalization (mandatory after `--fix`)
 
 Read `references/frontmatter-audit.md` — section "Normalizing `asm eval --fix` output" — for the exact migration. In short:
 
-- Move top-level `creator: <name>` → `metadata.author: <name>` (keep the value)
+- Move top-level `author: <name>` → `metadata.author: <name>` (keep the value). The current fixer writes `author:`; older skills may carry a top-level `creator:` instead — treat it the same way and migrate to `metadata.author:`.
 - Move top-level `version: <semver>` → `metadata.version: <semver>` (keep the value)
-- Drop top-level `tags:` if present (not in the allowed-keys set)
+- Drop any other top-level keys that aren't in the allowed set (`name`, `description`, `license`, `allowed-tools`, `metadata`, `compatibility`, `effort`) — e.g., legacy `tags:`. Surface non-trivial drops to the user before deleting.
 - Quote any string value containing `:`, `#`, `-`, `<`, `>`, `|`, `{`, `}`, `[`, `]`, `,`, `&`, `*`, `?`, `=`, `!`, `%`, `@`, or `` ` `` per the YAML safety rule
 
 After normalization, re-run **both** checks:
