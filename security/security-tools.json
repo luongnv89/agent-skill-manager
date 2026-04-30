@@ -1,0 +1,55 @@
+{
+  "fail_on": ["CRITICAL", "HIGH"],
+  "checks": [
+    {
+      "name": "gitleaks",
+      "category": "secrets",
+      "required": true,
+      "command": [
+        "gitleaks",
+        "detect",
+        "--source",
+        ".",
+        "--config",
+        ".gitleaks.toml",
+        "--redact",
+        "--report-format",
+        "json",
+        "--report-path",
+        "{output}"
+      ]
+    },
+    {
+      "name": "trivy",
+      "category": "dependencies",
+      "required": true,
+      "command": [
+        "trivy",
+        "fs",
+        "--scanners",
+        "vuln",
+        "--skip-db-update",
+        "--skip-dirs",
+        ".opencode,.claude,.agents,.gstack,.gitissue,.asm-improver,node_modules,dist,website,coverage",
+        "--format",
+        "json",
+        "--exit-code",
+        "0",
+        "."
+      ]
+    },
+    {
+      "name": "semgrep",
+      "category": "static",
+      "required": true,
+      "command": [
+        "semgrep",
+        "--config",
+        "security/semgrep-rules.yml",
+        "--json",
+        "--error",
+        "."
+      ]
+    }
+  ]
+}

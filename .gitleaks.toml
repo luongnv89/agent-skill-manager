@@ -1,0 +1,16 @@
+title = "asm gitleaks config"
+
+# Extend the default gitleaks ruleset.
+[extend]
+useDefault = true
+
+# Allowlist test fixtures that intentionally embed fake API keys to verify
+# ASM's own credential-leak detection. These are not real secrets and live
+# only inside test files.
+[allowlist]
+description = "Test fixtures containing fake credentials used to exercise ASM's security auditor / verifier."
+paths = [
+  '''^src/verifier\.test\.ts$''',
+  '''^src/security-auditor\.test\.ts$''',
+  '''^src/installer\.test\.ts$''',
+]

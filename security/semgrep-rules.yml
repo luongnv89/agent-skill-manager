@@ -1,0 +1,32 @@
+rules:
+  - id: javascript-eval
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: Avoid eval-like execution of dynamic strings.
+    metadata:
+      cwe: "CWE-95"
+      owasp: "A03:2021-Injection"
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: new Function(...)
+
+  - id: hardcoded-debug-mode
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: Hard-coded debug mode can expose internals in production.
+    metadata:
+      cwe: "CWE-489"
+    pattern-either:
+      - pattern: DEBUG = true
+      - pattern: debug = true
+
+  - id: child-process-shell-true
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: Avoid spawning a shell with dynamic input; pass args as array instead.
+    metadata:
+      cwe: "CWE-78"
+      owasp: "A03:2021-Injection"
+    pattern-either:
+      - pattern: child_process.exec($CMD, ...)
+      - pattern: require('child_process').exec($CMD, ...)

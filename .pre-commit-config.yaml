@@ -10,6 +10,14 @@ repos:
 
   - repo: local
     hooks:
+      # ── Security ────────────────────────────────────────────────────────────
+      - id: security-check
+        name: local security hardening check
+        entry: python3 scripts/security_check.py
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+
       # ── Commit stage ────────────────────────────────────────────────────────
       - id: prettier
         name: prettier
