@@ -58,3 +58,11 @@ competitor-analysis.md
 
 # skill-auto-improver iteration artifacts (baseline + per-iter eval JSON + report)
 .asm-improver/
+
+# Local security runner reports (regenerated each run)
+security/security-report.json
+security/security-report.md
+
+# Backups created by /security-setup
+.pre-commit-config.yaml.bak
+SECURITY.md.bak
