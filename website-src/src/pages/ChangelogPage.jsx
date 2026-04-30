@@ -27,6 +27,85 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.6.0",
+    date: "2026-05-01",
+    sections: [
+      {
+        tag: "added",
+        items: [
+          <>
+            <code>skill-upstream-pr</code> built-in skill — automates opening
+            upstream pull requests with the improvements applied locally so
+            edits flow back to the source repo ({pr(244)})
+          </>,
+          <>
+            <code>asm eval</code> accepts <code>author</code> as the canonical
+            frontmatter field, with <code>creator</code> kept as a backwards
+            compatible alias ({pr(243)})
+          </>,
+          <>
+            <code>skill-best-practice</code> aligned with{" "}
+            <code>skill-creator</code> v1.7.1 so eval guidance and authoring
+            guidance stay in lockstep ({pr(246)}, {pr(248)})
+          </>,
+          <>
+            <code>skill-auto-improver</code> adapted to the{" "}
+            <code>skill-creator</code> standard — same frontmatter shape,
+            section ordering, and prose conventions as the rest of the built-ins
+            ({pr(253)}, {pr(254)})
+          </>,
+          <>
+            <code>Paramchoudhary/ResumeSkills</code> source added to the curated
+            skill index ({pr(256)}, {pr(259)})
+          </>,
+        ],
+      },
+      {
+        tag: "fixed",
+        items: [
+          <>
+            Website install-path label now disambiguates skills with colliding
+            names so users see which provider/path each card maps to ({pr(241)},{" "}
+            {pr(242)})
+          </>,
+          <>
+            <code>asm install</code> treats path-shaped inputs that exist on
+            disk as local paths instead of trying to resolve them as registry
+            slugs ({pr(249)}, {pr(250)})
+          </>,
+          <>
+            <code>asm install</code> respects <code>--path</code> and{" "}
+            <code>--all</code> when scoping subpath installs and duplicate
+            discovery — previously these flags were ignored during the duplicate
+            scan ({pr(251)}, {pr(252)}, {pr(255)})
+          </>,
+        ],
+      },
+      {
+        tag: "changed",
+        items: [
+          <>
+            Local-first security baseline plus a CI mirror — pre-commit and
+            pre-push checks run locally and the same suite runs in CI so
+            regressions are caught before review ({pr(257)})
+          </>,
+          <>
+            <code>skill-index-updater</code> brought up to the{" "}
+            <code>skill-creator</code> standard ({pr(258)})
+          </>,
+          <>
+            <code>skill-creator</code> bundled skill content refreshed to the
+            latest upstream (commit <code>222b387</code>)
+          </>,
+          <>
+            Re-synced all 27 enabled skill sources in the curated index so stale
+            revisions are cleared out ({pr(260)})
+          </>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.5.0",
     date: "2026-04-24",
     sections: [

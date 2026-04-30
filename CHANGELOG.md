@@ -1,14 +1,29 @@
 # Changelog
 
-## Unreleased
+## v2.6.0 — 2026-05-01
 
 ### Features
 
+- Add `skill-upstream-pr` built-in skill — forks a target repo via `gh`, delegates the improvement loop to `skill-auto-improver`, and opens a friendly suggestion PR upstream with an `asm eval` before/after metrics table; mandatory preview/approval before any public action and a minimum-delta check skip trivial PRs ([#244](https://github.com/luongnv89/asm/issues/244)) — @luongnv89
+- `asm eval` now accepts `author` as the canonical frontmatter field, with `creator` retained as a legacy alias — autofixer writes `author:` going forward, and legacy skills declaring `creator:` keep their score with no migration required ([#243](https://github.com/luongnv89/asm/issues/243)) — @luongnv89
 - `asm eval` `skill-best-practice` provider (v1.0.0 → v1.1.0) — align with the latest `skill-creator` standard (v1.7.1): add `xhigh` to the effort enum, warn when descriptions exceed the 250-char runtime budget (truncation chops the negative-trigger clause), require `metadata.version` (semver-formatted), warn when `metadata.author` is missing, and require frontmatter `name` to match the parent directory ([#246](https://github.com/luongnv89/asm/issues/246)) — @luongnv89
+- `skill-auto-improver` (v0.2.0 → v1.0.2) — adapt the skill itself and its workflow to the `skill-creator` standard, restructured around two gates: Gate 1 (skill-creator must-pass floor) and Gate 2 (asm-eval 85/8 quality floor); adds a Phase 1 frontmatter-normalization step after `asm eval --fix`, new `references/skill-creator-checklist.md` and `references/frontmatter-audit.md` playbooks, dual-gate report layout, and per-loop `metadata.version` bump for the target skill ([#253](https://github.com/luongnv89/asm/issues/253)) — @luongnv89
+- Add `Paramchoudhary/ResumeSkills` as a curated source in the skill-index — 20 resume optimization and job-search skills (76 `SKILL.md` entries including cross-platform mirrors) covering ATS optimization, bullet writing, cover letters, LinkedIn profiles, interview prep, salary negotiation, and executive/academic/creative resumes ([#256](https://github.com/luongnv89/asm/issues/256)) — @luongnv89
 
 ### Bug Fixes
 
+- Website list now surfaces a muted `relPath` sub-label on rows whose `owner/repo::name` collides — plugin-bundle repos ship the same skill name at multiple install paths, and identical-looking cards (matching name, owner/repo, description, badges) made the duplicates indistinguishable; non-colliding rows are unchanged ([#241](https://github.com/luongnv89/asm/issues/241)) — @luongnv89
 - `asm install` now treats `skills/x-skill` and `./skills/x-skill` identically — when the input contains a path separator and resolves to an existing directory in the current working directory, it is treated as a local path rather than dispatched to the registry as a scoped name ([#249](https://github.com/luongnv89/asm/issues/249)) — @luongnv89
+- `asm install --path` and `--all` now compose correctly — when `--all` is set and the resolved path contains skill subdirectories, ASM scans subdirectories instead of failing on missing `SKILL.md`; when a subpath is supplied with `--all`, duplicate detection is scoped to that prefix so unrelated dupes don't abort the install; the zero-skills error message is also scope-aware ([#251](https://github.com/luongnv89/asm/issues/251), [#252](https://github.com/luongnv89/asm/issues/252)) — @luongnv89
+
+### Chores
+
+- Refresh the bundled `skills/skill-creator/` skill to the upstream version — pulls in updated references, scripts, and templates used by `skill-auto-improver` and `skill-upstream-pr` — @luongnv89
+- Add a local-first security baseline plus CI mirror — pre-commit hook runs `gitleaks` (secrets), `trivy` (dependencies), and `semgrep` (static analysis) offline, exits non-zero on HIGH/CRITICAL, and writes JSON + Markdown reports under `security/`; `.github/workflows/security.yml` mirrors the same runner on push to `main` and pull requests, with the trivy DB cache keyed on a weekly stamp ([#257](https://github.com/luongnv89/asm/issues/257)) — @luongnv89
+- Bring `skill-index-updater` up to the `skill-creator` standard — move `README.md` under `docs/`, normalize frontmatter (`metadata.version` + `metadata.author`, drop top-level `version`), rewrite the description under the 250-char runtime budget with a negative-trigger clause, and add `When to Use` / `Example` / `Expected Output` / `Edge Cases` sections; `asm eval` 76 (C) → 97 (A) with every category >= 8 ([#258](https://github.com/luongnv89/asm/issues/258)) — @luongnv89
+- Re-sync all 27 enabled skill sources via `bun run preindex` — picks up upstream additions, removals, version/description bumps, and refreshed `evalSummary` + `tokenCount` for every skill; net delta +51 skills (6797 → 6848) ([#260](https://github.com/luongnv89/asm/issues/260)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.5.0...v2.6.0
 
 ## v2.5.0 — 2026-04-24
 
