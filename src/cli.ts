@@ -2142,7 +2142,9 @@ async function cmdInstall(args: ParsedArgs) {
 
       if (discovered.length === 0) {
         throw new Error(
-          "No skills found in this repository. Skills must have a SKILL.md file.",
+          discoveryPrefix
+            ? `No skills found under path "${discoveryPrefix}". Skills must have a SKILL.md file.`
+            : "No skills found in this repository. Skills must have a SKILL.md file.",
         );
       }
 
