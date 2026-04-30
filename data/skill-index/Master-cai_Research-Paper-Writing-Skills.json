@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Master-cai/Research-Paper-Writing-Skills.git",
   "owner": "Master-cai",
   "repo": "Research-Paper-Writing-Skills",
-  "updatedAt": "2026-04-20T07:45:12.061Z",
+  "updatedAt": "2026-04-30T23:05:19.886Z",
   "skillCount": 1,
   "skills": [
     {
@@ -64,8 +64,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:45:12.054Z",
+        "evaluatedAt": "2026-04-30T23:05:19.885Z",
         "evaluatedVersion": "0.0.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:19.885Z",
+          "evaluatedVersion": "0.0.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 9,
+              "max": 13
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:19.885Z",
+          "evaluatedVersion": "0.0.0"
+        }
       }
     }
   ]

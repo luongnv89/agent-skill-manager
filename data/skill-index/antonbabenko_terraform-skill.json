@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/antonbabenko/terraform-skill.git",
   "owner": "antonbabenko",
   "repo": "terraform-skill",
-  "updatedAt": "2026-04-24T05:21:41.936Z",
+  "updatedAt": "2026-04-30T23:05:44.906Z",
   "skillCount": 1,
   "skills": [
     {
@@ -18,13 +18,13 @@
       "verified": true,
       "tokenCount": 4111,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 80,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.933Z",
+        "evaluatedAt": "2026-04-30T23:05:44.905Z",
         "evaluatedVersion": "1.8.0"
       },
       "evalSummaries": {
@@ -73,13 +73,13 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
-          "grade": "C",
+          "overallScore": 80,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -119,25 +119,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.933Z",
+          "evaluatedAt": "2026-04-30T23:05:44.905Z",
           "evaluatedVersion": "1.8.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "overallScore": 93,
+          "grade": "A",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 13,
+              "max": 14
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.933Z",
+          "evaluatedAt": "2026-04-30T23:05:44.905Z",
           "evaluatedVersion": "1.8.0"
         }
       }
