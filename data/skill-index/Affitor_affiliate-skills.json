@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/Affitor/affiliate-skills.git",
   "owner": "Affitor",
   "repo": "affiliate-skills",
-  "updatedAt": "2026-04-20T07:44:41.465Z",
+  "updatedAt": "2026-04-30T23:05:12.281Z",
   "skillCount": 53,
   "skills": [
     {
@@ -18,13 +18,13 @@
       "verified": true,
       "tokenCount": 2731,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -64,8 +64,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.386Z",
+        "evaluatedAt": "2026-04-30T23:05:12.162Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.162Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.162Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -81,13 +155,13 @@
       "verified": true,
       "tokenCount": 4998,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -127,8 +201,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.388Z",
+        "evaluatedAt": "2026-04-30T23:05:12.164Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.164Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.164Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -144,13 +292,13 @@
       "verified": true,
       "tokenCount": 2655,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -190,8 +338,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.389Z",
+        "evaluatedAt": "2026-04-30T23:05:12.167Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.167Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.167Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -207,13 +429,13 @@
       "verified": true,
       "tokenCount": 3823,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -253,8 +475,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.390Z",
+        "evaluatedAt": "2026-04-30T23:05:12.169Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.169Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.169Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -270,13 +566,13 @@
       "verified": true,
       "tokenCount": 3133,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -316,8 +612,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.391Z",
+        "evaluatedAt": "2026-04-30T23:05:12.171Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.171Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.171Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -333,13 +703,13 @@
       "verified": true,
       "tokenCount": 3294,
       "evalSummary": {
-        "overallScore": 64,
-        "grade": "D",
+        "overallScore": 66,
+        "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -379,8 +749,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.392Z",
+        "evaluatedAt": "2026-04-30T23:05:12.173Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 66,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 2,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.173Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.173Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -396,13 +840,13 @@
       "verified": true,
       "tokenCount": 3984,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -442,8 +886,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.393Z",
+        "evaluatedAt": "2026-04-30T23:05:12.175Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.175Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.175Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -459,13 +977,13 @@
       "verified": true,
       "tokenCount": 4259,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 80,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -505,8 +1023,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.394Z",
+        "evaluatedAt": "2026-04-30T23:05:12.178Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.178Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.178Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -522,13 +1114,13 @@
       "verified": true,
       "tokenCount": 4243,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -568,8 +1160,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.395Z",
+        "evaluatedAt": "2026-04-30T23:05:12.181Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.181Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.181Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -585,13 +1251,13 @@
       "verified": true,
       "tokenCount": 3213,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 83,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -631,8 +1297,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.396Z",
+        "evaluatedAt": "2026-04-30T23:05:12.183Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 83,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.183Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.183Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -648,13 +1388,13 @@
       "verified": true,
       "tokenCount": 6022,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -694,8 +1434,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.398Z",
+        "evaluatedAt": "2026-04-30T23:05:12.186Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.186Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.186Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -711,13 +1525,13 @@
       "verified": true,
       "tokenCount": 2430,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 80,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -757,8 +1571,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.399Z",
+        "evaluatedAt": "2026-04-30T23:05:12.188Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.188Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.188Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -774,13 +1662,13 @@
       "verified": true,
       "tokenCount": 2618,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -820,8 +1708,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.400Z",
+        "evaluatedAt": "2026-04-30T23:05:12.190Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.190Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.190Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -837,13 +1799,13 @@
       "verified": true,
       "tokenCount": 3683,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -883,8 +1845,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.401Z",
+        "evaluatedAt": "2026-04-30T23:05:12.192Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.192Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.192Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -900,13 +1936,13 @@
       "verified": true,
       "tokenCount": 3171,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -946,8 +1982,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.402Z",
+        "evaluatedAt": "2026-04-30T23:05:12.194Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.195Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.195Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -963,13 +2073,13 @@
       "verified": true,
       "tokenCount": 4860,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1009,8 +2119,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.403Z",
+        "evaluatedAt": "2026-04-30T23:05:12.197Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.197Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.197Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1026,13 +2210,13 @@
       "verified": true,
       "tokenCount": 2434,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1072,8 +2256,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.404Z",
+        "evaluatedAt": "2026-04-30T23:05:12.199Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.199Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.199Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1089,13 +2347,13 @@
       "verified": true,
       "tokenCount": 3786,
       "evalSummary": {
-        "overallScore": 70,
+        "overallScore": 71,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1135,8 +2393,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.405Z",
+        "evaluatedAt": "2026-04-30T23:05:12.201Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 71,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.201Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.201Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1152,13 +2484,13 @@
       "verified": true,
       "tokenCount": 3768,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1198,8 +2530,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.406Z",
+        "evaluatedAt": "2026-04-30T23:05:12.203Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.203Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.203Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1215,13 +2621,13 @@
       "verified": true,
       "tokenCount": 2889,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1261,8 +2667,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.407Z",
+        "evaluatedAt": "2026-04-30T23:05:12.206Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.206Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.206Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1278,13 +2758,13 @@
       "verified": true,
       "tokenCount": 4625,
       "evalSummary": {
-        "overallScore": 83,
+        "overallScore": 84,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1324,8 +2804,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.408Z",
+        "evaluatedAt": "2026-04-30T23:05:12.208Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 84,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.208Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.208Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1341,13 +2895,13 @@
       "verified": true,
       "tokenCount": 3230,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 80,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1387,8 +2941,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.409Z",
+        "evaluatedAt": "2026-04-30T23:05:12.210Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.210Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.210Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1404,13 +3032,13 @@
       "verified": true,
       "tokenCount": 2896,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 80,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1450,8 +3078,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.410Z",
+        "evaluatedAt": "2026-04-30T23:05:12.212Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.212Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.212Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1467,13 +3169,13 @@
       "verified": true,
       "tokenCount": 4400,
       "evalSummary": {
-        "overallScore": 84,
+        "overallScore": 86,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1513,8 +3215,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.412Z",
+        "evaluatedAt": "2026-04-30T23:05:12.214Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.214Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.214Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1530,13 +3306,13 @@
       "verified": true,
       "tokenCount": 5190,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1576,8 +3352,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.413Z",
+        "evaluatedAt": "2026-04-30T23:05:12.217Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.217Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.217Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1593,13 +3443,13 @@
       "verified": true,
       "tokenCount": 2885,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1639,8 +3489,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.414Z",
+        "evaluatedAt": "2026-04-30T23:05:12.219Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 0,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.219Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.219Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1656,13 +3580,13 @@
       "verified": true,
       "tokenCount": 2792,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1702,8 +3626,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.415Z",
+        "evaluatedAt": "2026-04-30T23:05:12.221Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.221Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.221Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1719,13 +3717,13 @@
       "verified": true,
       "tokenCount": 4256,
       "evalSummary": {
-        "overallScore": 71,
+        "overallScore": 73,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1765,8 +3763,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.416Z",
+        "evaluatedAt": "2026-04-30T23:05:12.223Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.223Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.223Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1782,13 +3854,13 @@
       "verified": true,
       "tokenCount": 4631,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1828,8 +3900,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.418Z",
+        "evaluatedAt": "2026-04-30T23:05:12.226Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.226Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.226Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1845,13 +3991,13 @@
       "verified": true,
       "tokenCount": 5077,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1891,8 +4037,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.419Z",
+        "evaluatedAt": "2026-04-30T23:05:12.229Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.229Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.229Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1908,13 +4128,13 @@
       "verified": true,
       "tokenCount": 4116,
       "evalSummary": {
-        "overallScore": 83,
+        "overallScore": 84,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -1954,8 +4174,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.420Z",
+        "evaluatedAt": "2026-04-30T23:05:12.231Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 84,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.231Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.231Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -1971,13 +4265,13 @@
       "verified": true,
       "tokenCount": 2763,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2017,8 +4311,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.421Z",
+        "evaluatedAt": "2026-04-30T23:05:12.233Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.233Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.233Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2034,13 +4402,13 @@
       "verified": true,
       "tokenCount": 2790,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2080,8 +4448,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.422Z",
+        "evaluatedAt": "2026-04-30T23:05:12.235Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.235Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.235Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2097,13 +4539,13 @@
       "verified": true,
       "tokenCount": 3122,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 83,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2143,8 +4585,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.423Z",
+        "evaluatedAt": "2026-04-30T23:05:12.237Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 83,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.237Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.237Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2160,13 +4676,13 @@
       "verified": true,
       "tokenCount": 3728,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2206,8 +4722,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.424Z",
+        "evaluatedAt": "2026-04-30T23:05:12.239Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.239Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.239Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2223,13 +4813,13 @@
       "verified": true,
       "tokenCount": 2976,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2269,8 +4859,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.425Z",
+        "evaluatedAt": "2026-04-30T23:05:12.241Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.241Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.241Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2286,13 +4950,13 @@
       "verified": true,
       "tokenCount": 4159,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2332,8 +4996,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.426Z",
+        "evaluatedAt": "2026-04-30T23:05:12.243Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.243Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.243Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2349,13 +5087,13 @@
       "verified": true,
       "tokenCount": 3352,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 83,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2395,8 +5133,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.427Z",
+        "evaluatedAt": "2026-04-30T23:05:12.245Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 83,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.245Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.245Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2412,13 +5224,13 @@
       "verified": true,
       "tokenCount": 2887,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 80,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2458,8 +5270,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.428Z",
+        "evaluatedAt": "2026-04-30T23:05:12.247Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.247Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.247Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2475,13 +5361,13 @@
       "verified": true,
       "tokenCount": 4949,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2521,8 +5407,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.429Z",
+        "evaluatedAt": "2026-04-30T23:05:12.249Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.249Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.249Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2538,13 +5498,13 @@
       "verified": true,
       "tokenCount": 3156,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2584,8 +5544,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.430Z",
+        "evaluatedAt": "2026-04-30T23:05:12.251Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.251Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.251Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2601,13 +5635,13 @@
       "verified": true,
       "tokenCount": 2985,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 83,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2647,8 +5681,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.431Z",
+        "evaluatedAt": "2026-04-30T23:05:12.253Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 83,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.253Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.253Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2664,13 +5772,13 @@
       "verified": true,
       "tokenCount": 2642,
       "evalSummary": {
-        "overallScore": 81,
+        "overallScore": 83,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2710,8 +5818,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.432Z",
+        "evaluatedAt": "2026-04-30T23:05:12.255Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 83,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.255Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.255Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2727,13 +5909,13 @@
       "verified": true,
       "tokenCount": 4400,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2773,8 +5955,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.433Z",
+        "evaluatedAt": "2026-04-30T23:05:12.257Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.257Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.257Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2790,13 +6046,13 @@
       "verified": true,
       "tokenCount": 4335,
       "evalSummary": {
-        "overallScore": 73,
+        "overallScore": 74,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2836,8 +6092,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.434Z",
+        "evaluatedAt": "2026-04-30T23:05:12.260Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 74,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.260Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.260Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2853,13 +6183,13 @@
       "verified": true,
       "tokenCount": 4547,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2899,8 +6229,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.436Z",
+        "evaluatedAt": "2026-04-30T23:05:12.262Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.262Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.262Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2916,13 +6320,13 @@
       "verified": true,
       "tokenCount": 4342,
       "evalSummary": {
-        "overallScore": 76,
+        "overallScore": 77,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -2962,8 +6366,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.437Z",
+        "evaluatedAt": "2026-04-30T23:05:12.265Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 77,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 1,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.265Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.265Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -2979,13 +6457,13 @@
       "verified": true,
       "tokenCount": 6286,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 80,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -3025,8 +6503,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.439Z",
+        "evaluatedAt": "2026-04-30T23:05:12.267Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 80,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.267Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.267Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -3042,13 +6594,13 @@
       "verified": true,
       "tokenCount": 4393,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -3088,8 +6640,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.440Z",
+        "evaluatedAt": "2026-04-30T23:05:12.270Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.270Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.270Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -3105,13 +6731,13 @@
       "verified": true,
       "tokenCount": 3067,
       "evalSummary": {
-        "overallScore": 74,
+        "overallScore": 76,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -3151,8 +6777,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.441Z",
+        "evaluatedAt": "2026-04-30T23:05:12.272Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 76,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 3,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.272Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.272Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -3168,13 +6868,13 @@
       "verified": true,
       "tokenCount": 4488,
       "evalSummary": {
-        "overallScore": 80,
+        "overallScore": 81,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -3214,8 +6914,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.442Z",
+        "evaluatedAt": "2026-04-30T23:05:12.275Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 81,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.275Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.275Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -3231,13 +7005,13 @@
       "verified": true,
       "tokenCount": 5185,
       "evalSummary": {
-        "overallScore": 77,
+        "overallScore": 79,
         "grade": "C",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -3277,8 +7051,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.443Z",
+        "evaluatedAt": "2026-04-30T23:05:12.278Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 79,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 6,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 5,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 10,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.278Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.278Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     },
     {
@@ -3294,13 +7142,13 @@
       "verified": true,
       "tokenCount": 1142,
       "evalSummary": {
-        "overallScore": 84,
+        "overallScore": 86,
         "grade": "B",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -3340,8 +7188,82 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-20T07:44:41.444Z",
+        "evaluatedAt": "2026-04-30T23:05:12.280Z",
         "evaluatedVersion": "1.0"
+      },
+      "evalSummaries": {
+        "quality": {
+          "providerId": "quality",
+          "providerVersion": "1.0.0",
+          "schemaVersion": 1,
+          "passed": true,
+          "overallScore": 86,
+          "grade": "B",
+          "categories": [
+            {
+              "id": "structure",
+              "name": "Structure & completeness",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "description",
+              "name": "Description quality",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "prompt-engineering",
+              "name": "Prompt engineering",
+              "score": 8,
+              "max": 10
+            },
+            {
+              "id": "context-efficiency",
+              "name": "Context efficiency",
+              "score": 9,
+              "max": 10
+            },
+            {
+              "id": "safety",
+              "name": "Safety & guardrails",
+              "score": 7,
+              "max": 10
+            },
+            {
+              "id": "testability",
+              "name": "Testability",
+              "score": 10,
+              "max": 10
+            },
+            {
+              "id": "naming",
+              "name": "Naming & conventions",
+              "score": 9,
+              "max": 10
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.280Z",
+          "evaluatedVersion": "1.0"
+        },
+        "skill-best-practice": {
+          "providerId": "skill-best-practice",
+          "providerVersion": "1.1.0",
+          "schemaVersion": 1,
+          "passed": false,
+          "overallScore": 73,
+          "grade": "C",
+          "categories": [
+            {
+              "id": "validation",
+              "name": "Deterministic validation",
+              "score": 11,
+              "max": 15
+            }
+          ],
+          "evaluatedAt": "2026-04-30T23:05:12.280Z",
+          "evaluatedVersion": "1.0"
+        }
       }
     }
   ]

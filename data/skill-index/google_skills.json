@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/google/skills.git",
   "owner": "google",
   "repo": "skills",
-  "updatedAt": "2026-04-24T05:21:41.022Z",
+  "updatedAt": "2026-04-30T23:05:44.122Z",
   "skillCount": 13,
   "skills": [
     {
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.000Z",
+        "evaluatedAt": "2026-04-30T23:05:44.102Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,25 +119,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.000Z",
+          "evaluatedAt": "2026-04-30T23:05:44.102Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 10,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.000Z",
+          "evaluatedAt": "2026-04-30T23:05:44.102Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -201,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.001Z",
+        "evaluatedAt": "2026-04-30T23:05:44.103Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,25 +256,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.001Z",
+          "evaluatedAt": "2026-04-30T23:05:44.103Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 9,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.001Z",
+          "evaluatedAt": "2026-04-30T23:05:44.103Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -338,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.003Z",
+        "evaluatedAt": "2026-04-30T23:05:44.105Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,25 +393,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.003Z",
+          "evaluatedAt": "2026-04-30T23:05:44.105Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 10,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.003Z",
+          "evaluatedAt": "2026-04-30T23:05:44.105Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.005Z",
+        "evaluatedAt": "2026-04-30T23:05:44.107Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -530,25 +530,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.005Z",
+          "evaluatedAt": "2026-04-30T23:05:44.107Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": false,
-          "overallScore": 78,
-          "grade": "C",
+          "overallScore": 62,
+          "grade": "D",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 7,
-              "max": 9
+              "score": 8,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.005Z",
+          "evaluatedAt": "2026-04-30T23:05:44.107Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.007Z",
+        "evaluatedAt": "2026-04-30T23:05:44.108Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,25 +667,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.007Z",
+          "evaluatedAt": "2026-04-30T23:05:44.108Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 10,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.007Z",
+          "evaluatedAt": "2026-04-30T23:05:44.108Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -749,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.008Z",
+        "evaluatedAt": "2026-04-30T23:05:44.110Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,25 +804,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.008Z",
+          "evaluatedAt": "2026-04-30T23:05:44.110Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 90,
-          "grade": "A",
+          "passed": false,
+          "overallScore": 71,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 9,
-              "max": 10
+              "score": 10,
+              "max": 14
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.008Z",
+          "evaluatedAt": "2026-04-30T23:05:44.110Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -840,13 +840,13 @@
       "verified": true,
       "tokenCount": 1017,
       "evalSummary": {
-        "overallScore": 60,
+        "overallScore": 61,
         "grade": "D",
         "categories": [
           {
             "id": "structure",
             "name": "Structure & completeness",
-            "score": 9,
+            "score": 10,
             "max": 10
           },
           {
@@ -886,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.011Z",
+        "evaluatedAt": "2026-04-30T23:05:44.111Z",
         "evaluatedVersion": "1.0.0"
       },
       "evalSummaries": {
@@ -895,13 +895,13 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 60,
+          "overallScore": 61,
           "grade": "D",
           "categories": [
             {
               "id": "structure",
               "name": "Structure & completeness",
-              "score": 9,
+              "score": 10,
               "max": 10
             },
             {
@@ -941,25 +941,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.011Z",
+          "evaluatedAt": "2026-04-30T23:05:44.111Z",
           "evaluatedVersion": "1.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 89,
+          "overallScore": 86,
           "grade": "B",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 12,
+              "max": 14
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.011Z",
+          "evaluatedAt": "2026-04-30T23:05:44.111Z",
           "evaluatedVersion": "1.0.0"
         }
       }
@@ -1023,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.012Z",
+        "evaluatedAt": "2026-04-30T23:05:44.113Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,25 +1078,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.012Z",
+          "evaluatedAt": "2026-04-30T23:05:44.113Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 10,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.012Z",
+          "evaluatedAt": "2026-04-30T23:05:44.113Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1160,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.014Z",
+        "evaluatedAt": "2026-04-30T23:05:44.115Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,25 +1215,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.014Z",
+          "evaluatedAt": "2026-04-30T23:05:44.115Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 9,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.014Z",
+          "evaluatedAt": "2026-04-30T23:05:44.115Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1297,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.016Z",
+        "evaluatedAt": "2026-04-30T23:05:44.116Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1352,25 +1352,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.016Z",
+          "evaluatedAt": "2026-04-30T23:05:44.116Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 77,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 10,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.016Z",
+          "evaluatedAt": "2026-04-30T23:05:44.116Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1434,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.017Z",
+        "evaluatedAt": "2026-04-30T23:05:44.117Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,25 +1489,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.017Z",
+          "evaluatedAt": "2026-04-30T23:05:44.117Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 9,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.018Z",
+          "evaluatedAt": "2026-04-30T23:05:44.117Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1571,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.019Z",
+        "evaluatedAt": "2026-04-30T23:05:44.119Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,25 +1626,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.019Z",
+          "evaluatedAt": "2026-04-30T23:05:44.119Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 9,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.019Z",
+          "evaluatedAt": "2026-04-30T23:05:44.119Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1708,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-24T05:21:41.021Z",
+        "evaluatedAt": "2026-04-30T23:05:44.121Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,25 +1763,25 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.021Z",
+          "evaluatedAt": "2026-04-30T23:05:44.121Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
           "providerId": "skill-best-practice",
-          "providerVersion": "1.0.0",
+          "providerVersion": "1.1.0",
           "schemaVersion": 1,
-          "passed": true,
-          "overallScore": 89,
-          "grade": "B",
+          "passed": false,
+          "overallScore": 69,
+          "grade": "C",
           "categories": [
             {
               "id": "validation",
               "name": "Deterministic validation",
-              "score": 8,
-              "max": 9
+              "score": 9,
+              "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-24T05:21:41.021Z",
+          "evaluatedAt": "2026-04-30T23:05:44.121Z",
           "evaluatedVersion": "0.0.0"
         }
       }
