@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.6.1] - 2026-05-03
+
+### Fixed
+
+- `asm link` handles non-existent paths and directory symlinks gracefully — bare registry-style names (e.g. `asm link code-review`) and missing paths exit 1 with a polished error and an `asm install <name>` suggestion instead of crashing with a Node stack trace; the top-level path probe now uses `stat` instead of `lstat` so directory symlinks are followed (re-linking an already-linked skill works), while inner-loop entry classification still uses `lstat` to avoid traversing nested symlinks (#262)
+
 ## [2.6.0] - 2026-05-01
 
 ### Added

@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.6.1 — 2026-05-03
+
+### Bug Fixes
+
+- `asm link` now handles non-existent paths and directory symlinks gracefully — bare registry-style names (e.g. `asm link code-review`) and missing paths exit 1 with a polished error and an `asm install <name>` suggestion instead of crashing with a Node stack trace; the top-level path probe now uses `stat` instead of `lstat` so directory symlinks are followed (re-linking an already-linked skill works), while inner-loop entry classification still uses `lstat` to avoid traversing nested symlinks ([#262](https://github.com/luongnv89/asm/issues/262)) — @luongnv89
+
+**Full Changelog**: https://github.com/luongnv89/asm/compare/v2.6.0...v2.6.1
+
 ## v2.6.0 — 2026-05-01
 
 ### Features

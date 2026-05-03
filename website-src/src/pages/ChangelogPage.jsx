@@ -27,6 +27,29 @@ function issue(n) {
 
 const ENTRIES = [
   {
+    version: "2.6.1",
+    date: "2026-05-03",
+    sections: [
+      {
+        tag: "fixed",
+        items: [
+          <>
+            <code>asm link</code> handles non-existent paths and directory
+            symlinks gracefully — bare registry-style names (e.g.{" "}
+            <code>asm link code-review</code>) and missing paths exit 1 with a
+            polished error and an <code>asm install &lt;name&gt;</code>{" "}
+            suggestion instead of crashing with a Node stack trace; the
+            top-level path probe now uses <code>stat</code> instead of{" "}
+            <code>lstat</code> so directory symlinks are followed (re-linking an
+            already-linked skill works), while inner-loop entry classification
+            still uses <code>lstat</code> to avoid traversing nested symlinks (
+            {pr(262)})
+          </>,
+        ],
+      },
+    ],
+  },
+  {
     version: "2.6.0",
     date: "2026-05-01",
     sections: [
