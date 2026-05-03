@@ -4,7 +4,15 @@ import {
   createLink,
   discoverLinkableSkills,
 } from "./linker";
-import { mkdtemp, writeFile, mkdir, rm, lstat, readlink } from "fs/promises";
+import {
+  mkdtemp,
+  writeFile,
+  mkdir,
+  rm,
+  lstat,
+  readlink,
+  symlink,
+} from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 
@@ -84,6 +92,26 @@ Body content.
     );
     const result = await validateLinkSource(skillDir);
     expect(result.version).toBe("0.0.0");
+  });
+
+  it("follows symlinks to a directory (issue #261)", async () => {
+    // Real skill dir + symlink that points at it. Earlier `lstat` would see
+    // the symlink as not-a-directory and throw, breaking re-linking.
+    const realDir = join(tempDir, "real-skill");
+    await mkdir(realDir);
+    await writeFile(
+      join(realDir, "SKILL.md"),
+      `---
+name: real-skill
+version: 1.0.0
+---
+Body.
+`,
+    );
+    const linkPath = join(tempDir, "linked-skill");
+    await symlink(realDir, linkPath, "dir");
+    const result = await validateLinkSource(linkPath);
+    expect(result.name).toBe("real-skill");
   });
 });
 
@@ -240,6 +268,21 @@ describe("discoverLinkableSkills", () => {
     expect(discoverLinkableSkills(filePath)).rejects.toThrow(
       "Path is not a directory",
     );
+  });
+
+  it("follows symlinks to a directory (issue #261)", async () => {
+    const realDir = join(tempDir, "real");
+    const child = join(realDir, "skill-c");
+    await mkdir(child, { recursive: true });
+    await writeFile(
+      join(child, "SKILL.md"),
+      `---\nname: skill-c\nversion: 1.0.0\n---\nBody.\n`,
+    );
+    const linkedDir = join(tempDir, "linked");
+    await symlink(realDir, linkedDir, "dir");
+    const skills = await discoverLinkableSkills(linkedDir);
+    expect(skills.length).toBe(1);
+    expect(skills[0].name).toBe("skill-c");
   });
 
   it("includes dirName in results", async () => {
