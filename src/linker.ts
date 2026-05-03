@@ -5,6 +5,7 @@ import {
   readdir,
   readFile,
   rm,
+  stat,
   symlink,
 } from "fs/promises";
 import { join } from "path";
@@ -24,10 +25,13 @@ export interface LinkableSkill {
 export async function validateLinkSource(
   absPath: string,
 ): Promise<{ name: string; version: string }> {
-  // Check path exists and is a directory
+  // Check path exists and is a directory. Use `stat` (not `lstat`) so a
+  // symlink that points at a directory is treated as a directory — this is
+  // important when relinking an already-installed/symlinked skill. A broken
+  // symlink throws ENOENT and falls into the "does not exist" branch.
   let stats;
   try {
-    stats = await lstat(absPath);
+    stats = await stat(absPath);
   } catch {
     throw new Error(`Path does not exist: ${absPath}`);
   }
@@ -100,10 +104,11 @@ export async function createLink(
 export async function discoverLinkableSkills(
   absPath: string,
 ): Promise<LinkableSkill[]> {
-  // Verify path exists and is a directory
+  // Verify path exists and is a directory. Follow symlinks (see
+  // validateLinkSource) so directory-symlinks work as link targets.
   let stats;
   try {
-    stats = await lstat(absPath);
+    stats = await stat(absPath);
   } catch {
     throw new Error(`Path does not exist: ${absPath}`);
   }

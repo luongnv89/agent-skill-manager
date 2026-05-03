@@ -2330,13 +2330,68 @@ metadata:
     expect(stderr).toContain("Missing required argument");
   });
 
-  test("link non-existent path exits 1", async () => {
+  test("link non-existent path exits 1 with a polished error (not a Node crash)", async () => {
     const { stderr, exitCode } = await runCLI(
       "link",
       "/tmp/asm-nonexistent-path-999999",
     );
     expect(exitCode).toBe(1);
-    expect(stderr).toContain("Error");
+    // Polished error from `error()` — must not include a Node stack trace.
+    expect(stderr).toMatch(/Error: No such skill or path/);
+    expect(stderr).not.toMatch(/at discoverLinkableSkills/);
+    expect(stderr).not.toMatch(/at async cmdLink/);
+  });
+
+  test("link with bare registry-style name suggests `asm install` (issue #261)", async () => {
+    // A bare name that does not exist as a local path is the user-reported
+    // failure mode in #261. The previous behavior crashed with a Node stack
+    // trace; the fix prints an actionable suggestion.
+    const { stderr, exitCode } = await runCLI("link", "code-review");
+    expect(exitCode).toBe(1);
+    expect(stderr).toMatch(/No such skill or path: code-review/);
+    expect(stderr).toMatch(/looks like a registry name/);
+    expect(stderr).toMatch(/asm install code-review/);
+    expect(stderr).not.toMatch(/at discoverLinkableSkills/);
+  });
+
+  test("link with scoped registry name (author/name) suggests `asm install`", async () => {
+    const { stderr, exitCode } = await runCLI("link", "luongnv89/code-review");
+    expect(exitCode).toBe(1);
+    expect(stderr).toMatch(/No such skill or path: luongnv89\/code-review/);
+    expect(stderr).toMatch(/looks like a registry name/);
+    expect(stderr).toMatch(/asm install luongnv89\/code-review/);
+  });
+
+  test("link follows directory symlinks at the source path (issue #261)", async () => {
+    // Linking via a path that is itself a symlink-to-directory used to crash
+    // because `lstat` on the symlink reports `isDirectory()=false`.
+    const realDir = join(tempDir, "real-skill");
+    await mkdir(realDir);
+    await writeFile(
+      join(realDir, "SKILL.md"),
+      `---\nname: link-via-symlink\nversion: 1.0.0\n---\n# Body\n`,
+    );
+    const linkedSrc = join(tempDir, "linked-src");
+    await symlink(realDir, linkedSrc, "dir");
+    // The link name comes from the source directory basename, not the SKILL.md
+    // name field, so the resulting symlink lives under "linked-src".
+    const providerLink = join(homedir(), ".claude", "skills", "linked-src");
+    try {
+      const { exitCode, stdout } = await runCLI(
+        "link",
+        linkedSrc,
+        "--force",
+        "--tool",
+        "claude",
+        "--json",
+      );
+      expect(exitCode).toBe(0);
+      const result = JSON.parse(stdout);
+      expect(result.success).toBe(true);
+      expect(result.name).toBe("linked-src");
+    } finally {
+      await rm(providerLink, { force: true }).catch(() => {});
+    }
   });
 
   test("link path without any SKILL.md exits 1", async () => {

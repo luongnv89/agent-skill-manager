@@ -3573,13 +3573,34 @@ async function cmdLink(args: ParsedArgs) {
     for (const sourcePath of sourcePaths) {
       const absSourcePath = resolvePath(sourcePath);
 
-      // Determine single-skill vs multi-skill mode
+      // Determine single-skill vs multi-skill mode. Only "no SKILL.md / not a
+      // dir / does not exist" should fall through to multi-skill discovery —
+      // record other validation errors (e.g. malformed frontmatter) as failures
+      // so the user gets an actionable message.
       let isSingleSkill = false;
+      let validateErr: string | null = null;
       try {
         await validateLinkSource(absSourcePath);
         isSingleSkill = true;
-      } catch {
-        // Not a single-skill directory — try multi-skill
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        const isMultiSkillCandidate =
+          msg.startsWith("Path does not exist") ||
+          msg.startsWith("Path is not a directory") ||
+          msg.startsWith("No SKILL.md found");
+        if (!isMultiSkillCandidate) {
+          validateErr = msg;
+        }
+      }
+
+      if (validateErr) {
+        allFailures.push({ name: sourcePath, error: validateErr });
+        if (!args.flags.json) {
+          console.error(
+            ansi.red(`  Failed to process "${sourcePath}": ${validateErr}`),
+          );
+        }
+        continue;
       }
 
       if (isSingleSkill) {
@@ -3611,10 +3632,17 @@ async function cmdLink(args: ParsedArgs) {
           discovered = await discoverLinkableSkills(absSourcePath);
         } catch (err: unknown) {
           const msg = err instanceof Error ? err.message : String(err);
-          allFailures.push({ name: sourcePath, error: msg });
+          let display = msg;
+          if (
+            msg.startsWith("Path does not exist") &&
+            isBareOrScopedName(sourcePath)
+          ) {
+            display = `${msg} — "${sourcePath}" looks like a registry name; try "asm install ${sourcePath}" first.`;
+          }
+          allFailures.push({ name: sourcePath, error: display });
           if (!args.flags.json) {
             console.error(
-              ansi.red(`  Failed to process "${sourcePath}": ${msg}`),
+              ansi.red(`  Failed to process "${sourcePath}": ${display}`),
             );
           }
           continue;
@@ -3697,14 +3725,54 @@ async function cmdLink(args: ParsedArgs) {
   try {
     await validateLinkSource(absSourcePath);
     isSingleSkill = true;
-  } catch {
-    // Not a single-skill directory — check for multi-skill below
+  } catch (err: unknown) {
+    // Errors classified as "not a single-skill dir, try multi-skill discovery":
+    //   - "Path does not exist" / "Path is not a directory" / "No SKILL.md found"
+    // Surface anything else (e.g. "Invalid SKILL.md ...: missing name") so the
+    // user gets an actionable message instead of falling through to a misleading
+    // multi-skill discovery error.
+    const msg = err instanceof Error ? err.message : String(err);
+    const isMultiSkillCandidate =
+      msg.startsWith("Path does not exist") ||
+      msg.startsWith("Path is not a directory") ||
+      msg.startsWith("No SKILL.md found");
+    if (!isMultiSkillCandidate) {
+      error(msg);
+      process.exit(1);
+    }
   }
 
   // Multi-skill: discover and validate early (before provider resolution)
   let discovered: Awaited<ReturnType<typeof discoverLinkableSkills>> = [];
   if (!isSingleSkill) {
-    discovered = await discoverLinkableSkills(absSourcePath);
+    try {
+      discovered = await discoverLinkableSkills(absSourcePath);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      // Path-not-found is the common case when users pass a bare skill name
+      // (e.g. `asm link code-review`). Suggest the install path explicitly.
+      if (msg.startsWith("Path does not exist")) {
+        error(`No such skill or path: ${sourcePath}`);
+        if (isBareOrScopedName(sourcePath)) {
+          console.error(
+            `  "${sourcePath}" looks like a registry name, not a local path.`,
+          );
+          console.error(
+            `  Install it first:  ${ansi.bold(`asm install ${sourcePath}`)}`,
+          );
+          console.error(
+            `  Or pass a local path: ${ansi.bold(`asm link ./path/to/${sourcePath}`)}`,
+          );
+        } else {
+          console.error(
+            `  Pass a local directory containing SKILL.md, or run "asm install <name>" first.`,
+          );
+        }
+      } else {
+        error(msg);
+      }
+      process.exit(1);
+    }
 
     if (discovered.length === 0) {
       error(
