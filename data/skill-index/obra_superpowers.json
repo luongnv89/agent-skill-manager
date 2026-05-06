@@ -2,7 +2,7 @@
   "repoUrl": "https://github.com/obra/superpowers.git",
   "owner": "obra",
   "repo": "superpowers",
-  "updatedAt": "2026-04-30T23:04:51.320Z",
+  "updatedAt": "2026-05-05T23:45:04.713Z",
   "skillCount": 14,
   "skills": [
     {
@@ -64,7 +64,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.299Z",
+        "evaluatedAt": "2026-05-05T23:45:04.690Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -119,7 +119,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.299Z",
+          "evaluatedAt": "2026-05-05T23:45:04.690Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -137,7 +137,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.299Z",
+          "evaluatedAt": "2026-05-05T23:45:04.690Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -201,7 +201,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.301Z",
+        "evaluatedAt": "2026-05-05T23:45:04.692Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -256,7 +256,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.301Z",
+          "evaluatedAt": "2026-05-05T23:45:04.692Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -274,7 +274,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.301Z",
+          "evaluatedAt": "2026-05-05T23:45:04.692Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -290,7 +290,7 @@
       "installUrl": "github:obra/superpowers:skills/executing-plans",
       "relPath": "skills/executing-plans",
       "verified": true,
-      "tokenCount": 670,
+      "tokenCount": 672,
       "evalSummary": {
         "overallScore": 69,
         "grade": "C",
@@ -338,7 +338,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.302Z",
+        "evaluatedAt": "2026-05-05T23:45:04.694Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -393,7 +393,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.302Z",
+          "evaluatedAt": "2026-05-05T23:45:04.694Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -411,7 +411,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.302Z",
+          "evaluatedAt": "2026-05-05T23:45:04.694Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -427,10 +427,10 @@
       "installUrl": "github:obra/superpowers:skills/finishing-a-development-branch",
       "relPath": "skills/finishing-a-development-branch",
       "verified": true,
-      "tokenCount": 1221,
+      "tokenCount": 1968,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 81,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -453,7 +453,7 @@
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -475,7 +475,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.303Z",
+        "evaluatedAt": "2026-05-05T23:45:04.695Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -484,8 +484,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
-          "grade": "C",
+          "overallScore": 81,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -508,7 +508,7 @@
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -530,7 +530,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.303Z",
+          "evaluatedAt": "2026-05-05T23:45:04.695Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -548,7 +548,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.303Z",
+          "evaluatedAt": "2026-05-05T23:45:04.695Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -612,7 +612,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.304Z",
+        "evaluatedAt": "2026-05-05T23:45:04.696Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -667,7 +667,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.304Z",
+          "evaluatedAt": "2026-05-05T23:45:04.696Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -685,7 +685,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.304Z",
+          "evaluatedAt": "2026-05-05T23:45:04.696Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -701,7 +701,7 @@
       "installUrl": "github:obra/superpowers:skills/requesting-code-review",
       "relPath": "skills/requesting-code-review",
       "verified": true,
-      "tokenCount": 747,
+      "tokenCount": 737,
       "evalSummary": {
         "overallScore": 70,
         "grade": "C",
@@ -749,7 +749,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.305Z",
+        "evaluatedAt": "2026-05-05T23:45:04.698Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -804,7 +804,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.305Z",
+          "evaluatedAt": "2026-05-05T23:45:04.698Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -822,7 +822,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.305Z",
+          "evaluatedAt": "2026-05-05T23:45:04.698Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -838,7 +838,7 @@
       "installUrl": "github:obra/superpowers:skills/subagent-driven-development",
       "relPath": "skills/subagent-driven-development",
       "verified": true,
-      "tokenCount": 3110,
+      "tokenCount": 3237,
       "evalSummary": {
         "overallScore": 73,
         "grade": "C",
@@ -886,7 +886,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.307Z",
+        "evaluatedAt": "2026-05-05T23:45:04.699Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -941,7 +941,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.307Z",
+          "evaluatedAt": "2026-05-05T23:45:04.699Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -959,7 +959,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.307Z",
+          "evaluatedAt": "2026-05-05T23:45:04.699Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1023,7 +1023,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.309Z",
+        "evaluatedAt": "2026-05-05T23:45:04.702Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1078,7 +1078,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.309Z",
+          "evaluatedAt": "2026-05-05T23:45:04.702Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1096,7 +1096,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.309Z",
+          "evaluatedAt": "2026-05-05T23:45:04.702Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1160,7 +1160,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.311Z",
+        "evaluatedAt": "2026-05-05T23:45:04.703Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1215,7 +1215,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.311Z",
+          "evaluatedAt": "2026-05-05T23:45:04.703Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1233,14 +1233,14 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.311Z",
+          "evaluatedAt": "2026-05-05T23:45:04.703Z",
           "evaluatedVersion": "0.0.0"
         }
       }
     },
     {
       "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification",
+      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
       "version": "0.0.0",
       "license": "",
       "creator": "",
@@ -1249,10 +1249,10 @@
       "installUrl": "github:obra/superpowers:skills/using-git-worktrees",
       "relPath": "skills/using-git-worktrees",
       "verified": true,
-      "tokenCount": 1446,
+      "tokenCount": 2314,
       "evalSummary": {
-        "overallScore": 79,
-        "grade": "C",
+        "overallScore": 80,
+        "grade": "B",
         "categories": [
           {
             "id": "structure",
@@ -1269,13 +1269,13 @@
           {
             "id": "prompt-engineering",
             "name": "Prompt engineering",
-            "score": 10,
+            "score": 9,
             "max": 10
           },
           {
             "id": "context-efficiency",
             "name": "Context efficiency",
-            "score": 7,
+            "score": 9,
             "max": 10
           },
           {
@@ -1297,7 +1297,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.312Z",
+        "evaluatedAt": "2026-05-05T23:45:04.705Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1306,8 +1306,8 @@
           "providerVersion": "1.0.0",
           "schemaVersion": 1,
           "passed": true,
-          "overallScore": 79,
-          "grade": "C",
+          "overallScore": 80,
+          "grade": "B",
           "categories": [
             {
               "id": "structure",
@@ -1324,13 +1324,13 @@
             {
               "id": "prompt-engineering",
               "name": "Prompt engineering",
-              "score": 10,
+              "score": 9,
               "max": 10
             },
             {
               "id": "context-efficiency",
               "name": "Context efficiency",
-              "score": 7,
+              "score": 9,
               "max": 10
             },
             {
@@ -1352,7 +1352,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.312Z",
+          "evaluatedAt": "2026-05-05T23:45:04.705Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1370,7 +1370,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.312Z",
+          "evaluatedAt": "2026-05-05T23:45:04.705Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1434,7 +1434,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.314Z",
+        "evaluatedAt": "2026-05-05T23:45:04.707Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1489,7 +1489,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.314Z",
+          "evaluatedAt": "2026-05-05T23:45:04.707Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1507,7 +1507,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.314Z",
+          "evaluatedAt": "2026-05-05T23:45:04.707Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1571,7 +1571,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.315Z",
+        "evaluatedAt": "2026-05-05T23:45:04.708Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1626,7 +1626,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.315Z",
+          "evaluatedAt": "2026-05-05T23:45:04.708Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1644,7 +1644,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.315Z",
+          "evaluatedAt": "2026-05-05T23:45:04.708Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1660,7 +1660,7 @@
       "installUrl": "github:obra/superpowers:skills/writing-plans",
       "relPath": "skills/writing-plans",
       "verified": true,
-      "tokenCount": 1741,
+      "tokenCount": 1753,
       "evalSummary": {
         "overallScore": 87,
         "grade": "B",
@@ -1708,7 +1708,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.316Z",
+        "evaluatedAt": "2026-05-05T23:45:04.709Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1763,7 +1763,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.316Z",
+          "evaluatedAt": "2026-05-05T23:45:04.709Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1781,7 +1781,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.316Z",
+          "evaluatedAt": "2026-05-05T23:45:04.709Z",
           "evaluatedVersion": "0.0.0"
         }
       }
@@ -1845,7 +1845,7 @@
             "max": 10
           }
         ],
-        "evaluatedAt": "2026-04-30T23:04:51.319Z",
+        "evaluatedAt": "2026-05-05T23:45:04.711Z",
         "evaluatedVersion": "0.0.0"
       },
       "evalSummaries": {
@@ -1900,7 +1900,7 @@
               "max": 10
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.319Z",
+          "evaluatedAt": "2026-05-05T23:45:04.711Z",
           "evaluatedVersion": "0.0.0"
         },
         "skill-best-practice": {
@@ -1918,7 +1918,7 @@
               "max": 13
             }
           ],
-          "evaluatedAt": "2026-04-30T23:04:51.319Z",
+          "evaluatedAt": "2026-05-05T23:45:04.711Z",
           "evaluatedVersion": "0.0.0"
         }
       }

@@ -261,6 +261,24 @@
       "description": "A collection of AI agent skills focused on resume optimization, job applications, and career development",
       "maintainer": "@Paramchoudhary",
       "enabled": true
+    },
+    {
+      "source": "github:warpdotdev/oz-skills",
+      "url": "https://github.com/warpdotdev/oz-skills",
+      "owner": "warpdotdev",
+      "repo": "oz-skills",
+      "description": "A curated collection of reusable Agent Skills for Warp AI agents and Oz",
+      "maintainer": "@warpdotdev",
+      "enabled": true
+    },
+    {
+      "source": "github:entireio/skills",
+      "url": "https://github.com/entireio/skills",
+      "owner": "entireio",
+      "repo": "skills",
+      "description": "Cross-agent skills that help coding agents use Entire context from Checkpoints, sessions, and git history to search past work, explain code, and hand off sessions.",
+      "maintainer": "@entireio",
+      "enabled": true
     }
   ]
 }
